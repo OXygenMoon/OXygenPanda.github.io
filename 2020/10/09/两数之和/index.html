@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      826 字
+      1.3k 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      17
        分钟
     </span>
   
@@ -275,7 +275,7 @@
 &#125;</code></pre>
 
 <p>因为我们在 <code>hashmap</code> 中查找的时间复杂度是 <code>O(1)</code> 。</p>
-<p>因此，时间复杂度 : <code>O(N)</code> , 空间复杂度 <code>O(N)</code>。 </p>
+<p>因此，时间复杂度 : <code>O(N)</code> , 空间复杂度 :  <code>O(N)</code>。 </p>
 <h3 id="解法三"><a href="#解法三" class="headerlink" title="解法三"></a>解法三</h3><p>第三种思路是采用排序+双指针。</p>
 <p>因为形式参数的<code>nums</code>是传引用，所以我们需要对传入的<code>nums</code>进行一次拷贝，在拷贝上进行排序。排序后采用双指针法，找到两个加数的索引。</p>
 <pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">twoSum</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;nums, <span class="hljs-keyword">int</span> target)</span></span>&#123;
@@ -300,7 +300,72 @@
 
 <p><code>注释:1</code> 不能有等号，虽然我们定义的<code>left</code> <code>right</code> 是左闭右闭区间，但是题目要求一个数不能使用两次。因此不能取相等的情况。</p>
 <p>时间复杂度 : <code>O(NlogN+N) = O(NlogN)</code> 空间复杂度 : <code>O(N)</code> 主要是多了一份拷贝。</p>
-<h2 id="两数之和数据结构设计"><a href="#两数之和数据结构设计" class="headerlink" title="两数之和数据结构设计"></a>两数之和数据结构设计</h2><h2 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h2><h2 id="N数之和"><a href="#N数之和" class="headerlink" title="N数之和"></a>N数之和</h2>
+<h2 id="两数之和数据结构设计"><a href="#两数之和数据结构设计" class="headerlink" title="两数之和数据结构设计"></a>两数之和数据结构设计</h2><h3 id="设计API"><a href="#设计API" class="headerlink" title="设计API"></a>设计API</h3><pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TwoSum</span>&#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-comment">// 向数组中添加一个新的数 number</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> number)</span></span>;
+    <span class="hljs-comment">// 查找当前数组中是否有两数之和为 value</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span></span>;
+&#125;;</code></pre>
+
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TwoSum</span>&#123;</span>
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">int</span>,<span class="hljs-keyword">int</span>&gt; record; <span class="hljs-comment">//&lt;数值,索引&gt;</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> index;
+    
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> number)</span></span>&#123;
+        record[number] = index++;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span></span>&#123;
+        <span class="hljs-comment">//采用双指针法在红黑树的map</span>
+        <span class="hljs-keyword">auto</span> left = record.begin();
+        <span class="hljs-keyword">auto</span> right = record.end();
+        right --;
+        <span class="hljs-keyword">while</span>(left != right)&#123;
+            <span class="hljs-keyword">int</span> sum = (*left).first + (*right).first; <span class="hljs-comment">//每一个节点是一个pair</span>
+            <span class="hljs-keyword">if</span>(sum == value)
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(sum &lt; value)
+                left ++;
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(sum &gt; value)
+                right --;
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    &#125;
+&#125;;
+<span class="hljs-keyword">int</span> TwoSum::index = <span class="hljs-number">0</span>;</code></pre>
+
+<p>实现find的时候，和我们做题的时候方法略有不同。因为我们做题的时候，是有vector作为数据的支撑，我们能够在一个随机访问的内存结构里存取数据，而现在我们整个类只有record这一个map&lt;int,int&gt;类的数据和一个静态索引值，而且红黑树的迭代器遍历顺序是按照key升序的，因此我们可以采用双指针的方式来遍历。</p>
+<p><code>class TwoSum</code> 空间复杂度 : <code>O(N)</code></p>
+<p><code>add(int)</code> 时间复杂度 : <code>O(1)</code> </p>
+<p><code>find(int)</code> 时间复杂度 : <code>O(N)</code> </p>
+<h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3><p>如果是一个查询次数明显对于插入次数的场景，那么我们的 <code>find()</code> 函数的效率就有点过于低下，我们会重复查询许多次。于是，我们可以把查询的结果也给存下来，记录下每一种可能的和的数值。</p>
+<pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TwoSum</span>&#123;</span>
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; nums; <span class="hljs-comment">//记录现有数组</span>
+    <span class="hljs-built_in">unordered_set</span>&lt;<span class="hljs-keyword">int</span>&gt; sums; <span class="hljs-comment">//记录可能的和</span>
+    
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> number)</span></span>&#123;
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> n:nums) <span class="hljs-comment">//每一次插入都把所有和给记录下来</span>
+            sums.insert(n+number);
+        nums.push_back(number);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span></span>&#123;
+		<span class="hljs-keyword">return</span> (sums.find(value) != sums.end()); <span class="hljs-comment">//查找到value返回true</span>
+    &#125;
+&#125;;</code></pre>
+
+<p><code>class TwoSum</code> 空间复杂度 : <code>O(N)</code></p>
+<p><code>add(int)</code> 时间复杂度 : <code>O(N)</code> </p>
+<p><code>find(int)</code> 时间复杂度 : <code>O(1)</code> </p>
+<blockquote>
+<p>  学习自 labuladong</p>
+</blockquote>
+<h2 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h2><h2 id="N数之和"><a href="#N数之和" class="headerlink" title="N数之和"></a>N数之和</h2>
             </div>
             <hr>
             <div>
