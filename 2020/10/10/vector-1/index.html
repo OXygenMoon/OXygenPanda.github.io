@@ -1,0 +1,667 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="./img/favicon.png">
+  <link rel="icon" type="image/png" href="./img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Warm welcome">
+  <meta name="author" content="劳振煜">
+  <meta name="keywords" content="">
+  <title>浅析vector用法/特性/实现 - 劳振煜的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="./lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="./css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="./js/utils.js" ></script>
+  <script  src="./js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="./">&nbsp;<strong>OXygen's space</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="./">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="./archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="./categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="./tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="./about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('./img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-10 21:00" pubdate>
+        2020年10月10日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">浅析vector用法/特性/实现</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="vector-容器"><a href="#vector-容器" class="headerlink" title="vector 容器"></a>vector 容器</h1><p><strong>vector</strong> 原意是向量。在C++中，是一种用起来像动态数组的模板类。在不同的编译器中，<strong>vector</strong> 的实现都不尽相同，侯捷老师主要介绍的是<code>G2.9</code>和<code>G4.9</code>两个版本。</p>
+<pre><code class="hljs C++"><span class="hljs-comment">//G2.9中 vector类的声明</span>
+<span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> _<span class="hljs-title">Tp</span>, <span class="hljs-title">class</span> _<span class="hljs-title">alloc</span>&gt;</span>
+<span class="hljs-class"><span class="hljs-title">class</span> <span class="hljs-title">vector</span>&#123;</span>
+...
+<span class="hljs-keyword">protected</span>:
+    iterator start;
+    iterator finish;
+    iterator end_of_storage;
+&#125;;</code></pre>
+
+<h2 id="vector-sizeof"><a href="#vector-sizeof" class="headerlink" title="vector . sizeof()"></a>vector . sizeof()</h2><p>曾经有同学试图使用 <code>sizeof()</code> 来计算 <strong>vector</strong> 对象有多少个元素，可是得到的结果都是意料之外的 ( 因为他数组可能有十多个整形变量，但是<code>sizeof()</code>得到的结果居然是 12 或者 24)。</p>
+<p>从源码中可以看到vector的成员变量只有三个类型为 <strong>iterator</strong> 的迭代器对象，分别名为<code>start</code> , <code>finish</code> , <code>end_of_storage</code> :</p>
+<ul>
+<li><p><code>start</code> : 指向所有内存空间开始的地址</p>
+</li>
+<li><p><code>finish</code> : 指向所有内存空间使用的尾地址</p>
+</li>
+<li><p><code>end_of_storage</code> : 指向所有内存空间结束的尾地址</p>
+</li>
+</ul>
+<p><strong>vector</strong> 对象通过三个指针管理使用的内存空间，而实际的数据并不存储在 <strong>vector</strong> 对象中。这也就是 <code>sizeof()</code> 得不到想要的数组内存大小的原因。</p>
+<h2 id="vector-内存成长"><a href="#vector-内存成长" class="headerlink" title="vector . 内存成长"></a>vector . 内存成长</h2><p><strong>vector</strong> 我们在使用的时候都知道它是一个动态数组，那么这个动态就体现在了可以动态地插入，动态地删除。那么 <strong>vector</strong> 对象控制的内存空间应该分配多少大小才能满足动态地插入呢？</p>
+<p>答案是未知。因为我们并不知道会动态插入多少数组，因此最好的方法是 : 内存空间动态增长。</p>
+<p>规则 :</p>
+<pre><code class="hljs C++"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; res; <span class="hljs-comment">//默认构造 start == finish == end_of_storage 不分配内存空间</span></code></pre>
+
+<pre><code class="hljs C++"><span class="hljs-comment">// 成长方式</span>
+<span class="hljs-keyword">else</span>&#123;
+  	<span class="hljs-keyword">const</span> size_type old_size = size();
+  	<span class="hljs-keyword">const</span> size_type len = old_size != <span class="hljs-number">0</span> ? <span class="hljs-number">2</span> * old_size : <span class="hljs-number">1</span>; <span class="hljs-comment">//下方第三点规则</span>
+&#125;</code></pre>
+
+
+
+<ul>
+<li>在 <code>res.size() == 0</code> 时，插入一个元素会使得 <code>res.size() == 1</code> 以及 <code>res.capacity() == 1</code></li>
+<li>如果初始化的时候，赋予了它一定的内存空间，那么<code>res.size() == res.capacity() == 赋值的长度</code> </li>
+<li>在 <code>res.size() != 0</code> 时，如果<code>res.size() == res.capacity()</code> ，那么 <code>res.capacity()</code> 呈2倍增长</li>
+</ul>
+<p>需要注意的是，我们在最初为 vector 的某一个对象分配了一块内存之后，内存中紧接着之后的内存可能会被其他变量使用，因此 <strong>vector</strong> 的内存成长并不会发生在原地。它的实做是 : 在另一个位置申请好 <code>capicity()</code>  两倍大小的内存之后，进行逐一拷贝(copy或move)。那么如果 <strong>vector&lt;_Tp&gt;</strong> 这里的模板参数 <code>typename _Tp</code> 如果是一个类的话，会涉及到  <code>_Tp</code> 的析构函数和拷贝构造函数或移动构造函数。</p>
+<h2 id="vector-iterator"><a href="#vector-iterator" class="headerlink" title="vector . iterator"></a>vector . iterator</h2><p>迭代器 <strong>iterator</strong> 实际上是一种用起来像指针的类，本质上还是类，每一个迭代器都是类实例化的对象。并且，由于 <strong>vector</strong> <strong>queue</strong> <strong>list</strong> <strong>map/set</strong> 不同容器底层实现不完全相同或者有几种完全不同，因此并不能设计一种迭代器类同时满足所有容器的操作。</p>
+<p>由于 <strong>vector</strong> 底层是内存连续的空间，因此迭代器也是最简单的。</p>
+<pre><code class="hljs C++"><span class="hljs-comment">//G2.9</span>
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>, <span class="hljs-title">class</span> <span class="hljs-title">Alloc</span> = <span class="hljs-title">alloc</span>&gt;</span>
+<span class="hljs-class"><span class="hljs-title">class</span> <span class="hljs-title">vector</span>&#123;</span>
+	<span class="hljs-keyword">typedef</span> T value_type;
+    <span class="hljs-keyword">typedef</span> value_type* iterator; <span class="hljs-comment">//T*</span>
+&#125;;</code></pre>
+
+<p>可以从源码中看到，**vector **的迭代器就是元素类型的指针，类型为 <code>T*</code> 。</p>
+<pre><code class="hljs C++"><span class="hljs-comment">//xcode : clang</span>
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> _<span class="hljs-title">Tp</span>, <span class="hljs-title">class</span> _<span class="hljs-title">Allocator</span>&gt;</span>
+<span class="hljs-class"><span class="hljs-title">class</span> __<span class="hljs-title">vector_base</span> :</span> <span class="hljs-keyword">protected</span> __vector_base_common&lt;<span class="hljs-literal">true</span>&gt;
+&#123;
+    <span class="hljs-keyword">public</span>:
+        <span class="hljs-keyword">typedef</span> _Allocator                               allocator_type;
+        <span class="hljs-keyword">typedef</span> allocator_traits&lt;allocator_type&gt;         __alloc_traits;
+        <span class="hljs-keyword">typedef</span> <span class="hljs-keyword">typename</span> __alloc_traits::size_type       size_type;
+    <span class="hljs-keyword">protected</span>:
+        <span class="hljs-keyword">typedef</span> _Tp                                      value_type;
+        <span class="hljs-keyword">typedef</span> value_type&amp;                              reference;
+        <span class="hljs-keyword">typedef</span> <span class="hljs-keyword">const</span> value_type&amp;                        const_reference;
+        <span class="hljs-keyword">typedef</span> <span class="hljs-keyword">typename</span> __alloc_traits::difference_type difference_type;
+        <span class="hljs-keyword">typedef</span> <span class="hljs-keyword">typename</span> __alloc_traits::pointer         pointer;
+        <span class="hljs-keyword">typedef</span> <span class="hljs-keyword">typename</span> __alloc_traits::const_pointer   const_pointer;
+        <span class="hljs-keyword">typedef</span> pointer                                  iterator;
+        <span class="hljs-keyword">typedef</span> const_pointer                            const_iterator;
+    ...
+&#125;</code></pre>
+
+<pre><code class="hljs C++"><span class="hljs-comment">// 从上面提取</span>
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> _<span class="hljs-title">Tp</span>, <span class="hljs-title">class</span> _<span class="hljs-title">Allocator</span>&gt;</span>
+<span class="hljs-class"><span class="hljs-title">typedef</span> _<span class="hljs-title">Allocator</span>                               <span class="hljs-title">allocator_type</span>;</span>
+<span class="hljs-keyword">typedef</span> allocator_traits&lt;allocator_type&gt;         __alloc_traits;
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">typename</span> __alloc_traits::pointer         pointer;
+<span class="hljs-keyword">typedef</span> pointer                                  iterator;
+
+<span class="hljs-comment">//因此,vector中的iterator 实际上是 allocator_traits&lt;_Allocator&gt;::pointer 类型</span>
+<span class="hljs-comment">//而默认的 allocator 中 pointer 的定义就是 T* (T通过模板参数传递)</span></code></pre>
+
+<p>从现在的 clang 中，都难以看出 <strong>iterator</strong> 实际的类型了，侯捷老师在STL源码剖析课程中多次吐槽版本迭代之后，标准库设计的越来越复杂了，也可能是我的功底仍然不够深厚，只能解析到这一步了。之后，在看完侯老师的《源码剖析》书之后，再来详细填补各种留下的坑。</p>
+<p>迭代器的使用，迭代器类的继承，以及迭代器的操作符重载，在后续迭代器专题中整理。</p>
+<h2 id="vector-继承关系"><a href="#vector-继承关系" class="headerlink" title="vector . 继承关系"></a>vector . 继承关系</h2><pre><code class="hljs C++"><span class="hljs-comment">/*class __vector_base_common*/</span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">bool</span>&gt;
+<span class="hljs-class"><span class="hljs-keyword">class</span> __<span class="hljs-title">vector_base_common</span>&#123;</span>
+<span class="hljs-keyword">protected</span>:
+    _LIBCPP_NORETURN <span class="hljs-keyword">void</span> __throw_length_error() <span class="hljs-keyword">const</span>; <span class="hljs-comment">//模板传递在函数中使用</span>
+    _LIBCPP_NORETURN <span class="hljs-keyword">void</span> __throw_out_of_range() <span class="hljs-keyword">const</span>; <span class="hljs-comment">//模板传递在函数中使用</span>
+&#125;;</code></pre>
+
+<pre><code class="hljs C++"><span class="hljs-comment">/*class __vector_base*/</span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> _<span class="hljs-title">Tp</span>, <span class="hljs-title">class</span> _<span class="hljs-title">Allocator</span>&gt;</span>
+<span class="hljs-class"><span class="hljs-title">class</span> __<span class="hljs-title">vector_base</span> :</span> <span class="hljs-keyword">public</span> __vector_base_common&lt;<span class="hljs-literal">true</span>&gt;
+&#123;
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-keyword">typedef</span> _Allocator                               allocator_type;
+    <span class="hljs-keyword">typedef</span> allocator_traits&lt;allocator_type&gt;         __alloc_traits;
+    <span class="hljs-keyword">typedef</span> ...
+<span class="hljs-keyword">protected</span>:
+    <span class="hljs-keyword">typedef</span> <span class="hljs-keyword">typename</span> __alloc_traits::pointer         pointer;
+    <span class="hljs-keyword">typedef</span> ...
+    
+    <span class="hljs-comment">//成员变量定义处,注意这里的类名不是vector,是vector私有继承了这个类</span>
+    <span class="hljs-comment">//sizeof() = 24 （= 8 * 3）</span>
+    pointer __begin_;
+    pointer __end_;
+    __compressed_pair&lt;pointer,allocator_type &gt; __end_cap_; <span class="hljs-comment">//命名和G++不同,但是可以看得出说的是end_capacity</span>
+&#125;;</code></pre>
+
+<pre><code class="hljs C++"><span class="hljs-comment">/*struct __compressed_pair_elem*/</span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> _<span class="hljs-title">Tp</span>, <span class="hljs-title">int</span> _<span class="hljs-title">Idx</span>&gt;</span>
+<span class="hljs-class"><span class="hljs-title">struct</span> __<span class="hljs-title">compressed_pair_elem</span>&lt;_Tp, _Idx, true&gt; :</span> <span class="hljs-keyword">private</span> _Tp
+&#123;&#125;</code></pre>
+
+<pre><code class="hljs C++"><span class="hljs-comment">/*class __compressed_pair*/</span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> _<span class="hljs-title">T1</span>, <span class="hljs-title">class</span> _<span class="hljs-title">T2</span>&gt;</span>
+<span class="hljs-class"><span class="hljs-title">class</span> __<span class="hljs-title">compressed_pair</span> :</span> <span class="hljs-keyword">private</span> __compressed_pair_elem&lt;_T1, <span class="hljs-number">0</span>&gt;,
+                          <span class="hljs-keyword">private</span> __compressed_pair_elem&lt;_T2, <span class="hljs-number">1</span>&gt;
+                          &#123;&#125;</code></pre>
+
+<pre><code class="hljs C++"><span class="hljs-comment">/*class vector*/</span>
+
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> _<span class="hljs-title">Tp</span>, <span class="hljs-title">class</span> _<span class="hljs-title">Allocator</span> /* = <span class="hljs-title">allocator</span>&lt;_Tp&gt; */&gt;</span>
+<span class="hljs-class"><span class="hljs-title">class</span> _<span class="hljs-title">LIBCPP_TEMPLATE_VIS</span> <span class="hljs-title">vector</span> :</span> <span class="hljs-keyword">private</span> __vector_base&lt;_Tp, _Allocator&gt;
+&#123;&#125;</code></pre>
+
+<p>以上是从 <code>xcode : clang</code> 中的 <code>vector</code> 和 <code>memory</code> 头文件中找到的源码，粘贴了部分我想展示的。</p>
+<p>并且绘制了继承关系图，如下：</p>
+<p><img src="./OXygenPanda/OXygenPanda.github/oxygen/hexo/source/_posts/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6-2334891.png" srcset="./img/loading.gif" alt="继承图"></p>
+<p><img src="./OXygenPanda/OXygenPanda.github/1.png" srcset="./img/loading.gif" alt="继承图2"></p>
+<p>可以看到，我们使用的是 <strong>vector</strong> 模板类，它的 <code>sizeof() = 24</code> ，也就是 <em>class __vector_base</em> 中定义的三根指针，在64位机中，指针为8字节。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="./categories/C/">C++</a>
+                    
+                      <a class="hover-with-bg" href="./categories/C/STL/">STL</a>
+                    
+                      <a class="hover-with-bg" href="./categories/C/STL/%E5%AE%B9%E5%99%A8/">容器</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="./tags/STL/">STL</a>
+                    
+                      <a class="hover-with-bg" href="./tags/C/">C++</a>
+                    
+                      <a class="hover-with-bg" href="./tags/vector/">vector</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">有疑问欢迎联系我,一起享受编码快乐</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="./2020/10/09/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+                        <span class="hidden-mobile">两数之和</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'https://github.com/OXygenPanda/OXygenPanda.github.io/2020/10/10/vector-1/';
+        this.page.identifier = './2020/10/10/vector-1/';
+      };
+      function loadDisqus() {
+        (function () {
+          var d = document,
+            s = d.createElement('script');
+          s.src = '//' + '' + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      }
+      waitElementVisible('disqus_thread', loadDisqus);
+    </script>
+    <noscript>Please enable JavaScript to view the
+      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
+    </noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="./js/debouncer.js" ></script>
+<script  src="./js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="./js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="./js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "浅析vector用法/特性/实现&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "left",
+      visible: "always",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="./js/local-search.js" ></script>
+  <script>
+    var path = "./local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
