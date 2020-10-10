@@ -227,7 +227,7 @@ sup > a::before,
 }
 html,
 body {
-  font-size: 18px;
+  font-size: 15px;
   font-family: Apple LiGothic Medium,Microsoft JhengHei,Microsoft YaHei;
 }
 html,
@@ -868,7 +868,7 @@ img[srcset] {
   overflow: visible;
 }
 .markdown-body pre code {
-  font-size: 95%;
+  font-size: 90%;
   display: block;
   overflow-x: auto;
   padding: 0.5rem 0;
