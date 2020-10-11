@@ -19,10 +19,23 @@
   <meta name="description" content="Warm welcome">
   <meta name="author" content="劳振煜">
   <meta name="keywords" content="">
-  <title>标签 - 二叉树 - 劳振煜的博客</title>
+  <title>关于 - 劳振煜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/idea.min.css" />
+    
+  
+
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -139,7 +152,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/desk-1-min.jpg') no-repeat center center;
+         style="background: url('/img/workspace-2-min.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -163,33 +176,41 @@
         <div class="py-5" id="board"
           >
           
+            <div class="about-avatar">
+              <img src="/img/favicon.png" srcset="/img/loading.gif"
+                   class="img-fluid" alt="avatar">
+            </div>
+          
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">共计 2 篇文章</p>
-  <hr>
-  
-    
+<div class="text-center">
+  <div class="about-info">
+    <div class="about-name">劳振煜</div>
+    <div class="about-intro">哈工程计算机专硕研二在读(2022.3毕业)</div>
+    <div class="about-icons">
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/09/25/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">二叉树的遍历</span>
-      <time style="float: right;">09-25</time>
-    </a>
-  
-    
-    <a href="/2020/09/25/%E4%BA%8C%E5%8F%89%E6%A0%91/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">二叉树的遍历</span>
-      <time style="float: right;">09-25</time>
-    </a>
+        
+        
+        
+        <a href="javascript:;" class="qr-trigger
+           "
+           
+        >
+          <i class="iconfont icon-wechat-fill" aria-hidden="true"></i>
+          
+            <img class="qr-img" src="/img/wx.jpeg" srcset="/img/loading.gif" alt="qrcode" />
+          
+        </a>
+      
+    </div>
+  </div>
+</div>
+<div class="mt-5 markdown-body">
   
 </div>
-
-
 
               </div>
             </div>
@@ -310,7 +331,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "标签 - 二叉树&nbsp;",
+        "关于&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
@@ -324,6 +345,21 @@
   </script>
 
 
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "left",
+      visible: "always",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
 
 
 
