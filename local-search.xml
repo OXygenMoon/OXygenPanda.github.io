@@ -4,6 +4,39 @@
   
   
   <entry>
+    <title>浅析list用法/特性/实现</title>
+    <link href="/2020/10/11/list-1/"/>
+    <url>/2020/10/11/list-1/</url>
+    
+    <content type="html"><![CDATA[<h1 id="list-容器"><a href="#list-容器" class="headerlink" title="list 容器"></a>list 容器</h1><p><strong>list</strong> 在 C++ 中是一种用起来像链表的模板类。侯捷老师主要介绍的是<code>G2.9</code>和<code>G4.9</code>两个版本。我将阅读一下 <code>clang</code> 中的源码。</p><h2 id="list-结构"><a href="#list-结构" class="headerlink" title="list . 结构"></a>list . 结构</h2><p><strong>G2.9</strong> 下，<strong>list</strong> 只有一个成员变量，<code>list_node * node</code> ，是<code>list_node</code>类的指针，在32位机中占用4个字节，在64位机中占用8个字节。</p><p>而 <code>list_node</code> 类中，又有三个成员变量 :</p><ul><li><code>void * prev</code> : 指向当前节点的前驱</li><li><code>void * next</code> : 指向当前节点的后继</li><li><code>void * data</code> : 指向当前节点</li></ul><p>数据结构课程里的双向链表就是这样的一个结构，每一个节点拥有前驱后继节点且有一个数据。因此，<strong>list</strong> 容器是一个双向链表，与之对应的还有一个单向链表容器 <strong>forward_list</strong>。</p><blockquote><p>  侯捷老师提到此处设计有一个不合理的点 : <code>list_node</code> 已经接收到了模板参数，但是其内部的指针和数据的类型都是 <code>void</code> 。</p></blockquote><p>双向链表底层逻辑是一个环状链表结构，也就是说最后一个节点 <code>next</code> 的 <code>next</code> 是头结点。尾结点后还有一个节点，是为了考虑所有迭代器的区间是前闭后开。</p><p><strong>G4.9</strong> 下，<strong>list</strong> 中有两个成员变量。</p><h2 id="list-iterator"><a href="#list-iterator" class="headerlink" title="list . iterator"></a>list . iterator</h2><p>除了 <strong>array</strong> 和 <strong>vector</strong> 之外的所有容器的 <strong>iterator</strong> 必须得是一个类。因为需要重载许多运算符。</p><p><strong>list</strong> 相较于 <strong>vector</strong> 的迭代器中的 <code>++</code> 操作，就不能是简单的在内存中做偏移了，而是得去寻找 <strong>list</strong> 的下一个节点，也就是迭代器 <strong>iterator</strong> 所指节点的 <code>next</code>。</p><blockquote><p>  运算符重载中的 <code>i++</code> 和 <code>++i</code> 的声明方式</p><p>  <code>Self&amp; operator++()</code> 重载的是 <code>++i</code> 操作</p><p>  <code>Self&amp; operator++(int)</code> 重载的是 <code>i++</code> 操作，其中 <code>int</code> 是占位符</p></blockquote><h2 id="list-继承关系"><a href="#list-继承关系" class="headerlink" title="list . 继承关系"></a>list . 继承关系</h2><p>待补充</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>C++</category>
+      
+      <category>STL</category>
+      
+      <category>容器</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+      <tag>STL</tag>
+      
+      <tag>list</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>浅析vector用法/特性/实现</title>
     <link href="/2020/10/10/vector-1/"/>
     <url>/2020/10/10/vector-1/</url>
