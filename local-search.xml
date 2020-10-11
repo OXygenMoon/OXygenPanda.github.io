@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>剑指Offer 03. 数组中重复的数字</title>
+    <link href="/2020/10/11/%E5%89%91%E6%8C%87Offer%2003.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/"/>
+    <url>/2020/10/11/%E5%89%91%E6%8C%87Offer%2003.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/</url>
+    
+    <content type="html"><![CDATA[<h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">剑指 Offer 03. 数组中重复的数字</a></p><p><strong>难度:</strong><font color="green">简单</font></p><p><strong>描述</strong></p><p>找出数组中重复的数字。</p><p>在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。请找出数组中任意一个重复的数字。</p><p><strong>示例</strong></p><pre><code class="hljs C++">输入:[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">3</span>]输出:<span class="hljs-number">2</span> 或 <span class="hljs-number">3</span>限制:<span class="hljs-number">2</span> &lt;= n &lt;= <span class="hljs-number">100000</span>函数签名:<span class="hljs-keyword">int</span> findRepeatNumber(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</code></pre><h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>第一种思路是采用暴力法(虽然说暴力法是无法通过leetcode的,但确实是首先想到的方法)。</p><p>我们只需要两层循环遍历数组，当内外层索引对应的元素值相等时，返回这个元素值即可。</p><p>时间复杂度 : <code>O(N^2)</code> 空间复杂度 : <code>O(1)</code> 。</p><h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>第二种思路是采用哈希集合。</p><p>我们只需要遍历一次数组，每一次先判定当前元素是否出现过(在集合中)，如果没有出现过加入到集合中，如果出现过就直接返回这个元素值即可。</p><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">findRepeatNumber</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;    <span class="hljs-built_in">unordered_set</span>&lt;<span class="hljs-keyword">int</span>&gt; record; <span class="hljs-comment">//存出现过的数</span>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> num : nums)&#123;        <span class="hljs-keyword">if</span>(record.find(num) != record.end()) <span class="hljs-comment">// 找到了</span>            <span class="hljs-keyword">return</span> num;        record.insert(num);    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;&#125;</code></pre><p>因为我们在 <code>hashset</code> 中查找的时间复杂度是 <code>O(1)</code> 。</p><p>因此，时间复杂度 : <code>O(N)</code> , 空间复杂度 :  <code>O(N)</code>。 </p><h3 id="解法三"><a href="#解法三" class="headerlink" title="解法三"></a>解法三</h3><p>第三种思路是一个萝卜一个坑。剑指Offer书中解答。</p><p>因为数组中的编号是 [0, n-1]，因此每一个索引应该对应的是它的值，即<code>i == nums[i]</code> ，所以我们如果现在 <code>i != nums[i]</code> 就把当前的 <code>nums[i]</code> 放到合适的位置，进行两数交换。</p><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">findRepeatNumber</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.size();++i)&#123;        <span class="hljs-keyword">while</span>(nums[i] != i)&#123;            <span class="hljs-keyword">if</span>(nums[i] == nums[nums[i]]) <span class="hljs-comment">//如果交换位置的元素相等就直接找到了</span>                <span class="hljs-keyword">return</span> nums[i];            <span class="hljs-comment">//两数交换</span>            <span class="hljs-keyword">int</span> tmp = nums[i];            nums[i] = nums[tmp];            nums[tmp] = tmp;        &#125;    &#125;    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;&#125;</code></pre><p>因为有题目的限制：</p><ol><li>一定有重复；</li><li>最大元素值是 <code>size()-1</code>。</li></ol><p>所以题目中的 <code>while</code> 一定出的来。 </p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Leetcode</category>
+      
+      <category>剑指 Offer 专题</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Leetcode</tag>
+      
+      <tag>哈希集合</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>浅析list用法/特性/实现</title>
     <link href="/2020/10/11/list-1/"/>
     <url>/2020/10/11/list-1/</url>
@@ -157,11 +186,11 @@
     
     <tags>
       
+      <tag>数据结构</tag>
+      
       <tag>单调队列</tag>
       
       <tag>队列</tag>
-      
-      <tag>数据结构</tag>
       
     </tags>
     
@@ -188,11 +217,11 @@
     
     <tags>
       
-      <tag>数据结构</tag>
-      
       <tag>单调栈</tag>
       
       <tag>栈</tag>
+      
+      <tag>数据结构</tag>
       
     </tags>
     
@@ -202,10 +231,10 @@
   
   <entry>
     <title>二叉树的遍历</title>
-    <link href="/2020/09/25/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/"/>
-    <url>/2020/09/25/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/</url>
+    <link href="/2020/09/25/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    <url>/2020/09/25/%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
     
-    <content type="html"><![CDATA[<a id="more"></a><h1 id="二叉树的递归方式"><a href="#二叉树的递归方式" class="headerlink" title="二叉树的递归方式"></a>二叉树的递归方式</h1><blockquote><p>博客文章主要目的是分享和记录。</p><p>分享给需要学习的同学，记录自己学习路上的点滴。</p></blockquote><p>首先，相信大家对于二叉树的定义以及结构，在本科《数据结构与算法》课程中或者在其他同学的博客中有所了解。在此，不在过多地回顾课本理论知识。</p><p>我们编码语言主要为C++，如下是二叉树在C++中类的表现形式，这边使用的是 struct 结构体，在C++中类和结构体的区别在于不标志 public , private 以及 protected 时, 成员变量和成员函数是 public 还是 private。使用 struct 的原因在于，结构体更想表达的是一种数据的组织形式。</p><pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">TreeNode</span> &#123;</span>  <span class="hljs-keyword">int</span> val;  TreeNode* left;  TreeNode* right;  TreeNode*(<span class="hljs-keyword">int</span> x):val(x),left(<span class="hljs-literal">nullptr</span>),right(<span class="hljs-literal">nullptr</span>)&#123;&#125;&#125;;</code></pre><p>并且配图可以更好地理解二叉树的结构。</p><p><img src="/OXygenPanda/OXygenPanda.github/p1.png" alt="p1"></p><p><img src="/OXygenPanda/OXygenPanda.github/p2.png" alt="p2"></p><h2 id="二叉树的递归方式——递归"><a href="#二叉树的递归方式——递归" class="headerlink" title="二叉树的递归方式——递归"></a>二叉树的递归方式——递归</h2><h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>二叉树的递归方式可以分为三种:</p><ul><li>递归</li><li>迭代</li><li>Morris</li></ul><h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><p>这一篇主要讲的是递归，也是最简单书写的一种，其代码框架如下：</p><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">order</span><span class="hljs-params">(TreeNode * root)</span></span>&#123;  <span class="hljs-keyword">if</span>(root == <span class="hljs-literal">nullptr</span>)<span class="hljs-keyword">return</span>;  <span class="hljs-comment">// 前序</span>  order(root-&gt;left);  <span class="hljs-comment">// 中序</span>  order(root-&gt;right);  <span class="hljs-comment">// 后序</span>  <span class="hljs-keyword">return</span>;&#125;</code></pre><h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>递归的简单在于我们只需要这么一个代码框架即可，记住理解这一个框架几乎不需要花费多少时间。那么它的缺点是什么呢？缺点是递归过程中，从根节点出发不断递归左右节点，这一些函数调用的开销发生在栈空间，使得栈空间消耗巨大，甚至可能会导致栈溢出。</p><h3 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h3><p>那么，为什么这样就可以实现遍历呢？</p><ul><li><p>递归语句是有一个递归出口的，也就是我们框架函数体内第一个语句，当 当前节点 为空时，那么我们也就不需要访问这个节点也没有必要去访问它的左右孩子因为它没有。</p></li><li><p>那么对于任意一个非空节点来说我们需要做什么？我们无非是要做 : 访问它，访问它的左孩子，访问它的右孩子这三件事。那么既然有三件事，一定会涉及到顺序问题。这个时候你是不是有感觉了？我们先访问自己，再访问左孩子，最后访问右孩子不就是先序遍历的顺序嘛？因此，我们想要先序遍历一棵二叉树时，我们只需要把访问或者处理语句放在最前面，再对左孩子做同样的事情，最后对右孩子做同样的事情。中序遍历和后续遍历类似于此。</p></li></ul>]]></content>
+    <content type="html"><![CDATA[<a id="more"></a><h1 id="二叉树的递归方式"><a href="#二叉树的递归方式" class="headerlink" title="二叉树的递归方式"></a>二叉树的递归方式</h1><blockquote><p>博客文章主要目的是分享和记录。</p><p>分享给需要学习的同学，记录自己学习路上的点滴。</p></blockquote><p>首先，相信大家对于二叉树的定义以及结构，在本科《数据结构与算法》课程中或者在其他同学的博客中有所了解。在此，不在过多地回顾课本理论知识。</p><p>我们编码语言主要为C++，如下是二叉树在C++中类的表现形式，这边使用的是 struct 结构体，在C++中类和结构体的区别在于不标志 public , private 以及 protected 时, 成员变量和成员函数是 public 还是 private。使用 struct 的原因在于，结构体更想表达的是一种数据的组织形式。</p><pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">TreeNode</span> &#123;</span>  <span class="hljs-keyword">int</span> val;  TreeNode* left;  TreeNode* right;  TreeNode*(<span class="hljs-keyword">int</span> x):val(x),left(<span class="hljs-literal">nullptr</span>),right(<span class="hljs-literal">nullptr</span>)&#123;&#125;&#125;;</code></pre><p>并且配图可以更好地理解二叉树的结构。</p><p><img src="/OXygenPanda/OXygenPanda.github/binaryTreeNode.png" alt="p1"></p><h2 id="二叉树的递归方式——递归"><a href="#二叉树的递归方式——递归" class="headerlink" title="二叉树的递归方式——递归"></a>二叉树的递归方式——递归</h2><h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>二叉树的递归方式可以分为三种:</p><ul><li>递归</li><li>迭代</li><li>Morris</li></ul><h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><p>这一篇主要讲的是递归，也是最简单书写的一种，其代码框架如下：</p><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">order</span><span class="hljs-params">(TreeNode * root)</span></span>&#123;  <span class="hljs-keyword">if</span>(root == <span class="hljs-literal">nullptr</span>)<span class="hljs-keyword">return</span>;  <span class="hljs-comment">// 前序</span>  order(root-&gt;left);  <span class="hljs-comment">// 中序</span>  order(root-&gt;right);  <span class="hljs-comment">// 后序</span>  <span class="hljs-keyword">return</span>;&#125;</code></pre><h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>递归的简单在于我们只需要这么一个代码框架即可，记住理解这一个框架几乎不需要花费多少时间。那么它的缺点是什么呢？缺点是递归过程中，从根节点出发不断递归左右节点，这一些函数调用的开销发生在栈空间，使得栈空间消耗巨大，甚至可能会导致栈溢出。</p><h3 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h3><p>那么，为什么这样就可以实现遍历呢？</p><ul><li><p>递归语句是有一个递归出口的，也就是我们框架函数体内第一个语句，当 当前节点 为空时，那么我们也就不需要访问这个节点也没有必要去访问它的左右孩子因为它没有。</p></li><li><p>那么对于任意一个非空节点来说我们需要做什么？我们无非是要做 : 访问它，访问它的左孩子，访问它的右孩子这三件事。那么既然有三件事，一定会涉及到顺序问题。这个时候你是不是有感觉了？我们先访问自己，再访问左孩子，最后访问右孩子不就是先序遍历的顺序嘛？因此，我们想要先序遍历一棵二叉树时，我们只需要把访问或者处理语句放在最前面，再对左孩子做同样的事情，最后对右孩子做同样的事情。中序遍历和后续遍历类似于此。</p></li></ul>]]></content>
     
     
     <categories>
@@ -231,10 +260,10 @@
   
   <entry>
     <title>二叉树的遍历</title>
-    <link href="/2020/09/25/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    <url>/2020/09/25/%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    <link href="/2020/09/25/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/"/>
+    <url>/2020/09/25/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/</url>
     
-    <content type="html"><![CDATA[<a id="more"></a><h1 id="二叉树的递归方式"><a href="#二叉树的递归方式" class="headerlink" title="二叉树的递归方式"></a>二叉树的递归方式</h1><blockquote><p>博客文章主要目的是分享和记录。</p><p>分享给需要学习的同学，记录自己学习路上的点滴。</p></blockquote><p>首先，相信大家对于二叉树的定义以及结构，在本科《数据结构与算法》课程中或者在其他同学的博客中有所了解。在此，不在过多地回顾课本理论知识。</p><p>我们编码语言主要为C++，如下是二叉树在C++中类的表现形式，这边使用的是 struct 结构体，在C++中类和结构体的区别在于不标志 public , private 以及 protected 时, 成员变量和成员函数是 public 还是 private。使用 struct 的原因在于，结构体更想表达的是一种数据的组织形式。</p><pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">TreeNode</span> &#123;</span>  <span class="hljs-keyword">int</span> val;  TreeNode* left;  TreeNode* right;  TreeNode*(<span class="hljs-keyword">int</span> x):val(x),left(<span class="hljs-literal">nullptr</span>),right(<span class="hljs-literal">nullptr</span>)&#123;&#125;&#125;;</code></pre><p>并且配图可以更好地理解二叉树的结构。</p><p><img src="/OXygenPanda/OXygenPanda.github/binaryTreeNode.png" alt="p1"></p><h2 id="二叉树的递归方式——递归"><a href="#二叉树的递归方式——递归" class="headerlink" title="二叉树的递归方式——递归"></a>二叉树的递归方式——递归</h2><h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>二叉树的递归方式可以分为三种:</p><ul><li>递归</li><li>迭代</li><li>Morris</li></ul><h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><p>这一篇主要讲的是递归，也是最简单书写的一种，其代码框架如下：</p><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">order</span><span class="hljs-params">(TreeNode * root)</span></span>&#123;  <span class="hljs-keyword">if</span>(root == <span class="hljs-literal">nullptr</span>)<span class="hljs-keyword">return</span>;  <span class="hljs-comment">// 前序</span>  order(root-&gt;left);  <span class="hljs-comment">// 中序</span>  order(root-&gt;right);  <span class="hljs-comment">// 后序</span>  <span class="hljs-keyword">return</span>;&#125;</code></pre><h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>递归的简单在于我们只需要这么一个代码框架即可，记住理解这一个框架几乎不需要花费多少时间。那么它的缺点是什么呢？缺点是递归过程中，从根节点出发不断递归左右节点，这一些函数调用的开销发生在栈空间，使得栈空间消耗巨大，甚至可能会导致栈溢出。</p><h3 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h3><p>那么，为什么这样就可以实现遍历呢？</p><ul><li><p>递归语句是有一个递归出口的，也就是我们框架函数体内第一个语句，当 当前节点 为空时，那么我们也就不需要访问这个节点也没有必要去访问它的左右孩子因为它没有。</p></li><li><p>那么对于任意一个非空节点来说我们需要做什么？我们无非是要做 : 访问它，访问它的左孩子，访问它的右孩子这三件事。那么既然有三件事，一定会涉及到顺序问题。这个时候你是不是有感觉了？我们先访问自己，再访问左孩子，最后访问右孩子不就是先序遍历的顺序嘛？因此，我们想要先序遍历一棵二叉树时，我们只需要把访问或者处理语句放在最前面，再对左孩子做同样的事情，最后对右孩子做同样的事情。中序遍历和后续遍历类似于此。</p></li></ul>]]></content>
+    <content type="html"><![CDATA[<a id="more"></a><h1 id="二叉树的递归方式"><a href="#二叉树的递归方式" class="headerlink" title="二叉树的递归方式"></a>二叉树的递归方式</h1><blockquote><p>博客文章主要目的是分享和记录。</p><p>分享给需要学习的同学，记录自己学习路上的点滴。</p></blockquote><p>首先，相信大家对于二叉树的定义以及结构，在本科《数据结构与算法》课程中或者在其他同学的博客中有所了解。在此，不在过多地回顾课本理论知识。</p><p>我们编码语言主要为C++，如下是二叉树在C++中类的表现形式，这边使用的是 struct 结构体，在C++中类和结构体的区别在于不标志 public , private 以及 protected 时, 成员变量和成员函数是 public 还是 private。使用 struct 的原因在于，结构体更想表达的是一种数据的组织形式。</p><pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">TreeNode</span> &#123;</span>  <span class="hljs-keyword">int</span> val;  TreeNode* left;  TreeNode* right;  TreeNode*(<span class="hljs-keyword">int</span> x):val(x),left(<span class="hljs-literal">nullptr</span>),right(<span class="hljs-literal">nullptr</span>)&#123;&#125;&#125;;</code></pre><p>并且配图可以更好地理解二叉树的结构。</p><p><img src="/OXygenPanda/OXygenPanda.github/p1.png" alt="p1"></p><p><img src="/OXygenPanda/OXygenPanda.github/p2.png" alt="p2"></p><h2 id="二叉树的递归方式——递归"><a href="#二叉树的递归方式——递归" class="headerlink" title="二叉树的递归方式——递归"></a>二叉树的递归方式——递归</h2><h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>二叉树的递归方式可以分为三种:</p><ul><li>递归</li><li>迭代</li><li>Morris</li></ul><h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><p>这一篇主要讲的是递归，也是最简单书写的一种，其代码框架如下：</p><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">order</span><span class="hljs-params">(TreeNode * root)</span></span>&#123;  <span class="hljs-keyword">if</span>(root == <span class="hljs-literal">nullptr</span>)<span class="hljs-keyword">return</span>;  <span class="hljs-comment">// 前序</span>  order(root-&gt;left);  <span class="hljs-comment">// 中序</span>  order(root-&gt;right);  <span class="hljs-comment">// 后序</span>  <span class="hljs-keyword">return</span>;&#125;</code></pre><h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>递归的简单在于我们只需要这么一个代码框架即可，记住理解这一个框架几乎不需要花费多少时间。那么它的缺点是什么呢？缺点是递归过程中，从根节点出发不断递归左右节点，这一些函数调用的开销发生在栈空间，使得栈空间消耗巨大，甚至可能会导致栈溢出。</p><h3 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h3><p>那么，为什么这样就可以实现遍历呢？</p><ul><li><p>递归语句是有一个递归出口的，也就是我们框架函数体内第一个语句，当 当前节点 为空时，那么我们也就不需要访问这个节点也没有必要去访问它的左右孩子因为它没有。</p></li><li><p>那么对于任意一个非空节点来说我们需要做什么？我们无非是要做 : 访问它，访问它的左孩子，访问它的右孩子这三件事。那么既然有三件事，一定会涉及到顺序问题。这个时候你是不是有感觉了？我们先访问自己，再访问左孩子，最后访问右孩子不就是先序遍历的顺序嘛？因此，我们想要先序遍历一棵二叉树时，我们只需要把访问或者处理语句放在最前面，再对左孩子做同样的事情，最后对右孩子做同样的事情。中序遍历和后续遍历类似于此。</p></li></ul>]]></content>
     
     
     <categories>

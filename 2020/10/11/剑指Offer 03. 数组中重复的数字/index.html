@@ -19,7 +19,7 @@
   <meta name="description" content="Warm welcome">
   <meta name="author" content="劳振煜">
   <meta name="keywords" content="">
-  <title>初识STL - 劳振煜的博客</title>
+  <title>剑指Offer 03. 数组中重复的数字 - 劳振煜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -167,8 +167,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-10-07 21:53" pubdate>
-        2020年10月7日 晚上
+      <time datetime="2020-10-11 22:20" pubdate>
+        2020年10月11日 晚上
       </time>
     </span>
   
@@ -179,7 +179,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      508 字
+      579 字
     </span>
   
 
@@ -189,7 +189,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      11
        分钟
     </span>
   
@@ -227,104 +227,71 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">初识STL</h1>
+            <h1 style="display: none">剑指Offer 03. 数组中重复的数字</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年10月9日 晚上
+                  本文最后更新于：2020年10月11日 晚上
                 
               </p>
             
             <div class="markdown-body" id="post-body">
-              <a id="more"></a>
+              <h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">剑指 Offer 03. 数组中重复的数字</a></p>
+<p><strong>难度:</strong><font color="green">简单</font></p>
+<p><strong>描述</strong></p>
+<p>找出数组中重复的数字。</p>
+<p>在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。请找出数组中任意一个重复的数字。</p>
+<p><strong>示例</strong></p>
+<pre><code class="hljs C++">输入:
+[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">3</span>]
+输出:
+<span class="hljs-number">2</span> 或 <span class="hljs-number">3</span>
+限制:
+<span class="hljs-number">2</span> &lt;= n &lt;= <span class="hljs-number">100000</span>
+函数签名:
+<span class="hljs-keyword">int</span> findRepeatNumber(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</code></pre>
 
-<h1 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h1><p>什么是STL？STL : standard Template Library 标准模板库，STL是C++的一个重要组成部分。</p>
-<p>STL包含了众多头文件 :</p>
-<table>
-<thead>
-<tr>
-<th>头文件名称</th>
-<th>类型</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>&lt;algorithm&gt;</td>
-<td>算法</td>
-</tr>
-<tr>
-<td>&lt;deque&gt;</td>
-<td>容器</td>
-</tr>
-<tr>
-<td>&lt;functional&gt;</td>
-<td>仿函数</td>
-</tr>
-<tr>
-<td>&lt;iterator&gt;</td>
-<td>迭代器</td>
-</tr>
-<tr>
-<td>&lt;vector&gt;</td>
-<td>容器</td>
-</tr>
-<tr>
-<td>&lt;list&gt;</td>
-<td>容器</td>
-</tr>
-<tr>
-<td>&lt;map&gt;</td>
-<td>容器</td>
-</tr>
-<tr>
-<td>&lt;memory.h&gt;</td>
-<td>智能指针</td>
-</tr>
-<tr>
-<td>&lt;numeric&gt;</td>
-<td>数值算法</td>
-</tr>
-<tr>
-<td>&lt;queue&gt;</td>
-<td>容器</td>
-</tr>
-<tr>
-<td>&lt;set&gt;</td>
-<td>容器</td>
-</tr>
-<tr>
-<td>&lt;stack&gt;</td>
-<td>容器</td>
-</tr>
-<tr>
-<td>&lt;utility&gt;</td>
-<td>比较符 + pair</td>
-</tr>
-</tbody></table>
-<p>浏览完以上这一个表格，可以简单了解到STL的组成。</p>
-<h2 id="六大部件"><a href="#六大部件" class="headerlink" title="六大部件"></a>六大部件</h2><p>STL主要包含六个部件：</p>
-<ul>
-<li>容器 containers 是一个class template</li>
-<li>分配器 allocators 是一个 class template</li>
-<li>算法 algorithms 是一个 function template(用起来像函数)</li>
-<li>迭代器 iterators 是一个 class template</li>
-<li>适配器 adapters 是一个 class template</li>
-<li>仿函数 functors 是一个 class template</li>
-</ul>
-<h3 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h3><h4 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h4><p>容器是数据的承载，容器的设计使得我们”看不到”内存</p>
-<h4 id="分配器"><a href="#分配器" class="headerlink" title="分配器"></a>分配器</h4><p>分配器为容器分配内存回收内存，使得我们不需要插手容器的内存管理</p>
-<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p>算法是模板函数，独立于容器，更加泛化。(有一些容器里有同名重新处理过的函数)</p>
-<h4 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h4><p>算法作用于容器的中介，存取数据的一种泛化指针，本质是一种用起来像指针的对象</p>
-<h4 id="适配器"><a href="#适配器" class="headerlink" title="适配器"></a>适配器</h4><p>容器 / 仿函数 / 迭代器的转换，设计思想：适配器设计模式</p>
-<h4 id="仿函数"><a href="#仿函数" class="headerlink" title="仿函数"></a>仿函数</h4><p>作用于容器元素的一种用起来像函数的类</p>
-<h3 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a>设计思想</h3><p>GP模板编程思想：容器与算法分开。</p>
-<p>相对的，OO编程思想：把成员变量和成员函数封装起来。</p>
-<h3 id="简单代码演示"><a href="#简单代码演示" class="headerlink" title="简单代码演示"></a>简单代码演示</h3><pre><code class="hljs C++">vector&lt;int,allocator&lt;int&gt;&gt; vi(ia,ia+6); //容器 分配器
-<span class="hljs-built_in">cout</span>&lt;&lt;count_if(vi.begin(),vi.end(),not1(bind2nd(less&lt;<span class="hljs-keyword">int</span>&gt;(),<span class="hljs-number">40</span>)));
-<span class="hljs-comment">//less&lt;int&gt;()原本是a和b比较，bind2nd适配器绑定第二参数,用a和40比,not1适配是变成了大于等于条件</span></code></pre>
 
-<blockquote>
-<p>  学习自 : 侯捷 STL</p>
-</blockquote>
+
+<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>第一种思路是采用暴力法(虽然说暴力法是无法通过leetcode的,但确实是首先想到的方法)。</p>
+<p>我们只需要两层循环遍历数组，当内外层索引对应的元素值相等时，返回这个元素值即可。</p>
+<p>时间复杂度 : <code>O(N^2)</code> 空间复杂度 : <code>O(1)</code> 。</p>
+<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>第二种思路是采用哈希集合。</p>
+<p>我们只需要遍历一次数组，每一次先判定当前元素是否出现过(在集合中)，如果没有出现过加入到集合中，如果出现过就直接返回这个元素值即可。</p>
+<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">findRepeatNumber</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;
+    <span class="hljs-built_in">unordered_set</span>&lt;<span class="hljs-keyword">int</span>&gt; record; <span class="hljs-comment">//存出现过的数</span>
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> num : nums)&#123;
+        <span class="hljs-keyword">if</span>(record.find(num) != record.end()) <span class="hljs-comment">// 找到了</span>
+            <span class="hljs-keyword">return</span> num;
+        record.insert(num);
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+&#125;</code></pre>
+
+<p>因为我们在 <code>hashset</code> 中查找的时间复杂度是 <code>O(1)</code> 。</p>
+<p>因此，时间复杂度 : <code>O(N)</code> , 空间复杂度 :  <code>O(N)</code>。 </p>
+<h3 id="解法三"><a href="#解法三" class="headerlink" title="解法三"></a>解法三</h3><p>第三种思路是一个萝卜一个坑。剑指Offer书中解答。</p>
+<p>因为数组中的编号是 [0, n-1]，因此每一个索引应该对应的是它的值，即<code>i == nums[i]</code> ，所以我们如果现在 <code>i != nums[i]</code> 就把当前的 <code>nums[i]</code> 放到合适的位置，进行两数交换。</p>
+<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">findRepeatNumber</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.size();++i)&#123;
+        <span class="hljs-keyword">while</span>(nums[i] != i)&#123;
+            <span class="hljs-keyword">if</span>(nums[i] == nums[nums[i]]) <span class="hljs-comment">//如果交换位置的元素相等就直接找到了</span>
+                <span class="hljs-keyword">return</span> nums[i];
+            <span class="hljs-comment">//两数交换</span>
+            <span class="hljs-keyword">int</span> tmp = nums[i];
+            nums[i] = nums[tmp];
+            nums[tmp] = tmp;
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+&#125;</code></pre>
+
+<p>因为有题目的限制：</p>
+<ol>
+<li>一定有重复；</li>
+<li>最大元素值是 <code>size()-1</code>。</li>
+</ol>
+<p>所以题目中的 <code>while</code> 一定出的来。 </p>
 
             </div>
             <hr>
@@ -334,9 +301,9 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/C/">C++</a>
+                      <a class="hover-with-bg" href="/categories/Leetcode/">Leetcode</a>
                     
-                      <a class="hover-with-bg" href="/categories/C/STL/">STL</a>
+                      <a class="hover-with-bg" href="/categories/Leetcode/%E5%89%91%E6%8C%87-Offer-%E4%B8%93%E9%A2%98/">剑指 Offer 专题</a>
                     
                   </div>
                 
@@ -344,7 +311,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/STL/">STL</a>
+                      <a class="hover-with-bg" href="/tags/Leetcode/">Leetcode</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%93%88%E5%B8%8C%E9%9B%86%E5%90%88/">哈希集合</a>
                     
                   </div>
                 
@@ -357,18 +326,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/09/%E6%B5%8B%E8%AF%95%E5%9B%BE%E7%89%87/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">测试图片</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/10/07/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">
-                        <span class="hidden-mobile">单调队列</span>
+                      <a href="/2020/10/11/list-1/">
+                        <span class="hidden-mobile">浅析list用法/特性/实现</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -544,7 +507,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "初识STL&nbsp;",
+        "剑指Offer 03. 数组中重复的数字&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
