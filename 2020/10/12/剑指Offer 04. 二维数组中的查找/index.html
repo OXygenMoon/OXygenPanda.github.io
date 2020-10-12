@@ -19,7 +19,7 @@
   <meta name="description" content="Warm welcome">
   <meta name="author" content="劳振煜">
   <meta name="keywords" content="">
-  <title>剑指Offer 03. 数组中重复的数字 - 劳振煜的博客</title>
+  <title>剑指 Offer 04. 二维数组中的查找 - 劳振煜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -167,8 +167,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-10-11 22:20" pubdate>
-        2020年10月11日 晚上
+      <time datetime="2020-10-12 20:56" pubdate>
+        2020年10月12日 晚上
       </time>
     </span>
   
@@ -179,7 +179,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      558 字
+      720 字
     </span>
   
 
@@ -189,7 +189,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      16
        分钟
     </span>
   
@@ -227,7 +227,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">剑指Offer 03. 数组中重复的数字</h1>
+            <h1 style="display: none">剑指 Offer 04. 二维数组中的查找</h1>
             
               <p class="note note-info">
                 
@@ -236,62 +236,81 @@
               </p>
             
             <div class="markdown-body" id="post-body">
-              <h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">剑指 Offer 03. 数组中重复的数字</a></p>
+              <h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">剑指 Offer 04. 二维数组中的查找</a></p>
 <p><strong>难度:</strong><font color="green">简单</font></p>
 <p><strong>描述</strong></p>
-<p>找出数组中重复的数字。</p>
-<p>在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。请找出数组中任意一个重复的数字。</p>
+<p>在一个 n * m 的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
 <p><strong>示例</strong></p>
-<pre><code class="hljs C++">输入:
-[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">3</span>]
-输出:
-<span class="hljs-number">2</span> 或 <span class="hljs-number">3</span>
-限制:
-<span class="hljs-number">2</span> &lt;= n &lt;= <span class="hljs-number">100000</span>
+<p>现有矩阵 matrix 如下：</p>
+<pre><code class="hljs C++">[
+  [<span class="hljs-number">1</span>,   <span class="hljs-number">4</span>,  <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>],
+  [<span class="hljs-number">2</span>,   <span class="hljs-number">5</span>,  <span class="hljs-number">8</span>, <span class="hljs-number">12</span>, <span class="hljs-number">19</span>],
+  [<span class="hljs-number">3</span>,   <span class="hljs-number">6</span>,  <span class="hljs-number">9</span>, <span class="hljs-number">16</span>, <span class="hljs-number">22</span>],
+  [<span class="hljs-number">10</span>, <span class="hljs-number">13</span>, <span class="hljs-number">14</span>, <span class="hljs-number">17</span>, <span class="hljs-number">24</span>],
+  [<span class="hljs-number">18</span>, <span class="hljs-number">21</span>, <span class="hljs-number">23</span>, <span class="hljs-number">26</span>, <span class="hljs-number">30</span>]
+]
+
+给定 target = <span class="hljs-number">5</span>，返回 <span class="hljs-literal">true</span>。
+
+给定 target = <span class="hljs-number">20</span>，返回 <span class="hljs-literal">false</span>。
+
 函数签名:
-<span class="hljs-keyword">int</span> findRepeatNumber(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</code></pre>
+<span class="hljs-keyword">bool</span> findNumberIn2DArray(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; matrix, <span class="hljs-keyword">int</span> target)</code></pre>
 
 
 
-<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>第一种思路是采用暴力法。</p>
-<p>我们只需要两层循环遍历数组，当内外层索引对应的元素值相等时，返回这个元素值即可。</p>
-<p>时间复杂度 : <code>O(N^2)</code> 空间复杂度 : <code>O(1)</code> 。</p>
-<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>第二种思路是采用哈希集合。</p>
+<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>第一种思路是类似暴力法，因为二维数组每一个维度都是从 <code>index = 0</code> 到 <code>index = size()-1</code> 升序，因此我们可以找到两个边界，缩小遍历的空间大小。</p>
+<p>我们只需要两次循环找到边界，再用找到的边界二层循环去寻找 <code>target</code>。</p>
+<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">findNumberIn2DArray</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; matrix, <span class="hljs-keyword">int</span> target)</span> </span>&#123;
+    <span class="hljs-keyword">if</span>(matrix.size() == <span class="hljs-number">0</span> || matrix[<span class="hljs-number">0</span>].size() == <span class="hljs-number">0</span>)  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; <span class="hljs-comment">//边界</span>
+
+    <span class="hljs-keyword">int</span> s_m,s_n; <span class="hljs-comment">//每一个维度的边界</span>
+    <span class="hljs-keyword">int</span> size_0 = matrix.size();
+    <span class="hljs-keyword">int</span> size_1 = matrix[<span class="hljs-number">0</span>].size();
+
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i =<span class="hljs-number">0</span>;i&lt;size_0;++i) <span class="hljs-comment">//找到纵向的边界</span>
+        <span class="hljs-keyword">if</span>(matrix[i][<span class="hljs-number">0</span>] &gt; target)&#123;
+            s_m = i;
+            <span class="hljs-keyword">break</span>;&#125;
+    
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; size_1; ++ j) <span class="hljs-comment">//找到横向的边界</span>
+        <span class="hljs-keyword">if</span>(matrix[<span class="hljs-number">0</span>][j] &gt; target)&#123;
+            s_n = j;
+            <span class="hljs-keyword">break</span>;&#125;
+
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;s_m;++i) <span class="hljs-comment">//缩小遍历空间大小</span>
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>;j&lt;s_n;++j)
+            <span class="hljs-keyword">if</span>(matrix[i][j] == target)
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+&#125;</code></pre>
+
+<p>时间复杂度 : <code>O(N*M)</code> 空间复杂度 : <code>O(1)</code> 。但是，如果二维数组特别大，这么做应该还是能够有效减少遍历次数的。</p>
+<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>第二种思路是类似于二叉搜索树。</p>
 <p>我们只需要遍历一次数组，每一次先判定当前元素是否出现过(在集合中)，如果没有出现过加入到集合中，如果出现过就直接返回这个元素值即可。</p>
-<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">findRepeatNumber</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;
-    <span class="hljs-built_in">unordered_set</span>&lt;<span class="hljs-keyword">int</span>&gt; record; <span class="hljs-comment">//存出现过的数</span>
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> num : nums)&#123;
-        <span class="hljs-keyword">if</span>(record.find(num) != record.end()) <span class="hljs-comment">// 找到了</span>
-            <span class="hljs-keyword">return</span> num;
-        record.insert(num);
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
-&#125;</code></pre>
+<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">findNumberIn2DArray</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; matrix, <span class="hljs-keyword">int</span> target)</span> </span>&#123;
+        <span class="hljs-keyword">if</span>(matrix.size() == <span class="hljs-number">0</span> || matrix[<span class="hljs-number">0</span>].size() == <span class="hljs-number">0</span>)  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
 
-<p>因为我们在 <code>hashset</code> 中查找的时间复杂度是 <code>O(1)</code> 。</p>
-<p>因此，时间复杂度 : <code>O(N)</code> , 空间复杂度 :  <code>O(N)</code>。 </p>
-<h3 id="解法三"><a href="#解法三" class="headerlink" title="解法三"></a>解法三</h3><p>第三种思路是一个萝卜一个坑。剑指Offer书中解答。</p>
-<p>因为数组中的编号是 [0, n-1]，因此每一个索引应该对应的是它的值，即<code>i == nums[i]</code> ，所以我们如果现在 <code>i != nums[i]</code> 就把当前的 <code>nums[i]</code> 放到合适的位置，进行两数交换。</p>
-<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">findRepeatNumber</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.size();++i)&#123;
-        <span class="hljs-keyword">while</span>(nums[i] != i)&#123;
-            <span class="hljs-keyword">if</span>(nums[i] == nums[nums[i]]) <span class="hljs-comment">//如果交换位置的元素相等就直接找到了</span>
-                <span class="hljs-keyword">return</span> nums[i];
-            <span class="hljs-comment">//两数交换</span>
-            <span class="hljs-keyword">int</span> tmp = nums[i];
-            nums[i] = nums[tmp];
-            nums[tmp] = tmp;
+        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> j = matrix[<span class="hljs-number">0</span>].size() - <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">while</span>( i &lt; matrix.size() &amp;&amp; j &gt;= <span class="hljs-number">0</span> )&#123;
+            <span class="hljs-comment">// 站在右上角,把数组看成二叉搜索树</span>
+            <span class="hljs-keyword">if</span>(matrix[i][j] == target)
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(matrix[i][j] &gt; target)
+                j--;<span class="hljs-comment">// 1</span>
+            <span class="hljs-keyword">else</span>
+                i++;
         &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
-&#125;</code></pre>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
 
-<p>因为有题目的限制：</p>
-<ol>
-<li>一定有重复；</li>
-<li>最大元素值是 <code>size()-1</code>。</li>
-</ol>
-<p>所以题目中的 <code>while</code> 循环一定能够退出。 </p>
+    &#125;</code></pre>
+
+<pre><code class="hljs C++"><span class="hljs-comment">// 1 : 这里不需要给i置零</span>
+<span class="hljs-comment">// 比如我们要找14,我们11的时候要i++,12的时候i++,16的时候j--,但是target已经大于12了，必不需要从7开始重新判断</span></code></pre>
+
+<p>可以发现这一种解法一步到位，但是也类似于第一种方法，只是我们的起点设计的比较巧妙，能够通过索引 <code>i</code> <code>j</code> 的一定规律的移动就能找到 <code>target</code> 是否存在。</p>
+<p>时间复杂度 : <code>O(N+M)</code> , 空间复杂度 :  <code>O(1)</code>。 </p>
 
             </div>
             <hr>
@@ -313,7 +332,7 @@
                     
                       <a class="hover-with-bg" href="/tags/Leetcode/">Leetcode</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%93%88%E5%B8%8C%E9%9B%86%E5%90%88/">哈希集合</a>
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
                     
                   </div>
                 
@@ -326,18 +345,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/12/%E5%89%91%E6%8C%87Offer%2004.%20%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">剑指 Offer 04. 二维数组中的查找</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/10/11/list-1/">
-                        <span class="hidden-mobile">浅析list用法/特性/实现</span>
+                      <a href="/2020/10/11/%E5%89%91%E6%8C%87Offer%2003.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/">
+                        <span class="hidden-mobile">剑指Offer 03. 数组中重复的数字</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -513,7 +526,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "剑指Offer 03. 数组中重复的数字&nbsp;",
+        "剑指 Offer 04. 二维数组中的查找&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
