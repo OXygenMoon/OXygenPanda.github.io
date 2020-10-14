@@ -19,7 +19,7 @@
   <meta name="description" content="Warm welcome">
   <meta name="author" content="劳振煜">
   <meta name="keywords" content="">
-  <title>剑指 Offer 04. 二维数组中的查找 - 劳振煜的博客</title>
+  <title>剑指 Offer 06. 从尾到头打印链表 - 劳振煜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -167,8 +167,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-10-12 20:56" pubdate>
-        2020年10月12日 晚上
+      <time datetime="2020-10-14 15:47" pubdate>
+        2020年10月14日 下午
       </time>
     </span>
   
@@ -179,7 +179,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      728 字
+      861 字
     </span>
   
 
@@ -189,7 +189,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16
+      18
        分钟
     </span>
   
@@ -227,7 +227,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">剑指 Offer 04. 二维数组中的查找</h1>
+            <h1 style="display: none">剑指 Offer 06. 从尾到头打印链表</h1>
             
               <p class="note note-info">
                 
@@ -236,81 +236,99 @@
               </p>
             
             <div class="markdown-body" id="post-body">
-              <h2 id="剑指-Offer-04-二维数组中的查找"><a href="#剑指-Offer-04-二维数组中的查找" class="headerlink" title="剑指 Offer 04. 二维数组中的查找"></a>剑指 Offer 04. 二维数组中的查找</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">剑指 Offer 04. 二维数组中的查找</a></p>
+              <h2 id="剑指-Offer-06-从尾到头打印链表"><a href="#剑指-Offer-06-从尾到头打印链表" class="headerlink" title="剑指 Offer 06. 从尾到头打印链表"></a>剑指 Offer 06. 从尾到头打印链表</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">剑指 Offer 06. 从尾到头打印链表</a></p>
 <p><strong>难度:</strong><font color="green">简单</font></p>
 <p><strong>描述</strong></p>
-<p>在一个 n * m 的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
+<p>输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。</p>
 <p><strong>示例</strong></p>
-<p>现有矩阵 matrix 如下：</p>
-<pre><code class="hljs C++">[
-  [<span class="hljs-number">1</span>,   <span class="hljs-number">4</span>,  <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>],
-  [<span class="hljs-number">2</span>,   <span class="hljs-number">5</span>,  <span class="hljs-number">8</span>, <span class="hljs-number">12</span>, <span class="hljs-number">19</span>],
-  [<span class="hljs-number">3</span>,   <span class="hljs-number">6</span>,  <span class="hljs-number">9</span>, <span class="hljs-number">16</span>, <span class="hljs-number">22</span>],
-  [<span class="hljs-number">10</span>, <span class="hljs-number">13</span>, <span class="hljs-number">14</span>, <span class="hljs-number">17</span>, <span class="hljs-number">24</span>],
-  [<span class="hljs-number">18</span>, <span class="hljs-number">21</span>, <span class="hljs-number">23</span>, <span class="hljs-number">26</span>, <span class="hljs-number">30</span>]
-]
-
-给定 target = <span class="hljs-number">5</span>，返回 <span class="hljs-literal">true</span>。
-
-给定 target = <span class="hljs-number">20</span>，返回 <span class="hljs-literal">false</span>。
-
+<pre><code class="hljs c">输入：
+    head = [<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>]
+输出：
+    [<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">1</span>]
+限制:
+<span class="hljs-number">0</span> &lt;= 链表长度 &lt;= <span class="hljs-number">10000</span>
 函数签名:
-<span class="hljs-keyword">bool</span> findNumberIn2DArray(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; matrix, <span class="hljs-keyword">int</span> target)</code></pre>
+<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; reversePrint(ListNode* head);</code></pre>
 
 
 
-<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>第一种思路是类似暴力法，因为二维数组每一个维度都是从 <code>index = 0</code> 到 <code>index = size()-1</code> 升序，因此我们可以找到两个边界，缩小遍历的空间大小。</p>
-<p>我们只需要两次循环找到边界，再用找到的边界二层循环去寻找 <code>target</code>。</p>
-<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">findNumberIn2DArray</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; matrix, <span class="hljs-keyword">int</span> target)</span> </span>&#123;
-    <span class="hljs-keyword">if</span>(matrix.size() == <span class="hljs-number">0</span> || matrix[<span class="hljs-number">0</span>].size() == <span class="hljs-number">0</span>)  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; <span class="hljs-comment">//边界</span>
-
-    <span class="hljs-keyword">int</span> s_m,s_n; <span class="hljs-comment">//每一个维度的边界</span>
-    <span class="hljs-keyword">int</span> size_0 = matrix.size();
-    <span class="hljs-keyword">int</span> size_1 = matrix[<span class="hljs-number">0</span>].size();
-
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i =<span class="hljs-number">0</span>;i&lt;size_0;++i) <span class="hljs-comment">//找到纵向的边界</span>
-        <span class="hljs-keyword">if</span>(matrix[i][<span class="hljs-number">0</span>] &gt; target)&#123;
-            s_m = i;
-            <span class="hljs-keyword">break</span>;&#125;
-    
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; size_1; ++ j) <span class="hljs-comment">//找到横向的边界</span>
-        <span class="hljs-keyword">if</span>(matrix[<span class="hljs-number">0</span>][j] &gt; target)&#123;
-            s_n = j;
-            <span class="hljs-keyword">break</span>;&#125;
-
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;s_m;++i) <span class="hljs-comment">//缩小遍历空间大小</span>
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>;j&lt;s_n;++j)
-            <span class="hljs-keyword">if</span>(matrix[i][j] == target)
-                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>第一种思路栈。</p>
+<p>我们看到了 <em>反过来</em> 这几个字眼，心里应该要知道这个地方可以借助一个辅助栈来完成。栈这一种数据结构的特性是先进后出，那么原本是<code>1-2-3-4-5</code> 的序列，经过 <strong>入栈</strong> 和 <strong>出栈</strong> 的操作之后，就变成了 <code>5-4-3-2-1</code> 的序列。</p>
+<p>那么来看这一个题目，一个链表遍历的方法是迭代遍历而不是地址偏移的随机访问遍历，因此我们在遍历过程中把节点的值放入一个辅助栈中，当链表遍历完成后，再将辅助栈的数值给赋值到一个数组中返回。</p>
+<pre><code class="hljs c"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">reversePrint</span><span class="hljs-params">(ListNode* head)</span> </span>&#123;
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; res; <span class="hljs-comment">//结果</span>
+    <span class="hljs-built_in">stack</span>&lt;<span class="hljs-keyword">int</span>&gt; s; <span class="hljs-comment">//辅助栈</span>
+    <span class="hljs-keyword">if</span>(!head)   <span class="hljs-keyword">return</span> res;
+    ListNode* cur = head; <span class="hljs-comment">//尽量不破坏传入的指针</span>
+    <span class="hljs-keyword">while</span>(cur)&#123;
+        <span class="hljs-comment">//正序遍历链表,将值入栈</span>
+        s.push(cur-&gt;val); 
+        cur = cur-&gt;next;
+    &#125;
+    <span class="hljs-keyword">while</span>(!s.empty())&#123;
+        <span class="hljs-comment">//将值出栈</span>
+        res.push_back(s.top());
+        s.pop();
+    &#125;
+    <span class="hljs-keyword">return</span> res;
 &#125;</code></pre>
 
-<p>时间复杂度 : <code>O(N*M)</code> 空间复杂度 : <code>O(1)</code> 。但是，如果二维数组特别大，这么做应该还是能够有效减少遍历次数的。</p>
-<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>第二种思路是类似于二叉搜索树。</p>
-<p>我们只需要遍历一次数组，每一次先判定当前元素是否出现过(在集合中)，如果没有出现过加入到集合中，如果出现过就直接返回这个元素值即可。</p>
-<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">findNumberIn2DArray</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt;&amp; matrix, <span class="hljs-keyword">int</span> target)</span> </span>&#123;
-        <span class="hljs-keyword">if</span>(matrix.size() == <span class="hljs-number">0</span> || matrix[<span class="hljs-number">0</span>].size() == <span class="hljs-number">0</span>)  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-
-        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> j = matrix[<span class="hljs-number">0</span>].size() - <span class="hljs-number">1</span>;
-        <span class="hljs-keyword">while</span>( i &lt; matrix.size() &amp;&amp; j &gt;= <span class="hljs-number">0</span> )&#123;
-            <span class="hljs-comment">// 站在右上角,把数组看成二叉搜索树</span>
-            <span class="hljs-keyword">if</span>(matrix[i][j] == target)
-                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(matrix[i][j] &gt; target)
-                j--;<span class="hljs-comment">// 1</span>
-            <span class="hljs-keyword">else</span>
-                i++;
+<p>因为我们只需要遍历一次链表和访问<code>N</code>次栈，而空间需要一个返回的<code>vector&lt;int&gt;</code>的结果和一个辅助栈。</p>
+<p>因此，时间复杂度 : <code>O(N)</code> 空间复杂度 : <code>O(N)</code> 。</p>
+<h3 id="解法一·改进"><a href="#解法一·改进" class="headerlink" title="解法一·改进"></a>解法一·改进</h3><p>仍然是解法一的思路。</p>
+<p>我们可以不需要一个栈，而是反转数组。</p>
+<pre><code class="hljs c"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">reversePrint</span><span class="hljs-params">(ListNode* head)</span> </span>&#123;
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; res; <span class="hljs-comment">//结果</span>
+        <span class="hljs-keyword">if</span>(!head)   <span class="hljs-keyword">return</span> res;
+        ListNode* cur = head;
+        <span class="hljs-keyword">while</span>(cur)&#123;
+            <span class="hljs-comment">//正序遍历链表,直接加入到数组中</span>
+            res.push_back(cur-&gt;val);
+            cur = cur-&gt;next;
         &#125;
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    	<span class="hljs-comment">//用反向迭代器创建一个vector&lt;int&gt;对象</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(res.rbegin(),res.rend());
+&#125;</code></pre>
 
-    &#125;</code></pre>
+<pre><code class="hljs c"><span class="hljs-comment">//这里偷懒使用了反向迭代器</span>
+<span class="hljs-comment">//也可以使用双指针原地反转数组</span>
+<span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = res.size() - <span class="hljs-number">1</span>;
+<span class="hljs-keyword">while</span>(left &lt; right)&#123;
+    <span class="hljs-keyword">int</span> tmp = res[left];
+    res[left] = res[right];
+    res[right] = tmp;
+    left ++;
+    right --;
+&#125;</code></pre>
 
-<pre><code class="hljs C++"><span class="hljs-comment">// 1 : 这里不需要给i置零</span>
-<span class="hljs-comment">// 比如我们要找14,我们11的时候要i++,12的时候i++,16的时候j--,但是target已经大于12了，必不需要从7开始重新判断</span></code></pre>
+<p>时间复杂度 : <code>O(N)</code> 空间复杂度 : <code>O(N)</code> 。</p>
+<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>第二种思路是利用链表和数组的迭代次数与索引的关系。</p>
+<p>我们可以想到，链表的迭代次数和数组的索引值是有一定关系的：<code>迭代次数 + 索引值 = 链表长度 - 1</code></p>
+<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">reversePrint</span><span class="hljs-params">(ListNode* head)</span> </span>&#123;
+    <span class="hljs-keyword">if</span>(!head)   <span class="hljs-keyword">return</span> &#123;&#125;;
+    
+    <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
+    ListNode* cur = head;
+    <span class="hljs-keyword">while</span>(cur)&#123;
+       	<span class="hljs-comment">//遍历计数链表长度</span>
+        count ++;
+        cur = cur-&gt;next; 
+    &#125;        
+    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">res</span><span class="hljs-params">(count)</span></span>; <span class="hljs-comment">//创建链表长度的数组</span>
+    <span class="hljs-keyword">int</span> index = count - <span class="hljs-number">1</span>;
+    cur = head;
+    <span class="hljs-keyword">while</span>(cur)&#123;
+        <span class="hljs-comment">//利用关系</span>
+        res[index--] = cur-&gt;val;
+        cur = cur-&gt;next;
+    &#125;
+    <span class="hljs-keyword">return</span> res;
+&#125;</code></pre>
 
-<p>可以发现这一种解法一步到位，但是也类似于第一种方法，只是我们的起点设计的比较巧妙，能够通过索引 <code>i</code> <code>j</code> 的一定规律的移动就能找到 <code>target</code> 是否存在。</p>
-<p>时间复杂度 : <code>O(N+M)</code> , 空间复杂度 :  <code>O(1)</code>。 </p>
+<blockquote>
+<p>  这里第11行，<code>vector&lt;int&gt; res(count);</code> 是必须的。如果没有使用传入一个整型值来确定<code>res</code>的构造函数来构造对象的话，<code>res.size()</code> 和 <code>res.capacity()</code> 都会是0，因此无法使用例如<code>res[8]</code>这样的方式去存取数值。如果没有了解过这一方面的知识，可以看我之前的一篇文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32416781/article/details/109071413">浅析STL中vector容器的用法/特性/实现</a>。</p>
+</blockquote>
+<p>时间复杂度 : <code>O(N)</code> , 空间复杂度 :  <code>O(N)</code>。 </p>
 
             </div>
             <hr>
@@ -334,7 +352,7 @@
                     
                       <a class="hover-with-bg" href="/tags/%E7%AE%80%E5%8D%95/">简单</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
+                      <a class="hover-with-bg" href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>
                     
                   </div>
                 
@@ -347,18 +365,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/12/%E5%89%91%E6%8C%87%20Offer%2005.%20%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">剑指 Offer 05. 替换空格</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/10/11/%E5%89%91%E6%8C%87Offer%2003.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/">
-                        <span class="hidden-mobile">剑指Offer 03. 数组中重复的数字</span>
+                      <a href="/2020/10/12/%E5%89%91%E6%8C%87%20Offer%2005.%20%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/">
+                        <span class="hidden-mobile">剑指 Offer 05. 替换空格</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -534,7 +546,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "剑指 Offer 04. 二维数组中的查找&nbsp;",
+        "剑指 Offer 06. 从尾到头打印链表&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
