@@ -62,7 +62,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>知識倉儲 劳振煜</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>知識倉儲</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -134,6 +134,18 @@
             </li>
           
         
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
@@ -189,7 +201,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      7
        分钟
     </span>
   
@@ -229,14 +241,8 @@
             <!-- SEO header -->
             <h1 style="display: none">剑指 Offer 07. 重建二叉树</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：2020年10月17日 晚上
-                
-              </p>
-            
             <div class="markdown-body" id="post-body">
-              <h2 id="剑指-Offer-07-重建二叉树"><a href="#剑指-Offer-07-重建二叉树" class="headerlink" title="剑指 Offer 07. 重建二叉树"></a>剑指 Offer 07. 重建二叉树</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">剑指 Offer 07. 重建二叉树</a></p>
+              <h2 id="剑指-Offer-07-重建二叉树"><a href="#剑指-Offer-07-重建二叉树" class="headerlink" title="剑指 Offer 07. 重建二叉树"></a>剑指 Offer 07. 重建二叉树</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/" title="leetcode链接">剑指 Offer 07. 重建二叉树</a></p>
 <p><strong>难度:</strong><font color="orange">中等</font></p>
 <p><strong>描述</strong></p>
 <p>输入某二叉树的前序遍历和中序遍历的结果，请重建该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。</p>
@@ -307,9 +313,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Leetcode/">Leetcode</a>
-                    
                       <a class="hover-with-bg" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Leetcode/">Leetcode</a>
                     
                       <a class="hover-with-bg" href="/tags/%E4%B8%AD%E7%AD%89/">中等</a>
                     
@@ -323,6 +329,12 @@
                 <div class="post-prevnext row">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2020/10/18/test/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">test</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
@@ -344,6 +356,29 @@
               <article class="comments" id="comments">
                 
                 
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'https://github.com/OXygenPanda/OXygenPanda.github.io/2020/10/16/%E5%89%91%E6%8C%87Offer%2007/';
+        this.page.identifier = '/2020/10/16/%E5%89%91%E6%8C%87Offer%2007/';
+      };
+      function loadDisqus() {
+        (function () {
+          var d = document,
+            s = d.createElement('script');
+          s.src = '//' + '' + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      }
+      waitElementVisible('disqus_thread', loadDisqus);
+    </script>
+    <noscript>Please enable JavaScript to view the
+      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
+    </noscript>
+  </div>
+
 
               </article>
             
@@ -351,14 +386,6 @@
         </div>
       </div>
     </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
-</div>
-
-      </div>
     
   </div>
 </div>
@@ -472,31 +499,6 @@
 
 
 
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '#post-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
 
 
 
