@@ -201,7 +201,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17
+      18
        分钟
     </span>
   
@@ -376,6 +376,26 @@
 <p>以上是从 <code>xcode : clang</code> 中的 <code>vector</code> 和 <code>memory</code> 头文件中找到的源码，粘贴了部分我想展示的。</p>
 <p>并且绘制了继承关系图，如下：</p>
 <p><img src="http://img.social/2020/10/10/8bd62073e7081.png" srcset="/img/loading.gif" alt="继承图3"></p>
+<pre><code class="hljs mermaid">classDiagram
+	class _Tp
+	class __compressed_pair_elem
+	class __compressed_pair
+	class __vector_base_common&#123;
+		- pointer __begin__
+		- pointer __end__
+		- __compressed_pair&lt;pointer,allocator_type&gt; __end_cap_
+	&#125;
+	class __vector_base
+	class vector
+	__vector_base &lt;|-- vector : Inheritance
+	__vector_base_common &lt;|-- 	__vector_base : Inheritance
+	__vector_base_common *-- __compressed_pair : Composition
+	__compressed_pair_elem &lt;|-- __compressed_pair : Inheritance
+	_Tp &lt;|-- __compressed_pair_elem : Inheritance
+</code></pre>
+
+
+
 <p>可以看到，我们使用的是 <strong>vector</strong> 模板类，它的 <code>sizeof() = 24</code> ，也就是 <em>class __vector_base_common</em> 中定义的三根指针，在64位机中，指针为8字节。</p>
 
             </div>
@@ -445,8 +465,8 @@
     <div id="disqus_thread"></div>
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'https://github.com/OXygenPanda/OXygenPanda.github.io/2020/10/10/vector-1/';
-        this.page.identifier = '/2020/10/10/vector-1/';
+        this.page.url = 'https://github.com/OXygenPanda/OXygenPanda.github.io/2020/10/10/vector/';
+        this.page.identifier = '/2020/10/10/vector/';
       };
       function loadDisqus() {
         (function () {
