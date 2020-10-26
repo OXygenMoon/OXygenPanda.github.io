@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>TCP通信[未完成]</title>
+    <link href="/2020/10/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-TCP/"/>
+    <url>/2020/10/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-TCP/</url>
+    
+    <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>传输控制协议( TCP : Transmission Control Protocol )，是一种面向连接的，可靠的传输层控制协议。</p><h2 id="面向连接"><a href="#面向连接" class="headerlink" title="面向连接"></a>面向连接</h2><p>一般，客户端发送给服务端的一个数据包携带的数据最大为1460字节。是因为，以太网帧结构数据长度是1500字节，其中包含20字节的IP头部以及20字节的TCP头部，所以数据能够携带1460字节。</p><h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><p>三次握手，由内核完成。反应在程序中，是由客户端程序的 connect() 开始，由 服务端程序的 accept() 返回结束。</p><p>示例</p><pre><code class="hljs C++">客户端发送：SYN <span class="hljs-number">1000</span>(<span class="hljs-number">0</span>) win <span class="hljs-number">4096</span> &lt;mss <span class="hljs-number">1460</span>&gt;服务端发送：SYN <span class="hljs-number">8000</span>(<span class="hljs-number">0</span>) win <span class="hljs-number">6144</span> ACK <span class="hljs-number">1001</span> &lt;mss <span class="hljs-number">1024</span>&gt;  <span class="hljs-comment">//ACK 1001 是接收到的序号+数据字节(SYN标志位也得占1字节)</span>客户端发送：ACK <span class="hljs-number">8001</span>    win <span class="hljs-number">4096</span>    <span class="hljs-comment">/*</span><span class="hljs-comment">** (0)        : 表示携带数据为0字节</span><span class="hljs-comment">** win 4096   : 发送端滑动窗口缓存4096字节</span><span class="hljs-comment">** &lt;mss 1460&gt; : 表示携带数据最大字节数为1460字节</span><span class="hljs-comment">*/</span></code></pre><p>总结</p><pre><code class="hljs angelscript">主动发起连接请求端：发送SYN标志位，请求建立连接。携带数据包包号，数据字节数(<span class="hljs-number">0</span>)，滑动窗口大小被动接受连接请求端：发送ACK标志位，同时携带SYN请求标志位。携带序号，确认序号，数据字节数(<span class="hljs-number">0</span>)，滑动窗口大小主动发起连接请求段：发送ACK标志位，应答服务器连接请求。携带确认序号。</code></pre><p>要点</p><p>为什么不是二次握手？</p><ul><li>第一次客户端发送请求，服务端接收请求：服务端知道了客户端有发送的能力。</li><li>第二次服务端发送请求，客户端接收请求：客户端知道了服务端有收发的能力。</li><li>此时，服务端不知道客户端是不是有接收的能力。因此需要客户端再次告知服务端。</li></ul><p>第三次客户端发送ACK时，可以携带数据</p><ul><li>因为此时，客户端服务端都知道双方都有收发数据的能力，所以可以开始通信。</li></ul><h2 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h2><p>四次挥手，目的是断开客户端到服务端的全双工链路。断开一端称为半关闭，会关闭一端的套接字的一个缓存区。</p><p>示例</p><pre><code class="hljs C++">客户端发送：FIN <span class="hljs-number">501</span>(<span class="hljs-number">0</span>)  ACK <span class="hljs-number">701</span> 服务端发送：ACK <span class="hljs-number">502</span>             ---- 半关闭服务端发送：FIN <span class="hljs-number">701</span>(<span class="hljs-number">0</span>)  ACK <span class="hljs-number">502</span>客户端发送：ACK <span class="hljs-number">702</span>             ---- 完全断开</code></pre><p>总结</p><pre><code class="hljs C++">主动关闭连接请求端：发送FIN标志位。被动关闭连接请求端：应答ACK标志位。 ———— 半关闭完成被动关闭连接请求端：发送FIN标志位。主动关闭连接请求端：应答ACK标志位。 —————连接全部关闭</code></pre><h2 id="可靠的"><a href="#可靠的" class="headerlink" title="可靠的"></a>可靠的</h2><h3 id="慢启动"><a href="#慢启动" class="headerlink" title="慢启动"></a>慢启动</h3><h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><h3 id="快速重传"><a href="#快速重传" class="headerlink" title="快速重传"></a>快速重传</h3><h3 id="快速恢复"><a href="#快速恢复" class="headerlink" title="快速恢复"></a>快速恢复</h3>]]></content>
+    
+    
+    <categories>
+      
+      <category>网络通信</category>
+      
+      <category>传输层</category>
+      
+      <category>TCP</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>tcp</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 09. 用两个栈实现队列</title>
     <link href="/2020/10/19/%E5%89%91%E6%8C%87Offer%2009/"/>
     <url>/2020/10/19/%E5%89%91%E6%8C%87Offer%2009/</url>
@@ -47,8 +76,6 @@
       <category>数据结构</category>
       
       <category>栈</category>
-      
-      <category>二叉树</category>
       
     </categories>
     
@@ -150,9 +177,9 @@
       
       <tag>Leetcode</tag>
       
-      <tag>简单</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>简单</tag>
       
     </tags>
     
@@ -212,9 +239,9 @@
       
       <tag>Leetcode</tag>
       
-      <tag>哈希集合</tag>
-      
       <tag>简单</tag>
+      
+      <tag>哈希集合</tag>
       
     </tags>
     
