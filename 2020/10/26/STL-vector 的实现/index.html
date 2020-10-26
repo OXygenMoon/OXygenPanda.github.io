@@ -19,7 +19,7 @@
   <meta name="description" content="Warm welcome">
   <meta name="author" content="劳振煜">
   <meta name="keywords" content="">
-  <title>剑指 Offer 07. 重建二叉树 - 劳振煜的博客</title>
+  <title>类似于vector的数据结构实现 - 劳振煜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -179,8 +179,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-10-16 16:24" pubdate>
-        2020年10月16日 下午
+      <time datetime="2020-10-26 19:30" pubdate>
+        2020年10月26日 晚上
       </time>
     </span>
   
@@ -191,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      552 字
+      568 字
     </span>
   
 
@@ -201,7 +201,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      8
        分钟
     </span>
   
@@ -239,60 +239,133 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">剑指 Offer 07. 重建二叉树</h1>
+            <h1 style="display: none">类似于vector的数据结构实现</h1>
             
             <div class="markdown-body" id="post-body">
-              <h2 id="剑指-Offer-07-重建二叉树"><a href="#剑指-Offer-07-重建二叉树" class="headerlink" title="剑指 Offer 07. 重建二叉树"></a>剑指 Offer 07. 重建二叉树</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/" title="leetcode链接">剑指 Offer 07. 重建二叉树</a></p>
-<p><strong>难度:</strong><font color="orange">中等</font></p>
-<p><strong>描述</strong></p>
-<p>输入某二叉树的前序遍历和中序遍历的结果，请重建该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。</p>
-<p><strong>示例</strong></p>
-<pre><code class="hljs cpp">例如，给出
-前序遍历 preorder = [<span class="hljs-number">3</span>,<span class="hljs-number">9</span>,<span class="hljs-number">20</span>,<span class="hljs-number">15</span>,<span class="hljs-number">7</span>]
-中序遍历 inorder = [<span class="hljs-number">9</span>,<span class="hljs-number">3</span>,<span class="hljs-number">15</span>,<span class="hljs-number">20</span>,<span class="hljs-number">7</span>]
-    
-限制：
-<span class="hljs-number">0</span> &lt;= 节点个数 &lt;= <span class="hljs-number">5000</span></code></pre>
-<p>返回如下的二叉树：</p>
-<img src="https://i.loli.net/2020/10/17/izmOr39HkujLW86.png" srcset="/img/loading.gif">
-
-
-<pre><code class="hljs cpp">函数签名:
-<span class="hljs-function">TreeNode* <span class="hljs-title">buildTree</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; preorder, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; inorder)</span></span>;</code></pre>
-
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>事实上，我们通过遍历顺序还原二叉树，必须知道中序遍历以及前序后序中的一种，就可以还原出唯一的一棵二叉树。这一道题目是前序和中序还原二叉树，leetcode中也有中序和后序还原二叉树，解法其实是类似的。</p>
-<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/">106. 从中序与后序遍历序列构造二叉树</a></p>
-<p>还原思路主要是依据前序和中序顺序的特点。</p>
-<ul>
-<li>前序的第一个节点一定是树的根节点；</li>
-<li>中序中根节点的左侧为左子树节点，右侧为右子树节点；</li>
-<li>前序中除去根节点以外，左子树的节点集中在左边，右子树的节点集中在右边；</li>
-<li>对于每一颗子树来说，也满足以上两个特点。</li>
+              <h1 id="类似于vector的数据结构实现"><a href="#类似于vector的数据结构实现" class="headerlink" title="类似于vector的数据结构实现"></a>类似于vector的数据结构实现</h1><h2 id="预期实现的功能"><a href="#预期实现的功能" class="headerlink" title="预期实现的功能"></a>预期实现的功能</h2><ul>
+<li>可以对内置类型以及自定义数据类型进行存储</li>
+<li>将数组中的数据存储到堆区</li>
+<li>构造函数<ul>
+<li>空构造</li>
+<li>传入容量</li>
+<li>传入容量和初始化值</li>
 </ul>
-<img src="https://i.loli.net/2020/10/17/5ekJB1Vy2nLoGhP.jpg" srcset="/img/loading.gif">
+</li>
+<li>提供对应的拷贝构造函数和拷贝赋值函数防止浅拷贝</li>
+<li>提供尾插法核尾删法</li>
+<li>可以通过下标访问数组元素</li>
+<li>可以获取当前的容量和大小</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="hljs cpp"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> _Tp&gt;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyArray</span>&#123;</span>
+    
+    <span class="hljs-keyword">typedef</span> _Tp ValueType;
+    
+<span class="hljs-keyword">private</span>:
+    
+    <span class="hljs-keyword">int</span> _size; <span class="hljs-comment">//大小</span>
+    <span class="hljs-keyword">int</span> _capacity; <span class="hljs-comment">//容量</span>
+    ValueType *address; <span class="hljs-comment">//管理地址</span>
+    
+    <span class="hljs-comment">//实际上vector是管理的三个迭代器</span>
+<span class="hljs-keyword">public</span>:
 
-<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><pre><code class="hljs cpp"><span class="hljs-function">TreeNode* <span class="hljs-title">buildTree</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; preorder, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; inorder)</span> </span>&#123;
-    <span class="hljs-comment">//函数签名不支持我们方便的书写递归,因此再构建一个函数</span>
-    <span class="hljs-keyword">return</span> build(preorder,<span class="hljs-number">0</span>,preorder.size()<span class="hljs-number">-1</span>,inorder,<span class="hljs-number">0</span>,inorder.size()<span class="hljs-number">-1</span>);
-&#125;
+    <span class="hljs-comment">// 构造函数</span>
+    MyArray()&#123;
+        <span class="hljs-comment">//全部初始化为0</span>
+        _size  = <span class="hljs-number">0</span>;
+        _capacity = <span class="hljs-number">0</span>;
+        address = <span class="hljs-literal">nullptr</span>;
+    &#125;
+    MyArray(<span class="hljs-keyword">int</span> capacity)&#123;
+        <span class="hljs-comment">//容量设置好以及分配好对应的堆内存</span>
+        _size = <span class="hljs-number">0</span>;
+        _capacity = capacity;
+        address = <span class="hljs-keyword">new</span> ValueType[capacity];
+    &#125;
+    MyArray(<span class="hljs-keyword">int</span> capacity,ValueType val)&#123;
+        <span class="hljs-comment">//容量和大小都设置好,以及分配对应的堆内存并进行初始化</span>
+        _size = capacity;
+        _capacity = capacity;
+        address = <span class="hljs-keyword">new</span> ValueType[capacity];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; capacity; ++i) &#123;
+            *(address + i) = val;
+        &#125;
+    &#125;
+    <span class="hljs-comment">//拷贝构造</span>
+    MyArray(<span class="hljs-keyword">const</span> MyArray &amp;arr) &#123;
+        <span class="hljs-keyword">this</span>-&gt;_size = arr._size;
+        <span class="hljs-keyword">this</span>-&gt;_capacity = arr._capacity;
+        <span class="hljs-keyword">this</span>-&gt;address = <span class="hljs-keyword">new</span> ValueType[<span class="hljs-keyword">this</span>-&gt;_capacity]; <span class="hljs-comment">//深拷贝</span>
+    &#125;
+    <span class="hljs-comment">//拷贝赋值</span>
+    MyArray &amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> MyArray &amp; arr)&#123;
+        <span class="hljs-comment">//检查原本是否存在管理的内存</span>
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>-&gt;address != <span class="hljs-literal">nullptr</span>)&#123;
+            <span class="hljs-keyword">this</span>-&gt;_capacity = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">this</span>-&gt;_size = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">delete</span> [] <span class="hljs-keyword">this</span>-&gt;address;
+            <span class="hljs-keyword">this</span>-&gt;address = <span class="hljs-literal">nullptr</span>;
+        &#125;
+        <span class="hljs-keyword">this</span>-&gt;_size = arr._size;
+        <span class="hljs-keyword">this</span>-&gt;_capacity = arr._capacity;
+        <span class="hljs-keyword">this</span>-&gt;address = <span class="hljs-keyword">new</span> ValueType[<span class="hljs-keyword">this</span>-&gt;_capacity]; <span class="hljs-comment">//深拷贝</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>-&gt;_size; ++i) &#123;
+            <span class="hljs-keyword">this</span>-&gt;address[i] = arr.address[i];
+        &#125;
+    &#125;
+    <span class="hljs-comment">//析构函数</span>
+    ~MyArray() &#123;
+        <span class="hljs-keyword">if</span>(address != <span class="hljs-literal">nullptr</span>) &#123;
+            <span class="hljs-keyword">delete</span>[] address;
+            <span class="hljs-keyword">this</span>-&gt;address = <span class="hljs-literal">nullptr</span>;
+        &#125;
+    &#125;
 
-<span class="hljs-function">TreeNode* <span class="hljs-title">build</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; preorder, <span class="hljs-keyword">int</span> pbegin, <span class="hljs-keyword">int</span> pend, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; inorder, <span class="hljs-keyword">int</span> ibegin, <span class="hljs-keyword">int</span> iend)</span></span>&#123;
-    <span class="hljs-keyword">if</span>(pbegin &gt; pend) <span class="hljs-comment">//剪枝条件</span>
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
-    <span class="hljs-keyword">int</span> midnum = preorder[pbegin]; <span class="hljs-comment">//特点1:前序第一个节点是根节点</span>
-    <span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=ibegin;i&lt;=iend;++i)
-        <span class="hljs-keyword">if</span>(inorder[i] == midnum) <span class="hljs-comment">//利用特点2之前需要找到中序中的根节点</span>
-            index = i;
+    <span class="hljs-comment">//取值</span>
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">size</span><span class="hljs-params">()</span></span>&#123;
+        <span class="hljs-keyword">return</span> _size;
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">capacity</span><span class="hljs-params">()</span></span>&#123;
+        <span class="hljs-keyword">return</span> _capacity;
+    &#125;
 
-    <span class="hljs-keyword">int</span> leftsize = index - ibegin; <span class="hljs-comment">// 找到左子树的节点数</span>
-    TreeNode * node = <span class="hljs-keyword">new</span> TreeNode(midnum);
-    node-&gt;left = build(preorder,pbegin+<span class="hljs-number">1</span>,pbegin+leftsize,inorder,ibegin,index<span class="hljs-number">-1</span>); <span class="hljs-comment">//构建左子树</span>
-    node-&gt;right = build(preorder,pbegin+leftsize+<span class="hljs-number">1</span>,pend,inorder,index+<span class="hljs-number">1</span>,iend); <span class="hljs-comment">//构建右子树</span>
-    <span class="hljs-keyword">return</span> node;
-&#125;</code></pre>
+    <span class="hljs-comment">//[]重载</span>
+    ValueType &amp; <span class="hljs-keyword">operator</span>[](<span class="hljs-keyword">int</span> n)&#123; <span class="hljs-comment">//可以作为左值</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;address[n];
+    &#125;
 
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">adjust_capacity</span><span class="hljs-params">(<span class="hljs-keyword">const</span> ValueType &amp; obj)</span></span>&#123; <span class="hljs-comment">//内存扩容</span>
+        <span class="hljs-keyword">if</span>(_capacity == _size)&#123;
+            <span class="hljs-comment">//申请2倍内存释放原本内存进行拷贝</span>
+            <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;调整&quot;</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+            _capacity = _capacity == <span class="hljs-number">0</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span> * _capacity;
+            ValueType * new_address = <span class="hljs-keyword">new</span> ValueType[_capacity];
+            <span class="hljs-comment">// 放入当前尾部插入的元素 还没有考虑 vector.insert()</span>
+            new_address[_size] = obj;
+            _size ++;
+            <span class="hljs-keyword">delete</span> [] address;
+            address = new_address;
+        &#125;
+        <span class="hljs-keyword">return</span>;
+    &#125;
 
+    <span class="hljs-comment">//尾插尾删</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push_back</span><span class="hljs-params">(<span class="hljs-keyword">const</span> ValueType &amp; obj)</span></span>&#123;
+        <span class="hljs-keyword">if</span>(_capacity == _size)&#123;
+            adjust_capacity(obj);
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        <span class="hljs-keyword">this</span>-&gt;address[_size] = obj;
+        <span class="hljs-keyword">this</span>-&gt;_size++;
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pop_back</span><span class="hljs-params">()</span></span>&#123;
+        <span class="hljs-keyword">if</span>(_size == <span class="hljs-number">0</span>)&#123;
+            <span class="hljs-keyword">return</span>;
+        &#125;
+        <span class="hljs-keyword">this</span>-&gt;_size --;
+    &#125;
+&#125;;</code></pre>
 
 
             </div>
@@ -303,9 +376,11 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Leetcode/">Leetcode</a>
+                      <a class="hover-with-bg" href="/categories/C/">C++</a>
                     
-                      <a class="hover-with-bg" href="/categories/Leetcode/%E5%89%91%E6%8C%87-Offer-%E4%B8%93%E9%A2%98/">剑指 Offer 专题</a>
+                      <a class="hover-with-bg" href="/categories/C/STL/">STL</a>
+                    
+                      <a class="hover-with-bg" href="/categories/C/STL/%E5%AE%B9%E5%99%A8/">容器</a>
                     
                   </div>
                 
@@ -313,11 +388,11 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a>
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
                     
-                      <a class="hover-with-bg" href="/tags/Leetcode/">Leetcode</a>
+                      <a class="hover-with-bg" href="/tags/STL/">STL</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E4%B8%AD%E7%AD%89/">中等</a>
+                      <a class="hover-with-bg" href="/tags/vector/">vector</a>
                     
                   </div>
                 
@@ -330,18 +405,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/18/%E5%89%8D%E7%BC%80%E4%B8%AD%E7%BC%80%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2%E6%B1%82%E5%80%BC/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">前缀/中缀/后缀表达式的转换/计算/构建二叉树[未完成]</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/10/14/%E5%89%91%E6%8C%87Offer%2006/">
-                        <span class="hidden-mobile">剑指 Offer 06. 从尾到头打印链表</span>
+                      <a href="/2020/10/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-TCP/">
+                        <span class="hidden-mobile">TCP通信[未完成]</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -360,8 +429,8 @@
     <div id="disqus_thread"></div>
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'https://github.com/OXygenPanda/OXygenPanda.github.io/2020/10/16/%E5%89%91%E6%8C%87Offer%2007/';
-        this.page.identifier = '/2020/10/16/%E5%89%91%E6%8C%87Offer%2007/';
+        this.page.url = 'https://github.com/OXygenPanda/OXygenPanda.github.io/2020/10/26/STL-vector%20%E7%9A%84%E5%AE%9E%E7%8E%B0/';
+        this.page.identifier = '/2020/10/26/STL-vector%20%E7%9A%84%E5%AE%9E%E7%8E%B0/';
       };
       function loadDisqus() {
         (function () {
@@ -507,7 +576,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "剑指 Offer 07. 重建二叉树&nbsp;",
+        "类似于vector的数据结构实现&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
