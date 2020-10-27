@@ -4,6 +4,64 @@
   
   
   <entry>
+    <title>chapter 8 异常控制流</title>
+    <link href="/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <url>/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
+    
+    <content type="html"><![CDATA[<h1 id="异常控制流"><a href="#异常控制流" class="headerlink" title="异常控制流"></a>异常控制流</h1><p><strong>异常控制流(ECF : Exceptional Control Flow)</strong> ，是操作系统实现 I/O、进程、并发和虚拟内存的基本机制。</p><h1 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h1><h2 id="异常的知识"><a href="#异常的知识" class="headerlink" title="异常的知识"></a>异常的知识</h2><p><strong>异常</strong> 是异常控制流的一种形式，一部分由硬件实现，一部分由操作系统实现。</p><p>在处理器中，状态被编码为不同的位和信号，状态变化称为 <strong>事件(event)</strong> 。</p><p>在任何情况下，当处理器检测到事件的发生，它会通过一张叫做 <strong>异常表(exception table)</strong> 的跳转表，进行一个间接过程的调用(异常)，到一个专门设计用来处理这类事件的操作系统子程序(异常处理程序)。</p><p>发生异常后，会发生以下三种情况中的一种：</p><ol><li>处理程序将控制返回给当前指令 I_curr</li><li>处理程序将控制返回给下个指令 I_next</li><li>处理程序终止被中断的程序</li></ol><p>系统为每一种异常都分配了唯一的非负整数的异常号。</p><ol><li>一部分由处理器的设计者分配(x86-64 : 0-31)：被零除、缺页、内存访问违例、断点、算术运算溢出</li><li>一部分由操作系统内核的设计者分配(x86-64 : 32-255)：系统调用和来自外部的 IO 设备的信号</li></ol><h2 id="异常的分类"><a href="#异常的分类" class="headerlink" title="异常的分类"></a>异常的分类</h2><ul><li>中断<ul><li>收到中断信号→先执行完当前指令→执行中断处理程序→执行下一条指令</li></ul></li><li>陷阱<ul><li>系统调用，有一些指令只有内核模式才能调用。需要程序从用户模式陷入内核，才能进行调用。陷入内核的唯一方式：通过中断、故障或者陷入系统调用这样的异常</li></ul></li><li>故障<ul><li>经典示例：缺页异常。当指令引用了一个虚拟地址，与该地址相对应的物理页面不在内存中时，因此必须从磁盘中取出，所以发生了故障。因此，解决故障之后，返回到原来的指令重新执行。</li></ul></li><li>终止<ul><li>通常是硬件错误。</li></ul></li></ul><table><thead><tr><th>异常类型</th><th>原因</th><th>异步/同步</th><th>返回行为</th></tr></thead><tbody><tr><td>中断</td><td>来自IO设备的信号</td><td>异步</td><td>总是返回下一条指令</td></tr><tr><td>陷阱</td><td>有意的异常</td><td>同步</td><td>总是返回下一条指令</td></tr><tr><td>故障</td><td>潜在可恢复的错误</td><td>同步</td><td>总是返回当前指令</td></tr><tr><td>终止</td><td>不可恢复的错误</td><td>同步</td><td>不会返回</td></tr></tbody></table><h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><blockquote><p>  异常是允许操作系统内核提供进程概念的基本构造块。</p></blockquote><p><strong>进程</strong> 是一个执行中的程序的实例。系统中的每个程序都运行在某一个进程的上下文中。</p><p><strong>上下文</strong> 由程序正确运行所需的状态组成。包括：内存中的程序的代码和数据，它的栈、通用目的寄存器的内容、程序计数器、环境变量以及打开文件描述符的集合。</p><p>一个逻辑流的执行在时间上与另一个流重叠，称为并行流。多个流并发地执行，称为 <strong>并发</strong> 。</p><p>两个流并发地运行在 <strong>不同的处理器核或计算机上</strong> ，称为 <strong>并行</strong> 流。并行是并发的真子集。</p><p>一个进程和其他进程轮流运行，称为 <strong>多任务</strong> 。一个进程执行它的控制流的一部分的每一时间段叫做 <strong>时间片</strong> 。</p><p>在进程执行的某些时刻，内核可以决定抢占当前进程，并重新开始一个先前被抢占了的进程，称为 <strong>调度</strong> 。由内核的调度器的代码处理。</p><p><strong>上下文切换</strong></p><ol><li>保存当前进程的上下文；</li><li>恢复某个先前被抢占的进程被保存的上下文；</li><li>将控制权传递给这个新恢复的进程。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>读书笔记</category>
+      
+      <category>《深入理解计算机系统》</category>
+      
+      <category>第八章 异常控制流</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>操作系统</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>chapter 8 异常控制流</title>
+    <link href="/2020/10/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E5%85%AB%E7%AB%A0%20%E5%BC%82%E5%B8%B8%E6%8E%A7%E5%88%B6%E6%B5%81/"/>
+    <url>/2020/10/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E5%85%AB%E7%AB%A0%20%E5%BC%82%E5%B8%B8%E6%8E%A7%E5%88%B6%E6%B5%81/</url>
+    
+    <content type="html"><![CDATA[<h1 id="异常控制流"><a href="#异常控制流" class="headerlink" title="异常控制流"></a>异常控制流</h1><p><strong>异常控制流(ECF : Exceptional Control Flow)</strong> ，是操作系统实现 I/O、进程、并发和虚拟内存的基本机制。</p><h1 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h1><h2 id="异常的知识"><a href="#异常的知识" class="headerlink" title="异常的知识"></a>异常的知识</h2><p><strong>异常</strong> 是异常控制流的一种形式，一部分由硬件实现，一部分由操作系统实现。</p><p>在处理器中，状态被编码为不同的位和信号，状态变化称为 <strong>事件(event)</strong> 。</p><p>在任何情况下，当处理器检测到事件的发生，它会通过一张叫做 <strong>异常表(exception table)</strong> 的跳转表，进行一个间接过程的调用(异常)，到一个专门设计用来处理这类事件的操作系统子程序(异常处理程序)。</p><p>发生异常后，会发生以下三种情况中的一种：</p><ol><li>处理程序将控制返回给当前指令 I_curr</li><li>处理程序将控制返回给下个指令 I_next</li><li>处理程序终止被中断的程序</li></ol><p>系统为每一种异常都分配了唯一的非负整数的异常号。</p><ol><li>一部分由处理器的设计者分配(x86-64 : 0-31)：被零除、缺页、内存访问违例、断点、算术运算溢出</li><li>一部分由操作系统内核的设计者分配(x86-64 : 32-255)：系统调用和来自外部的 IO 设备的信号</li></ol><h2 id="异常的分类"><a href="#异常的分类" class="headerlink" title="异常的分类"></a>异常的分类</h2><ul><li>中断<ul><li>收到中断信号→先执行完当前指令→执行中断处理程序→执行下一条指令</li></ul></li><li>陷阱<ul><li>系统调用，有一些指令只有内核模式才能调用。需要程序从用户模式陷入内核，才能进行调用。陷入内核的唯一方式：通过中断、故障或者陷入系统调用这样的异常</li></ul></li><li>故障<ul><li>经典示例：缺页异常。当指令引用了一个虚拟地址，与该地址相对应的物理页面不在内存中时，因此必须从磁盘中取出，所以发生了故障。因此，解决故障之后，返回到原来的指令重新执行。</li></ul></li><li>终止<ul><li>通常是硬件错误。</li></ul></li></ul><table><thead><tr><th>异常类型</th><th>原因</th><th>异步/同步</th><th>返回行为</th></tr></thead><tbody><tr><td>中断</td><td>来自IO设备的信号</td><td>异步</td><td>总是返回下一条指令</td></tr><tr><td>陷阱</td><td>有意的异常</td><td>同步</td><td>总是返回下一条指令</td></tr><tr><td>故障</td><td>潜在可恢复的错误</td><td>同步</td><td>总是返回当前指令</td></tr><tr><td>终止</td><td>不可恢复的错误</td><td>同步</td><td>不会返回</td></tr></tbody></table><h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><blockquote><p>  异常是允许操作系统内核提供进程概念的基本构造块。</p></blockquote><p><strong>进程</strong> 是一个执行中的程序的实例。系统中的每个程序都运行在某一个进程的上下文中。</p><p><strong>上下文</strong> 由程序正确运行所需的状态组成。包括：内存中的程序的代码和数据，它的栈、通用目的寄存器的内容、程序计数器、环境变量以及打开文件描述符的集合。</p><p>一个逻辑流的执行在时间上与另一个流重叠，称为并行流。多个流并发地执行，称为 <strong>并发</strong> 。</p><p>两个流并发地运行在 <strong>不同的处理器核或计算机上</strong> ，称为 <strong>并行</strong> 流。并行是并发的真子集。</p><p>一个进程和其他进程轮流运行，称为 <strong>多任务</strong> 。一个进程执行它的控制流的一部分的每一时间段叫做 <strong>时间片</strong> 。</p><p>在进程执行的某些时刻，内核可以决定抢占当前进程，并重新开始一个先前被抢占了的进程，称为 <strong>调度</strong> 。由内核的调度器的代码处理。</p><p><strong>上下文切换</strong></p><ol><li>保存当前进程的上下文；</li><li>恢复某个先前被抢占的进程被保存的上下文；</li><li>将控制权传递给这个新恢复的进程。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>读书笔记</category>
+      
+      <category>《深入理解计算机系统》</category>
+      
+      <category>第八章 异常控制流</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>操作系统</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>类似于vector的数据结构实现</title>
     <link href="/2020/10/26/STL-vector%20%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
     <url>/2020/10/26/STL-vector%20%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
@@ -146,9 +204,9 @@
     
     <tags>
       
-      <tag>二叉树</tag>
-      
       <tag>Leetcode</tag>
+      
+      <tag>二叉树</tag>
       
       <tag>中等</tag>
       
@@ -210,9 +268,9 @@
       
       <tag>Leetcode</tag>
       
-      <tag>简单</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>简单</tag>
       
     </tags>
     
@@ -272,9 +330,9 @@
       
       <tag>Leetcode</tag>
       
-      <tag>哈希集合</tag>
-      
       <tag>简单</tag>
+      
+      <tag>哈希集合</tag>
       
     </tags>
     
