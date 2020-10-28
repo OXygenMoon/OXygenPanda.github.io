@@ -19,7 +19,7 @@
   <meta name="description" content="Warm welcome">
   <meta name="author" content="劳振煜">
   <meta name="keywords" content="">
-  <title>模板模式 - 劳振煜的博客</title>
+  <title>策略模式 - 劳振煜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -179,8 +179,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-10-27 22:30" pubdate>
-        2020年10月27日 晚上
+      <time datetime="2020-10-28 14:38" pubdate>
+        2020年10月28日 下午
       </time>
     </span>
   
@@ -191,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      447 字
+      496 字
     </span>
   
 
@@ -201,7 +201,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      6
        分钟
     </span>
   
@@ -239,81 +239,102 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">模板模式</h1>
+            <h1 style="display: none">策略模式</h1>
             
             <div class="markdown-body" id="post-body">
-              <h1 id="组件协作模式"><a href="#组件协作模式" class="headerlink" title="组件协作模式"></a>组件协作模式</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>现代软件专业分工之后的第一个结果是“框架与应用程序的划分”，“组件协作”模式通过晚期绑定，来实现框架与应用程序之间的松耦合，是二者之间协作时常用的模式。</p>
-<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>在软件构建过程中，对于某一项任务，它常常有稳定的整体操作结构，但是各个子步骤却又很多改变的需求，或者由于固有的原因（比如框架与应用之间的关系）而无法和任务的整体结构同时实现。</p>
-<p>如何在确定稳定操作结构的前提下，来灵活应对各个子步骤的变化或者晚期实现需求？</p>
-<h1 id="模板模式-Template-Method"><a href="#模板模式-Template-Method" class="headerlink" title="模板模式 Template Method"></a>模板模式 Template Method</h1><h2 id="不好的设计"><a href="#不好的设计" class="headerlink" title="不好的设计"></a>不好的设计</h2><pre><code class="hljs cpp"><span class="hljs-comment">//程序库开发</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Library</span>&#123;</span>
+              <h1 id="模板模式-Strategy"><a href="#模板模式-Strategy" class="headerlink" title="模板模式 Strategy"></a>模板模式 Strategy</h1><blockquote>
+<p>  在许多 <code>if-else</code> 写完以后，如果以后还需要在源码上进行扩写条件分支，那么最好可以使用策略模式，以实现运行时多态。</p>
+</blockquote>
+<pre><code class="hljs mermaid">classDiagram
+    Context o--|&gt; Strategy
+    Strategy &lt;|-- ConcreteStrategyA
+    Strategy &lt;|-- ConcreteStrategyB
+    Strategy &lt;|-- ConcreteStrategyC
+    class Context&#123;
+        ContextInterface()
+    &#125;
 
+    class Strategy&#123;
+        AlgorithmInterface()
+    &#125;
+
+    class ConcreteStrategyA&#123;
+        AlgorithmInterface()
+    &#125;
+
+    class ConcreteStrategyB&#123;
+        AlgorithmInterface()
+    &#125;
+
+    
+    class ConcreteStrategyC&#123;
+        AlgorithmInterface()
+    &#125;</code></pre>
+
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>定义一系列算法，把他们一个个封装起来，并且使他们可互相替换（变化）。该模式使得算法可以独立于使用他们的客户程序（稳定）而变化（扩展，子类化）。</p>
+<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>在软件构建过程中，某些对象使用的算法可能多种多样，经常改变，如果将这些算法都编码到对象中，将会使对象变得异常复杂；而且有时候支持不使用的算法也是一个性能负担。</p>
+<p>如何在运行时根据需要透明地更改对象的算法？将算法与对象本身解耦，从而避免上述问题？</p>
+<h2 id="不好的设计"><a href="#不好的设计" class="headerlink" title="不好的设计"></a>不好的设计</h2><p>一旦增加业务，会修改源代码，违反了开闭原则（扩展开放，修改关闭）</p>
+<pre><code class="hljs cpp"><span class="hljs-keyword">enum</span> TaxBase&#123;
+		CN_Tax,
+		US_Tax,
+		DE_Tax,
+		FR_Tax <span class="hljs-comment">//新增</span>
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SalesOrder</span>&#123;</span>
+		TaxBase tax;
 <span class="hljs-keyword">public</span>:
-		<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">step1</span><span class="hljs-params">()</span></span>&#123;...&#125;
-		<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">step3</span><span class="hljs-params">()</span></span>&#123;...&#125;
-		<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">step5</span><span class="hljs-params">()</span></span>&#123;...&#125;
-&#125;;
+		<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">CalculateTax</span><span class="hljs-params">()</span></span>&#123;
+				<span class="hljs-keyword">if</span>( tax == CN_Tax )&#123;...&#125;
+				<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( tax == US_Tax ) &#123;...&#125;
+				<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( tax == DE_Tax ) &#123;...&#125;
+				<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( tax == FR_Tax ) &#123;...&#125; <span class="hljs-comment">//新增</span>
+&#125;;</code></pre>
 
-<span class="hljs-comment">//应用开发</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Application</span>&#123;</span>
+<h2 id="模板模式"><a href="#模板模式" class="headerlink" title="模板模式"></a>模板模式</h2><p>只需要新增一个子类来继承基类，实现多态调用</p>
+<pre><code class="hljs cpp"><span class="hljs-comment">//class TaxStrategy&#123;</span>
 <span class="hljs-keyword">public</span>:
-		<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">step2</span><span class="hljs-params">()</span></span>&#123;...&#125;
-		<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">step5</span><span class="hljs-params">()</span></span>&#123;...&#125;
+		<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">double</span> <span class="hljs-title">Calculate</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Context&amp; context)</span> </span>= <span class="hljs-number">0</span>;
+		<span class="hljs-keyword">virtual</span> ~TaxStrategy()&#123;&#125;
 &#125;;
 
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;
-		Library lib;
-		Application app;
-		
-		<span class="hljs-comment">//逻辑部分</span>
-		lib.step1();
-		<span class="hljs-keyword">if</span>(app.step2())&#123;
-				lib.step3();
-		&#125;
-		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">4</span>;++i)&#123;
-				app.step4();
-		&#125;
-		lib.step5();
-		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
-
-<p>如此编码的话，做应用开发的程序员压力会很大，还需要完成逻辑部分。</p>
-<h2 id="模板模式"><a href="#模板模式" class="headerlink" title="模板模式"></a>模板模式</h2><pre><code class="hljs cpp"><span class="hljs-comment">//程序库开发</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Library</span>&#123;</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CNTax</span> :</span> <span class="hljs-keyword">public</span> Taxstrategy &#123;
 <span class="hljs-keyword">public</span>:
-		<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>&#123; <span class="hljs-comment">//稳定</span>
-				step1();
-				<span class="hljs-keyword">if</span>(step2())&#123;
-						step3();
-				&#125;
-				<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">4</span>;++i)&#123;
-						step4();
-				&#125;
-				step5();
+		<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">double</span> <span class="hljs-title">Calculate</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Context&amp; context)</span> </span>&#123;&#125;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">USTax</span> :</span> <span class="hljs-keyword">public</span> Taxstrategy &#123;
+<span class="hljs-keyword">public</span>:
+		<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">double</span> <span class="hljs-title">Calculate</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Context&amp; context)</span> </span>&#123;&#125;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DETax</span> :</span> <span class="hljs-keyword">public</span> Taxstrategy &#123;
+<span class="hljs-keyword">public</span>:
+		<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">double</span> <span class="hljs-title">Calculate</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Context&amp; context)</span> </span>&#123;&#125;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FRTax</span> :</span> <span class="hljs-keyword">public</span> Taxstrategy &#123; <span class="hljs-comment">//新增</span>
+<span class="hljs-keyword">public</span>:
+		<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">double</span> <span class="hljs-title">Calculate</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Context&amp; context)</span> </span>&#123;&#125;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SalesOrder</span>&#123;</span>
+<span class="hljs-keyword">private</span>:
+		TaxStrategy * strategy;
+<span class="hljs-keyword">public</span>:
+		SalesOrder(StrategyFactory* strategyfactory)&#123;
+				<span class="hljs-keyword">this</span>-&gt;strategy = strategyfactory-&gt;NewStrategy();  <span class="hljs-comment">//工厂模式</span>
 		&#125;
-		<span class="hljs-keyword">virtual</span> ~Library()&#123;&#125;
-<span class="hljs-keyword">protected</span>:
-		<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">step1</span><span class="hljs-params">()</span></span>&#123;...&#125; <span class="hljs-comment">//稳定</span>
-		<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">step3</span><span class="hljs-params">()</span></span>&#123;...&#125; <span class="hljs-comment">//稳定</span>
-		<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">step5</span><span class="hljs-params">()</span></span>&#123;...&#125; <span class="hljs-comment">//稳定</span>
-		<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">step2</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>; <span class="hljs-comment">//变化</span>
-		<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">step4</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>; <span class="hljs-comment">//变化</span>
+		~SalesOrder()&#123;
+				<span class="hljs-keyword">delete</span> <span class="hljs-keyword">this</span>-&gt;strategy;
+		&#125;
+		<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">CalculateTex</span><span class="hljs-params">()</span></span>&#123;
+				<span class="hljs-function">Context <span class="hljs-title">context</span><span class="hljs-params">()</span></span>;
+				<span class="hljs-keyword">double</span> val = strategy-&gt;Calculate(context); <span class="hljs-comment">//多态调用</span>
 &#125;;
+</code></pre>
 
-<span class="hljs-comment">//应用开发</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Application</span> :</span> <span class="hljs-keyword">public</span> Library&#123;
-<span class="hljs-keyword">protected</span>:
-		<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">step2</span><span class="hljs-params">()</span></span>&#123;&#125; <span class="hljs-comment">//重写</span>
-		<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">step4</span><span class="hljs-params">()</span></span>&#123;&#125; <span class="hljs-comment">//重写		</span>
-&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;
-		Library * plib = <span class="hljs-keyword">new</span> Application();
-		plib-&gt;run();
-		<span class="hljs-keyword">delete</span> plib;
-&#125;</code></pre>
-
-<p>如此编码，通过继承实现运行时多态，把逻辑部分封装在父类中。</p>
 
             </div>
             <hr>
@@ -348,12 +369,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2020/10/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4.%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E6%A8%A1%E5%BC%8F_%E8%A3%85%E9%A5%B0%E5%99%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">装饰器模式</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/0.%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-                        <span class="hidden-mobile">设计模式初探</span>
+                      <a href="/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/">
+                        <span class="hidden-mobile">模板模式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -372,8 +399,8 @@
     <div id="disqus_thread"></div>
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'https://github.com/OXygenPanda/OXygenPanda.github.io/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F/';
-        this.page.identifier = '/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F/';
+        this.page.url = 'https://github.com/OXygenPanda/OXygenPanda.github.io/2020/10/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/';
+        this.page.identifier = '/2020/10/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/';
       };
       function loadDisqus() {
         (function () {
@@ -519,7 +546,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "模板模式&nbsp;",
+        "策略模式&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
@@ -589,6 +616,13 @@
 
 
 
+
+  <script  src="https://cdn.staticfile.org/mermaid/8.5.0/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
 
 
 

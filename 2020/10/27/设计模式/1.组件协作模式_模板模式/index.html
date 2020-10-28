@@ -19,7 +19,7 @@
   <meta name="description" content="Warm welcome">
   <meta name="author" content="劳振煜">
   <meta name="keywords" content="">
-  <title>单调栈 - 劳振煜的博客</title>
+  <title>模板模式 - 劳振煜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -179,8 +179,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-10-06 14:33" pubdate>
-        2020年10月6日 下午
+      <time datetime="2020-10-27 22:30" pubdate>
+        2020年10月27日 晚上
       </time>
     </span>
   
@@ -191,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      324 字
+      447 字
     </span>
   
 
@@ -201,7 +201,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      5
        分钟
     </span>
   
@@ -239,35 +239,81 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">单调栈</h1>
+            <h1 style="display: none">模板模式</h1>
             
             <div class="markdown-body" id="post-body">
-              <a id="more"></a>
+              <h1 id="组件协作模式"><a href="#组件协作模式" class="headerlink" title="组件协作模式"></a>组件协作模式</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>现代软件专业分工之后的第一个结果是“框架与应用程序的划分”，“组件协作”模式通过晚期绑定，来实现框架与应用程序之间的松耦合，是二者之间协作时常用的模式。</p>
+<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>在软件构建过程中，对于某一项任务，它常常有稳定的整体操作结构，但是各个子步骤却又很多改变的需求，或者由于固有的原因（比如框架与应用之间的关系）而无法和任务的整体结构同时实现。</p>
+<p>如何在确定稳定操作结构的前提下，来灵活应对各个子步骤的变化或者晚期实现需求？</p>
+<h1 id="模板模式-Template-Method"><a href="#模板模式-Template-Method" class="headerlink" title="模板模式 Template Method"></a>模板模式 Template Method</h1><h2 id="不好的设计"><a href="#不好的设计" class="headerlink" title="不好的设计"></a>不好的设计</h2><pre><code class="hljs cpp"><span class="hljs-comment">//程序库开发</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Library</span>&#123;</span>
 
-<h1 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>单调栈是一种特殊的数据结构。专门用于解决一类问题叫做 Next Greater Number的问题。</p>
-<p>性质：单调栈本身还是栈，只是每一次入栈，都会使得栈的排列有序。(其实也就是不满足有序的元素都不要)</p>
-<p>通过适配 stack 而来。</p>
-<h1 id="Next-Greater-Number"><a href="#Next-Greater-Number" class="headerlink" title="Next Greater Number"></a>Next Greater Number</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>找到数组中每一个数之后最近的一个比该数大的数字(两种情况，返回索引或返回数值)</p>
-<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">next_greater_elem</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp; nums)</span></span>&#123;
-    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">res</span><span class="hljs-params">(nums.size())</span></span>; <span class="hljs-comment">//为了倒序访问,提前确定大小方便索引</span>
-    <span class="hljs-built_in">stack</span>&lt;<span class="hljs-built_in">pair</span>&lt;<span class="hljs-keyword">int</span>,<span class="hljs-keyword">int</span>&gt;&gt; s; <span class="hljs-comment">//单调栈 : pair&lt;数字,索引&gt;</span>
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=nums.size()<span class="hljs-number">-1</span>;i&gt;=<span class="hljs-number">0</span>;i--)&#123;
-        <span class="hljs-keyword">while</span>(!s.empty() &amp;&amp; s.top().first &lt;= nums[i]) <span class="hljs-comment">//如果栈顶端的数无法满足有序性,就全弹出</span>
-            s.pop();
-        res[i] = (s.empty() == <span class="hljs-literal">true</span> ) ? <span class="hljs-number">0</span> : s.top().second-i; <span class="hljs-comment">//这里返回的是距离,也可返回索引或数值</span>
-        s.push(<span class="hljs-built_in">pair</span>&lt;<span class="hljs-keyword">int</span>,<span class="hljs-keyword">int</span>&gt;(nums[i],i)); <span class="hljs-comment">//插入pair&lt;数字,索引&gt;</span>
-    &#125;
-    <span class="hljs-keyword">return</span> res;
+<span class="hljs-keyword">public</span>:
+		<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">step1</span><span class="hljs-params">()</span></span>&#123;...&#125;
+		<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">step3</span><span class="hljs-params">()</span></span>&#123;...&#125;
+		<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">step5</span><span class="hljs-params">()</span></span>&#123;...&#125;
+&#125;;
+
+<span class="hljs-comment">//应用开发</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Application</span>&#123;</span>
+<span class="hljs-keyword">public</span>:
+		<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">step2</span><span class="hljs-params">()</span></span>&#123;...&#125;
+		<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">step5</span><span class="hljs-params">()</span></span>&#123;...&#125;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;
+		Library lib;
+		Application app;
+		
+		<span class="hljs-comment">//逻辑部分</span>
+		lib.step1();
+		<span class="hljs-keyword">if</span>(app.step2())&#123;
+				lib.step3();
+		&#125;
+		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">4</span>;++i)&#123;
+				app.step4();
+		&#125;
+		lib.step5();
+		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre>
 
-<p>时间复杂度：O(N) </p>
-<p>空间复杂度：O(N)</p>
-<h2 id="Leetcode-相关题目"><a href="#Leetcode-相关题目" class="headerlink" title="Leetcode 相关题目"></a>Leetcode 相关题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/next-greater-element-i/">496. 下一个更大元素I</a></p>
-<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/next-greater-element-ii/">503.下一个更大元素II</a></p>
-<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-days-in-a-month">1118.一月有多少天</a></p>
-<blockquote>
-<p>  学习自labuladong</p>
-</blockquote>
+<p>如此编码的话，做应用开发的程序员压力会很大，还需要完成逻辑部分。</p>
+<h2 id="模板模式"><a href="#模板模式" class="headerlink" title="模板模式"></a>模板模式</h2><pre><code class="hljs cpp"><span class="hljs-comment">//程序库开发</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Library</span>&#123;</span>
+<span class="hljs-keyword">public</span>:
+		<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>&#123; <span class="hljs-comment">//稳定</span>
+				step1();
+				<span class="hljs-keyword">if</span>(step2())&#123;
+						step3();
+				&#125;
+				<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">4</span>;++i)&#123;
+						step4();
+				&#125;
+				step5();
+		&#125;
+		<span class="hljs-keyword">virtual</span> ~Library()&#123;&#125;
+<span class="hljs-keyword">protected</span>:
+		<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">step1</span><span class="hljs-params">()</span></span>&#123;...&#125; <span class="hljs-comment">//稳定</span>
+		<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">step3</span><span class="hljs-params">()</span></span>&#123;...&#125; <span class="hljs-comment">//稳定</span>
+		<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">step5</span><span class="hljs-params">()</span></span>&#123;...&#125; <span class="hljs-comment">//稳定</span>
+		<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">step2</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>; <span class="hljs-comment">//变化</span>
+		<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">step4</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>; <span class="hljs-comment">//变化</span>
+&#125;;
+
+<span class="hljs-comment">//应用开发</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Application</span> :</span> <span class="hljs-keyword">public</span> Library&#123;
+<span class="hljs-keyword">protected</span>:
+		<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">step2</span><span class="hljs-params">()</span></span>&#123;&#125; <span class="hljs-comment">//重写</span>
+		<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">step4</span><span class="hljs-params">()</span></span>&#123;&#125; <span class="hljs-comment">//重写		</span>
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;
+		Library * plib = <span class="hljs-keyword">new</span> Application();
+		plib-&gt;run();
+		<span class="hljs-keyword">delete</span> plib;
+&#125;</code></pre>
+
+<p>如此编码，通过继承实现运行时多态，把逻辑部分封装在父类中。</p>
 
             </div>
             <hr>
@@ -277,9 +323,11 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88/">栈</a>
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E3%80%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B/">《设计模式》</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E3%80%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B/%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F/">组件协作模式</a>
                     
                   </div>
                 
@@ -287,11 +335,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/">单调栈</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E6%A0%88/">栈</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                      <a class="hover-with-bg" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
                     
                   </div>
                 
@@ -304,9 +348,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/07/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">
+                      <a href="/2020/10/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">单调队列</span>
+                        <span class="hidden-mobile">策略模式</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -314,8 +358,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/09/25/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/">
-                        <span class="hidden-mobile">二叉树的遍历</span>
+                      <a href="/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/0.%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                        <span class="hidden-mobile">设计模式初探</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -334,8 +378,8 @@
     <div id="disqus_thread"></div>
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'https://github.com/OXygenPanda/OXygenPanda.github.io/2020/10/06/%E5%8D%95%E8%B0%83%E6%A0%88/';
-        this.page.identifier = '/2020/10/06/%E5%8D%95%E8%B0%83%E6%A0%88/';
+        this.page.url = 'https://github.com/OXygenPanda/OXygenPanda.github.io/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/';
+        this.page.identifier = '/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/';
       };
       function loadDisqus() {
         (function () {
@@ -481,7 +525,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "单调栈&nbsp;",
+        "模板模式&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
