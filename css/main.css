@@ -227,8 +227,8 @@ sup > a::before,
 }
 html,
 body {
-  font-size: 15px;
-  font-family: Apple LiGothic Medium,Microsoft JhengHei,Microsoft YaHei;
+  font-size: 16px;
+  font-family: Apple LiGothic Medium, Microsoft JhengHei;
 }
 html,
 body,
@@ -831,7 +831,7 @@ img[srcset] {
 .markdown-body {
   font-size: 1rem;
   margin-bottom: 2rem;
-  font-family: Apple LiGothic Medium,Microsoft JhengHei,Microsoft YaHei;
+  font-family: Apple LiGothic Medium, Microsoft JhengHei;
   color: var(--post-text-color);
 }
 .markdown-body h1,
@@ -868,7 +868,7 @@ img[srcset] {
   overflow: visible;
 }
 .markdown-body pre code {
-  font-size: 90%;
+  font-size: 100%;
   display: block;
   overflow-x: auto;
   padding: 0.5rem 0;
