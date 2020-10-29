@@ -260,9 +260,9 @@
       
       <tag>二叉树</tag>
       
-      <tag>栈</tag>
-      
       <tag>数据结构</tag>
+      
+      <tag>栈</tag>
       
     </tags>
     
@@ -353,9 +353,9 @@
       
       <tag>Leetcode</tag>
       
-      <tag>字符串</tag>
-      
       <tag>简单</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -415,9 +415,9 @@
       
       <tag>Leetcode</tag>
       
-      <tag>简单</tag>
-      
       <tag>哈希集合</tag>
+      
+      <tag>简单</tag>
       
     </tags>
     
@@ -597,11 +597,11 @@
     
     <tags>
       
-      <tag>单调栈</tag>
+      <tag>数据结构</tag>
       
       <tag>栈</tag>
       
-      <tag>数据结构</tag>
+      <tag>单调栈</tag>
       
     </tags>
     
