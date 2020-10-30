@@ -191,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      956 字
+      1.2k 字
     </span>
   
 
@@ -201,7 +201,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      13
        分钟
     </span>
   
@@ -324,6 +324,52 @@
 <li>恢复某个先前被抢占的进程被保存的上下文；</li>
 <li>将控制权传递给这个新恢复的进程。</li>
 </ol>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h4 id="fork"><a href="#fork" class="headerlink" title="fork()"></a>fork()</h4><h4 id="waitpid"><a href="#waitpid" class="headerlink" title="waitpid()"></a>waitpid()</h4><h4 id="execve"><a href="#execve" class="headerlink" title="execve()"></a>execve()</h4><p><code>execve()</code> 函数的目的是在一个程序中打开另一个程序，如果成功就不再返回，如果失败返回 -1。</p>
+<p>以下为一个示例：</p>
+<pre><code class="hljs cpp"><span class="hljs-comment">//file : main.cpp</span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;
+<span class="hljs-keyword">char</span> filename[] = <span class="hljs-string">&quot;test&quot;</span>;
+		<span class="hljs-keyword">char</span> *argv[] = &#123;<span class="hljs-string">&quot;./&quot;</span>,<span class="hljs-literal">NULL</span>&#125;;
+		<span class="hljs-keyword">if</span>(execve(filename, argv,<span class="hljs-literal">NULL</span>) == <span class="hljs-number">-1</span>)&#123;
+			<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;execve error&quot;</span> &lt;&lt;<span class="hljs-built_in">endl</span>;
+			<span class="hljs-built_in">exit</span>(EXIT_FAILURE);
+		&#125;
+		<span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;shouldn&#x27;t get here&quot;</span>);
+		<span class="hljs-built_in">exit</span>(EXIT_SUCCESS);
+		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;
+
+<span class="hljs-comment">//file : test.cpp</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;调用成功&quot;</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre>
+
+<pre><code class="hljs shell"><span class="hljs-meta">&gt;</span><span class="bash"> g++ -o test.cpp <span class="hljs-built_in">test</span></span>
+<span class="hljs-meta">&gt;</span><span class="bash"> g++ -o amin.cpp main</span>
+<span class="hljs-meta">&gt;</span><span class="bash"> ./main</span>
+<span class="hljs-meta">&gt;</span><span class="bash"> 调用成功</span></code></pre>
+
+<h1 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h1><h2 id="函数-1"><a href="#函数-1" class="headerlink" title="函数"></a>函数</h2><h3 id="signal"><a href="#signal" class="headerlink" title="signal()"></a>signal()</h3><p><code>singal()</code> 函数可以修改进程接收信号的行为，但是无法修改接收到 <code>SIGSTOP</code> 和 <code>SIGKILL</code> 的行为。</p>
+<p>以下是具体用法：</p>
+<pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;signal&gt;</span></span>
+<span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-title">void</span> <span class="hljs-params">(*<span class="hljs-keyword">sighandler_t</span>)</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">sighandler_t</span> <span class="hljs-title">signal</span><span class="hljs-params">(<span class="hljs-keyword">int</span> signum, <span class="hljs-keyword">sighandler_t</span> handler)</span></span>;
+
+<span class="hljs-comment">/*</span>
+<span class="hljs-comment">** 如果 handler 是 SIG_IGN, 忽略 signum 信号</span>
+<span class="hljs-comment">** 如果 handler 是 SIG_DFL, 恢复 signum 信号为默认行为</span>
+<span class="hljs-comment">** 否则,handler 指向用户自定程序:</span>
+<span class="hljs-comment">			 改变了默认行为     设置信号处理程序</span>
+<span class="hljs-comment">			 调用信号处理程序   捕获信号</span>
+<span class="hljs-comment">			 执行信号处理程序   处理信号</span>
+<span class="hljs-comment">*/</span></code></pre>
+
 
             </div>
             <hr>
