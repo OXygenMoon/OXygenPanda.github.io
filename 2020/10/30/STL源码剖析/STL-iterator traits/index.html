@@ -19,7 +19,7 @@
   <meta name="description" content="Warm welcome">
   <meta name="author" content="劳振煜">
   <meta name="keywords" content="">
-  <title>iterator 与 iterator_traits 理解 - 劳振煜的博客</title>
+  <title>理解 iterator_traits - 劳振煜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -239,7 +239,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">iterator 与 iterator_traits 理解</h1>
+            <h1 style="display: none">理解 iterator_traits</h1>
             
             <div class="markdown-body" id="post-body">
               <h1 id="iterator"><a href="#iterator" class="headerlink" title="iterator"></a>iterator</h1><p>iterator 意为迭代器，是常见的23种设计模式中的一种。</p>
@@ -268,7 +268,7 @@
 <li>Random Access Iterator (重载 <code>++</code> <code>--</code> <code>+n</code> <code>-n</code> <code>[]</code> <code>-</code> <code>&lt;</code>)</li>
 </ul>
 <p>其中有继承关系 :</p>
-<img src="https://i.loli.net/2020/10/30/F2qlJSXGfv1TcDa.jpg" srcset="/OXygenPanda.github.io/img/loading.gif">
+<img src="https://i.loli.net/2020/10/30/F2qlJSXGfv1TcDa.jpg" srcset="/OXygenPanda.github.io/img/loading.gif" style="zoom: 50%;">
 
 <h2 id="iterator-traits-的代码"><a href="#iterator-traits-的代码" class="headerlink" title="iterator_traits 的代码"></a><code>iterator_traits</code> 的代码</h2><p>迭代器的萃取器要为所有迭代器都能够萃取出想要的属性，但是也得为指针和常量指针萃取出想要的属性。因为指针也是一种迭代器，并且是支持随机访问的迭代器(指针可以靠地址偏移随机访问)。</p>
 <pre><code class="hljs cpp"><span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Iterator</span>&gt;</span>
@@ -472,13 +472,13 @@
 <img src="https://i.loli.net/2020/10/30/q24HRBm3hluLdEI.png" srcset="/OXygenPanda.github.io/img/loading.gif" alt="*image-20201030155707503*" style="zoom:50%;">
 
 <p>代码调用流程如下：</p>
-<img src="https://i.loli.net/2020/10/30/ZPzWl69i84UTYOV.jpg" srcset="/OXygenPanda.github.io/img/loading.gif">
+<img src="https://i.loli.net/2020/10/30/ZPzWl69i84UTYOV.jpg" srcset="/OXygenPanda.github.io/img/loading.gif" style="zoom: 25%;">
 
 
 
 
 
-<h2 id="融入STL的迭代器设计"><a href="#融入STL的迭代器设计" class="headerlink" title="融入STL的迭代器设计"></a>融入STL的迭代器设计</h2><p>如果想要设计一个迭代器融入到STL中，一定要指明五种类型。方便萃取器能够获得它们。STL提供了一个 iterator 的 class ，当自己设计时只需要继承该类即可：</p>
+<h2 id="融入-STL"><a href="#融入-STL" class="headerlink" title="融入 STL"></a>融入 STL</h2><p>如果想要设计一个迭代器融入到STL中，一定要指明五种类型。方便萃取器能够获得它们。STL提供了一个 iterator 的 class ，当自己设计时只需要继承该类即可：</p>
 <pre><code class="hljs cpp"><span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Category</span>,</span>
 <span class="hljs-class">				 <span class="hljs-title">class</span> <span class="hljs-title">T</span>,</span>
 <span class="hljs-class">				 <span class="hljs-title">class</span> <span class="hljs-title">Distance</span> = <span class="hljs-title">ptrdiff_t</span>,</span>
@@ -542,6 +542,12 @@
                 <div class="post-prevnext row">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/OXygenPanda.github.io/2020/10/31/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-type%20traits/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">理解 type_traits</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
@@ -714,7 +720,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "iterator 与 iterator_traits 理解&nbsp;",
+        "理解 iterator_traits&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
