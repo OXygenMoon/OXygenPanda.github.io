@@ -19,7 +19,7 @@
   <meta name="description" content="Warm welcome">
   <meta name="author" content="劳振煜">
   <meta name="keywords" content="">
-  <title>单调队列 - 劳振煜的博客</title>
+  <title>C++ 2.0 新增语法关键词用法检索(C++11/13/17/20) - 劳振煜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -179,8 +179,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-10-07 14:33" pubdate>
-        2020年10月7日 下午
+      <time datetime="2020-11-03 23:27" pubdate>
+        2020年11月3日 晚上
       </time>
     </span>
   
@@ -191,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      427 字
+      355 字
     </span>
   
 
@@ -201,7 +201,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      4
        分钟
     </span>
   
@@ -239,68 +239,40 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">单调队列</h1>
+            <h1 style="display: none">C++ 2.0 新增语法关键词用法检索(C++11/13/17/20)</h1>
             
             <div class="markdown-body" id="post-body">
-              <a id="more"></a>
-
-<h1 id="单调队列"><a href="#单调队列" class="headerlink" title="单调队列"></a>单调队列</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>单调队列是一种特殊的数据结构。用来保持一个有序的队列。(无序的数据出队列)</p>
-<p>通过适配 deque 而来。</p>
-<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><pre><code class="hljs c++"><span class="hljs-keyword">template</span>&lt; <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Type</span> &gt;</span>
-<span class="hljs-class"><span class="hljs-title">class</span> <span class="hljs-title">monotonous_queue</span>&#123;</span>
-<span class="hljs-keyword">private</span>:
-    <span class="hljs-built_in">deque</span>&lt;Type&gt; data; <span class="hljs-comment">//或者使用queue</span>
-<span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(Type)</span></span>; <span class="hljs-comment">//尾部插入到单调队列中</span>
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pop</span><span class="hljs-params">(Type)</span></span>; <span class="hljs-comment">//从头部离开单调队列</span>
-    <span class="hljs-function">Type <span class="hljs-title">max</span><span class="hljs-params">()</span></span>; <span class="hljs-comment">//返回单调队列中的最大元素</span>
-&#125;;</code></pre>
-
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><pre><code class="hljs C++"><span class="hljs-keyword">template</span> &lt; <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Type</span> &gt;</span>
-<span class="hljs-class"><span class="hljs-title">void</span> <span class="hljs-title">monotonous_queue</span>&lt;Type&gt;:</span>:push(Type n)&#123;
-    <span class="hljs-keyword">while</span>(!data.empty() &amp;&amp; n &gt; data.back()) <span class="hljs-comment">//保持单调队列特性，尾部比输入小的数值全部舍弃</span>
-        data.pop_back();
-    data.push_back(n);
-    <span class="hljs-keyword">return</span>;
-&#125;
-
-<span class="hljs-keyword">template</span> &lt; <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Type</span> &gt;</span>
-<span class="hljs-class"><span class="hljs-title">void</span> <span class="hljs-title">monotonous_queue</span>&lt;Type&gt;:</span>:pop(Type n)&#123; 
-    <span class="hljs-keyword">if</span>(!data.empty() &amp;&amp; data.front() == n) <span class="hljs-comment">//有可能在pop之前，就因为push()中的步骤pop掉</span>
-        data.pop_front();
-    <span class="hljs-keyword">return</span>;
-&#125;
-
-<span class="hljs-keyword">template</span> &lt; <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Type</span> &gt;</span>
-<span class="hljs-class"><span class="hljs-title">Type</span> <span class="hljs-title">monotonous_queue</span>&lt;Type&gt;:</span>:max()&#123;
-    <span class="hljs-keyword">return</span> data.front();
-&#125;</code></pre>
-
-<p>实际上单调队列这一种数据结构使用的是队列中的<code>pop_back()</code>  <code>push_back()</code> <code>pop_front()</code> <code>back()</code> <code>front()</code> 方法，queue容器中不提供 <code>pop_back()</code> 方法，因此不可以通过适配 queue 而来。</p>
-<h2 id="Leetcode-239-滑动窗口最大值"><a href="#Leetcode-239-滑动窗口最大值" class="headerlink" title="Leetcode 239 滑动窗口最大值"></a>Leetcode 239 滑动窗口最大值</h2><p>难度:hard</p>
-<p>链接:<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sliding-window-maximum/">https://leetcode-cn.com/problems/sliding-window-maximum/</a></p>
-<p>源码:</p>
-<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">maxSlidingWindow</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;
-    monotonous_queue&lt;<span class="hljs-keyword">int</span>&gt; mq;
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; res;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.size();++i)&#123;
-        <span class="hljs-keyword">if</span>(i&lt;k<span class="hljs-number">-1</span>) <span class="hljs-comment">//当前滑动窗口中的元素小于k个时,直接入队</span>
-            mq.push(nums[i]);
-        <span class="hljs-keyword">else</span>&#123; <span class="hljs-comment">//入队后,输出窗口中的最大值给res,再弹出最前端为 nums[i-k+1] 的值,没有就不弹出</span>
-            mq.push(nums[i]);
-            res.push_back(mq.max());
-            mq.pop(nums[i-k+<span class="hljs-number">1</span>]);
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> res;
-&#125;</code></pre>
-
-<p>时间复杂度：O(N) </p>
-<p>空间复杂度：O(k)</p>
-<blockquote>
-<p>  学习自labuladong</p>
+              <h1 id="C-2-0"><a href="#C-2-0" class="headerlink" title="C++ 2.0"></a>C++ 2.0</h1><blockquote>
+<p>  还记得自己在本科阶段学习的C++98的语法，那个时候觉得很有趣了。但是慢慢地接触到了C++11之后的新增语法，打开了新世界的大门，许多实现有了更有禅意/哲学的方法。</p>
 </blockquote>
-
+<p>本文参考了侯捷老师 C++2.0 的课程以及CSDN上众多的博客，总结了C++11以来，新增的一些语法，比如：variadic templates、alias templates、uniform initialization等，新增的一些关键词，比如：explicit、override、final、decltype等。我认为，C++11以来新增的语法是C++发展中的新鲜血液，在STL的源码学习过程中，也看到了许多C++11以来的新语法，新关键词。所以说，学习C++11是十分有必要且有趣的。</p>
+<h2 id="C-版本发展"><a href="#C-版本发展" class="headerlink" title="C++版本发展"></a>C++版本发展</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>版本</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>C++ 98</td>
+<td>1.0</td>
+<td></td>
+</tr>
+<tr>
+<td>C++ 03</td>
+<td>TR1</td>
+<td>technicasl report 1</td>
+</tr>
+<tr>
+<td>C++ 11…</td>
+<td>2.0</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="新语法"><a href="#新语法" class="headerlink" title="新语法"></a>新语法</h1><p>新语法包括但不限于以下介绍的：variadic templates(可变参数模板)、move(搬移)、range-base for loop(简写循环)、initializer list(新容器)、lambda(表达式)、type_traits(类型萃取器)、unordered_set/map(hashtable)、forward_list(单向链表)、tuple(元组)、con-currency、RegEx…</p>
+<h3 id="variadic-templates"><a href="#variadic-templates" class="headerlink" title="variadic templates"></a>variadic templates</h3><h3 id="nullptr"><a href="#nullptr" class="headerlink" title="nullptr"></a>nullptr</h3><h3 id="default-delete"><a href="#default-delete" class="headerlink" title="=default / =delete"></a>=default / =delete</h3><h3 id="move"><a href="#move" class="headerlink" title="move"></a>move</h3><h3 id="完美转发"><a href="#完美转发" class="headerlink" title="完美转发"></a>完美转发</h3><h3 id="Alias-Template"><a href="#Alias-Template" class="headerlink" title="Alias Template"></a>Alias Template</h3><h3 id="Type-Alias"><a href="#Type-Alias" class="headerlink" title="Type Alias"></a>Type Alias</h3><h3 id="range-based-for-statement"><a href="#range-based-for-statement" class="headerlink" title="range-based for statement"></a>range-based for statement</h3><h3 id="thread-线程库"><a href="#thread-线程库" class="headerlink" title="thread 线程库"></a>thread 线程库</h3><h3 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h3><h3 id="pragma-once"><a href="#pragma-once" class="headerlink" title="pragma once"></a>pragma once</h3><h3 id="extern-“C”"><a href="#extern-“C”" class="headerlink" title="extern “C”"></a>extern “C”</h3><h3 id="类初始化列表"><a href="#类初始化列表" class="headerlink" title="类初始化列表"></a>类初始化列表</h3><h3 id="常量表达式"><a href="#常量表达式" class="headerlink" title="常量表达式"></a>常量表达式</h3><h3 id="enum-class"><a href="#enum-class" class="headerlink" title="enum class"></a>enum class</h3><h3 id="tuple"><a href="#tuple" class="headerlink" title="tuple"></a>tuple</h3><h3 id="uniform-initialization"><a href="#uniform-initialization" class="headerlink" title="uniform initialization"></a>uniform initialization</h3><h3 id="initializer-lists"><a href="#initializer-lists" class="headerlink" title="initializer_lists"></a>initializer_lists</h3><h3 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h3><h2 id="新关键词"><a href="#新关键词" class="headerlink" title="新关键词"></a>新关键词</h2><p>新关键词包括但不限于以下介绍的：using、auto、explicit、noexcept、override、final、decltype…</p>
+<h3 id="using"><a href="#using" class="headerlink" title="using"></a>using</h3><h3 id="auto"><a href="#auto" class="headerlink" title="auto"></a>auto</h3><h3 id="explicit"><a href="#explicit" class="headerlink" title="explicit"></a>explicit</h3><h3 id="noexcept"><a href="#noexcept" class="headerlink" title="noexcept"></a>noexcept</h3><h3 id="override"><a href="#override" class="headerlink" title="override"></a>override</h3><h3 id="final"><a href="#final" class="headerlink" title="final"></a>final</h3><h3 id="decltype"><a href="#decltype" class="headerlink" title="decltype"></a>decltype</h3>
             </div>
             <hr>
             <div>
@@ -309,9 +281,9 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                      <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/C/">C++</a>
                     
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%98%9F%E5%88%97/">队列</a>
+                      <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/C/C-2-0/">C++ 2.0</a>
                     
                   </div>
                 
@@ -319,11 +291,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/%E9%98%9F%E5%88%97/">队列</a>
+                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/C/">C++</a>
                     
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">单调队列</a>
+                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/C-2-0/">C++ 2.0</a>
                     
                   </div>
                 
@@ -336,9 +306,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/OXygenPanda.github.io/2020/10/07/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E7%AC%AC%E4%B8%80%E7%AF%87%20%E8%AE%A4%E8%AF%86STL/">
+                      <a href="/OXygenPanda.github.io/2020/11/03/C++11/%E6%96%B0%E5%85%B3%E9%94%AE%E8%AF%8D/using/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">初识STL</span>
+                        <span class="hidden-mobile">新关键词 using (Alias Template & Type Alias)</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -346,8 +316,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/OXygenPanda.github.io/2020/10/06/leetcode/%E5%8D%95%E8%B0%83%E6%A0%88/">
-                        <span class="hidden-mobile">单调栈</span>
+                      <a href="/OXygenPanda.github.io/2020/10/31/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-type%20traits/">
+                        <span class="hidden-mobile">理解 type_traits</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -366,8 +336,8 @@
     <div id="disqus_thread"></div>
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/07/leetcode/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/';
-        this.page.identifier = '/OXygenPanda.github.io/2020/10/07/leetcode/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/';
+        this.page.url = 'https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/03/C++11/C++11/';
+        this.page.identifier = '/OXygenPanda.github.io/2020/11/03/C++11/C++11/';
       };
       function loadDisqus() {
         (function () {
@@ -513,7 +483,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "单调队列&nbsp;",
+        "C++ 2.0 新增语法关键词用法检索(C++11/13/17/20)&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
