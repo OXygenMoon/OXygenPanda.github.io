@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>新语法 lambda</title>
+    <link href="/OXygenPanda.github.io/2020/11/05/C++11/%E6%96%B0%E8%AF%AD%E6%B3%95/lambda/"/>
+    <url>/OXygenPanda.github.io/2020/11/05/C++11/%E6%96%B0%E8%AF%AD%E6%B3%95/lambda/</url>
+    
+    <content type="html"><![CDATA[<h1 id="新语法-lambda"><a href="#新语法-lambda" class="headerlink" title="新语法 lambda"></a>新语法 lambda</h1><blockquote><p>  lambda 是希腊符号之一，第一次是在python中听到这个词，后在java中也接触到。现在来讲讲C++11/13中的lambda语法。</p></blockquote><p>lambda 在C++中是一种匿名函数。我们通常来说，使用一个函数是为了提高代码的可复用性以及可读性，我们会在主函数外或者源文件外定义函数，最终通过链接生成可执行文件。那么对于一些我们只需要用到个别次数的代码，我们不需要为它命名并且写成函数的形式，我们只需要写一个 lambda 表达式即可。</p><p>lambda 属于函数式编程范式的范畴。</p><h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><pre><code class="hljs cpp">[capture <span class="hljs-built_in">list</span>](parameters) <span class="hljs-keyword">mutable</span> -&gt; <span class="hljs-keyword">return</span> type &#123; statement &#125;</code></pre><p><strong>[capture list] :</strong> 捕获列表</p><p>​    [var]    : 值传递的方式捕获 <code>var</code></p><p>​    [=]       : 值传递的方式捕获所有变量 </p><p>​    [&amp;var] : 引用传递的方式捕获<code>var</code></p><p>​    [&amp;]       : 引用传递的方式捕获所有变量</p><p>​    [this]    : 值传递的方式捕获<code>this</code></p><p><strong>(parameters)</strong> : 参数传递列表，可以省略</p><p><strong>mutable</strong> : 修饰符，取现 lambda 的常量性，但是必须携带参数传递列表，可以省略 (mutable 允许可以变化, 不加的话, 语句块中无法修改变量)</p><p>​    [id] () mutable {} : 允许修改 id</p><p>​    [&amp;id] () {} : 允许修改 id</p><p>​    [id] () {} : 不允许修改 id</p><p><strong>-&gt;return type</strong> : 返回值类型，不需要返回或者返回值类型明确时可以省略</p><p><strong>{ statement }</strong> : lambda 语句块</p><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><pre><code class="hljs cpp"><span class="hljs-comment">//示例1</span><span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>, b =<span class="hljs-number">2</span>, c = <span class="hljs-number">3</span>;<span class="hljs-keyword">auto</span> func = [=,&amp;b](<span class="hljs-keyword">int</span> d) -&gt; <span class="hljs-keyword">decltype</span>(a+b+c+d)&#123;    <span class="hljs-keyword">return</span> a+b+c+d;&#125;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; func(<span class="hljs-number">4</span>) &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;<span class="hljs-comment">/* 说明</span><span class="hljs-comment">** 以引用方式捕获变量 b, 使得 b 可以在语句块中被修改, 以值方式捕获变量 a,c 不可以在语句块中修改</span><span class="hljs-comment">** 参数列表需要传入一个int类型变量</span><span class="hljs-comment">** decltype() 做类型推导</span><span class="hljs-comment">** func 是 lambda 表达式的名称 可以以 6: 方式调用</span><span class="hljs-comment">** auto lambda 表达式的返回类型相当复杂,使用auto自动推导较为合适</span><span class="hljs-comment">*/</span></code></pre><pre><code class="hljs cpp"><span class="hljs-comment">//示例2</span>[]&#123;    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;success&quot;</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;&#125;(); <span class="hljs-comment">//创建了一个lambda的临时对象</span><span class="hljs-keyword">auto</span> L = []&#123;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;success&quot;</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;&#125;;L(); <span class="hljs-comment">//lambda 表达式调用形式</span></code></pre><pre><code class="hljs cpp"><span class="hljs-comment">//示例3</span><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; vec&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">8</span>,<span class="hljs-number">5</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>&#125;;sort(vec.begin(),vec.end(),[](<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)-&gt;<span class="hljs-keyword">bool</span>&#123;    <span class="hljs-keyword">return</span> a&gt;b;&#125;); <span class="hljs-comment">//第三个参数需要一个bool的函数对象,可以是自定义函数也可以是仿函数也可以是lambda表达式</span><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> &amp;elem : vec) &#123;    <span class="hljs-built_in">cout</span> &lt;&lt; elem &lt;&lt; <span class="hljs-built_in">endl</span>;&#125; <span class="hljs-comment">//倒序输出vec的值</span></code></pre><pre><code class="hljs cpp"><span class="hljs-comment">//注意事项</span><span class="hljs-keyword">int</span> id = <span class="hljs-number">0</span>;<span class="hljs-keyword">auto</span> f = [id]()&#123;&#125;; <span class="hljs-comment">//此处捕获到的是0,即使后续变化也不会受影响</span><span class="hljs-keyword">auto</span> g = [&amp;id]()&#123;&#125;;<span class="hljs-comment">//此处捕获到的是0,但是后续id的变化会引起此处的变化</span>id = <span class="hljs-number">42</span>;</code></pre><pre><code class="hljs cpp"><span class="hljs-comment">//lambda表达式需要编译器进行&quot;翻译&quot;</span><span class="hljs-comment">//类似翻译情况如下</span><span class="hljs-keyword">auto</span> f = [id]() <span class="hljs-keyword">mutable</span> &#123; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;id:&quot;</span> &lt;&lt; id &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>; ++id; &#125;;-&gt;    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Functor</span>&#123;</span><span class="hljs-keyword">private</span>:    <span class="hljs-keyword">int</span> id;<span class="hljs-keyword">public</span>:    Functor(<span class="hljs-keyword">int</span> id):id(id)&#123;&#125;    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span></span>&#123;        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;id:&quot;</span> &lt;&lt; id &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;        ++id;    &#125;&#125;Functor f;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>C++</category>
+      
+      <category>C++ 2.0</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+      <tag>C++ 2.0</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>新关键词 using (Alias Template &amp; Type Alias)</title>
     <link href="/OXygenPanda.github.io/2020/11/03/C++11/%E6%96%B0%E5%85%B3%E9%94%AE%E8%AF%8D/using/"/>
     <url>/OXygenPanda.github.io/2020/11/03/C++11/%E6%96%B0%E5%85%B3%E9%94%AE%E8%AF%8D/using/</url>
@@ -690,9 +719,9 @@
     
     <tags>
       
-      <tag>队列</tag>
-      
       <tag>数据结构</tag>
+      
+      <tag>队列</tag>
       
       <tag>单调队列</tag>
       
@@ -721,9 +750,9 @@
     
     <tags>
       
-      <tag>栈</tag>
-      
       <tag>单调栈</tag>
+      
+      <tag>栈</tag>
       
       <tag>数据结构</tag>
       
