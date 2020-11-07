@@ -392,7 +392,7 @@ __type_traits&lt;shape&gt;&#123;
                     
                       <a href="/OXygenPanda.github.io/2020/11/03/C++11/C++11/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">C++ 2.0 新增语法关键词用法检索(C++11/13/17/20)</span>
+                        <span class="hidden-mobile">C++11新语法新特性使用剖析</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -446,6 +446,14 @@ __type_traits&lt;shape&gt;&#123;
         </div>
       </div>
     </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
     
   </div>
 </div>
@@ -559,6 +567,31 @@ __type_traits&lt;shape&gt;&#123;
 
 
 
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 2,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
 
 
 

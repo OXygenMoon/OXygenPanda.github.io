@@ -19,7 +19,7 @@
   <meta name="description" content="Warm welcome">
   <meta name="author" content="劳振煜">
   <meta name="keywords" content="">
-  <title>C++ 2.0 新增语法关键词用法检索(C++11/13/17/20) - 劳振煜的博客</title>
+  <title>C++11新语法新特性使用剖析 - 劳振煜的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -191,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      355 字
+      1.8k 字
     </span>
   
 
@@ -201,7 +201,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      23
        分钟
     </span>
   
@@ -239,10 +239,10 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">C++ 2.0 新增语法关键词用法检索(C++11/13/17/20)</h1>
+            <h1 style="display: none">C++11新语法新特性使用剖析</h1>
             
             <div class="markdown-body" id="post-body">
-              <h1 id="C-2-0"><a href="#C-2-0" class="headerlink" title="C++ 2.0"></a>C++ 2.0</h1><blockquote>
+              <h1 id="C-11"><a href="#C-11" class="headerlink" title="C++ 11"></a>C++ 11</h1><blockquote>
 <p>  还记得自己在本科阶段学习的C++98的语法，那个时候觉得很有趣了。但是慢慢地接触到了C++11之后的新增语法，打开了新世界的大门，许多实现有了更有禅意/哲学的方法。</p>
 </blockquote>
 <p>本文参考了侯捷老师 C++2.0 的课程以及CSDN上众多的博客，总结了C++11以来，新增的一些语法，比如：variadic templates、alias templates、uniform initialization等，新增的一些关键词，比如：explicit、override、final、decltype等。我认为，C++11以来新增的语法是C++发展中的新鲜血液，在STL的源码学习过程中，也看到了许多C++11以来的新语法，新关键词。所以说，学习C++11是十分有必要且有趣的。</p>
@@ -271,8 +271,166 @@
 </tr>
 </tbody></table>
 <h1 id="新语法"><a href="#新语法" class="headerlink" title="新语法"></a>新语法</h1><p>新语法包括但不限于以下介绍的：variadic templates(可变参数模板)、move(搬移)、range-base for loop(简写循环)、initializer list(新容器)、lambda(表达式)、type_traits(类型萃取器)、unordered_set/map(hashtable)、forward_list(单向链表)、tuple(元组)、con-currency、RegEx…</p>
-<h3 id="variadic-templates"><a href="#variadic-templates" class="headerlink" title="variadic templates"></a>variadic templates</h3><h3 id="nullptr"><a href="#nullptr" class="headerlink" title="nullptr"></a>nullptr</h3><h3 id="default-delete"><a href="#default-delete" class="headerlink" title="=default / =delete"></a>=default / =delete</h3><h3 id="move"><a href="#move" class="headerlink" title="move"></a>move</h3><h3 id="完美转发"><a href="#完美转发" class="headerlink" title="完美转发"></a>完美转发</h3><h3 id="Alias-Template"><a href="#Alias-Template" class="headerlink" title="Alias Template"></a>Alias Template</h3><h3 id="Type-Alias"><a href="#Type-Alias" class="headerlink" title="Type Alias"></a>Type Alias</h3><h3 id="range-based-for-statement"><a href="#range-based-for-statement" class="headerlink" title="range-based for statement"></a>range-based for statement</h3><h3 id="thread-线程库"><a href="#thread-线程库" class="headerlink" title="thread 线程库"></a>thread 线程库</h3><h3 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h3><h3 id="pragma-once"><a href="#pragma-once" class="headerlink" title="pragma once"></a>pragma once</h3><h3 id="extern-“C”"><a href="#extern-“C”" class="headerlink" title="extern “C”"></a>extern “C”</h3><h3 id="类初始化列表"><a href="#类初始化列表" class="headerlink" title="类初始化列表"></a>类初始化列表</h3><h3 id="常量表达式"><a href="#常量表达式" class="headerlink" title="常量表达式"></a>常量表达式</h3><h3 id="enum-class"><a href="#enum-class" class="headerlink" title="enum class"></a>enum class</h3><h3 id="tuple"><a href="#tuple" class="headerlink" title="tuple"></a>tuple</h3><h3 id="uniform-initialization"><a href="#uniform-initialization" class="headerlink" title="uniform initialization"></a>uniform initialization</h3><h3 id="initializer-lists"><a href="#initializer-lists" class="headerlink" title="initializer_lists"></a>initializer_lists</h3><h3 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h3><h2 id="新关键词"><a href="#新关键词" class="headerlink" title="新关键词"></a>新关键词</h2><p>新关键词包括但不限于以下介绍的：using、auto、explicit、noexcept、override、final、decltype…</p>
-<h3 id="using"><a href="#using" class="headerlink" title="using"></a>using</h3><h3 id="auto"><a href="#auto" class="headerlink" title="auto"></a>auto</h3><h3 id="explicit"><a href="#explicit" class="headerlink" title="explicit"></a>explicit</h3><h3 id="noexcept"><a href="#noexcept" class="headerlink" title="noexcept"></a>noexcept</h3><h3 id="override"><a href="#override" class="headerlink" title="override"></a>override</h3><h3 id="final"><a href="#final" class="headerlink" title="final"></a>final</h3><h3 id="decltype"><a href="#decltype" class="headerlink" title="decltype"></a>decltype</h3>
+<h2 id="variadic-templates"><a href="#variadic-templates" class="headerlink" title="variadic templates"></a>variadic templates</h2><h2 id="nullptr"><a href="#nullptr" class="headerlink" title="nullptr"></a>nullptr</h2><h2 id="default-delete"><a href="#default-delete" class="headerlink" title="=default / =delete"></a>=default / =delete</h2><h2 id="move"><a href="#move" class="headerlink" title="move"></a>move</h2><h2 id="完美转发"><a href="#完美转发" class="headerlink" title="完美转发"></a>完美转发</h2><h2 id="Alias-Template"><a href="#Alias-Template" class="headerlink" title="Alias Template"></a>Alias Template</h2><h2 id="Type-Alias"><a href="#Type-Alias" class="headerlink" title="Type Alias"></a>Type Alias</h2><h2 id="range-based-for-statement"><a href="#range-based-for-statement" class="headerlink" title="range-based for statement"></a>range-based for statement</h2><h2 id="thread-线程库"><a href="#thread-线程库" class="headerlink" title="thread 线程库"></a>thread 线程库</h2><h2 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h2><h2 id="pragma-once"><a href="#pragma-once" class="headerlink" title="pragma once"></a>pragma once</h2><h2 id="extern-“C”"><a href="#extern-“C”" class="headerlink" title="extern “C”"></a>extern “C”</h2><h2 id="类初始化列表"><a href="#类初始化列表" class="headerlink" title="类初始化列表"></a>类初始化列表</h2><h2 id="常量表达式"><a href="#常量表达式" class="headerlink" title="常量表达式"></a>常量表达式</h2><h2 id="enum-class"><a href="#enum-class" class="headerlink" title="enum class"></a>enum class</h2><h2 id="tuple"><a href="#tuple" class="headerlink" title="tuple"></a>tuple</h2><h2 id="uniform-initialization"><a href="#uniform-initialization" class="headerlink" title="uniform initialization"></a>uniform initialization</h2><h2 id="initializer-lists"><a href="#initializer-lists" class="headerlink" title="initializer_lists"></a>initializer_lists</h2><h2 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h2><blockquote>
+<p>  lambda 是希腊符号之一，第一次是在python中听到这个词，后在java中也接触到。现在来讲讲C++11/13中的lambda语法。</p>
+</blockquote>
+<p>lambda 在C++中是一种匿名函数。我们通常来说，使用一个函数是为了提高代码的可复用性以及可读性，我们会在主函数外或者源文件外定义函数，最终通过链接生成可执行文件。那么对于一些我们只需要用到个别次数的代码，我们不需要为它命名并且写成函数的形式，我们只需要写一个 lambda 表达式即可。</p>
+<p>lambda 属于函数式编程范式的范畴。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><pre><code class="hljs cpp">[capture <span class="hljs-built_in">list</span>](parameters) <span class="hljs-keyword">mutable</span> -&gt; <span class="hljs-keyword">return</span> type &#123; statement &#125;</code></pre>
+
+<p><strong>[capture list] :</strong> 捕获列表</p>
+<ul>
+<li><p>[var]    : 值传递的方式捕获 <code>var</code></p>
+</li>
+<li><p>[=]       : 值传递的方式捕获所有变量 </p>
+</li>
+<li><p>[&amp;var] : 引用传递的方式捕获<code>var</code></p>
+</li>
+<li><p>[&amp;]       : 引用传递的方式捕获所有变量</p>
+</li>
+<li><p>[this]    : 值传递的方式捕获<code>this</code></p>
+</li>
+</ul>
+<p><strong>(parameters)</strong> : 参数传递列表，可以省略</p>
+<p><strong>mutable</strong> : 修饰符，取现 lambda 的常量性，但是必须携带参数传递列表，可以省略 (mutable 允许可以变化, 不加的话, 语句块中无法修改变量)</p>
+<ul>
+<li><p>[id] () mutable {} : 允许修改 id</p>
+</li>
+<li><p>[&amp;id] () {} : 允许修改 id</p>
+</li>
+<li><p>[id] () {} : 不允许修改 id</p>
+</li>
+</ul>
+<p><strong>-&gt;return type</strong> : 返回值类型，不需要返回或者返回值类型明确时可以省略</p>
+<p><strong>{ statement }</strong> : lambda 语句块</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><pre><code class="hljs cpp"><span class="hljs-comment">//示例1</span>
+<span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>, b =<span class="hljs-number">2</span>, c = <span class="hljs-number">3</span>;
+<span class="hljs-keyword">auto</span> func = [=,&amp;b](<span class="hljs-keyword">int</span> d) -&gt; <span class="hljs-keyword">decltype</span>(a+b+c+d)&#123;
+    <span class="hljs-keyword">return</span> a+b+c+d;
+&#125;
+<span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; func(<span class="hljs-number">4</span>) &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+
+<span class="hljs-comment">/* 说明</span>
+<span class="hljs-comment">** 以引用方式捕获变量 b, 使得 b 可以在语句块中被修改, 以值方式捕获变量 a,c 不可以在语句块中修改</span>
+<span class="hljs-comment">** 参数列表需要传入一个int类型变量</span>
+<span class="hljs-comment">** decltype() 做类型推导</span>
+<span class="hljs-comment">** func 是 lambda 表达式的名称 可以以 6: 方式调用</span>
+<span class="hljs-comment">** auto lambda 表达式的返回类型相当复杂,使用auto自动推导较为合适</span>
+<span class="hljs-comment">*/</span></code></pre>
+
+<pre><code class="hljs cpp"><span class="hljs-comment">//示例2</span>
+[]&#123;
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;success&quot;</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+&#125;(); <span class="hljs-comment">//创建了一个lambda的临时对象</span>
+
+<span class="hljs-keyword">auto</span> L = []&#123;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;success&quot;</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;&#125;;
+L(); <span class="hljs-comment">//lambda 表达式调用形式</span></code></pre>
+
+<pre><code class="hljs cpp"><span class="hljs-comment">//示例3</span>
+<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; vec&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">8</span>,<span class="hljs-number">5</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>&#125;;
+sort(vec.begin(),vec.end(),[](<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)-&gt;<span class="hljs-keyword">bool</span>&#123;
+    <span class="hljs-keyword">return</span> a&gt;b;
+&#125;); <span class="hljs-comment">//第三个参数需要一个bool的函数对象,可以是自定义函数也可以是仿函数也可以是lambda表达式</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> &amp;elem : vec) &#123;
+    <span class="hljs-built_in">cout</span> &lt;&lt; elem &lt;&lt; <span class="hljs-built_in">endl</span>;
+&#125; <span class="hljs-comment">//倒序输出vec的值</span></code></pre>
+
+<pre><code class="hljs cpp"><span class="hljs-comment">//注意事项</span>
+<span class="hljs-keyword">int</span> id = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">auto</span> f = [id]()&#123;&#125;; <span class="hljs-comment">//此处捕获到的是0,即使后续变化也不会受影响</span>
+<span class="hljs-keyword">auto</span> g = [&amp;id]()&#123;&#125;;<span class="hljs-comment">//此处捕获到的是0,但是后续id的变化会引起此处的变化</span>
+id = <span class="hljs-number">42</span>;</code></pre>
+
+<pre><code class="hljs cpp"><span class="hljs-comment">//lambda表达式需要编译器进行&quot;翻译&quot;</span>
+<span class="hljs-comment">//类似翻译情况如下</span>
+
+<span class="hljs-keyword">auto</span> f = [id]() <span class="hljs-keyword">mutable</span> &#123; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;id:&quot;</span> &lt;&lt; id &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>; ++id; &#125;;
+
+-&gt;
+    
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Functor</span>&#123;</span>
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-keyword">int</span> id;
+<span class="hljs-keyword">public</span>:
+    Functor(<span class="hljs-keyword">int</span> id):id(id)&#123;&#125;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span></span>&#123;
+        <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;id:&quot;</span> &lt;&lt; id &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+        ++id;
+    &#125;
+&#125;
+Functor f;</code></pre>
+
+<h1 id="新关键词"><a href="#新关键词" class="headerlink" title="新关键词"></a>新关键词</h1><p>新关键词包括但不限于以下介绍的：using、auto、explicit、noexcept、override、final、decltype…</p>
+<h2 id="using"><a href="#using" class="headerlink" title="using"></a>using</h2><p><strong>using</strong> 关键字并不是C++11以后才出现的，但是在C++11以后赋予了新的语法。</p>
+<h3 id="namespace"><a href="#namespace" class="headerlink" title="namespace"></a>namespace</h3><ul>
+<li><p>using-指示 : <code>using namespace std;</code></p>
+<p>引入整个命名空间</p>
+<blockquote>
+<p>  会引发命名污染，使得较小作用域中定义的同名函数、变量会覆盖命名空间中的函数和变量。在较大的作用域中应当使用 using-声明</p>
+</blockquote>
+</li>
+<li><p>using-声明 : <code>using std::cout, std::endl;</code></p>
+<p>引入命名空间中的指定变量、对象、函数</p>
+</li>
+</ul>
+<h3 id="class-members"><a href="#class-members" class="headerlink" title="class members"></a>class members</h3><p>using-声明</p>
+<p>在类中声明基类的对象或方法后，可以省略基类作用域。</p>
+<pre><code class="hljs cpp"><span class="hljs-comment">//使用using关键字对类成员变量成员函数的声明</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">base</span>&#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">based</span><span class="hljs-params">()</span></span>&#123;&#125;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">derived</span> :</span> <span class="hljs-keyword">public</span> base&#123;
+    <span class="hljs-keyword">using</span> base::based;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span></span>&#123; based(); &#125;<span class="hljs-comment">// 不需要写成 base::based()</span>
+&#125;;</code></pre>
+
+<h3 id="Alias-Template-1"><a href="#Alias-Template-1" class="headerlink" title="Alias Template"></a>Alias Template</h3><p>Alias 熟悉配置 linux / Mac OS 系统环境的小伙伴都知道，是化名的意思。这是C++11新增的语法，能够提前绑定模板参数。用法如下：</p>
+<pre><code class="hljs cpp"><span class="hljs-comment">//使用using关键字对类模板进行运行时绑定参数</span>
+<span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;
+<span class="hljs-keyword">using</span> MapString = <span class="hljs-built_in">map</span>&lt;T,<span class="hljs-keyword">char</span>*&gt;;
+
+MapString&lt;<span class="hljs-keyword">int</span>&gt; numberString; <span class="hljs-comment">//解析成 map&lt;int,char*&gt; numberString：</span></code></pre>
+
+<p>从以上代码可以看到，<code>2:</code>提前绑定了<code>map</code>容器的第二参数，此后模板参数只剩下一个了，在定义对象时只需要指定第一模板参数即可。有一种&lt;运行时&gt;偏特化的感觉。侯捷老师提供了一个案例，是对使用 alias template 的较好诠释。</p>
+<pre><code class="hljs cpp"><span class="hljs-comment">//侯捷老师的例子</span>
+<span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T, <span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span>&gt; <span class="hljs-title">class</span> <span class="hljs-title">Container</span>&gt;</span>
+<span class="hljs-class"><span class="hljs-title">class</span> <span class="hljs-title">XCLs</span>&#123;</span>
+<span class="hljs-keyword">private</span>:
+		Container&lt;T&gt; c;
+<span class="hljs-keyword">public</span>:
+		XCLs()&#123;&#125;
+&#125;;
+
+XCLs&lt;<span class="hljs-keyword">int</span>,<span class="hljs-built_in">vector</span>&gt; xcls;   <span class="hljs-comment">//报错,因为vector容器实际上需要两个参数,这样传入只能确认一个参数</span>
+
+<span class="hljs-keyword">template</span>&lt;T&gt;
+<span class="hljs-keyword">using</span> vec = <span class="hljs-built_in">vector</span>&lt;T,allocator&lt;T&gt;&gt;;
+XCLs&lt;<span class="hljs-keyword">int</span>,vec&gt; xcls; <span class="hljs-comment">//正确,提前绑定第二参数</span></code></pre>
+
+<p>因为 vector 模板类本身有两个模板参数 : <code>_Tp</code> 和 <code>alloc</code>，而 <code>alloc</code> 是有默认参数的。所以，平时使用时，我们往往缺省第二参数只指定第一个模板参数类型。而 <code>5:Container&lt;T&gt; c</code> 只指定了第一参数，因此在 <code>2:</code> 传入 <code>Container</code> 时就提前确定第二参数，因此有了 <code>13:</code> <code>Alias Template</code> 的操作。</p>
+<h3 id="Type-Alias-1"><a href="#Type-Alias-1" class="headerlink" title="Type Alias"></a>Type Alias</h3><p>类似于 <code>typedef</code> 的语法。（结果看来和 <code>typedef</code> 一样）</p>
+<pre><code class="hljs cpp"><span class="hljs-comment">//using关键字定义新类型名</span>
+<span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-title">void</span><span class="hljs-params">(*func1)</span><span class="hljs-params">(<span class="hljs-keyword">int</span>,<span class="hljs-keyword">int</span>)</span></span>; <span class="hljs-comment">//func1 绑定为 void x(int,int) 型函数指针</span>
+<span class="hljs-keyword">using</span> func2 = <span class="hljs-keyword">void</span>(*)(<span class="hljs-keyword">int</span>,<span class="hljs-keyword">int</span>); <span class="hljs-comment">//结果同 1:</span>
+
+<span class="hljs-comment">//演示1</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">example</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span></span>;
+func1 fn1 = example;
+func2 fn2 = example;
+
+<span class="hljs-comment">//演示2</span>
+<span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">vector</span>&#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-keyword">using</span> ValueType = T;
+    <span class="hljs-keyword">using</span> reference = T&amp;;
+    <span class="hljs-keyword">using</span> iterator  = T*;
+    <span class="hljs-keyword">using</span> pointer   = T*;  <span class="hljs-comment">//vector中的实现还是typedef</span>
+&#125;</code></pre>
+
+<h2 id="auto"><a href="#auto" class="headerlink" title="auto"></a>auto</h2><h2 id="explicit"><a href="#explicit" class="headerlink" title="explicit"></a>explicit</h2><h2 id="noexcept"><a href="#noexcept" class="headerlink" title="noexcept"></a>noexcept</h2><h2 id="override"><a href="#override" class="headerlink" title="override"></a>override</h2><h2 id="final"><a href="#final" class="headerlink" title="final"></a>final</h2><h2 id="decltype"><a href="#decltype" class="headerlink" title="decltype"></a>decltype</h2>
             </div>
             <hr>
             <div>
@@ -283,7 +441,7 @@
                     
                       <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/C/">C++</a>
                     
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/C/C-2-0/">C++ 2.0</a>
+                      <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/C/C-11/">C++11</a>
                     
                   </div>
                 
@@ -293,7 +451,7 @@
                     
                       <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/C/">C++</a>
                     
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/C-2-0/">C++ 2.0</a>
+                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/C-11/">C++11</a>
                     
                   </div>
                 
@@ -305,12 +463,6 @@
                 <div class="post-prevnext row">
                   <article class="post-prev col-6">
                     
-                    
-                      <a href="/OXygenPanda.github.io/2020/11/03/C++11/%E6%96%B0%E5%85%B3%E9%94%AE%E8%AF%8D/using/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">新关键词 using (Alias Template & Type Alias)</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
                     
                   </article>
                   <article class="post-next col-6">
@@ -362,6 +514,14 @@
         </div>
       </div>
     </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
     
   </div>
 </div>
@@ -476,6 +636,31 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 2,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
 
 
   <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
@@ -483,7 +668,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "C++ 2.0 新增语法关键词用法检索(C++11/13/17/20)&nbsp;",
+        "C++11新语法新特性使用剖析&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
