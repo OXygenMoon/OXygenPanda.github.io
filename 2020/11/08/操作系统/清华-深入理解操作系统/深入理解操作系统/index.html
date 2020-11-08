@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Lao Zhenyu" />
+  
+  
+  <title>深入理解操作系统学习笔记 | 劳振煜的博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="操作系统,深入理解操作系统学习笔记," />
+  
+
+  
+  <meta name="description" content="劳振煜的知識倉儲">
+
+  
+
+  
+
+  
+
+  
+
+  
+    <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":false,"count":false},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2020-09-20",
+    passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
+    is_post: true,
+    lock: false,
+    author: "Lao Zhenyu",
+    share: {"twitter":false,"facebook":false,"weibo":false,"qq":false,"wechat":true},
+    mathjax: false,
+    page_type: "",
+    root: "/OXygenPanda.github.io/"
+  };
+</script>
+
+  
+<script src="/OXygenPanda.github.io/vendor/sha256.min.js"></script>
+<script src="/OXygenPanda.github.io/js/auth.js"></script>
+<script src="/OXygenPanda.github.io/js/index.js"></script>
+<script src="/OXygenPanda.github.io/vendor/qrcode.min.js"></script>
+
+
+  
+    <link rel="icon" href="/OXygenPanda.github.io/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/OXygenPanda.github.io/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  
+<link rel="stylesheet" href="/OXygenPanda.github.io/css/index.css">
+<link rel="stylesheet" href="/OXygenPanda.github.io/styles/components/highlight/highlight.css">
+
+
+  
+<meta name="generator" content="Hexo 5.2.0"></head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/OXygenPanda.github.io/">劳振煜 OXygen</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | Trying to make sense.</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/OXygenPanda.github.io/" target="_self">首页</a>
+      
+        <a href="/OXygenPanda.github.io/archives/" target="_self">归档</a>
+      
+        <a href="/OXygenPanda.github.io/tags/" target="_self">标签</a>
+      
+        <a href="/OXygenPanda.github.io/categories/" target="_self">分类</a>
+      
+        <a href="/OXygenPanda.github.io/friends/" target="_self">友链</a>
+      
+        <a href="/OXygenPanda.github.io/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://https://github.com/OXygenPanda/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2020-11-08
+    </span>
+    
+      <span>
+        | <a href="/OXygenPanda.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="fa fa-bookmark"></i>操作系统</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    深入理解操作系统学习笔记
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><h2 id="操作系统的一些知识"><a href="#操作系统的一些知识" class="headerlink" title="操作系统的一些知识"></a>操作系统的一些知识</h2><h3 id="操作系统是什么？"><a href="#操作系统是什么？" class="headerlink" title="操作系统是什么？"></a>操作系统是什么？</h3><p>用户角度：操作系统是一个控制软件</p>
+<ul>
+<li>管理应用程序</li>
+<li>为应用程序提供服务</li>
+<li>杀死应用程序</li>
+</ul>
+<p>程序角度：操作系统是资源管理器</p>
+<ul>
+<li>管理外设、分配资源</li>
+<li>抽象<ul>
+<li>将CPU抽象成进程</li>
+<li>将磁盘抽象成文件</li>
+<li>将内存抽象成地址空间</li>
+</ul>
+</li>
+</ul>
+<h3 id="操作系统层次"><a href="#操作系统层次" class="headerlink" title="操作系统层次"></a>操作系统层次</h3><p>位于硬件之上，应用程序之下。</p>
+<h3 id="操作系统的界面和内核"><a href="#操作系统的界面和内核" class="headerlink" title="操作系统的界面和内核"></a>操作系统的界面和内核</h3><p>Linux Windows Android 的界面属于外壳(Shell) ，而不是内核(kernel)。操作系统研究的是内核，处于Shell之下。</p>
+<h3 id="操作系统内部组件"><a href="#操作系统内部组件" class="headerlink" title="操作系统内部组件"></a>操作系统内部组件</h3><ul>
+<li>CPU调度器</li>
+<li>物理内存管理</li>
+<li>虚拟内存管理</li>
+<li>文件系统管理</li>
+<li>中断处理与设备驱动</li>
+</ul>
+<h3 id="操作系统特征"><a href="#操作系统特征" class="headerlink" title="操作系统特征"></a>操作系统特征</h3><ul>
+<li>并发<ul>
+<li>一段时间内运行多个进程（并行 : 一个时间点运行多个进程，一般要求有多个CPU)</li>
+<li>需要OS管理和调度</li>
+</ul>
+</li>
+<li>共享<ul>
+<li>“同时”共享</li>
+<li>互斥共享</li>
+</ul>
+</li>
+<li>虚拟<ul>
+<li>让每一个用户觉得的有一个计算机专门为他服务</li>
+</ul>
+</li>
+<li>异步<ul>
+<li>程序是走走停停，而不是一直运行</li>
+</ul>
+</li>
+</ul>
+<h1 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h1><h2 id="探究计算机启动过程"><a href="#探究计算机启动过程" class="headerlink" title="探究计算机启动过程"></a>探究计算机启动过程</h2><p><strong>作用解析</strong></p>
+<p>Disk : 存放OS和Bootloader</p>
+<p>BOIS : 基于I/O处理系统</p>
+<p>Bootloader : 加载OS，将OS放入内存</p>
+<p><strong>结构</strong></p>
+<p>Disk</p>
+<p>   |___ OS</p>
+<p>   |___ Bootloader</p>
+<p><strong>开机流程</strong></p>
+<ol>
+<li><p>BIOS</p>
+<ul>
+<li>开机后，寻找显卡和执行BIOS (此时, <code>CS : IP = 0xF000 : 0xFFF0</code>,  CS/IP 两个寄存器) </li>
+<li>将Bootloader从磁盘的引导扇区加载到0x7C00 (Bootloader一共占用512M字节的内存)</li>
+<li>跳转到 <code>CS : IP = 0x0000 : 0x7C00</code></li>
+</ul>
+</li>
+<li><p>Bootloader</p>
+<ul>
+<li>将操作系统的代码和数据从硬盘加载到内存中</li>
+<li>跳转到操作系统的起始地址</li>
+</ul>
+</li>
+</ol>
+<h2 id="中断、异常、系统调用"><a href="#中断、异常、系统调用" class="headerlink" title="中断、异常、系统调用"></a>中断、异常、系统调用</h2><h3 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h3><p>中断来源于外设，来自不同的硬件设备的计时器和网络的中断。</p>
+<p><strong>中断流程</strong></p>
+<p>硬件：设置中断标记（CPU初始化）</p>
+<ol>
+<li>将内部、外部事件设置中断标记</li>
+<li>中断事件的ID</li>
+</ol>
+<p>软件</p>
+<ol>
+<li>保存当前处理状态（寄存器之类的一些数据）</li>
+<li>根据中断事件的ID跳转到中断服务程序，中断服务程序处理</li>
+<li>清楚中断标记</li>
+</ol>
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p>异常来源于不良的应用程序，非法指令或者其他坏的处理状态（如：内存出错）。</p>
+<p><strong>异常处理流程</strong></p>
+<ol>
+<li>保存现场</li>
+<li>异常处理<ol>
+<li>杀死了产生异常的程序</li>
+<li>重新执行异常指令</li>
+</ol>
+</li>
+<li>恢复现场</li>
+</ol>
+<h3 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h3><p>系统调用来源于应用程序，应用程序主动向操作系统发出服务请求。程序访问主要是通过高层次的API，而不是直接调用系统调用函数。</p>
+<p><strong>APIs</strong></p>
+<ul>
+<li>Win32 API 用于Windows</li>
+<li>POSIX API 用于 POSIX-based systems（包括UNIX，LINUX，Mac OS X）</li>
+<li>Java API 用于JAVA虚拟机</li>
+</ul>
+<p><strong>特点</strong></p>
+<ul>
+<li>通常情况下，每个系统调用有对应的序号<ul>
+<li>系统调用接口根据这些序号来维护表的索引</li>
+</ul>
+</li>
+<li>系统调用接口调用内核态中预期的系统调用<ul>
+<li>并返回系统调用的状态和其他任何返回值</li>
+</ul>
+</li>
+<li>用户不需要知道系统调用是如何实现的<ul>
+<li>只需要获取API和了解操作系统将什么作为返回结果</li>
+<li>操作系统接口的细节大部分都隐藏在API中</li>
+</ul>
+</li>
+</ul>
+<p><strong>用户态</strong>：操作系统运行中，CPU处于的特权级别，不能直接执行特权指令</p>
+<p><strong>内核态</strong>：操作系统运行中，CPU处于的特权级别，可以执行任何一条指令</p>
+<p><strong>系统调用</strong>：触发CPU从用户态到内核态的转换，切换程序和内核的堆栈，需要一定的开销</p>
+<p><strong>跨越操作系统边界的开销（值得的且必须的，保证了操作系统的安全性）</strong></p>
+<ul>
+<li>在执行时间上的开销超过程序调用</li>
+<li>开销：<ul>
+<li>建立中断、异常、系统调用号与对应服务例程映射关系的初始化开销</li>
+<li>建立内核堆栈</li>
+<li>验证参数</li>
+<li>内核态映射到用户态的地址空间（更新页面映射权限）</li>
+<li>内核态独立地址空间（TLB）</li>
+</ul>
+</li>
+</ul>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>源头</th>
+<th>处理时间</th>
+<th>响应</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中断</td>
+<td>外设</td>
+<td>异步</td>
+<td>持续，对应用程序透明</td>
+</tr>
+<tr>
+<td>异常</td>
+<td>应用程序意向不到的行为</td>
+<td>同步</td>
+<td>杀死或重新执行指令</td>
+</tr>
+<tr>
+<td>系统调用</td>
+<td>应用程序请求系统提供服务</td>
+<td>同步或异步</td>
+<td>等待和持续</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>  异步：应用程序不知道什么时候会发生中断</p>
+</blockquote>
+<blockquote>
+<p>  同步：执行到某一条指令一定会发生该事件</p>
+</blockquote>
+<h3 id="为什么应用程序不能直接访问硬件？"><a href="#为什么应用程序不能直接访问硬件？" class="headerlink" title="为什么应用程序不能直接访问硬件？"></a>为什么应用程序不能直接访问硬件？</h3><ul>
+<li>在计算机运行时，内核是被信任的第三方</li>
+<li>只有内核可以执行特权指令</li>
+<li>为了方便应用程序</li>
+</ul>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="toc-text">第一章</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86"><span class="toc-text">操作系统的一些知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">操作系统是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1"><span class="toc-text">操作系统层次</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%95%8C%E9%9D%A2%E5%92%8C%E5%86%85%E6%A0%B8"><span class="toc-text">操作系统的界面和内核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%86%85%E9%83%A8%E7%BB%84%E4%BB%B6"><span class="toc-text">操作系统内部组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%89%B9%E5%BE%81"><span class="toc-text">操作系统特征</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0"><span class="toc-text">第二章</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A2%E7%A9%B6%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B"><span class="toc-text">探究计算机启动过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E3%80%81%E5%BC%82%E5%B8%B8%E3%80%81%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="toc-text">中断、异常、系统调用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD"><span class="toc-text">中断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8"><span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="toc-text">系统调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%88%AB"><span class="toc-text">区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%8D%E8%83%BD%E7%9B%B4%E6%8E%A5%E8%AE%BF%E9%97%AE%E7%A1%AC%E4%BB%B6%EF%BC%9F"><span class="toc-text">为什么应用程序不能直接访问硬件？</span></a></li></ol></li></ol></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 劳振煜</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B8%85%E5%8D%8E-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</a>
+        </div>
+      
+      <div>
+        一起享受编码的快乐
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/OXygenPanda.github.io/tags/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fa fa-tags"></i>深入理解操作系统学习笔记</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i>
+        <span id="busuanzi_container_site_pv">您是本站第 <span id="busuanzi_value_site_pv"></span> 位访客</span>
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> [object Object]
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/OXygenPanda.github.io/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/OXygenPanda.github.io/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="javascript:void(0);" data-enable="false">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/OXygenPanda.github.io/2020/11/03/C++11/C++11/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+  
+  
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+  <script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '');
+  </script>
+
+
+
+  <script async>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+  </script>
+
+
+
+
+    
+  </body>
+</html>
