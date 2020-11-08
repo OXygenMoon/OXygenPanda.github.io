@@ -1,351 +1,203 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;light&#34;>
-
-
-
+<html>
+  
 <head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/OXygenPanda.github.io/img/favicon.png">
-  <link rel="icon" type="image/png" href="/OXygenPanda.github.io/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta charset="utf-8">
+  <meta name="author" content="Lao Zhenyu" />
   
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="Warm welcome">
-  <meta name="author" content="劳振煜">
-  <meta name="keywords" content="">
-  <title>理解 type_traits - 劳振煜的博客</title>
+  <title>理解 type_traits | 劳振煜的博客</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/OXygenPanda.github.io/lib/hint/hint.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-light.min.css" />
-    
+    <meta name="keywords" content="C++,STL,迭代器,C++,STL,iterator," />
+  
+
+  
+  <meta name="description" content="劳振煜的知識倉儲">
+
   
 
   
 
+  
 
-<!-- 主题依赖的图标库，不要自行修改 -->
+  
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+  
+    <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":false,"count":false},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2020-10-01",
+    passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
+    is_post: true,
+    lock: false,
+    author: "Lao Zhenyu",
+    share: {"twitter":false,"facebook":false,"weibo":false,"qq":false,"wechat":true},
+    mathjax: false,
+    page_type: "",
+    root: "/OXygenPanda.github.io/"
+  };
+</script>
+
+  
+<script src="/OXygenPanda.github.io/vendor/sha256.min.js"></script>
+<script src="/OXygenPanda.github.io/js/auth.js"></script>
+<script src="/OXygenPanda.github.io/js/index.js"></script>
+<script src="/OXygenPanda.github.io/vendor/qrcode.min.js"></script>
 
 
+  
+    <link rel="icon" href="/OXygenPanda.github.io/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/OXygenPanda.github.io/images/touch-icon.png">
+  
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  
+<link rel="stylesheet" href="/OXygenPanda.github.io/css/index.css">
+<link rel="stylesheet" href="/OXygenPanda.github.io/styles/components/highlight/highlight.css">
 
 
-<link  rel="stylesheet" href="/OXygenPanda.github.io/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script  src="/OXygenPanda.github.io/js/utils.js" ></script>
-  <script  src="/OXygenPanda.github.io/js/color-schema.js" ></script>
+  
 <meta name="generator" content="Hexo 5.2.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/OXygenPanda.github.io/">&nbsp;<strong>知識倉儲</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/OXygenPanda.github.io/img/3.jpg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-10-31 17:42" pubdate>
-        2020年10月31日 下午
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
     
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      832 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      11
-       分钟
-    </span>
-  
-
-  
-  
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
+      <span class="site-header-brand-title">
+        <a href="/OXygenPanda.github.io/">劳振煜 OXygen</a>
       </span>
     
-  
-</div>
-
-            
-          </div>
-
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
     
+      <span class="site-header-brand-motto"> | Trying to make sense.</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
       
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto" id="post">
-            <!-- SEO header -->
-            <h1 style="display: none">理解 type_traits</h1>
-            
-            <div class="markdown-body" id="post-body">
-              <h1 id="type-traits"><a href="#type-traits" class="headerlink" title="__type_traits"></a>__type_traits</h1><blockquote>
+        <a href="/OXygenPanda.github.io/" target="_self">首页</a>
+      
+        <a href="/OXygenPanda.github.io/archives/" target="_self">归档</a>
+      
+        <a href="/OXygenPanda.github.io/tags/" target="_self">标签</a>
+      
+        <a href="/OXygenPanda.github.io/categories/" target="_self">分类</a>
+      
+        <a href="/OXygenPanda.github.io/friends/" target="_self">友链</a>
+      
+        <a href="/OXygenPanda.github.io/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://https://github.com/OXygenPanda/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2020-10-31
+    </span>
+    
+      <span>
+        | <a href="/OXygenPanda.github.io/categories/C/"><i class="fa fa-bookmark"></i>C++</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    理解 type_traits
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="type-traits"><a href="#type-traits" class="headerlink" title="__type_traits"></a>__type_traits</h1><blockquote>
 <p>  &lt;__type_traits.h&gt; 是 SGI 版本的 STL 的实现，其他版本的 STL 没有去调研过是否存在类型萃取。但是侯捷老师的源码剖析已经过去了那么多年，我相信比较好的一些实现，还是会被其他版本进行借鉴的。</p>
 </blockquote>
 <p>前一篇文章是 <code>iterator_traits</code> 迭代器萃取器，可以感受到，迭代器的萃取器会萃取出迭代器的元数据 : <code>value_type</code> <code>difference_type</code> <code>pointer</code>  <code>reference</code>  <code>iterator_category</code>。其中最重要的 <code>iterator_category</code> 元数据对一些算法进行选择有很大的帮助。</p>
 <p>相同的，<code>__type_traits</code>  负责萃取类型的元数据，比如 : 某类型是否拥有不重要的默认构造函数 <code>has_trivial_default_constructor</code> 。在迭代器萃取器中的 <code>iterator_category</code> 会回答五种类型，在类型萃取器中只会回答两种类型：<code>__true_type</code> <code>__false_type</code>。</p>
-<pre><code class="hljs cpp"><span class="hljs-class"><span class="hljs-keyword">struct</span> __<span class="hljs-title">true_type</span>&#123;</span>&#125;;
-<span class="hljs-class"><span class="hljs-keyword">struct</span> __<span class="hljs-title">false_type</span>&#123;</span>&#125;;
-<span class="hljs-comment">// 不需要实现,进行函数调用时,需要不同的类型才能够进行类型推导</span>
-<span class="hljs-comment">// 而不能是只回答同样bool类型的 : true / false</span></code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">true_type</span>&#123;</span>&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">false_type</span>&#123;</span>&#125;;</span><br><span class="line"><span class="comment">// 不需要实现,进行函数调用时,需要不同的类型才能够进行类型推导</span></span><br><span class="line"><span class="comment">// 而不能是只回答同样bool类型的 : true / false</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="type-traits-源码"><a href="#type-traits-源码" class="headerlink" title="_type_traits 源码"></a>_type_traits 源码</h2><pre><code class="hljs cpp"><span class="hljs-comment">// __type_traits 的写法</span>
-
-<span class="hljs-comment">// 泛化__type_traits</span>
-<span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">type</span>&gt;</span>
-<span class="hljs-class"><span class="hljs-title">struct</span> __<span class="hljs-title">type_traits</span>&#123;</span>
-		<span class="hljs-keyword">typedef</span> __true_type this_dummy_member_must_be_first;
-		<span class="hljs-keyword">typedef</span> __false_type has_trivial_default_constructor;
-		<span class="hljs-keyword">typedef</span> __false_type has_trivial_copy_constructor;
-		<span class="hljs-keyword">typedef</span> __false_type has_trivial_assignment_constructor;
-		<span class="hljs-keyword">typedef</span> __false_type has_trivial_destructor;
-		<span class="hljs-keyword">typedef</span> __false_type is_POD_type;
-&#125;;
-
-<span class="hljs-comment">/* 原则:</span>
-<span class="hljs-comment">** trivial 是不重要的,回答 false. 即有重要的四种基本函数</span>
-<span class="hljs-comment">** 保守起见,为所有的类型都设定为重要的构造和拷贝和析构</span>
-<span class="hljs-comment">*/</span>
-
-<span class="hljs-comment">//特别多的特化__type_traits</span>
-<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">template</span>&lt;&gt; __STL_TEMPLATE_NULL;
-__STL_TEMPLATE_NULL <span class="hljs-class"><span class="hljs-keyword">struct</span> __<span class="hljs-title">type_traits</span>&lt;char&gt;&#123;</span>
-		<span class="hljs-comment">//具体萃取 char 类型的元数据</span>
-		<span class="hljs-comment">//C语言内置类型 都是以下的回答</span>
-		<span class="hljs-keyword">typedef</span> __true_type has_trivial_default_constructor;
-		<span class="hljs-keyword">typedef</span> __true_type has_trivial_copy_constructor;
-		<span class="hljs-keyword">typedef</span> __true_type has_trivial_assignment_constructor;
-		<span class="hljs-keyword">typedef</span> __true_type has_trivial_destructor;
-		<span class="hljs-keyword">typedef</span> __true_type is_POD_type;
-&#125;;
-
-<span class="hljs-comment">//... 许多其他类型的类型萃取特化版本</span>
-
-<span class="hljs-comment">//特别的,指针类型也可以进行萃取</span>
-<span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;
-<span class="hljs-class"><span class="hljs-keyword">struct</span> __<span class="hljs-title">type_traits</span>&lt;T*&gt;&#123;</span>
-		<span class="hljs-keyword">typedef</span> __true_type has_trivial_default_constructor;
-		<span class="hljs-keyword">typedef</span> __true_type has_trivial_copy_constructor;
-		<span class="hljs-keyword">typedef</span> __true_type has_trivial_assignment_constructor;
-		<span class="hljs-keyword">typedef</span> __true_type has_trivial_destructor;
-		<span class="hljs-keyword">typedef</span> __true_type is_POD_type;
-&#125;;</code></pre>
+<h2 id="type-traits-源码"><a href="#type-traits-源码" class="headerlink" title="_type_traits 源码"></a>_type_traits 源码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// __type_traits 的写法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 泛化__type_traits</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">type</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> __<span class="title">type_traits</span>&#123;</span></span><br><span class="line">		<span class="keyword">typedef</span> __true_type this_dummy_member_must_be_first;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_default_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_copy_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_assignment_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_destructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type is_POD_type;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 原则:</span></span><br><span class="line"><span class="comment">** trivial 是不重要的,回答 false. 即有重要的四种基本函数</span></span><br><span class="line"><span class="comment">** 保守起见,为所有的类型都设定为重要的构造和拷贝和析构</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//特别多的特化__type_traits</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">template</span>&lt;&gt; __STL_TEMPLATE_NULL;</span><br><span class="line">__STL_TEMPLATE_NULL <span class="class"><span class="keyword">struct</span> __<span class="title">type_traits</span>&lt;char&gt;&#123;</span></span><br><span class="line">		<span class="comment">//具体萃取 char 类型的元数据</span></span><br><span class="line">		<span class="comment">//C语言内置类型 都是以下的回答</span></span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_default_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_copy_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_assignment_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_destructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type is_POD_type;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//... 许多其他类型的类型萃取特化版本</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//特别的,指针类型也可以进行萃取</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">type_traits</span>&lt;T*&gt;&#123;</span></span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_default_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_copy_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_assignment_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_destructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type is_POD_type;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
 
 <h2 id="type-traits-实例"><a href="#type-traits-实例" class="headerlink" title="__type_traits 实例"></a>__type_traits 实例</h2><p>来源于 侯捷老师 的例子</p>
-<pre><code class="hljs cpp"><span class="hljs-comment">//入口函数</span>
-<span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ForwardIterator</span>, <span class="hljs-title">class</span> <span class="hljs-title">Size</span>, <span class="hljs-title">class</span> <span class="hljs-title">T</span>&gt;</span>
-<span class="hljs-class"><span class="hljs-title">inline</span> <span class="hljs-title">ForwardIterator</span></span>
-<span class="hljs-class"><span class="hljs-title">uninitialized_fill_n</span>(<span class="hljs-title">ForwardIterator</span> <span class="hljs-title">first</span>,</span>
-<span class="hljs-class">					 <span class="hljs-title">Size</span> <span class="hljs-title">n</span>,</span>
-<span class="hljs-class">					 <span class="hljs-title">const</span> <span class="hljs-title">T</span>&amp; <span class="hljs-title">x</span>)</span>
-<span class="hljs-class">&#123;</span>
-	<span class="hljs-keyword">return</span> __uninitialized_fill_n(first, n, x, iterator_traits&lt;ForwardIterator&gt;::value_type);
-&#125;
-
-<span class="hljs-comment">//萃取“工具人”</span>
-<span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ForwardIterator</span>, <span class="hljs-title">class</span> <span class="hljs-title">Size</span>, <span class="hljs-title">class</span> <span class="hljs-title">T</span>, <span class="hljs-title">class</span> <span class="hljs-title">T1</span>&gt;</span>
-<span class="hljs-class"><span class="hljs-title">inline</span> <span class="hljs-title">ForwardIterator</span></span>
-<span class="hljs-class">__<span class="hljs-title">uninitialized_fill_n</span>(<span class="hljs-title">ForwardIterator</span> <span class="hljs-title">first</span>,</span>
-<span class="hljs-class">					   <span class="hljs-title">Size</span> <span class="hljs-title">n</span>,</span>
-<span class="hljs-class">					   <span class="hljs-title">const</span> <span class="hljs-title">T</span>&amp; <span class="hljs-title">x</span>,</span>
-<span class="hljs-class">					   <span class="hljs-title">T1</span>*)</span>
-<span class="hljs-class">&#123;</span>
-	<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">typename</span> type_traits&lt;T1&gt;::is_POD_type is_POD;
-	<span class="hljs-keyword">return</span> __uninitialized_fill_n_aux(first, n, x, is_POD());
-&#125;
-
-<span class="hljs-comment">//实际上根据 is_POD 属性进行类型推导选择执行以下两个函数中的一个</span>
-<span class="hljs-comment">//可以看到,这边如果是用true false来回答的话,这边就无法根据类型推导来选择不同函数了</span>
-<span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ForwardIterator</span>, <span class="hljs-title">class</span> <span class="hljs-title">Size</span>, <span class="hljs-title">class</span> <span class="hljs-title">T</span>&gt;</span>
-<span class="hljs-class"><span class="hljs-title">ForwardIterator</span></span>
-<span class="hljs-class">__<span class="hljs-title">uninitialized_fill_n_aux</span>(<span class="hljs-title">ForwardIterator</span> <span class="hljs-title">first</span>, <span class="hljs-title">Size</span> <span class="hljs-title">n</span>, <span class="hljs-title">const</span> <span class="hljs-title">T</span>&amp; <span class="hljs-title">x</span>,__<span class="hljs-title">false_type</span>)&#123;</span>
-	ForwardIterator cur = first;
-	<span class="hljs-keyword">for</span>( ; n &gt; <span class="hljs-number">0</span>; --n, ++cur)
-		construct(&amp;*cur, x);
-	<span class="hljs-keyword">return</span> cur;
-&#125;
-
-<span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ForwardIterator</span>, <span class="hljs-title">class</span> <span class="hljs-title">Size</span>, <span class="hljs-title">class</span> <span class="hljs-title">T</span>&gt;</span>
-<span class="hljs-class"><span class="hljs-title">inline</span> <span class="hljs-title">ForwardIterator</span></span>
-<span class="hljs-class">__<span class="hljs-title">uninitialized_fill_n_aux</span>(<span class="hljs-title">ForwardIterator</span> <span class="hljs-title">first</span>, <span class="hljs-title">Size</span> <span class="hljs-title">n</span>, <span class="hljs-title">const</span> <span class="hljs-title">T</span>&amp; <span class="hljs-title">x</span>,__<span class="hljs-title">true_type</span>)&#123;</span>
-	<span class="hljs-keyword">return</span> fill_n(first, n, x);
-&#125;</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//入口函数</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">ForwardIterator</span>, <span class="title">class</span> <span class="title">Size</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">ForwardIterator</span></span></span><br><span class="line"><span class="class"><span class="title">uninitialized_fill_n</span>(<span class="title">ForwardIterator</span> <span class="title">first</span>,</span></span><br><span class="line"><span class="class">					 <span class="title">Size</span> <span class="title">n</span>,</span></span><br><span class="line"><span class="class">					 <span class="title">const</span> <span class="title">T</span>&amp; <span class="title">x</span>)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">return</span> __uninitialized_fill_n(first, n, x, iterator_traits&lt;ForwardIterator&gt;::value_type);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//萃取“工具人”</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">ForwardIterator</span>, <span class="title">class</span> <span class="title">Size</span>, <span class="title">class</span> <span class="title">T</span>, <span class="title">class</span> <span class="title">T1</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">ForwardIterator</span></span></span><br><span class="line"><span class="class">__<span class="title">uninitialized_fill_n</span>(<span class="title">ForwardIterator</span> <span class="title">first</span>,</span></span><br><span class="line"><span class="class">					   <span class="title">Size</span> <span class="title">n</span>,</span></span><br><span class="line"><span class="class">					   <span class="title">const</span> <span class="title">T</span>&amp; <span class="title">x</span>,</span></span><br><span class="line"><span class="class">					   <span class="title">T1</span>*)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">typedef</span> <span class="keyword">typename</span> type_traits&lt;T1&gt;::is_POD_type is_POD;</span><br><span class="line">	<span class="keyword">return</span> __uninitialized_fill_n_aux(first, n, x, is_POD());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//实际上根据 is_POD 属性进行类型推导选择执行以下两个函数中的一个</span></span><br><span class="line"><span class="comment">//可以看到,这边如果是用true false来回答的话,这边就无法根据类型推导来选择不同函数了</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">ForwardIterator</span>, <span class="title">class</span> <span class="title">Size</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">ForwardIterator</span></span></span><br><span class="line"><span class="class">__<span class="title">uninitialized_fill_n_aux</span>(<span class="title">ForwardIterator</span> <span class="title">first</span>, <span class="title">Size</span> <span class="title">n</span>, <span class="title">const</span> <span class="title">T</span>&amp; <span class="title">x</span>,__<span class="title">false_type</span>)&#123;</span></span><br><span class="line">	ForwardIterator cur = first;</span><br><span class="line">	<span class="keyword">for</span>( ; n &gt; <span class="number">0</span>; --n, ++cur)</span><br><span class="line">		construct(&amp;*cur, x);</span><br><span class="line">	<span class="keyword">return</span> cur;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">ForwardIterator</span>, <span class="title">class</span> <span class="title">Size</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">ForwardIterator</span></span></span><br><span class="line"><span class="class">__<span class="title">uninitialized_fill_n_aux</span>(<span class="title">ForwardIterator</span> <span class="title">first</span>, <span class="title">Size</span> <span class="title">n</span>, <span class="title">const</span> <span class="title">T</span>&amp; <span class="title">x</span>,__<span class="title">true_type</span>)&#123;</span></span><br><span class="line">	<span class="keyword">return</span> fill_n(first, n, x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="融入-STL"><a href="#融入-STL" class="headerlink" title="融入 STL"></a>融入 STL</h2><p>如果不自己写一个特化版本的话，萃取该自定类型时，萃取结果会认为你的四种函数(构造、拷贝构造、拷贝赋值、析构)都是重要的，但是事实上如果不重要可以提高某一些算法的效率，因此如果真的不重要，就应该在特化版本中告诉编译器。</p>
-<pre><code class="hljs cpp"><span class="hljs-comment">//比如有一个自定义的 class shape</span>
-<span class="hljs-keyword">template</span>&lt;&gt;
-__type_traits&lt;shape&gt;&#123;
-		<span class="hljs-keyword">typedef</span> __true_type  has_trivial_default_constructor;
-		<span class="hljs-keyword">typedef</span> __false_type has_trivial_copy_constructor;
-		<span class="hljs-keyword">typedef</span> __false_type has_trivial_assignment_constructor;
-		<span class="hljs-keyword">typedef</span> __false_type has_trivial_destructor;
-		<span class="hljs-keyword">typedef</span> __false_type is_POD_type;
-&#125;;</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//比如有一个自定义的 class shape</span></span><br><span class="line"><span class="keyword">template</span>&lt;&gt;</span><br><span class="line">__type_traits&lt;shape&gt;&#123;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type  has_trivial_default_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_copy_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_assignment_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_destructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type is_POD_type;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -353,342 +205,177 @@ __type_traits&lt;shape&gt;&#123;
 <p>  学习自侯捷老师：《STL源码剖析》</p>
 </blockquote>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/C/">C++</a>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/C/STL/">STL</a>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/C/STL/%E8%BF%AD%E4%BB%A3%E5%99%A8/">迭代器</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/C/">C++</a>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/STL/">STL</a>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/iterator/">iterator</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">有疑问欢迎联系我,一起享受编码快乐</p>
-              
-              
-                <div class="post-prevnext row">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/OXygenPanda.github.io/2020/11/03/C++11/C++11/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">C++11新语法新特性使用剖析</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/OXygenPanda.github.io/2020/10/30/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-iterator%20traits/">
-                        <span class="hidden-mobile">理解 iterator_traits</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div class="disqus" style="width:100%">
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-      var disqus_config = function () {
-        this.page.url = 'https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/31/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-type%20traits/';
-        this.page.identifier = '/OXygenPanda.github.io/2020/10/31/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-type%20traits/';
-      };
-      function loadDisqus() {
-        (function () {
-          var d = document,
-            s = d.createElement('script');
-          s.src = '//' + '' + '.disqus.com/embed.js';
-          s.setAttribute('data-timestamp', new Date());
-          (d.head || d.body).appendChild(s);
-        })();
-      }
-      waitElementVisible('disqus_thread', loadDisqus);
-    </script>
-    <noscript>Please enable JavaScript to view the
-      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
-    </noscript>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
   </div>
-
-
-              </article>
-            
-          </article>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#type-traits"><span class="toc-text">__type_traits</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#type-traits-%E6%BA%90%E7%A0%81"><span class="toc-text">_type_traits 源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#type-traits-%E5%AE%9E%E4%BE%8B"><span class="toc-text">__type_traits 实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%9E%8D%E5%85%A5-STL"><span class="toc-text">融入 STL</span></a></li></ol></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 劳振煜</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/31/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-type%20traits/</a>
         </div>
+      
+      <div>
+        一起享受编码的快乐
       </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/OXygenPanda.github.io/tags/C/"><i class="fa fa-tags"></i>C++</a>
+     
+      <a href="/OXygenPanda.github.io/tags/STL/"><i class="fa fa-tags"></i>STL</a>
+     
+      <a href="/OXygenPanda.github.io/tags/iterator/"><i class="fa fa-tags"></i>iterator</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
     </div>
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
-</div>
-
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i>
+        <span id="busuanzi_container_site_pv">您是本站第 <span id="busuanzi_value_site_pv"></span> 位访客</span>
       </div>
     
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> [object Object]
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/OXygenPanda.github.io/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/OXygenPanda.github.io/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
   </div>
 </div>
-
-<!-- Custom -->
-
-
     
-  </main>
 
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/OXygenPanda.github.io/2020/11/03/C++11/C++11/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/OXygenPanda.github.io/2020/10/30/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-iterator%20traits/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
   
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+  
+  
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
     </a>
   
-
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
     
-  <div class="statistics">
-    
-    
+  <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+  <script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
-
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/OXygenPanda.github.io/js/debouncer.js" ></script>
-<script  src="/OXygenPanda.github.io/js/main.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/OXygenPanda.github.io/js/lazyload.js" ></script>
-  
+    gtag('config', '');
+  </script>
 
 
 
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/OXygenPanda.github.io/js/clipboard-use.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '#post-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 2,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
+  <script async>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
       }
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "理解 type_traits&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "left",
-      visible: "always",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script  src="/OXygenPanda.github.io/js/local-search.js" ></script>
-  <script>
-    var path = "/OXygenPanda.github.io/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
       }
-    );
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
   </script>
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-
-
-</body>
+    
+  </body>
 </html>

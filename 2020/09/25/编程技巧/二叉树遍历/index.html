@@ -1,264 +1,197 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;light&#34;>
-
-
-
+<html>
+  
 <head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/OXygenPanda.github.io/img/favicon.png">
-  <link rel="icon" type="image/png" href="/OXygenPanda.github.io/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta charset="utf-8">
+  <meta name="author" content="Lao Zhenyu" />
   
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="Warm welcome">
-  <meta name="author" content="劳振煜">
-  <meta name="keywords" content="">
-  <title>二叉树的遍历 - 劳振煜的博客</title>
+  <title>二叉树的遍历 | 劳振煜的博客</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/OXygenPanda.github.io/lib/hint/hint.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-light.min.css" />
-    
+    <meta name="keywords" content="数据结构,二叉树,二叉树," />
+  
+
+  
+  <meta name="description" content="劳振煜的知識倉儲">
+
   
 
   
 
+  
 
-<!-- 主题依赖的图标库，不要自行修改 -->
+  
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+  
+    <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":false,"count":false},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2020-10-01",
+    passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
+    is_post: true,
+    lock: false,
+    author: "Lao Zhenyu",
+    share: {"twitter":false,"facebook":false,"weibo":false,"qq":false,"wechat":true},
+    mathjax: false,
+    page_type: "",
+    root: "/OXygenPanda.github.io/"
+  };
+</script>
+
+  
+<script src="/OXygenPanda.github.io/vendor/sha256.min.js"></script>
+<script src="/OXygenPanda.github.io/js/auth.js"></script>
+<script src="/OXygenPanda.github.io/js/index.js"></script>
+<script src="/OXygenPanda.github.io/vendor/qrcode.min.js"></script>
 
 
+  
+    <link rel="icon" href="/OXygenPanda.github.io/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/OXygenPanda.github.io/images/touch-icon.png">
+  
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  
+<link rel="stylesheet" href="/OXygenPanda.github.io/css/index.css">
+<link rel="stylesheet" href="/OXygenPanda.github.io/styles/components/highlight/highlight.css">
 
 
-<link  rel="stylesheet" href="/OXygenPanda.github.io/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script  src="/OXygenPanda.github.io/js/utils.js" ></script>
-  <script  src="/OXygenPanda.github.io/js/color-schema.js" ></script>
+  
 <meta name="generator" content="Hexo 5.2.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/OXygenPanda.github.io/">&nbsp;<strong>知識倉儲</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/OXygenPanda.github.io/img/3.jpg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-09-25 18:58" pubdate>
-        2020年9月25日 晚上
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
     
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      2.2k 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      25
-       分钟
-    </span>
-  
-
-  
-  
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
+      <span class="site-header-brand-title">
+        <a href="/OXygenPanda.github.io/">劳振煜 OXygen</a>
       </span>
     
-  
-</div>
-
-            
-          </div>
-
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
     
+      <span class="site-header-brand-motto"> | Trying to make sense.</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
       
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto" id="post">
-            <!-- SEO header -->
-            <h1 style="display: none">二叉树的遍历</h1>
-            
-            <div class="markdown-body" id="post-body">
-              <a id="more"></a>
-
-<h1 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h1><blockquote>
+        <a href="/OXygenPanda.github.io/" target="_self">首页</a>
+      
+        <a href="/OXygenPanda.github.io/archives/" target="_self">归档</a>
+      
+        <a href="/OXygenPanda.github.io/tags/" target="_self">标签</a>
+      
+        <a href="/OXygenPanda.github.io/categories/" target="_self">分类</a>
+      
+        <a href="/OXygenPanda.github.io/friends/" target="_self">友链</a>
+      
+        <a href="/OXygenPanda.github.io/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://https://github.com/OXygenPanda/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2020-09-25
+    </span>
+    
+      <span>
+        | <a href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><i class="fa fa-bookmark"></i>数据结构</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    二叉树的遍历
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h1><blockquote>
 <p>  博客文章主要目的是分享和记录。</p>
 <p>  分享给需要学习的同学，记录自己学习路上的点滴。</p>
 </blockquote>
 <p>相信大家对于二叉树的定义以及结构，在本科《数据结构与算法》课程中或者在其他同学的博客中有所了解。在此，不在过多地回顾课本理论知识。</p>
 <p>我们编码语言主要为C++，如下是二叉树在C++中类的表现形式，这边使用的是 struct 结构体，在C++中类和结构体的区别在于不标志 public , private 以及 protected 时, 成员变量和成员函数是 public 还是 private 以及默认的继承方式是 public 还是 private。使用 struct 的原因在于，结构体更想表达的是一种数据的组织形式，而不是ADT。</p>
-<pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">TreeNode</span> &#123;</span>
-  	<span class="hljs-keyword">int</span> val;
-  	TreeNode* left;
-  	TreeNode* right;
-  	TreeNode*(<span class="hljs-keyword">int</span> x):val(x),left(<span class="hljs-literal">nullptr</span>),right(<span class="hljs-literal">nullptr</span>)&#123;&#125;
-&#125;;</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> &#123;</span></span><br><span class="line">  	<span class="keyword">int</span> val;</span><br><span class="line">  	TreeNode* left;</span><br><span class="line">  	TreeNode* right;</span><br><span class="line">  	TreeNode*(<span class="keyword">int</span> x):val(x),left(<span class="literal">nullptr</span>),right(<span class="literal">nullptr</span>)&#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>并且配图可以更好地理解二叉树的结构。</p>
-<img src="https://i.loli.net/2020/10/17/tFRamoSqrQC6M2n.png" srcset="/OXygenPanda.github.io/img/loading.gif">
+<img src="https://i.loli.net/2020/10/17/tFRamoSqrQC6M2n.png">
 
 <h2 id="二叉树的遍历方式"><a href="#二叉树的遍历方式" class="headerlink" title="二叉树的遍历方式"></a>二叉树的遍历方式</h2><p>在线性结构中，例如，在数组中我们采用索引值（即，地址偏移）的方式去遍历整个数组；在链表中我们采用迭代的方式去遍历整个链表。而二叉树和线性的数组和链表的最大区别在于，二叉树的每一个节点并非只有一个后继节点。因此就有了许多有趣的遍历方式。</p>
 <h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>按照遍历顺序可以分为三种:</p>
@@ -279,14 +212,7 @@
 <li>递归</li>
 </ul>
 <h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><h4 id="递归框架（前序中序后序框架）"><a href="#递归框架（前序中序后序框架）" class="headerlink" title="递归框架（前序中序后序框架）"></a>递归框架（前序中序后序框架）</h4><p>首先是递归，也是最简单书写的一种，其代码框架如下：</p>
-<pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">order</span><span class="hljs-params">(TreeNode * root)</span></span>&#123;
-  <span class="hljs-keyword">if</span>(root == <span class="hljs-literal">nullptr</span>)	<span class="hljs-keyword">return</span>;
-  <span class="hljs-comment">// 前序</span>
-  order(root-&gt;left);
-  <span class="hljs-comment">// 中序</span>
-  order(root-&gt;right);
-  <span class="hljs-comment">// 后序</span>
-&#125;</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">order</span><span class="params">(TreeNode * root)</span></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)	<span class="keyword">return</span>;</span><br><span class="line">  <span class="comment">// 前序</span></span><br><span class="line">  order(root-&gt;left);</span><br><span class="line">  <span class="comment">// 中序</span></span><br><span class="line">  order(root-&gt;right);</span><br><span class="line">  <span class="comment">// 后序</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h5 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h5><p><strong>优点</strong>：递归很简单，我们只需要记住这一个代码框架就可以完成前中后序遍历；</p>
 <p><strong>缺点</strong>：递归过程中，从根节点出发不断递归左右节点，这一些函数调用的开销发生在栈空间，使得栈空间消耗巨大，甚至可能会导致栈溢出。</p>
@@ -302,440 +228,201 @@
 </li>
 <li><p>后序：左-右-根</p>
 <p>比如，我们要按照中序的顺序输出二叉树的节点值：</p>
-<pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">order</span><span class="hljs-params">(TreeNode* root)</span></span>&#123;
-    <span class="hljs-keyword">if</span>(root == <span class="hljs-literal">nullptr</span>)	<span class="hljs-keyword">return</span>;
-    order(root-&gt;left);
-    <span class="hljs-comment">/*中序 begin */</span>
-    <span class="hljs-built_in">cout</span> &lt;&lt; root-&gt;val &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span>; <span class="hljs-comment">//中序位置写执行语句,这一个区域写的root就是中序的节点</span>
-    <span class="hljs-comment">/*中序 end */</span>
-    order(root-&gt;right);
-&#125;;</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">order</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)	<span class="keyword">return</span>;</span><br><span class="line">    order(root-&gt;left);</span><br><span class="line">    <span class="comment">/*中序 begin */</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; root-&gt;val &lt;&lt; <span class="string">&#x27; &#x27;</span>; <span class="comment">//中序位置写执行语句,这一个区域写的root就是中序的节点</span></span><br><span class="line">    <span class="comment">/*中序 end */</span></span><br><span class="line">    order(root-&gt;right);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
 </li>
 </ul>
 <h4 id="迭代框架（前序框架-与-中序框架）"><a href="#迭代框架（前序框架-与-中序框架）" class="headerlink" title="迭代框架（前序框架 与 中序框架）"></a>迭代框架（前序框架 与 中序框架）</h4><p>迭代框架没有递归框架那么简单，既没有对前中后序以及层序的通用模板，也没有递归那么语句短小，接下来主要介绍：前序，中序，后序，层序的迭代框架（模板）。</p>
-<pre><code class="hljs c"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">PreOrder</span><span class="hljs-params">(TreeNode *root)</span> </span>&#123;
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; res;
-    <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span> res;
-    <span class="hljs-built_in">stack</span>&lt;TreeNode *&gt; s;
-    <span class="hljs-keyword">while</span> (root || !s.empty()) &#123;
-        <span class="hljs-keyword">if</span> (root) &#123;
-            s.push(root);
-            <span class="hljs-comment">// res.push_back(root-&gt;val);  // PreOrder</span>
-            root = root-&gt;left;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            root = s.top();
-            s.pop();
-            <span class="hljs-comment">// res.push_back(root-&gt;val);  // InOrder</span>
-            root = root-&gt;right;
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> res;
-&#125;</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PreOrder</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; s;</span><br><span class="line">    <span class="keyword">while</span> (root || !s.empty()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (root) &#123;</span><br><span class="line">            s.push(root);</span><br><span class="line">            <span class="comment">// res.push_back(root-&gt;val);  // PreOrder</span></span><br><span class="line">            root = root-&gt;left;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            root = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            <span class="comment">// res.push_back(root-&gt;val);  // InOrder</span></span><br><span class="line">            root = root-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>代码在上方，可以看到前序和中序的框架比较相似，在不同的位置执行操作，那么它的遍历顺序就可以不同。</p>
 <h5 id="理解-1"><a href="#理解-1" class="headerlink" title="理解"></a>理解</h5><p>前序遍历，我们总是先读根节点（或者对根节点做一系列操作），如果左孩子存在，再去访问当前根节点的左孩子，那么我们要访问当前节点的左孩子，如果我们需要之后再访问右孩子，我们岂不是无法回到那个根节点了？（树的结构不支持子节点到父节点的指针）。所以，我们需要借助一个辅助栈来存放没有访问过右节点的根节点，等我们把左子树访问完毕之后，再提出之前的根节点，来访问他的右子树。</p>
-<p><img src="https://i.loli.net/2020/10/17/xnbAWvpwgMqLfur.jpg" srcset="/OXygenPanda.github.io/img/loading.gif"></p>
+<p><img src="https://i.loli.net/2020/10/17/xnbAWvpwgMqLfur.jpg"></p>
 <p>如图，我们访问了节点1，去访问了节点2，那么我们访问完节点5之后需要回到节点1，再去访问节点3，因此必须把1给保留下来，但是我们不能用单个变量来保存节点1，因为在访问过程中，访问了节点2之后，访问节点4，再之后需要通过节点2，再去访问节点5，这样又需要一个变量来保存节点2，因此再迭代过程中，这个节点记录是一个变长的，所以需要一个辅助栈。</p>
 <h4 id="迭代框架（后序框架）"><a href="#迭代框架（后序框架）" class="headerlink" title="迭代框架（后序框架）"></a>迭代框架（后序框架）</h4><p>前序和中序遍历的迭代框架是类似的，但是后序遍历的框架截然不同。后序遍历顺序：左-右-根。我们可以看到，后序的遍历顺序和前序遍历顺序（根-左-右）类似。我们可以稍微修改前序遍历的框架，再对数组进行反转，获得后序遍历顺序。</p>
-<pre><code class="hljs c"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">PostOrder</span><span class="hljs-params">(TreeNode *root)</span> </span>&#123;
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; res;
-    <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span> res;
-    <span class="hljs-built_in">stack</span>&lt;TreeNode *&gt; visit;
-    TreeNode *cur = root;
-    TreeNode *pre = <span class="hljs-literal">nullptr</span>;
-    <span class="hljs-keyword">while</span> (cur != <span class="hljs-literal">nullptr</span> || !visit.empty()) &#123;
-        <span class="hljs-keyword">while</span> (cur != <span class="hljs-literal">nullptr</span>) &#123;
-            visit.push(cur);
-            cur = cur-&gt;left;
-        &#125;
-        cur = visit.top();
-        <span class="hljs-keyword">if</span> (cur-&gt;right == <span class="hljs-literal">nullptr</span> || cur-&gt;right == pre) &#123;
-            visit.pop();
-            res.push_back(cur-&gt;val);
-            pre = cur;
-            cur = <span class="hljs-literal">nullptr</span>;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            cur = cur-&gt;right;
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> res;
-&#125;</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PostOrder</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; visit;</span><br><span class="line">    TreeNode *cur = root;</span><br><span class="line">    TreeNode *pre = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">while</span> (cur != <span class="literal">nullptr</span> || !visit.empty()) &#123;</span><br><span class="line">        <span class="keyword">while</span> (cur != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            visit.push(cur);</span><br><span class="line">            cur = cur-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        cur = visit.top();</span><br><span class="line">        <span class="keyword">if</span> (cur-&gt;right == <span class="literal">nullptr</span> || cur-&gt;right == pre) &#123;</span><br><span class="line">            visit.pop();</span><br><span class="line">            res.push_back(cur-&gt;val);</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = <span class="literal">nullptr</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cur = cur-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<pre><code class="hljs c"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">PostOrder_2</span><span class="hljs-params">(TreeNode *root)</span> </span>&#123;
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; res;
-    <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span> res;
-    <span class="hljs-built_in">stack</span>&lt;TreeNode *&gt; s;
-    TreeNode *p = root;
-    <span class="hljs-keyword">while</span> (p != <span class="hljs-literal">nullptr</span> || !s.empty()) &#123;
-        <span class="hljs-keyword">if</span> (p != <span class="hljs-literal">nullptr</span>) &#123;
-            res.push_back(p-&gt;val); <span class="hljs-comment">//前序的位置</span>
-            s.push(p);
-            p = p-&gt;right; <span class="hljs-comment">//区别在于遍历顺序是 根-右-左</span>
-        &#125;
-        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(!s.empty())&#123;
-            p = s.top();
-            s.pop();
-            p = p-&gt;left;
-        &#125;
-    &#125;
-    reverse(res.begin(),res.end()); <span class="hljs-comment">//得到 根-右-左, 反转之后得到 左-右-根</span>
-    <span class="hljs-keyword">return</span> res;
-&#125;</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PostOrder_2</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; s;</span><br><span class="line">    TreeNode *p = root;</span><br><span class="line">    <span class="keyword">while</span> (p != <span class="literal">nullptr</span> || !s.empty()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            res.push_back(p-&gt;val); <span class="comment">//前序的位置</span></span><br><span class="line">            s.push(p);</span><br><span class="line">            p = p-&gt;right; <span class="comment">//区别在于遍历顺序是 根-右-左</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(!s.empty())&#123;</span><br><span class="line">            p = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            p = p-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    reverse(res.begin(),res.end()); <span class="comment">//得到 根-右-左, 反转之后得到 左-右-根</span></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h5 id="理解-2"><a href="#理解-2" class="headerlink" title="理解"></a>理解</h5><p>可以看一下以上的代码：<code>PostOrder(TreeNode* root)</code> 是正常思路的后序遍历迭代写法，而 <code>PostOrder_2(TreeNode* root)</code> 是前序遍历反转的写法。个人感觉前序遍历反转的模板和前序中序模板类似，思想方式较为统一。</p>
 <h4 id="迭代框架（层序遍历）"><a href="#迭代框架（层序遍历）" class="headerlink" title="迭代框架（层序遍历）"></a>迭代框架（层序遍历）</h4><p>层序遍历其实就是BFS的思想，遍历的顺序是按层从低到高来遍历。</p>
-<pre><code class="hljs c"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; <span class="hljs-title">levelOrder</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;
-    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; res;
-    <span class="hljs-keyword">if</span>(!root)   <span class="hljs-keyword">return</span> res;
-    <span class="hljs-built_in">deque</span>&lt;TreeNode*&gt; q;
-    q.push_back(root);
-    <span class="hljs-keyword">while</span>(!q.empty())&#123;
-        <span class="hljs-keyword">int</span> size = q.size();
-        res.push_back(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;());
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;i &lt;= size;++i)&#123;
-            TreeNode* node = q.front();q.pop_front();
-            res.back().push_back(node-&gt;val);
-            <span class="hljs-keyword">if</span>(node-&gt;left)  q.push_back(node-&gt;left);
-            <span class="hljs-keyword">if</span>(node-&gt;right) q.push_back(node-&gt;right);
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> res;
-&#125;</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">levelOrder</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="keyword">if</span>(!root)   <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">deque</span>&lt;TreeNode*&gt; q;</span><br><span class="line">    q.push_back(root);</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> size = q.size();</span><br><span class="line">        res.push_back(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= size;++i)&#123;</span><br><span class="line">            TreeNode* node = q.front();q.pop_front();</span><br><span class="line">            res.back().push_back(node-&gt;val);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left)  q.push_back(node-&gt;left);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;right) q.push_back(node-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h5 id="理解-3"><a href="#理解-3" class="headerlink" title="理解"></a>理解</h5><p><img src="https://i.loli.net/2020/10/17/Ct2SP5GclqrK4VF.jpg" srcset="/OXygenPanda.github.io/img/loading.gif"></p>
+<h5 id="理解-3"><a href="#理解-3" class="headerlink" title="理解"></a>理解</h5><p><img src="https://i.loli.net/2020/10/17/Ct2SP5GclqrK4VF.jpg"></p>
 <p>层序遍历相较于前中后序来说，它访问到了当前节点的兄弟节点以后，我们无法访问前节点的孩子节点。因此，这里不同的是，需要一个辅助的队列来存放同层的节点。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>那么，二叉树的常见遍历写法都在这边啦。</p>
 <p>递归写法因为每一个节点访问一次，所以时间复杂度为:<code>O(N)</code>，而递归需要在栈空间里开辟许多空间，平均递归的深度是logN，因此空间复杂度也是:<code>O(logN)</code>。</p>
 <p>迭代写法因为每一个节点访问一次，所以时间复杂度为:<code>O(N)</code>，而迭代需要一个辅助栈或者辅助队列，平均的情况是把logN的节点放入栈或队列，最差的情况是把大多数节点全部放入栈或队列，因此空间复杂度也是：<code>O(logN)</code>。</p>
 <p>而还有一个遍历写法叫做morris遍历，它能够实现空间复杂度为<code>O(1)</code>。但是写法较为复杂，准备另外再写一篇关于morris遍历的模板。</p>
-
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">有疑问欢迎联系我,一起享受编码快乐</p>
-              
-              
-                <div class="post-prevnext row">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/OXygenPanda.github.io/2020/10/06/leetcode/%E5%8D%95%E8%B0%83%E6%A0%88/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">单调栈</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div class="disqus" style="width:100%">
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-      var disqus_config = function () {
-        this.page.url = 'https://oxygenpanda.github.io/OXygenPanda.github.io/2020/09/25/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/';
-        this.page.identifier = '/OXygenPanda.github.io/2020/09/25/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/';
-      };
-      function loadDisqus() {
-        (function () {
-          var d = document,
-            s = d.createElement('script');
-          s.src = '//' + '' + '.disqus.com/embed.js';
-          s.setAttribute('data-timestamp', new Date());
-          (d.head || d.body).appendChild(s);
-        })();
-      }
-      waitElementVisible('disqus_thread', loadDisqus);
-    </script>
-    <noscript>Please enable JavaScript to view the
-      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
-    </noscript>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
   </div>
-
-
-              </article>
-            
-          </article>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86"><span class="toc-text">二叉树遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F"><span class="toc-text">二叉树的遍历方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%B1%BB"><span class="toc-text">分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%86%E6%9E%B6"><span class="toc-text">框架</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E6%A1%86%E6%9E%B6%EF%BC%88%E5%89%8D%E5%BA%8F%E4%B8%AD%E5%BA%8F%E5%90%8E%E5%BA%8F%E6%A1%86%E6%9E%B6%EF%BC%89"><span class="toc-text">递归框架（前序中序后序框架）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text">优缺点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%90%86%E8%A7%A3"><span class="toc-text">理解</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E6%A1%86%E6%9E%B6%EF%BC%88%E5%89%8D%E5%BA%8F%E6%A1%86%E6%9E%B6-%E4%B8%8E-%E4%B8%AD%E5%BA%8F%E6%A1%86%E6%9E%B6%EF%BC%89"><span class="toc-text">迭代框架（前序框架 与 中序框架）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%90%86%E8%A7%A3-1"><span class="toc-text">理解</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E6%A1%86%E6%9E%B6%EF%BC%88%E5%90%8E%E5%BA%8F%E6%A1%86%E6%9E%B6%EF%BC%89"><span class="toc-text">迭代框架（后序框架）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%90%86%E8%A7%A3-2"><span class="toc-text">理解</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E6%A1%86%E6%9E%B6%EF%BC%88%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%89"><span class="toc-text">迭代框架（层序遍历）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%90%86%E8%A7%A3-3"><span class="toc-text">理解</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 劳振煜</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">https://oxygenpanda.github.io/OXygenPanda.github.io/2020/09/25/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/</a>
         </div>
+      
+      <div>
+        一起享受编码的快乐
       </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/OXygenPanda.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"><i class="fa fa-tags"></i>二叉树</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
     </div>
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
-</div>
-
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i>
+        <span id="busuanzi_container_site_pv">您是本站第 <span id="busuanzi_value_site_pv"></span> 位访客</span>
       </div>
     
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> [object Object]
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/OXygenPanda.github.io/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/OXygenPanda.github.io/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
   </div>
 </div>
-
-<!-- Custom -->
-
-
     
-  </main>
 
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/OXygenPanda.github.io/2020/10/06/leetcode/%E5%8D%95%E8%B0%83%E6%A0%88/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="javascript:void(0);" data-enable="false">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
   
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+  
+  
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
     </a>
   
-
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
     
-  <div class="statistics">
-    
-    
+  <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+  <script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
-
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/OXygenPanda.github.io/js/debouncer.js" ></script>
-<script  src="/OXygenPanda.github.io/js/main.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/OXygenPanda.github.io/js/lazyload.js" ></script>
-  
+    gtag('config', '');
+  </script>
 
 
 
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/OXygenPanda.github.io/js/clipboard-use.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '#post-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 2,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
+  <script async>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
       }
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "二叉树的遍历&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "left",
-      visible: "always",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script  src="/OXygenPanda.github.io/js/local-search.js" ></script>
-  <script>
-    var path = "/OXygenPanda.github.io/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
       }
-    );
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
   </script>
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-
-
-</body>
+    
+  </body>
 </html>

@@ -1,264 +1,198 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;light&#34;>
-
-
-
+<html>
+  
 <head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/OXygenPanda.github.io/img/favicon.png">
-  <link rel="icon" type="image/png" href="/OXygenPanda.github.io/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta charset="utf-8">
+  <meta name="author" content="Lao Zhenyu" />
   
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="Warm welcome">
-  <meta name="author" content="劳振煜">
-  <meta name="keywords" content="">
-  <title>剑指 Offer 07. 重建二叉树 - 劳振煜的博客</title>
+  <title>剑指 Offer 07. 重建二叉树 | 劳振煜的博客</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/OXygenPanda.github.io/lib/hint/hint.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-light.min.css" />
-    
+    <meta name="keywords" content="Leetcode,剑指 Offer 专题,Leetcode,二叉树,中等," />
+  
+
+  
+  <meta name="description" content="劳振煜的知識倉儲">
+
   
 
   
 
+  
 
-<!-- 主题依赖的图标库，不要自行修改 -->
+  
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+  
+    <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":false,"count":false},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2020-10-01",
+    passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
+    is_post: true,
+    lock: false,
+    author: "Lao Zhenyu",
+    share: {"twitter":false,"facebook":false,"weibo":false,"qq":false,"wechat":true},
+    mathjax: false,
+    page_type: "",
+    root: "/OXygenPanda.github.io/"
+  };
+</script>
+
+  
+<script src="/OXygenPanda.github.io/vendor/sha256.min.js"></script>
+<script src="/OXygenPanda.github.io/js/auth.js"></script>
+<script src="/OXygenPanda.github.io/js/index.js"></script>
+<script src="/OXygenPanda.github.io/vendor/qrcode.min.js"></script>
 
 
+  
+    <link rel="icon" href="/OXygenPanda.github.io/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/OXygenPanda.github.io/images/touch-icon.png">
+  
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  
+<link rel="stylesheet" href="/OXygenPanda.github.io/css/index.css">
+<link rel="stylesheet" href="/OXygenPanda.github.io/styles/components/highlight/highlight.css">
 
 
-<link  rel="stylesheet" href="/OXygenPanda.github.io/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script  src="/OXygenPanda.github.io/js/utils.js" ></script>
-  <script  src="/OXygenPanda.github.io/js/color-schema.js" ></script>
+  
 <meta name="generator" content="Hexo 5.2.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/OXygenPanda.github.io/">&nbsp;<strong>知識倉儲</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/OXygenPanda.github.io/img/3.jpg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-10-16 16:24" pubdate>
-        2020年10月16日 下午
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
     
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      552 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      7
-       分钟
-    </span>
-  
-
-  
-  
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
+      <span class="site-header-brand-title">
+        <a href="/OXygenPanda.github.io/">劳振煜 OXygen</a>
       </span>
     
-  
-</div>
-
-            
-          </div>
-
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
     
+      <span class="site-header-brand-motto"> | Trying to make sense.</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
       
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto" id="post">
-            <!-- SEO header -->
-            <h1 style="display: none">剑指 Offer 07. 重建二叉树</h1>
-            
-            <div class="markdown-body" id="post-body">
-              <h2 id="剑指-Offer-07-重建二叉树"><a href="#剑指-Offer-07-重建二叉树" class="headerlink" title="剑指 Offer 07. 重建二叉树"></a>剑指 Offer 07. 重建二叉树</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/" title="leetcode链接">剑指 Offer 07. 重建二叉树</a></p>
+        <a href="/OXygenPanda.github.io/" target="_self">首页</a>
+      
+        <a href="/OXygenPanda.github.io/archives/" target="_self">归档</a>
+      
+        <a href="/OXygenPanda.github.io/tags/" target="_self">标签</a>
+      
+        <a href="/OXygenPanda.github.io/categories/" target="_self">分类</a>
+      
+        <a href="/OXygenPanda.github.io/friends/" target="_self">友链</a>
+      
+        <a href="/OXygenPanda.github.io/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://https://github.com/OXygenPanda/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2020-10-16
+    </span>
+    
+      <span>
+        | <a href="/OXygenPanda.github.io/categories/Leetcode/"><i class="fa fa-bookmark"></i>Leetcode</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    剑指 Offer 07. 重建二叉树
+  </h1>
+  
+  <article class="passage-article">
+    <h2 id="剑指-Offer-07-重建二叉树"><a href="#剑指-Offer-07-重建二叉树" class="headerlink" title="剑指 Offer 07. 重建二叉树"></a>剑指 Offer 07. 重建二叉树</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/" title="leetcode链接">剑指 Offer 07. 重建二叉树</a></p>
 <p><strong>难度:</strong><font color="orange">中等</font></p>
 <p><strong>描述</strong></p>
 <p>输入某二叉树的前序遍历和中序遍历的结果，请重建该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。</p>
 <p><strong>示例</strong></p>
-<pre><code class="hljs cpp">例如，给出
-前序遍历 preorder = [<span class="hljs-number">3</span>,<span class="hljs-number">9</span>,<span class="hljs-number">20</span>,<span class="hljs-number">15</span>,<span class="hljs-number">7</span>]
-中序遍历 inorder = [<span class="hljs-number">9</span>,<span class="hljs-number">3</span>,<span class="hljs-number">15</span>,<span class="hljs-number">20</span>,<span class="hljs-number">7</span>]
-    
-限制：
-<span class="hljs-number">0</span> &lt;= 节点个数 &lt;= <span class="hljs-number">5000</span></code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">例如，给出</span><br><span class="line">前序遍历 preorder = [<span class="number">3</span>,<span class="number">9</span>,<span class="number">20</span>,<span class="number">15</span>,<span class="number">7</span>]</span><br><span class="line">中序遍历 inorder = [<span class="number">9</span>,<span class="number">3</span>,<span class="number">15</span>,<span class="number">20</span>,<span class="number">7</span>]</span><br><span class="line">    </span><br><span class="line">限制：</span><br><span class="line"><span class="number">0</span> &lt;= 节点个数 &lt;= <span class="number">5000</span></span><br></pre></td></tr></table></figure>
 <p>返回如下的二叉树：</p>
-<img src="https://i.loli.net/2020/10/17/izmOr39HkujLW86.png" srcset="/OXygenPanda.github.io/img/loading.gif">
+<img src="https://i.loli.net/2020/10/17/izmOr39HkujLW86.png">
 
 
-<pre><code class="hljs cpp">函数签名:
-<span class="hljs-function">TreeNode* <span class="hljs-title">buildTree</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; preorder, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; inorder)</span></span>;</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">函数签名:</span><br><span class="line"><span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; preorder, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder)</span></span>;</span><br></pre></td></tr></table></figure>
 
 <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>事实上，我们通过遍历顺序还原二叉树，必须知道中序遍历以及前序后序中的一种，就可以还原出唯一的一棵二叉树。这一道题目是前序和中序还原二叉树，leetcode中也有中序和后序还原二叉树，解法其实是类似的。</p>
 <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/">106. 从中序与后序遍历序列构造二叉树</a></p>
@@ -269,366 +203,184 @@
 <li>前序中除去根节点以外，左子树的节点集中在左边，右子树的节点集中在右边；</li>
 <li>对于每一颗子树来说，也满足以上两个特点。</li>
 </ul>
-<img src="https://i.loli.net/2020/10/17/5ekJB1Vy2nLoGhP.jpg" srcset="/OXygenPanda.github.io/img/loading.gif">
+<img src="https://i.loli.net/2020/10/17/5ekJB1Vy2nLoGhP.jpg">
 
-<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><pre><code class="hljs cpp"><span class="hljs-function">TreeNode* <span class="hljs-title">buildTree</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; preorder, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; inorder)</span> </span>&#123;
-    <span class="hljs-comment">//函数签名不支持我们方便的书写递归,因此再构建一个函数</span>
-    <span class="hljs-keyword">return</span> build(preorder,<span class="hljs-number">0</span>,preorder.size()<span class="hljs-number">-1</span>,inorder,<span class="hljs-number">0</span>,inorder.size()<span class="hljs-number">-1</span>);
-&#125;
-
-<span class="hljs-function">TreeNode* <span class="hljs-title">build</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; preorder, <span class="hljs-keyword">int</span> pbegin, <span class="hljs-keyword">int</span> pend, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; inorder, <span class="hljs-keyword">int</span> ibegin, <span class="hljs-keyword">int</span> iend)</span></span>&#123;
-    <span class="hljs-keyword">if</span>(pbegin &gt; pend) <span class="hljs-comment">//剪枝条件</span>
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;
-    <span class="hljs-keyword">int</span> midnum = preorder[pbegin]; <span class="hljs-comment">//特点1:前序第一个节点是根节点</span>
-    <span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=ibegin;i&lt;=iend;++i)
-        <span class="hljs-keyword">if</span>(inorder[i] == midnum) <span class="hljs-comment">//利用特点2之前需要找到中序中的根节点</span>
-            index = i;
-
-    <span class="hljs-keyword">int</span> leftsize = index - ibegin; <span class="hljs-comment">// 找到左子树的节点数</span>
-    TreeNode * node = <span class="hljs-keyword">new</span> TreeNode(midnum);
-    node-&gt;left = build(preorder,pbegin+<span class="hljs-number">1</span>,pbegin+leftsize,inorder,ibegin,index<span class="hljs-number">-1</span>); <span class="hljs-comment">//构建左子树</span>
-    node-&gt;right = build(preorder,pbegin+leftsize+<span class="hljs-number">1</span>,pend,inorder,index+<span class="hljs-number">1</span>,iend); <span class="hljs-comment">//构建右子树</span>
-    <span class="hljs-keyword">return</span> node;
-&#125;</code></pre>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; preorder, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//函数签名不支持我们方便的书写递归,因此再构建一个函数</span></span><br><span class="line">    <span class="keyword">return</span> build(preorder,<span class="number">0</span>,preorder.size()<span class="number">-1</span>,inorder,<span class="number">0</span>,inorder.size()<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">TreeNode* <span class="title">build</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; preorder, <span class="keyword">int</span> pbegin, <span class="keyword">int</span> pend, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder, <span class="keyword">int</span> ibegin, <span class="keyword">int</span> iend)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(pbegin &gt; pend) <span class="comment">//剪枝条件</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">int</span> midnum = preorder[pbegin]; <span class="comment">//特点1:前序第一个节点是根节点</span></span><br><span class="line">    <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=ibegin;i&lt;=iend;++i)</span><br><span class="line">        <span class="keyword">if</span>(inorder[i] == midnum) <span class="comment">//利用特点2之前需要找到中序中的根节点</span></span><br><span class="line">            index = i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> leftsize = index - ibegin; <span class="comment">// 找到左子树的节点数</span></span><br><span class="line">    TreeNode * node = <span class="keyword">new</span> TreeNode(midnum);</span><br><span class="line">    node-&gt;left = build(preorder,pbegin+<span class="number">1</span>,pbegin+leftsize,inorder,ibegin,index<span class="number">-1</span>); <span class="comment">//构建左子树</span></span><br><span class="line">    node-&gt;right = build(preorder,pbegin+leftsize+<span class="number">1</span>,pend,inorder,index+<span class="number">1</span>,iend); <span class="comment">//构建右子树</span></span><br><span class="line">    <span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/Leetcode/">Leetcode</a>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/Leetcode/%E5%89%91%E6%8C%87-Offer-%E4%B8%93%E9%A2%98/">剑指 Offer 专题</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/Leetcode/">Leetcode</a>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/%E4%B8%AD%E7%AD%89/">中等</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">有疑问欢迎联系我,一起享受编码快乐</p>
-              
-              
-                <div class="post-prevnext row">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/OXygenPanda.github.io/2020/10/18/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E5%89%8D%E7%BC%80%E4%B8%AD%E7%BC%80%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2%E6%B1%82%E5%80%BC/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">前缀/中缀/后缀表达式的转换/计算/构建二叉树[未完成]</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/OXygenPanda.github.io/2020/10/14/leetcode/%E5%89%91%E6%8C%87Offer%2006/">
-                        <span class="hidden-mobile">剑指 Offer 06. 从尾到头打印链表</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div class="disqus" style="width:100%">
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-      var disqus_config = function () {
-        this.page.url = 'https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/16/leetcode/%E5%89%91%E6%8C%87Offer%2007/';
-        this.page.identifier = '/OXygenPanda.github.io/2020/10/16/leetcode/%E5%89%91%E6%8C%87Offer%2007/';
-      };
-      function loadDisqus() {
-        (function () {
-          var d = document,
-            s = d.createElement('script');
-          s.src = '//' + '' + '.disqus.com/embed.js';
-          s.setAttribute('data-timestamp', new Date());
-          (d.head || d.body).appendChild(s);
-        })();
-      }
-      waitElementVisible('disqus_thread', loadDisqus);
-    </script>
-    <noscript>Please enable JavaScript to view the
-      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
-    </noscript>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
   </div>
-
-
-              </article>
-            
-          </article>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%91%E6%8C%87-Offer-07-%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-text">剑指 Offer 07. 重建二叉树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-text">题目描述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%B3%95"><span class="toc-text">解法</span></a></li></ol></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 劳振煜</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/16/leetcode/%E5%89%91%E6%8C%87Offer%2007/</a>
         </div>
+      
+      <div>
+        一起享受编码的快乐
       </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/OXygenPanda.github.io/tags/Leetcode/"><i class="fa fa-tags"></i>Leetcode</a>
+     
+      <a href="/OXygenPanda.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"><i class="fa fa-tags"></i>二叉树</a>
+     
+      <a href="/OXygenPanda.github.io/tags/%E4%B8%AD%E7%AD%89/"><i class="fa fa-tags"></i>中等</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
     </div>
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
-</div>
-
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i>
+        <span id="busuanzi_container_site_pv">您是本站第 <span id="busuanzi_value_site_pv"></span> 位访客</span>
       </div>
     
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> [object Object]
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/OXygenPanda.github.io/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/OXygenPanda.github.io/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
   </div>
 </div>
-
-<!-- Custom -->
-
-
     
-  </main>
 
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/OXygenPanda.github.io/2020/10/18/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E5%89%8D%E7%BC%80%E4%B8%AD%E7%BC%80%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2%E6%B1%82%E5%80%BC/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/OXygenPanda.github.io/2020/10/14/leetcode/%E5%89%91%E6%8C%87Offer%2006/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
   
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+  
+  
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
     </a>
   
-
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
     
-  <div class="statistics">
-    
-    
+  <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+  <script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
-
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/OXygenPanda.github.io/js/debouncer.js" ></script>
-<script  src="/OXygenPanda.github.io/js/main.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/OXygenPanda.github.io/js/lazyload.js" ></script>
-  
+    gtag('config', '');
+  </script>
 
 
 
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/OXygenPanda.github.io/js/clipboard-use.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '#post-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 2,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
+  <script async>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
       }
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "剑指 Offer 07. 重建二叉树&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "left",
-      visible: "always",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script  src="/OXygenPanda.github.io/js/local-search.js" ></script>
-  <script>
-    var path = "/OXygenPanda.github.io/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
       }
-    );
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
   </script>
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-
-
-</body>
+    
+  </body>
 </html>

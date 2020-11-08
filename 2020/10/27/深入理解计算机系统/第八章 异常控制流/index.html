@@ -1,248 +1,188 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;light&#34;>
-
-
-
+<html>
+  
 <head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/OXygenPanda.github.io/img/favicon.png">
-  <link rel="icon" type="image/png" href="/OXygenPanda.github.io/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta charset="utf-8">
+  <meta name="author" content="Lao Zhenyu" />
   
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="Warm welcome">
-  <meta name="author" content="劳振煜">
-  <meta name="keywords" content="">
-  <title>chapter 8 异常控制流 - 劳振煜的博客</title>
+  <title>chapter 8 异常控制流 | 劳振煜的博客</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/OXygenPanda.github.io/lib/hint/hint.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-light.min.css" />
-    
+    <meta name="keywords" content="读书笔记,《深入理解计算机系统》,第八章 异常控制流,操作系统," />
+  
+
+  
+  <meta name="description" content="劳振煜的知識倉儲">
+
   
 
   
 
+  
 
-<!-- 主题依赖的图标库，不要自行修改 -->
+  
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+  
+    <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":false,"count":false},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2020-10-01",
+    passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
+    is_post: true,
+    lock: false,
+    author: "Lao Zhenyu",
+    share: {"twitter":false,"facebook":false,"weibo":false,"qq":false,"wechat":true},
+    mathjax: false,
+    page_type: "",
+    root: "/OXygenPanda.github.io/"
+  };
+</script>
+
+  
+<script src="/OXygenPanda.github.io/vendor/sha256.min.js"></script>
+<script src="/OXygenPanda.github.io/js/auth.js"></script>
+<script src="/OXygenPanda.github.io/js/index.js"></script>
+<script src="/OXygenPanda.github.io/vendor/qrcode.min.js"></script>
 
 
+  
+    <link rel="icon" href="/OXygenPanda.github.io/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/OXygenPanda.github.io/images/touch-icon.png">
+  
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  
+<link rel="stylesheet" href="/OXygenPanda.github.io/css/index.css">
+<link rel="stylesheet" href="/OXygenPanda.github.io/styles/components/highlight/highlight.css">
 
 
-<link  rel="stylesheet" href="/OXygenPanda.github.io/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script  src="/OXygenPanda.github.io/js/utils.js" ></script>
-  <script  src="/OXygenPanda.github.io/js/color-schema.js" ></script>
+  
 <meta name="generator" content="Hexo 5.2.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/OXygenPanda.github.io/">&nbsp;<strong>知識倉儲</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/OXygenPanda.github.io/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/OXygenPanda.github.io/img/3.jpg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-10-27 20:40" pubdate>
-        2020年10月27日 晚上
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
     
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      1.2k 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      13
-       分钟
-    </span>
-  
-
-  
-  
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
+      <span class="site-header-brand-title">
+        <a href="/OXygenPanda.github.io/">劳振煜 OXygen</a>
       </span>
     
-  
-</div>
-
-            
-          </div>
-
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
     
+      <span class="site-header-brand-motto"> | Trying to make sense.</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
       
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto" id="post">
-            <!-- SEO header -->
-            <h1 style="display: none">chapter 8 异常控制流</h1>
-            
-            <div class="markdown-body" id="post-body">
-              <h1 id="异常控制流"><a href="#异常控制流" class="headerlink" title="异常控制流"></a>异常控制流</h1><p><strong>异常控制流(ECF : Exceptional Control Flow)</strong> ，是操作系统实现 I/O、进程、并发和虚拟内存的基本机制。</p>
+        <a href="/OXygenPanda.github.io/" target="_self">首页</a>
+      
+        <a href="/OXygenPanda.github.io/archives/" target="_self">归档</a>
+      
+        <a href="/OXygenPanda.github.io/tags/" target="_self">标签</a>
+      
+        <a href="/OXygenPanda.github.io/categories/" target="_self">分类</a>
+      
+        <a href="/OXygenPanda.github.io/friends/" target="_self">友链</a>
+      
+        <a href="/OXygenPanda.github.io/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://https://github.com/OXygenPanda/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/OXygenPanda.github.io/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2020-10-27
+    </span>
+    
+      <span>
+        | <a href="/OXygenPanda.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"><i class="fa fa-bookmark"></i>读书笔记</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    chapter 8 异常控制流
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="异常控制流"><a href="#异常控制流" class="headerlink" title="异常控制流"></a>异常控制流</h1><p><strong>异常控制流(ECF : Exceptional Control Flow)</strong> ，是操作系统实现 I/O、进程、并发和虚拟内存的基本机制。</p>
 <h1 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h1><h2 id="异常的知识"><a href="#异常的知识" class="headerlink" title="异常的知识"></a>异常的知识</h2><p><strong>异常</strong> 是异常控制流的一种形式，一部分由硬件实现，一部分由操作系统实现。</p>
 <p>在处理器中，状态被编码为不同的位和信号，状态变化称为 <strong>事件(event)</strong> 。</p>
 <p>在任何情况下，当处理器检测到事件的发生，它会通过一张叫做 <strong>异常表(exception table)</strong> 的跳转表，进行一个间接过程的调用(异常)，到一个专门设计用来处理这类事件的操作系统子程序(异常处理程序)。</p>
@@ -326,383 +266,182 @@
 </ol>
 <h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h4 id="fork"><a href="#fork" class="headerlink" title="fork()"></a>fork()</h4><h4 id="waitpid"><a href="#waitpid" class="headerlink" title="waitpid()"></a>waitpid()</h4><h4 id="execve"><a href="#execve" class="headerlink" title="execve()"></a>execve()</h4><p><code>execve()</code> 函数的目的是在一个程序中打开另一个程序，如果成功就不再返回，如果失败返回 -1。</p>
 <p>以下为一个示例：</p>
-<pre><code class="hljs cpp"><span class="hljs-comment">//file : main.cpp</span>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//file : main.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">char</span> filename[] = <span class="string">&quot;test&quot;</span>;</span><br><span class="line">		<span class="keyword">char</span> *argv[] = &#123;<span class="string">&quot;./&quot;</span>,<span class="literal">NULL</span>&#125;;</span><br><span class="line">		<span class="keyword">if</span>(execve(filename, argv,<span class="literal">NULL</span>) == <span class="number">-1</span>)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;execve error&quot;</span> &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">			<span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">&quot;shouldn&#x27;t get here&quot;</span>);</span><br><span class="line">		<span class="built_in">exit</span>(EXIT_SUCCESS);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//file : test.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;调用成功&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;
-<span class="hljs-keyword">char</span> filename[] = <span class="hljs-string">&quot;test&quot;</span>;
-		<span class="hljs-keyword">char</span> *argv[] = &#123;<span class="hljs-string">&quot;./&quot;</span>,<span class="hljs-literal">NULL</span>&#125;;
-		<span class="hljs-keyword">if</span>(execve(filename, argv,<span class="hljs-literal">NULL</span>) == <span class="hljs-number">-1</span>)&#123;
-			<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;execve error&quot;</span> &lt;&lt;<span class="hljs-built_in">endl</span>;
-			<span class="hljs-built_in">exit</span>(EXIT_FAILURE);
-		&#125;
-		<span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;shouldn&#x27;t get here&quot;</span>);
-		<span class="hljs-built_in">exit</span>(EXIT_SUCCESS);
-		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;
-
-<span class="hljs-comment">//file : test.cpp</span>
-
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;
-	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;调用成功&quot;</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
-	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
-
-<pre><code class="hljs shell"><span class="hljs-meta">&gt;</span><span class="bash"> g++ -o test.cpp <span class="hljs-built_in">test</span></span>
-<span class="hljs-meta">&gt;</span><span class="bash"> g++ -o amin.cpp main</span>
-<span class="hljs-meta">&gt;</span><span class="bash"> ./main</span>
-<span class="hljs-meta">&gt;</span><span class="bash"> 调用成功</span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> g++ -o test.cpp <span class="built_in">test</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> g++ -o amin.cpp main</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> ./main</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 调用成功</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h1><h2 id="函数-1"><a href="#函数-1" class="headerlink" title="函数"></a>函数</h2><h3 id="signal"><a href="#signal" class="headerlink" title="signal()"></a>signal()</h3><p><code>singal()</code> 函数可以修改进程接收信号的行为，但是无法修改接收到 <code>SIGSTOP</code> 和 <code>SIGKILL</code> 的行为。</p>
 <p>以下是具体用法：</p>
-<pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;signal&gt;</span></span>
-<span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-title">void</span> <span class="hljs-params">(*<span class="hljs-keyword">sighandler_t</span>)</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>;
-<span class="hljs-function"><span class="hljs-keyword">sighandler_t</span> <span class="hljs-title">signal</span><span class="hljs-params">(<span class="hljs-keyword">int</span> signum, <span class="hljs-keyword">sighandler_t</span> handler)</span></span>;
-
-<span class="hljs-comment">/*</span>
-<span class="hljs-comment">** 如果 handler 是 SIG_IGN, 忽略 signum 信号</span>
-<span class="hljs-comment">** 如果 handler 是 SIG_DFL, 恢复 signum 信号为默认行为</span>
-<span class="hljs-comment">** 否则,handler 指向用户自定程序:</span>
-<span class="hljs-comment">			 改变了默认行为     设置信号处理程序</span>
-<span class="hljs-comment">			 调用信号处理程序   捕获信号</span>
-<span class="hljs-comment">			 执行信号处理程序   处理信号</span>
-<span class="hljs-comment">*/</span></code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;signal&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*<span class="keyword">sighandler_t</span>)</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">sighandler_t</span> <span class="title">signal</span><span class="params">(<span class="keyword">int</span> signum, <span class="keyword">sighandler_t</span> handler)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">** 如果 handler 是 SIG_IGN, 忽略 signum 信号</span></span><br><span class="line"><span class="comment">** 如果 handler 是 SIG_DFL, 恢复 signum 信号为默认行为</span></span><br><span class="line"><span class="comment">** 否则,handler 指向用户自定程序:</span></span><br><span class="line"><span class="comment">			 改变了默认行为     设置信号处理程序</span></span><br><span class="line"><span class="comment">			 调用信号处理程序   捕获信号</span></span><br><span class="line"><span class="comment">			 执行信号处理程序   处理信号</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E3%80%8B/">《深入理解计算机系统》</a>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E3%80%8B/%E7%AC%AC%E5%85%AB%E7%AB%A0-%E5%BC%82%E5%B8%B8%E6%8E%A7%E5%88%B6%E6%B5%81/">第八章 异常控制流</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">有疑问欢迎联系我,一起享受编码快乐</p>
-              
-              
-                <div class="post-prevnext row">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/OXygenPanda.github.io/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/0.%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">设计模式初探</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/OXygenPanda.github.io/2020/10/26/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-vector%20%E7%9A%84%E5%AE%9E%E7%8E%B0/">
-                        <span class="hidden-mobile">类似于vector的数据结构实现</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div class="disqus" style="width:100%">
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-      var disqus_config = function () {
-        this.page.url = 'https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E5%85%AB%E7%AB%A0%20%E5%BC%82%E5%B8%B8%E6%8E%A7%E5%88%B6%E6%B5%81/';
-        this.page.identifier = '/OXygenPanda.github.io/2020/10/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E5%85%AB%E7%AB%A0%20%E5%BC%82%E5%B8%B8%E6%8E%A7%E5%88%B6%E6%B5%81/';
-      };
-      function loadDisqus() {
-        (function () {
-          var d = document,
-            s = d.createElement('script');
-          s.src = '//' + '' + '.disqus.com/embed.js';
-          s.setAttribute('data-timestamp', new Date());
-          (d.head || d.body).appendChild(s);
-        })();
-      }
-      waitElementVisible('disqus_thread', loadDisqus);
-    </script>
-    <noscript>Please enable JavaScript to view the
-      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
-    </noscript>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
   </div>
-
-
-              </article>
-            
-          </article>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E6%8E%A7%E5%88%B6%E6%B5%81"><span class="toc-text">异常控制流</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8"><span class="toc-text">异常</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E7%9A%84%E7%9F%A5%E8%AF%86"><span class="toc-text">异常的知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">异常的分类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B"><span class="toc-text">进程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#fork"><span class="toc-text">fork()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#waitpid"><span class="toc-text">waitpid()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#execve"><span class="toc-text">execve()</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7"><span class="toc-text">信号</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0-1"><span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#signal"><span class="toc-text">signal()</span></a></li></ol></li></ol></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 劳振煜</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/27/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E5%85%AB%E7%AB%A0%20%E5%BC%82%E5%B8%B8%E6%8E%A7%E5%88%B6%E6%B5%81/</a>
         </div>
+      
+      <div>
+        一起享受编码的快乐
       </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/OXygenPanda.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="fa fa-tags"></i>操作系统</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
     </div>
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
-</div>
-
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i>
+        <span id="busuanzi_container_site_pv">您是本站第 <span id="busuanzi_value_site_pv"></span> 位访客</span>
       </div>
     
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> [object Object]
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/OXygenPanda.github.io/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/OXygenPanda.github.io/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
   </div>
 </div>
-
-<!-- Custom -->
-
-
     
-  </main>
 
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/OXygenPanda.github.io/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/0.%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/OXygenPanda.github.io/2020/10/26/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-vector%20%E7%9A%84%E5%AE%9E%E7%8E%B0/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
   
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+  
+  
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
     </a>
   
-
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
     
-  <div class="statistics">
-    
-    
+  <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+  <script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
-
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/OXygenPanda.github.io/js/debouncer.js" ></script>
-<script  src="/OXygenPanda.github.io/js/main.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/OXygenPanda.github.io/js/lazyload.js" ></script>
-  
+    gtag('config', '');
+  </script>
 
 
 
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/OXygenPanda.github.io/js/clipboard-use.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '#post-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 2,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
+  <script async>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
       }
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "chapter 8 异常控制流&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "left",
-      visible: "always",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script  src="/OXygenPanda.github.io/js/local-search.js" ></script>
-  <script>
-    var path = "/OXygenPanda.github.io/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
       }
-    );
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
   </script>
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-
-
-</body>
+    
+  </body>
 </html>
