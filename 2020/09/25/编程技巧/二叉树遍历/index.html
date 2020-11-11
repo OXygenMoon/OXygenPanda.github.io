@@ -18,22 +18,25 @@
   
   
   <title>二叉树的遍历 | 劳振煜的知識倉儲</title>
-  <meta name="description" content="二叉树遍历   博客文章主要目的是分享和记录。   分享给需要学习的同学，记录自己学习路上的点滴。  相信大家对于二叉树的定义以及结构，在本科《数据结构与算法》课程中或者在其他同学的博客中有所了解。在此，不在过多地回顾课本理论知识。 我们编码语言主要为C++，如下是二叉树在C++中类的表现形式，这边使用的是 struct 结构体，在C++中类和结构体的区别在于不标志 public , priv">
+  <meta name="description" content="二叉树遍历        博客文章主要目的是分享和记录。   分享给需要学习的同学，记录自己学习路上的点滴。  相信大家对于二叉树的定义以及结构，在本科《数据结构与算法》课程中或者在其他同学的博客中有所了解。在此，不在过多地回顾课本理论知识。 我们编码语言主要为C++，如下是二叉树在C++中类的表现形式，这边使用的是 struct 结构体，在C++中类和结构体的区别在于不标志 public ,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="二叉树的遍历">
 <meta property="og:url" content="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/09/25/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/index.html">
 <meta property="og:site_name" content="劳振煜的博客">
-<meta property="og:description" content="二叉树遍历   博客文章主要目的是分享和记录。   分享给需要学习的同学，记录自己学习路上的点滴。  相信大家对于二叉树的定义以及结构，在本科《数据结构与算法》课程中或者在其他同学的博客中有所了解。在此，不在过多地回顾课本理论知识。 我们编码语言主要为C++，如下是二叉树在C++中类的表现形式，这边使用的是 struct 结构体，在C++中类和结构体的区别在于不标志 public , priv">
+<meta property="og:description" content="二叉树遍历        博客文章主要目的是分享和记录。   分享给需要学习的同学，记录自己学习路上的点滴。  相信大家对于二叉树的定义以及结构，在本科《数据结构与算法》课程中或者在其他同学的博客中有所了解。在此，不在过多地回顾课本理论知识。 我们编码语言主要为C++，如下是二叉树在C++中类的表现形式，这边使用的是 struct 结构体，在C++中类和结构体的区别在于不标志 public ,">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger">
+<meta property="og:image" content="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub">
+<meta property="og:image" content="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat">
 <meta property="og:image" content="https://i.loli.net/2020/10/17/tFRamoSqrQC6M2n.png">
 <meta property="og:image" content="https://i.loli.net/2020/10/17/xnbAWvpwgMqLfur.jpg">
 <meta property="og:image" content="https://i.loli.net/2020/10/17/Ct2SP5GclqrK4VF.jpg">
 <meta property="article:published_time" content="2020-09-25T10:58:19.000Z">
-<meta property="article:modified_time" content="2020-10-17T11:30:18.862Z">
+<meta property="article:modified_time" content="2020-11-11T05:02:17.887Z">
 <meta property="article:author" content="劳振煜">
 <meta property="article:tag" content="二叉树">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2020/10/17/tFRamoSqrQC6M2n.png">
+<meta name="twitter:image" content="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger">
   <!-- Canonical links -->
   <link rel="canonical" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/09/25/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/index.html">
   
@@ -452,11 +455,16 @@
       
         <a id="more"></a>
 
-<h1 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h1><blockquote>
+<h1 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h1><p align="center">
+<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
+<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
+<a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
+
+<blockquote>
 <p>  博客文章主要目的是分享和记录。</p>
 <p>  分享给需要学习的同学，记录自己学习路上的点滴。</p>
 </blockquote>
-<p>相信大家对于二叉树的定义以及结构，在本科《数据结构与算法》课程中或者在其他同学的博客中有所了解。在此，不在过多地回顾课本理论知识。</p>
+</p><p>相信大家对于二叉树的定义以及结构，在本科《数据结构与算法》课程中或者在其他同学的博客中有所了解。在此，不在过多地回顾课本理论知识。</p>
 <p>我们编码语言主要为C++，如下是二叉树在C++中类的表现形式，这边使用的是 struct 结构体，在C++中类和结构体的区别在于不标志 public , private 以及 protected 时, 成员变量和成员函数是 public 还是 private 以及默认的继承方式是 public 还是 private。使用 struct 的原因在于，结构体更想表达的是一种数据的组织形式，而不是ADT。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> &#123;</span></span><br><span class="line">  	<span class="keyword">int</span> val;</span><br><span class="line">  	TreeNode* left;</span><br><span class="line">  	TreeNode* right;</span><br><span class="line">  	TreeNode*(<span class="keyword">int</span> x):val(x),left(<span class="literal">nullptr</span>),right(<span class="literal">nullptr</span>)&#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
