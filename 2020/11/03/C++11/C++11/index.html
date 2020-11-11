@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat">
 <meta property="og:image" content="https://i.loli.net/2020/11/09/pmqxAMhSB3CE6DR.png">
 <meta property="article:published_time" content="2020-11-03T15:27:00.000Z">
-<meta property="article:modified_time" content="2020-11-11T06:08:36.057Z">
+<meta property="article:modified_time" content="2020-11-11T10:01:29.078Z">
 <meta property="article:author" content="劳振煜">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="C++11">
@@ -396,6 +396,15 @@
 
   
   
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-11"><span class="toc-number">1.</span> <span class="toc-text">C++ 11</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E7%89%88%E6%9C%AC%E5%8F%91%E5%B1%95"><span class="toc-number">1.1.</span> <span class="toc-text">C++版本发展</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B0%E8%AF%AD%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">新语法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#variadic-templates"><span class="toc-number">2.1.</span> <span class="toc-text">variadic templates</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nullptr"><span class="toc-number">2.2.</span> <span class="toc-text">nullptr</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#POD-type-default-amp-delete"><span class="toc-number">2.3.</span> <span class="toc-text">POD type &#x2F; &#x3D;default &amp; &#x3D;delete</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rvalue-references-amp-Move-Semantics-Perfect-Forwarding"><span class="toc-number">2.4.</span> <span class="toc-text">Rvalue references &amp; Move Semantics &#x2F; Perfect Forwarding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#range-based-for-statement"><span class="toc-number">2.5.</span> <span class="toc-text">range-based for statement</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#thread-%E7%BA%BF%E7%A8%8B%E5%BA%93"><span class="toc-number">2.6.</span> <span class="toc-text">thread 线程库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="toc-number">2.7.</span> <span class="toc-text">智能指针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pragma-once"><span class="toc-number">2.8.</span> <span class="toc-text">pragma once</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#extern-%E2%80%9CC%E2%80%9D"><span class="toc-number">2.9.</span> <span class="toc-text">extern “C”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8"><span class="toc-number">2.10.</span> <span class="toc-text">类初始化列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">2.11.</span> <span class="toc-text">常量表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#enum-class"><span class="toc-number">2.12.</span> <span class="toc-text">enum class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tuple"><span class="toc-number">2.13.</span> <span class="toc-text">tuple</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#uniform-initialization-initializer-lists"><span class="toc-number">2.14.</span> <span class="toc-text">uniform initialization &#x2F; initializer_lists</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lambda"><span class="toc-number">2.15.</span> <span class="toc-text">lambda</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-number">2.15.1.</span> <span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.15.2.</span> <span class="toc-text">示例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B0%E5%85%B3%E9%94%AE%E8%AF%8D"><span class="toc-number">3.</span> <span class="toc-text">新关键词</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#using-Alias-Template-Type-Alias"><span class="toc-number">3.1.</span> <span class="toc-text">using &#x2F; Alias Template &#x2F; Type Alias</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#namespace"><span class="toc-number">3.1.1.</span> <span class="toc-text">namespace</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#class-members"><span class="toc-number">3.1.2.</span> <span class="toc-text">class members</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Alias-Template"><span class="toc-number">3.1.3.</span> <span class="toc-text">Alias Template</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Type-Alias"><span class="toc-number">3.1.4.</span> <span class="toc-text">Type Alias</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#auto"><span class="toc-number">3.2.</span> <span class="toc-text">auto</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#explicit"><span class="toc-number">3.3.</span> <span class="toc-text">explicit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#noexcept"><span class="toc-number">3.4.</span> <span class="toc-text">noexcept</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#override"><span class="toc-number">3.5.</span> <span class="toc-text">override</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#final"><span class="toc-number">3.6.</span> <span class="toc-text">final</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#decltype"><span class="toc-number">3.7.</span> <span class="toc-text">decltype</span></a></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
 <main class="main" role="main">
   <div class="content">
   <article id="post-C++11/C++11" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
@@ -743,6 +752,15 @@
     </li>
     
     
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
   </ul>
   
   
@@ -805,8 +823,9 @@
 
 </main>
 
-  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
-	
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+    
 	
     <ul class="social-links">
     	
@@ -817,12 +836,66 @@
     </ul>
 
     <div class="copyright">
-    	
+        
+        
         <div class="publishby">
-        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+            <span id="busuanzi_container_site_pv">
+                点击<span id="busuanzi_value_site_pv" style="font-family:Courier"></span>次，
+                访客<span id="busuanzi_value_site_uv" style="font-family:Courier"></span>人,
+		<span id="sitetime"></span>
+            </span>
         </div>
+
+        <!--
+        <div class="publishby">
+            Theme by
+            <a href="https://github.com/cofess" target="_blank"> cofess </a>
+            base on
+            <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+        -->
     </div>
 </footer>
+
+
+<script>function siteTime(){
+    window.setTimeout("siteTime()", 1000);
+    var seconds = 1000;
+    var minutes = seconds * 60;
+    var hours = minutes * 60;
+    var days = hours * 24;
+    var years = days * 365;
+    var today = new Date();
+    var todayYear = today.getFullYear();
+    var todayMonth = today.getMonth()+1;
+    var todayDate = today.getDate();
+    var todayHour = today.getHours();
+    var todayMinute = today.getMinutes();
+    var todaySecond = today.getSeconds();
+    /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+       year - 作为date对象的年份，为4位年份值
+       month - 0-11之间的整数，做为date对象的月份
+       day - 1-31之间的整数，做为date对象的天数
+       hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+       minutes - 0-59之间的整数，做为date对象的分钟数
+       seconds - 0-59之间的整数，做为date对象的秒数
+       microseconds - 0-999之间的整数，做为date对象的毫秒数
+    */
+    var t1 = Date.UTC(2020,05,19,21,20,52); //t1为建站时间
+    var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+    var diff = t2-t1;
+    var diffYears = Math.floor(diff/years);
+    var diffDays = Math.floor((diff/days)-diffYears*365);
+    var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+    var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+    var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+    document.getElementById("sitetime").innerHTML="已运行"+/*diffYears+" 年 "+*/diffDays+"天"+diffHours+"小时"+diffMinutes+"分钟"+diffSeconds+"秒";
+    // 因为建站时间还没有一年，就将之注释掉了。需要的可以取消
+    }
+    siteTime();
+</script>
+
+
   <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
 <script>
 window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
