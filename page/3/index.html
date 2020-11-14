@@ -1,23 +1,27 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform" />
-  <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="format-detection" content="telephone=no,email=no,adress=no">
-  <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000" />
-  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top" />
-  
-  
-  <title>劳振煜的知識倉儲</title>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/OXygenPanda.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/OXygenPanda.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/OXygenPanda.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/OXygenPanda.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/OXygenPanda.github.io/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/OXygenPanda.github.io/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/OXygenPanda.github.io/lib/pace/pace-theme-minimal.min.css">
+  <script src="/OXygenPanda.github.io/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"oxygenpanda.github.io","root":"/OXygenPanda.github.io/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
   <meta name="description" content="Warm welcome">
 <meta property="og:type" content="website">
 <meta property="og:title" content="劳振煜的博客">
@@ -27,772 +31,1130 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="劳振煜">
 <meta name="twitter:card" content="summary">
-  <!-- Canonical links -->
-  <link rel="canonical" href="https://oxygenpanda.github.io/OXygenPanda.github.io/page/3/index.html">
-  
-    <link rel="alternate" href="/atom.xml" title="劳振煜的博客" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
-  
-  
-<link rel="stylesheet" href="/OXygenPanda.github.io/css/style.css">
 
-  
-  
-  
-  
-<meta name="generator" content="Hexo 5.2.0"></head>
+<link rel="canonical" href="https://oxygenpanda.github.io/OXygenPanda.github.io/page/3/">
 
 
-<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
-  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-  <div class="slimContent">
-    <div class="navbar-header">
-      
-      
-      <div class="profile-block text-center">
-        <a id="avatar" href="" target="_blank">
-          <img class="img-circle img-rotate" src="/OXygenPanda.github.io/images/avatar.jpg" width="200" height="200">
-        </a>
-        <h2 id="name" class="hidden-xs hidden-sm">劳振煜</h2>
-        <h3 id="title" class="hidden-xs hidden-sm hidden-md">致力于技术开发</h3>
-        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 浙江嘉兴</small>
-      </div>
-      
-      <div class="search" id="search-form-wrap">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
 
-    <form class="search-form sidebar-form">
-        <div class="input-group">
-            <input type="text" class="search-form-input form-control" placeholder="搜索" />
-            <span class="input-group-btn">
-                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
-            </span>
-        </div>
-    </form>
-    <div class="ins-search">
-  <div class="ins-search-mask"></div>
-  <div class="ins-search-container">
-    <div class="ins-input-wrapper">
-      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
-      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+  <title>劳振煜的博客</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?71aba98898096456b3adf111471c5a69";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/OXygenPanda.github.io/atom.xml" title="劳振煜的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    <div class="ins-section-wrapper">
-      <div class="ins-section-container"></div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/OXygenPanda.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">劳振煜的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Lao Zhenyu's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
 
 
-</div>
-      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
-      <ul class="nav navbar-nav main-nav menu-highlight">
-        
-        
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/OXygenPanda.github.io/.">
-            
-            <i class="icon icon-home-fill"></i>
-            
-            <span class="menu-title">首页</span>
-          </a>
-        </li>
-        
-        
+
+    <a href="/OXygenPanda.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/OXygenPanda.github.io/archives">
-            
-            <i class="icon icon-archives-fill"></i>
-            
-            <span class="menu-title">归档</span>
-          </a>
-        </li>
-        
-        
+
+    <a href="/OXygenPanda.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/OXygenPanda.github.io/categories">
-            
-            <i class="icon icon-folder"></i>
-            
-            <span class="menu-title">分类</span>
-          </a>
-        </li>
-        
-        
+
+    <a href="/OXygenPanda.github.io/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/OXygenPanda.github.io/tags">
-            
-            <i class="icon icon-tags"></i>
-            
-            <span class="menu-title">标签</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-repository">
-          <a href="/OXygenPanda.github.io/repository">
-            
-            <i class="icon icon-project"></i>
-            
-            <span class="menu-title">项目</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-books">
-          <a href="/OXygenPanda.github.io/books">
-            
-            <i class="icon icon-book-fill"></i>
-            
-            <span class="menu-title">书单</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-links">
-          <a href="/OXygenPanda.github.io/links">
-            
-            <i class="icon icon-friendship"></i>
-            
-            <span class="menu-title">友链</span>
-          </a>
-        </li>
-        
-        
+
+    <a href="/OXygenPanda.github.io/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
         <li class="menu-item menu-item-about">
-          <a href="/OXygenPanda.github.io/about">
-            
-            <i class="icon icon-cup-fill"></i>
-            
-            <span class="menu-title">关于</span>
-          </a>
-        </li>
-        
-      </ul>
-      
-	
-    <ul class="social-links">
-    	
-        <li><a href="https://github.com/OXygenPanda" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
-        
-        <li><a href="/OXygenPanda.github.io/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
-        
-    </ul>
 
-    </nav>
+    <a href="/OXygenPanda.github.io/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/OXygenPanda.github.io/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/OXygenPanda.github.io/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/OXygenPanda.github.io/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
   </div>
-</header>
-
-  
-    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    
-      <div class="widget">
-    <h3 class="widget-title">公告</h3>
-    <div class="widget-body">
-        <div id="board">
-            <div class="content">
-                <p>交流编码以及分享乐趣.</p>
-            </div>
-        </div>
-    </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
 </div>
 
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/C/">C++</a><span class="category-list-count">8</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/C/C-11/">C++11</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/C/STL/">STL</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/C/STL/%E5%AE%B9%E5%99%A8/">容器</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/C/STL/%E8%BF%AD%E4%BB%A3%E5%99%A8/">迭代器</a><span class="category-list-count">2</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/Leetcode/">Leetcode</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/Leetcode/%E5%89%91%E6%8C%87-Offer-%E4%B8%93%E9%A2%98/">剑指 Offer 专题</a><span class="category-list-count">6</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88/">栈</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%98%9F%E5%88%97/">队列</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/">网络通信</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/%E4%BC%A0%E8%BE%93%E5%B1%82/">传输层</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/%E4%BC%A0%E8%BE%93%E5%B1%82/TCP/">TCP</a><span class="category-list-count">1</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E3%80%8B/">《深入理解计算机系统》</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E3%80%8B/%E7%AC%AC%E5%85%AB%E7%AB%A0-%E5%BC%82%E5%B8%B8%E6%8E%A7%E5%88%B6%E6%B5%81/">第八章 异常控制流</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E3%80%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B/">《设计模式》</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E3%80%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B/%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E6%A8%A1%E5%BC%8F/">单一职责模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/OXygenPanda.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E3%80%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B/%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F/">组件协作模式</a><span class="category-list-count">2</span></li></ul></li></ul></li></ul>
     </div>
   </div>
 
+</div>
+    </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
       
-  <div class="widget">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/C/" rel="tag">C++</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/C-11/" rel="tag">C++11</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/Leetcode/" rel="tag">Leetcode</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/STL/" rel="tag">STL</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/iterator/" rel="tag">iterator</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/list/" rel="tag">list</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/tcp/" rel="tag">tcp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/vector/" rel="tag">vector</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E4%B8%AD%E7%AD%89/" rel="tag">中等</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E5%8D%95%E8%B0%83%E6%A0%88/" rel="tag">单调栈</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" rel="tag">单调队列</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">双指针</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="tag">哈希表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E5%93%88%E5%B8%8C%E9%9B%86%E5%90%88/" rel="tag">哈希集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" rel="tag">智能指针</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E6%A0%88/" rel="tag">栈</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">深入理解操作系统学习笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E7%AE%80%E5%8D%95/" rel="tag">简单</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/OXygenPanda.github.io/tags/%E9%98%9F%E5%88%97/" rel="tag">队列</a><span class="tag-list-count">2</span></li></ul>
-    </div>
-  </div>
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/10/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-vector%E5%88%86%E6%9E%90/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/OXygenPanda.github.io/images/avatar.jpg">
+      <meta itemprop="name" content="劳振煜">
+      <meta itemprop="description" content="Warm welcome">
+    </span>
 
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget-body tagcloud">
-      <a href="/OXygenPanda.github.io/tags/C/" style="font-size: 13.8px;">C++</a> <a href="/OXygenPanda.github.io/tags/C-11/" style="font-size: 13.2px;">C++11</a> <a href="/OXygenPanda.github.io/tags/Leetcode/" style="font-size: 14px;">Leetcode</a> <a href="/OXygenPanda.github.io/tags/STL/" style="font-size: 13.8px;">STL</a> <a href="/OXygenPanda.github.io/tags/iterator/" style="font-size: 13.2px;">iterator</a> <a href="/OXygenPanda.github.io/tags/list/" style="font-size: 13px;">list</a> <a href="/OXygenPanda.github.io/tags/tcp/" style="font-size: 13px;">tcp</a> <a href="/OXygenPanda.github.io/tags/vector/" style="font-size: 13.2px;">vector</a> <a href="/OXygenPanda.github.io/tags/%E4%B8%AD%E7%AD%89/" style="font-size: 13px;">中等</a> <a href="/OXygenPanda.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 13.4px;">二叉树</a> <a href="/OXygenPanda.github.io/tags/%E5%8D%95%E8%B0%83%E6%A0%88/" style="font-size: 13px;">单调栈</a> <a href="/OXygenPanda.github.io/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" style="font-size: 13px;">单调队列</a> <a href="/OXygenPanda.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 13px;">双指针</a> <a href="/OXygenPanda.github.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 13px;">哈希表</a> <a href="/OXygenPanda.github.io/tags/%E5%93%88%E5%B8%8C%E9%9B%86%E5%90%88/" style="font-size: 13px;">哈希集合</a> <a href="/OXygenPanda.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 13px;">字符串</a> <a href="/OXygenPanda.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13px;">操作系统</a> <a href="/OXygenPanda.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.4px;">数据结构</a> <a href="/OXygenPanda.github.io/tags/%E6%95%B0%E7%BB%84/" style="font-size: 13px;">数组</a> <a href="/OXygenPanda.github.io/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" style="font-size: 13px;">智能指针</a> <a href="/OXygenPanda.github.io/tags/%E6%A0%88/" style="font-size: 13.4px;">栈</a> <a href="/OXygenPanda.github.io/tags/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">深入理解操作系统学习笔记</a> <a href="/OXygenPanda.github.io/tags/%E7%AE%80%E5%8D%95/" style="font-size: 13.6px;">简单</a> <a href="/OXygenPanda.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 13.6px;">设计模式</a> <a href="/OXygenPanda.github.io/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 13px;">链表</a> <a href="/OXygenPanda.github.io/tags/%E9%98%9F%E5%88%97/" style="font-size: 13.2px;">队列</a>
-    </div>
-  </div>
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/OXygenPanda.github.io/archives/2020/11/">十一月 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/OXygenPanda.github.io/archives/2020/10/">十月 2020</a><span class="archive-list-count">22</span></li><li class="archive-list-item"><a class="archive-list-link" href="/OXygenPanda.github.io/archives/2020/09/">九月 2020</a><span class="archive-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget-body">
-      <ul class="recent-post-list list-unstyled ">
-        
-          <li>
-            
-            <div class="item-thumb">
-              <a href="/OXygenPanda.github.io/2020/11/12/C++11/smart_ptr/" class="thumb">
-    
-    
-        <span class="thumb-image thumb-none"></span>
-    
-</a>
-
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/OXygenPanda.github.io/categories/C/">C++</a>
-              </p>
-              <p class="item-title">
-                <a href="/OXygenPanda.github.io/2020/11/12/C++11/smart_ptr/" class="title">shared_ptr的简单实现</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-11-12T11:23:00.000Z" itemprop="datePublished">2020-11-12</time>
-              </p>
-            </div>
-          </li>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="劳振煜的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
           
-          <li>
-            
-            <div class="item-thumb">
-              <a href="/OXygenPanda.github.io/2020/11/08/OperatingSystem/QingHua/Deep_into_OperatingSystem_all/" class="thumb">
-    
-    
-        <span class="thumb-image thumb-none"></span>
-    
-</a>
+            <a href="/OXygenPanda.github.io/2020/10/10/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-vector%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">浅析vector用法/特性/实现</a>
+        </h2>
 
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/OXygenPanda.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
-              </p>
-              <p class="item-title">
-                <a href="/OXygenPanda.github.io/2020/11/08/OperatingSystem/QingHua/Deep_into_OperatingSystem_all/" class="title">深入理解操作系统学习笔记</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-11-08T12:07:00.000Z" itemprop="datePublished">2020-11-08</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-thumb">
-              <a href="/OXygenPanda.github.io/2020/11/03/C++11/C++11/" class="thumb">
-    
-    
-        <span class="thumb-image thumb-none"></span>
-    
-</a>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
 
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/OXygenPanda.github.io/categories/C/">C++</a><i class="icon icon-angle-right"></i><a class="category-link" href="/OXygenPanda.github.io/categories/C/C-11/">C++11</a>
-              </p>
-              <p class="item-title">
-                <a href="/OXygenPanda.github.io/2020/11/03/C++11/C++11/" class="title">C++11新语法新特性使用剖析</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-11-03T15:27:00.000Z" itemprop="datePublished">2020-11-03</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-thumb">
-              <a href="/OXygenPanda.github.io/2020/10/31/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-type%20traits/" class="thumb">
-    
-    
-        <span class="thumb-image thumb-none"></span>
-    
-</a>
-
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/OXygenPanda.github.io/categories/C/">C++</a><i class="icon icon-angle-right"></i><a class="category-link" href="/OXygenPanda.github.io/categories/C/STL/">STL</a>
-              </p>
-              <p class="item-title">
-                <a href="/OXygenPanda.github.io/2020/10/31/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-type%20traits/" class="title">理解 type_traits</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-10-31T09:42:00.000Z" itemprop="datePublished">2020-10-31</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-thumb">
-              <a href="/OXygenPanda.github.io/2020/10/30/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-iterator%20traits/" class="thumb">
-    
-    
-        <span class="thumb-image thumb-none"></span>
-    
-</a>
-
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/OXygenPanda.github.io/categories/C/">C++</a><i class="icon icon-angle-right"></i><a class="category-link" href="/OXygenPanda.github.io/categories/C/STL/">STL</a>
-              </p>
-              <p class="item-title">
-                <a href="/OXygenPanda.github.io/2020/10/30/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-iterator%20traits/" class="title">理解 iterator_traits</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-10-30T06:46:00.000Z" itemprop="datePublished">2020-10-30</time>
-              </p>
-            </div>
-          </li>
-          
-      </ul>
-    </div>
-  </div>
-  
-
-    
-  </div>
-</aside>
-
-  
-  <main class="main" role="main">
-  
-  <div class="content article-list">
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/OXygenPanda.github.io/2020/10/10/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-vector%E5%88%86%E6%9E%90/">浅析vector用法/特性/实现</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/OXygenPanda.github.io/2020/10/10/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-vector%E5%88%86%E6%9E%90/" class="article-date">
-	  <time datetime="2020-10-10T13:00:16.000Z" itemprop="datePublished">10月 10</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/OXygenPanda.github.io/categories/C/">C++</a>►<a class="article-category-link" href="/OXygenPanda.github.io/categories/C/STL/">STL</a>►<a class="article-category-link" href="/OXygenPanda.github.io/categories/C/STL/%E5%AE%B9%E5%99%A8/">容器</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/OXygenPanda.github.io/tags/C/" rel="tag">C++</a>, <a class="article-tag-link-link" href="/OXygenPanda.github.io/tags/STL/" rel="tag">STL</a>, <a class="article-tag-link-link" href="/OXygenPanda.github.io/tags/vector/" rel="tag">vector</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/OXygenPanda.github.io/2020/10/10/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-vector%E5%88%86%E6%9E%90/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.5k(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/OXygenPanda.github.io/2020/10/09/leetcode/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">两数之和</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/OXygenPanda.github.io/2020/10/09/leetcode/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="article-date">
-	  <time datetime="2020-10-09T14:09:31.000Z" itemprop="datePublished">10月 9</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/OXygenPanda.github.io/categories/Leetcode/">Leetcode</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/OXygenPanda.github.io/tags/Leetcode/" rel="tag">Leetcode</a>, <a class="article-tag-link-link" href="/OXygenPanda.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">双指针</a>, <a class="article-tag-link-link" href="/OXygenPanda.github.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="tag">哈希表</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/OXygenPanda.github.io/2020/10/09/leetcode/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.3k(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/OXygenPanda.github.io/2020/10/07/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E7%AC%AC%E4%B8%80%E7%AF%87%20%E8%AE%A4%E8%AF%86STL/">初识STL</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/OXygenPanda.github.io/2020/10/07/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E7%AC%AC%E4%B8%80%E7%AF%87%20%E8%AE%A4%E8%AF%86STL/" class="article-date">
-	  <time datetime="2020-10-07T13:53:23.000Z" itemprop="datePublished">10月 7</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/OXygenPanda.github.io/categories/C/">C++</a>►<a class="article-category-link" href="/OXygenPanda.github.io/categories/C/STL/">STL</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/OXygenPanda.github.io/tags/STL/" rel="tag">STL</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/OXygenPanda.github.io/2020/10/07/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E7%AC%AC%E4%B8%80%E7%AF%87%20%E8%AE%A4%E8%AF%86STL/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 508(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/OXygenPanda.github.io/2020/10/07/leetcode/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">单调队列</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/OXygenPanda.github.io/2020/10/07/leetcode/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" class="article-date">
-	  <time datetime="2020-10-07T06:33:43.000Z" itemprop="datePublished">10月 7</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>►<a class="article-category-link" href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%98%9F%E5%88%97/">队列</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/OXygenPanda.github.io/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" rel="tag">单调队列</a>, <a class="article-tag-link-link" href="/OXygenPanda.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a>, <a class="article-tag-link-link" href="/OXygenPanda.github.io/tags/%E9%98%9F%E5%88%97/" rel="tag">队列</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/OXygenPanda.github.io/2020/10/07/leetcode/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 426(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/OXygenPanda.github.io/2020/10/06/leetcode/%E5%8D%95%E8%B0%83%E6%A0%88/">单调栈</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/OXygenPanda.github.io/2020/10/06/leetcode/%E5%8D%95%E8%B0%83%E6%A0%88/" class="article-date">
-	  <time datetime="2020-10-06T06:33:43.000Z" itemprop="datePublished">10月 6</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>►<a class="article-category-link" href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88/">栈</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/OXygenPanda.github.io/tags/%E5%8D%95%E8%B0%83%E6%A0%88/" rel="tag">单调栈</a>, <a class="article-tag-link-link" href="/OXygenPanda.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a>, <a class="article-tag-link-link" href="/OXygenPanda.github.io/tags/%E6%A0%88/" rel="tag">栈</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/OXygenPanda.github.io/2020/10/06/leetcode/%E5%8D%95%E8%B0%83%E6%A0%88/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 324(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/OXygenPanda.github.io/2020/09/25/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/">二叉树的遍历</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/OXygenPanda.github.io/2020/09/25/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/" class="article-date">
-	  <time datetime="2020-09-25T10:58:19.000Z" itemprop="datePublished">9月 25</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>►<a class="article-category-link" href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/OXygenPanda.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/OXygenPanda.github.io/2020/09/25/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.2k(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8(分)</span>
-	
-
-  </p>
-</article>
-
-    
-  </div>
-
-  
-    
-    <nav class="bar bar-footer clearfix" data-stick-bottom>
-        <div class="bar-inner">
-        <div class="pager pull-left">
-            
-            <a class="extend prev" rel="prev" href="/OXygenPanda.github.io/page/2/">&lt;i class&#x3D;&quot;icon icon-angle-left&quot;&gt;&lt;&#x2F;i&gt; 上一页</a><a class="page-number" href="/OXygenPanda.github.io/">1</a><a class="page-number" href="/OXygenPanda.github.io/page/2/">2</a><span class="page-number current">3</span>
-            
-            <a class="next disabled" href="javascript:;">下一页 <i class="icon icon-angle-right"></i></a>
-            
-        </div>
-        <div class="total-article bar-right">Page 3 of 3</div>
-        </div>
-    </nav>
-    
- 
-</main>
-
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
-    
-	
-    <ul class="social-links">
-    	
-        <li><a href="https://github.com/OXygenPanda" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
-        
-        <li><a href="/OXygenPanda.github.io/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
-        
-    </ul>
-
-    <div class="copyright">
-        
-        
-        <div class="publishby">
-            <span id="busuanzi_container_site_pv">
-                点击<span id="busuanzi_value_site_pv" style="font-family:Courier"></span>次，
-                访客<span id="busuanzi_value_site_uv" style="font-family:Courier"></span>人,
-		<span id="sitetime"></span>
+              <time title="创建时间：2020-10-10 21:00:16" itemprop="dateCreated datePublished" datetime="2020-10-10T21:00:16+08:00">2020-10-10</time>
             </span>
-        </div>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-18 23:06:06" itemprop="dateModified" datetime="2020-10-18T23:06:06+08:00">2020-10-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/OXygenPanda.github.io/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/OXygenPanda.github.io/categories/C/STL/" itemprop="url" rel="index"><span itemprop="name">STL</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/OXygenPanda.github.io/categories/C/STL/%E5%AE%B9%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">容器</span></a>
+                </span>
+            </span>
 
-        <!--
-        <div class="publishby">
-            Theme by
-            <a href="https://github.com/cofess" target="_blank"> cofess </a>
-            base on
-            <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+          
+
         </div>
-        -->
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="vector-容器"><a href="#vector-容器" class="headerlink" title="vector 容器"></a>vector 容器</h1><p><strong>vector</strong> 原意是向量。在C++中，是一种用起来像动态数组的模板类。在不同的编译器中，<strong>vector</strong> 的实现都不尽相同，侯捷老师主要介绍的是<code>G2.9</code>和<code>G4.9</code>两个版本。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//G2.9中 vector类的声明</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">alloc</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">vector</span>&#123;</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    iterator start;</span><br><span class="line">    iterator finish;</span><br><span class="line">    iterator end_of_storage;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="vector-sizeof"><a href="#vector-sizeof" class="headerlink" title="vector . sizeof()"></a>vector . sizeof()</h2><p>曾经有同学试图使用 <code>sizeof()</code> 来计算 <strong>vector</strong> 对象有多少个元素，可是得到的结果都是意料之外的 ( 因为他数组可能有十多个整形变量，但是<code>sizeof()</code>得到的结果居然是 12 或者 24)。</p>
+<p>从源码中可以看到vector的成员变量只有三个类型为 <strong>iterator</strong> 的迭代器对象，分别名为<code>start</code> , <code>finish</code> , <code>end_of_storage</code> :</p>
+<ul>
+<li><p><code>start</code> : 指向所有内存空间开始的地址</p>
+</li>
+<li><p><code>finish</code> : 指向所有内存空间使用的尾地址</p>
+</li>
+<li><p><code>end_of_storage</code> : 指向所有内存空间结束的尾地址</p>
+</li>
+</ul>
+<p><strong>vector</strong> 对象通过三个指针管理使用的内存空间，而实际的数据并不存储在 <strong>vector</strong> 对象中。这也就是 <code>sizeof()</code> 得不到想要的数组内存大小的原因。</p>
+<h2 id="vector-内存成长"><a href="#vector-内存成长" class="headerlink" title="vector . 内存成长"></a>vector . 内存成长</h2><p><strong>vector</strong> 我们在使用的时候都知道它是一个动态数组，那么这个动态就体现在了可以动态地插入，动态地删除。那么 <strong>vector</strong> 对象控制的内存空间应该分配多少大小才能满足动态地插入呢？</p>
+<p>答案是未知。因为我们并不知道会动态插入多少数组，因此最好的方法是 : 内存空间动态增长。</p>
+<p>规则 :</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res; <span class="comment">//默认构造 start == finish == end_of_storage 不分配内存空间</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 成长方式</span></span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">  	<span class="keyword">const</span> size_type old_size = size();</span><br><span class="line">  	<span class="keyword">const</span> size_type len = old_size != <span class="number">0</span> ? <span class="number">2</span> * old_size : <span class="number">1</span>; <span class="comment">//下方第三点规则</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>在 <code>res.size() == 0</code> 时，插入一个元素会使得 <code>res.size() == 1</code> 以及 <code>res.capacity() == 1</code></li>
+<li>如果初始化的时候，赋予了它一定的内存空间，那么<code>res.size() == res.capacity() == 赋值的长度</code> </li>
+<li>在 <code>res.size() != 0</code> 时，如果<code>res.size() == res.capacity()</code> ，那么 <code>res.capacity()</code> 呈2倍增长</li>
+</ul>
+<p>需要注意的是，我们在最初为 vector 的某一个对象分配了一块内存之后，内存中紧接着之后的内存可能会被其他变量使用，因此 <strong>vector</strong> 的内存成长并不会发生在原地。它的实做是 : 在另一个位置申请好 <code>capicity()</code>  两倍大小的内存之后，进行逐一拷贝(copy或move)。那么如果 <strong>vector&lt;_Tp&gt;</strong> 这里的模板参数 <code>typename _Tp</code> 如果是一个类的话，会涉及到  <code>_Tp</code> 的析构函数和拷贝构造函数或移动构造函数。</p>
+<h2 id="vector-iterator"><a href="#vector-iterator" class="headerlink" title="vector . iterator"></a>vector . iterator</h2><p>迭代器 <strong>iterator</strong> 实际上是一种用起来像指针的类，本质上还是类，每一个迭代器都是类实例化的对象。并且，由于 <strong>vector</strong> <strong>queue</strong> <strong>list</strong> <strong>map/set</strong> 不同容器底层实现不完全相同或者有几种完全不同，因此并不能设计一种迭代器类同时满足所有容器的操作。</p>
+<p>由于 <strong>vector</strong> 底层是内存连续的空间，因此迭代器也是最简单的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//G2.9</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>, <span class="title">class</span> <span class="title">Alloc</span> = <span class="title">alloc</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">vector</span>&#123;</span></span><br><span class="line">	<span class="keyword">typedef</span> T value_type;</span><br><span class="line">    <span class="keyword">typedef</span> value_type* iterator; <span class="comment">//T*</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>可以从源码中看到，**vector ** 的迭代器就是元素类型的指针，类型为 <code>T*</code> 。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//xcode : clang</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Allocator</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">class</span> __<span class="title">vector_base</span> :</span> <span class="keyword">protected</span> __vector_base_common&lt;<span class="literal">true</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="keyword">typedef</span> _Allocator                               allocator_type;</span><br><span class="line">        <span class="keyword">typedef</span> allocator_traits&lt;allocator_type&gt;         __alloc_traits;</span><br><span class="line">        <span class="keyword">typedef</span> <span class="keyword">typename</span> __alloc_traits::size_type       size_type;</span><br><span class="line">    <span class="keyword">protected</span>:</span><br><span class="line">        <span class="keyword">typedef</span> _Tp                                      value_type;</span><br><span class="line">        <span class="keyword">typedef</span> value_type&amp;                              reference;</span><br><span class="line">        <span class="keyword">typedef</span> <span class="keyword">const</span> value_type&amp;                        const_reference;</span><br><span class="line">        <span class="keyword">typedef</span> <span class="keyword">typename</span> __alloc_traits::difference_type difference_type;</span><br><span class="line">        <span class="keyword">typedef</span> <span class="keyword">typename</span> __alloc_traits::pointer         pointer;</span><br><span class="line">        <span class="keyword">typedef</span> <span class="keyword">typename</span> __alloc_traits::const_pointer   const_pointer;</span><br><span class="line">        <span class="keyword">typedef</span> pointer                                  iterator;</span><br><span class="line">        <span class="keyword">typedef</span> const_pointer                            const_iterator;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从上面提取</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Allocator</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">typedef</span> _<span class="title">Allocator</span>                               <span class="title">allocator_type</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> allocator_traits&lt;allocator_type&gt;         __alloc_traits;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">typename</span> __alloc_traits::pointer         pointer;</span><br><span class="line"><span class="keyword">typedef</span> pointer                                  iterator;</span><br><span class="line"></span><br><span class="line"><span class="comment">//因此,vector中的iterator 实际上是 allocator_traits&lt;_Allocator&gt;::pointer 类型</span></span><br><span class="line"><span class="comment">//而默认的 allocator 中 pointer 的定义就是 T* (T通过模板参数传递)</span></span><br></pre></td></tr></table></figure>
+
+<p>从现在的 clang 中，都难以看出 <strong>iterator</strong> 实际的类型了，侯捷老师在STL源码剖析课程中多次吐槽版本迭代之后，标准库设计的越来越复杂了，也可能是我的功底仍然不够深厚，只能解析到这一步了。之后，在看完侯老师的《源码剖析》书之后，再来详细填补各种留下的坑。</p>
+<p>迭代器的使用，迭代器类的继承，以及迭代器的操作符重载，在后续迭代器专题中整理。</p>
+<h2 id="vector-继承关系"><a href="#vector-继承关系" class="headerlink" title="vector . 继承关系"></a>vector . 继承关系</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*class __vector_base_common*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">bool</span>&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> __<span class="title">vector_base_common</span>&#123;</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    _LIBCPP_NORETURN <span class="keyword">void</span> __throw_length_error() <span class="keyword">const</span>; <span class="comment">//模板传递在函数中使用</span></span><br><span class="line">    _LIBCPP_NORETURN <span class="keyword">void</span> __throw_out_of_range() <span class="keyword">const</span>; <span class="comment">//模板传递在函数中使用</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*class __vector_base*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Allocator</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">class</span> __<span class="title">vector_base</span> :</span> <span class="keyword">public</span> __vector_base_common&lt;<span class="literal">true</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">typedef</span> _Allocator                               allocator_type;</span><br><span class="line">    <span class="keyword">typedef</span> allocator_traits&lt;allocator_type&gt;         __alloc_traits;</span><br><span class="line">    <span class="keyword">typedef</span> ...</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> __alloc_traits::pointer         pointer;</span><br><span class="line">    <span class="keyword">typedef</span> ...</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//成员变量定义处,注意这里的类名不是vector,是vector私有继承了这个类</span></span><br><span class="line">    <span class="comment">//sizeof() = 24 （= 8 * 3）</span></span><br><span class="line">    pointer __begin_;</span><br><span class="line">    pointer __end_;</span><br><span class="line">    __compressed_pair&lt;pointer,allocator_type &gt; __end_cap_; <span class="comment">//命名和G++不同,但是可以看得出说的是end_capacity</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*struct __compressed_pair_elem*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">int</span> _<span class="title">Idx</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> __<span class="title">compressed_pair_elem</span>&lt;_Tp, _Idx, true&gt; :</span> <span class="keyword">private</span> _Tp</span><br><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*class __compressed_pair*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">T1</span>, <span class="title">class</span> _<span class="title">T2</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">class</span> __<span class="title">compressed_pair</span> :</span> <span class="keyword">private</span> __compressed_pair_elem&lt;_T1, <span class="number">0</span>&gt;,</span><br><span class="line">                          <span class="keyword">private</span> __compressed_pair_elem&lt;_T2, <span class="number">1</span>&gt;</span><br><span class="line">                          &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*class vector*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Allocator</span> /* = <span class="title">allocator</span>&lt;_Tp&gt; */&gt;</span></span><br><span class="line"><span class="class"><span class="title">class</span> _<span class="title">LIBCPP_TEMPLATE_VIS</span> <span class="title">vector</span> :</span> <span class="keyword">private</span> __vector_base&lt;_Tp, _Allocator&gt;</span><br><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上是从 <code>xcode : clang</code> 中的 <code>vector</code> 和 <code>memory</code> 头文件中找到的源码，粘贴了部分我想展示的。</p>
+<p>并且绘制了继承关系图，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">	class _Tp</span><br><span class="line">	class __compressed_pair_elem</span><br><span class="line">	class __compressed_pair</span><br><span class="line">	class __vector_base_common&#123;</span><br><span class="line">		- pointer __begin__</span><br><span class="line">		- pointer __end__</span><br><span class="line">		- __compressed_pair&lt;pointer,allocator_type&gt; __end_cap_</span><br><span class="line">	&#125;</span><br><span class="line">	class __vector_base</span><br><span class="line">	class vector</span><br><span class="line">	__vector_base &lt;|-- vector : Inheritance</span><br><span class="line">	__vector_base_common &lt;|-- 	__vector_base : Inheritance</span><br><span class="line">	__vector_base_common *-- __compressed_pair : Composition</span><br><span class="line">	__compressed_pair_elem &lt;|-- __compressed_pair : Inheritance</span><br><span class="line">	_Tp &lt;|-- __compressed_pair_elem : Inheritance</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以看到，我们使用的是 <strong>vector</strong> 模板类，它的 <code>sizeof() = 24</code> ，也就是 <em>class __vector_base_common</em> 中定义的三根指针，在64位机中，指针为8字节。</p>
+
+      
     </div>
-</footer>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/09/leetcode/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/OXygenPanda.github.io/images/avatar.jpg">
+      <meta itemprop="name" content="劳振煜">
+      <meta itemprop="description" content="Warm welcome">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="劳振煜的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/OXygenPanda.github.io/2020/10/09/leetcode/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">两数之和</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-09 22:09:31" itemprop="dateCreated datePublished" datetime="2020-10-09T22:09:31+08:00">2020-10-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-10 16:47:35" itemprop="dateModified" datetime="2020-10-10T16:47:35+08:00">2020-10-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/OXygenPanda.github.io/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="两数之和问题"><a href="#两数之和问题" class="headerlink" title="两数之和问题"></a>两数之和问题</h1><h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum/">Leetcode 1.两数之和</a></p>
+<p><strong>难度:</strong><font color="green">简单</font></p>
+<p><strong>描述</strong></p>
+<p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</p>
+<p>* 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。</p>
+<p><strong>示例</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [<span class="number">2</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">15</span>], target = <span class="number">9</span></span><br><span class="line">函数签名 <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span><br></pre></td></tr></table></figure>
+
+<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>第一种思路是采用暴力法(虽然说暴力法是无法通过leetcode的,但确实是首先想到的方法)。</p>
+<p>我们只需要两层循环遍历数组，在循环索引不相等但是之和为 <code>target</code> 的时候，返回两个索引组成的数组即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res; <span class="comment">// 结果</span></span><br><span class="line">    <span class="keyword">if</span>(nums.empty())    <span class="keyword">return</span> res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size()<span class="number">-1</span>;++i)&#123; <span class="comment">//为减少内存循环次数,i只循环到最大值-1</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;nums.size();++j)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums.at(i) + nums.at(j) == target)&#123;</span><br><span class="line">                res.push_back(i);</span><br><span class="line">                res.push_back(j);</span><br><span class="line">                <span class="keyword">return</span> res;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为数组中同一元素不能使用两遍，因此内层循环索引 <code>j</code> 只需要从 <code>i+1</code> 开始，但是注意的是 <code>i</code> 不能到达 <code>nums.size()-1</code> ，否则 <code>j</code> 会越界。所以外层判断条件得是 <code>i&lt;nums.size()-1</code>  。</p>
+<p>时间复杂度 : <code>O(N^2)</code> 空间复杂度 : <code>O(1)</code> 。</p>
+<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>第二种思路是采用哈希表。</p>
+<p>我们需要遍历一次数组，存下每一个&lt;num,index&gt;对，再逐一判断 <code>key:target-num[i]</code> 是否出现在哈希表中。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res; <span class="comment">// 结果</span></span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; record; <span class="comment">//&lt;数值,索引&gt;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();++i)</span><br><span class="line">        record[nums.at(i)] = i;</span><br><span class="line">    <span class="comment">// 等同于 record.insert(pair&lt;int,int&gt;(nums.at(i),i));</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();++i)</span><br><span class="line">        <span class="keyword">if</span>(record.find(target-nums.at(i)) != record.end()) &#123;</span><br><span class="line">            <span class="comment">//找到</span></span><br><span class="line">            res.push_back(i);</span><br><span class="line">            res.push_back(record[target - nums.at(i)]);</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为我们在 <code>hashmap</code> 中查找的时间复杂度是 <code>O(1)</code> 。</p>
+<p>因此，时间复杂度 : <code>O(N)</code> , 空间复杂度 :  <code>O(N)</code>。 </p>
+<h3 id="解法三"><a href="#解法三" class="headerlink" title="解法三"></a>解法三</h3><p>第三种思路是采用排序+双指针。</p>
+<p>因为形式参数的<code>nums</code>是传引用，所以我们需要对传入的<code>nums</code>进行一次拷贝，在拷贝上进行排序。排序后采用双指针法，找到两个加数的索引。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res; <span class="comment">// 结果</span></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">nums_cp</span><span class="params">(nums)</span></span>; <span class="comment">// 不让排序操作改变原数组</span></span><br><span class="line">    sort(nums_cp.begin(),nums_cp.end());</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = nums_cp.size() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left &lt; right)&#123; <span class="comment">// 1</span></span><br><span class="line">        <span class="keyword">int</span> sum = nums_cp.at(left) + nums_cp.at(right);</span><br><span class="line">        <span class="keyword">if</span>( sum == target)&#123;</span><br><span class="line">            res.push_back(left);</span><br><span class="line">            res.push_back(right);</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>( sum &gt; target)</span><br><span class="line">            right --;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>( sum &lt; target)</span><br><span class="line">            left ++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>注释:1</code> 不能有等号，虽然我们定义的<code>left</code> <code>right</code> 是左闭右闭区间，但是题目要求一个数不能使用两次。因此不能取相等的情况。</p>
+<p>时间复杂度 : <code>O(NlogN+N) = O(NlogN)</code> 空间复杂度 : <code>O(N)</code> 主要是多了一份拷贝。</p>
+<h2 id="两数之和数据结构设计"><a href="#两数之和数据结构设计" class="headerlink" title="两数之和数据结构设计"></a>两数之和数据结构设计</h2><h3 id="设计API"><a href="#设计API" class="headerlink" title="设计API"></a>设计API</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoSum</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 向数组中添加一个新的数 number</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> number)</span></span>;</span><br><span class="line">    <span class="comment">// 查找当前数组中是否有两数之和为 value</span></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> value)</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoSum</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; record; <span class="comment">//&lt;数值,索引&gt;</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> index;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> number)</span></span>&#123;</span><br><span class="line">        record[number] = index++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">        <span class="comment">//采用双指针法在红黑树的map</span></span><br><span class="line">        <span class="keyword">auto</span> left = record.begin();</span><br><span class="line">        <span class="keyword">auto</span> right = record.end();</span><br><span class="line">        right --;</span><br><span class="line">        <span class="keyword">while</span>(left != right)&#123;</span><br><span class="line">            <span class="keyword">int</span> sum = (*left).first + (*right).first; <span class="comment">//每一个节点是一个pair</span></span><br><span class="line">            <span class="keyword">if</span>(sum == value)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(sum &lt; value)</span><br><span class="line">                left ++;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(sum &gt; value)</span><br><span class="line">                right --;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">int</span> TwoSum::index = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p>实现find的时候，和我们做题的时候方法略有不同。因为我们做题的时候，是有vector作为数据的支撑，我们能够在一个随机访问的内存结构里存取数据，而现在我们整个类只有record这一个map&lt;int,int&gt;类的数据和一个静态索引值，而且红黑树的迭代器遍历顺序是按照key升序的，因此我们可以采用双指针的方式来遍历。</p>
+<p><code>class TwoSum</code> 空间复杂度 : <code>O(N)</code></p>
+<p><code>add(int)</code> 时间复杂度 : <code>O(1)</code> </p>
+<p><code>find(int)</code> 时间复杂度 : <code>O(N)</code> </p>
+<h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3><p>如果是一个查询次数明显对于插入次数的场景，那么我们的 <code>find()</code> 函数的效率就有点过于低下，我们会重复查询许多次。于是，我们可以把查询的结果也给存下来，记录下每一种可能的和的数值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoSum</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums; <span class="comment">//记录现有数组</span></span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; sums; <span class="comment">//记录可能的和</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> number)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n:nums) <span class="comment">//每一次插入都把所有和给记录下来</span></span><br><span class="line">            sums.insert(n+number);</span><br><span class="line">        nums.push_back(number);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (sums.find(value) != sums.end()); <span class="comment">//查找到value返回true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>class TwoSum</code> 空间复杂度 : <code>O(N)</code></p>
+<p><code>add(int)</code> 时间复杂度 : <code>O(N)</code> </p>
+<p><code>find(int)</code> 时间复杂度 : <code>O(1)</code> </p>
+<blockquote>
+<p>  学习自 labuladong</p>
+</blockquote>
+<h2 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h2><h2 id="N数之和"><a href="#N数之和" class="headerlink" title="N数之和"></a>N数之和</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/07/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E7%AC%AC%E4%B8%80%E7%AF%87%20%E8%AE%A4%E8%AF%86STL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/OXygenPanda.github.io/images/avatar.jpg">
+      <meta itemprop="name" content="劳振煜">
+      <meta itemprop="description" content="Warm welcome">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="劳振煜的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/OXygenPanda.github.io/2020/10/07/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E7%AC%AC%E4%B8%80%E7%AF%87%20%E8%AE%A4%E8%AF%86STL/" class="post-title-link" itemprop="url">初识STL</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-07 21:53:23" itemprop="dateCreated datePublished" datetime="2020-10-07T21:53:23+08:00">2020-10-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-09 18:10:01" itemprop="dateModified" datetime="2020-10-09T18:10:01+08:00">2020-10-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/OXygenPanda.github.io/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/OXygenPanda.github.io/categories/C/STL/" itemprop="url" rel="index"><span itemprop="name">STL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <a id="more"></a>
+
+<h1 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h1><p>什么是STL？STL : standard Template Library 标准模板库，STL是C++的一个重要组成部分。</p>
+<p>STL包含了众多头文件 :</p>
+<table>
+<thead>
+<tr>
+<th>头文件名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt;algorithm&gt;</td>
+<td>算法</td>
+</tr>
+<tr>
+<td>&lt;deque&gt;</td>
+<td>容器</td>
+</tr>
+<tr>
+<td>&lt;functional&gt;</td>
+<td>仿函数</td>
+</tr>
+<tr>
+<td>&lt;iterator&gt;</td>
+<td>迭代器</td>
+</tr>
+<tr>
+<td>&lt;vector&gt;</td>
+<td>容器</td>
+</tr>
+<tr>
+<td>&lt;list&gt;</td>
+<td>容器</td>
+</tr>
+<tr>
+<td>&lt;map&gt;</td>
+<td>容器</td>
+</tr>
+<tr>
+<td>&lt;memory.h&gt;</td>
+<td>智能指针</td>
+</tr>
+<tr>
+<td>&lt;numeric&gt;</td>
+<td>数值算法</td>
+</tr>
+<tr>
+<td>&lt;queue&gt;</td>
+<td>容器</td>
+</tr>
+<tr>
+<td>&lt;set&gt;</td>
+<td>容器</td>
+</tr>
+<tr>
+<td>&lt;stack&gt;</td>
+<td>容器</td>
+</tr>
+<tr>
+<td>&lt;utility&gt;</td>
+<td>比较符 + pair</td>
+</tr>
+</tbody></table>
+<p>浏览完以上这一个表格，可以简单了解到STL的组成。</p>
+<h2 id="六大部件"><a href="#六大部件" class="headerlink" title="六大部件"></a>六大部件</h2><p>STL主要包含六个部件：</p>
+<ul>
+<li>容器 containers 是一个class template</li>
+<li>分配器 allocators 是一个 class template</li>
+<li>算法 algorithms 是一个 function template(用起来像函数)</li>
+<li>迭代器 iterators 是一个 class template</li>
+<li>适配器 adapters 是一个 class template</li>
+<li>仿函数 functors 是一个 class template</li>
+</ul>
+<h3 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h3><h4 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h4><p>容器是数据的承载，容器的设计使得我们”看不到”内存</p>
+<h4 id="分配器"><a href="#分配器" class="headerlink" title="分配器"></a>分配器</h4><p>分配器为容器分配内存回收内存，使得我们不需要插手容器的内存管理</p>
+<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p>算法是模板函数，独立于容器，更加泛化。(有一些容器里有同名重新处理过的函数)</p>
+<h4 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h4><p>算法作用于容器的中介，存取数据的一种泛化指针，本质是一种用起来像指针的对象</p>
+<h4 id="适配器"><a href="#适配器" class="headerlink" title="适配器"></a>适配器</h4><p>容器 / 仿函数 / 迭代器的转换，设计思想：适配器设计模式</p>
+<h4 id="仿函数"><a href="#仿函数" class="headerlink" title="仿函数"></a>仿函数</h4><p>作用于容器元素的一种用起来像函数的类</p>
+<h3 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a>设计思想</h3><p>GP模板编程思想：容器与算法分开。</p>
+<p>相对的，OO编程思想：把成员变量和成员函数封装起来。</p>
+<h3 id="简单代码演示"><a href="#简单代码演示" class="headerlink" title="简单代码演示"></a>简单代码演示</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int,allocator&lt;int&gt;&gt; vi(ia,ia+6); //容器 分配器</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;count_if(vi.begin(),vi.end(),not1(bind2nd(less&lt;<span class="keyword">int</span>&gt;(),<span class="number">40</span>)));</span><br><span class="line"><span class="comment">//less&lt;int&gt;()原本是a和b比较，bind2nd适配器绑定第二参数,用a和40比,not1适配是变成了大于等于条件</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>  学习自 : 侯捷 STL</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/07/leetcode/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/OXygenPanda.github.io/images/avatar.jpg">
+      <meta itemprop="name" content="劳振煜">
+      <meta itemprop="description" content="Warm welcome">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="劳振煜的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/OXygenPanda.github.io/2020/10/07/leetcode/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" class="post-title-link" itemprop="url">单调队列</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-07 14:33:43" itemprop="dateCreated datePublished" datetime="2020-10-07T14:33:43+08:00">2020-10-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-09 18:10:08" itemprop="dateModified" datetime="2020-10-09T18:10:08+08:00">2020-10-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%98%9F%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">队列</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <a id="more"></a>
+
+<h1 id="单调队列"><a href="#单调队列" class="headerlink" title="单调队列"></a>单调队列</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>单调队列是一种特殊的数据结构。用来保持一个有序的队列。(无序的数据出队列)</p>
+<p>通过适配 deque 而来。</p>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt; <span class="class"><span class="keyword">class</span> <span class="title">Type</span> &gt;</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">monotonous_queue</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">deque</span>&lt;Type&gt; data; <span class="comment">//或者使用queue</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(Type)</span></span>; <span class="comment">//尾部插入到单调队列中</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">(Type)</span></span>; <span class="comment">//从头部离开单调队列</span></span><br><span class="line">    <span class="function">Type <span class="title">max</span><span class="params">()</span></span>; <span class="comment">//返回单调队列中的最大元素</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt; <span class="class"><span class="keyword">class</span> <span class="title">Type</span> &gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">monotonous_queue</span>&lt;Type&gt;:</span>:push(Type n)&#123;</span><br><span class="line">    <span class="keyword">while</span>(!data.empty() &amp;&amp; n &gt; data.back()) <span class="comment">//保持单调队列特性，尾部比输入小的数值全部舍弃</span></span><br><span class="line">        data.pop_back();</span><br><span class="line">    data.push_back(n);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt; <span class="class"><span class="keyword">class</span> <span class="title">Type</span> &gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">monotonous_queue</span>&lt;Type&gt;:</span>:pop(Type n)&#123; </span><br><span class="line">    <span class="keyword">if</span>(!data.empty() &amp;&amp; data.front() == n) <span class="comment">//有可能在pop之前，就因为push()中的步骤pop掉</span></span><br><span class="line">        data.pop_front();</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt; <span class="class"><span class="keyword">class</span> <span class="title">Type</span> &gt;</span></span><br><span class="line"><span class="class"><span class="title">Type</span> <span class="title">monotonous_queue</span>&lt;Type&gt;:</span>:max()&#123;</span><br><span class="line">    <span class="keyword">return</span> data.front();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实际上单调队列这一种数据结构使用的是队列中的<code>pop_back()</code>  <code>push_back()</code> <code>pop_front()</code> <code>back()</code> <code>front()</code> 方法，queue容器中不提供 <code>pop_back()</code> 方法，因此不可以通过适配 queue 而来。</p>
+<h2 id="Leetcode-239-滑动窗口最大值"><a href="#Leetcode-239-滑动窗口最大值" class="headerlink" title="Leetcode 239 滑动窗口最大值"></a>Leetcode 239 滑动窗口最大值</h2><p>难度:hard</p>
+<p>链接:<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sliding-window-maximum/">https://leetcode-cn.com/problems/sliding-window-maximum/</a></p>
+<p>源码:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">maxSlidingWindow</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    monotonous_queue&lt;<span class="keyword">int</span>&gt; mq;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();++i)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;k<span class="number">-1</span>) <span class="comment">//当前滑动窗口中的元素小于k个时,直接入队</span></span><br><span class="line">            mq.push(nums[i]);</span><br><span class="line">        <span class="keyword">else</span>&#123; <span class="comment">//入队后,输出窗口中的最大值给res,再弹出最前端为 nums[i-k+1] 的值,没有就不弹出</span></span><br><span class="line">            mq.push(nums[i]);</span><br><span class="line">            res.push_back(mq.max());</span><br><span class="line">            mq.pop(nums[i-k+<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(N) </p>
+<p>空间复杂度：O(k)</p>
+<blockquote>
+<p>  学习自labuladong</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/06/leetcode/%E5%8D%95%E8%B0%83%E6%A0%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/OXygenPanda.github.io/images/avatar.jpg">
+      <meta itemprop="name" content="劳振煜">
+      <meta itemprop="description" content="Warm welcome">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="劳振煜的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/OXygenPanda.github.io/2020/10/06/leetcode/%E5%8D%95%E8%B0%83%E6%A0%88/" class="post-title-link" itemprop="url">单调栈</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-06 14:33:43" itemprop="dateCreated datePublished" datetime="2020-10-06T14:33:43+08:00">2020-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-09 18:10:15" itemprop="dateModified" datetime="2020-10-09T18:10:15+08:00">2020-10-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88/" itemprop="url" rel="index"><span itemprop="name">栈</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <a id="more"></a>
+
+<h1 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>单调栈是一种特殊的数据结构。专门用于解决一类问题叫做 Next Greater Number的问题。</p>
+<p>性质：单调栈本身还是栈，只是每一次入栈，都会使得栈的排列有序。(其实也就是不满足有序的元素都不要)</p>
+<p>通过适配 stack 而来。</p>
+<h1 id="Next-Greater-Number"><a href="#Next-Greater-Number" class="headerlink" title="Next Greater Number"></a>Next Greater Number</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>找到数组中每一个数之后最近的一个比该数大的数字(两种情况，返回索引或返回数值)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">next_greater_elem</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp; nums)</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">res</span><span class="params">(nums.size())</span></span>; <span class="comment">//为了倒序访问,提前确定大小方便索引</span></span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt; s; <span class="comment">//单调栈 : pair&lt;数字,索引&gt;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=nums.size()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">        <span class="keyword">while</span>(!s.empty() &amp;&amp; s.top().first &lt;= nums[i]) <span class="comment">//如果栈顶端的数无法满足有序性,就全弹出</span></span><br><span class="line">            s.pop();</span><br><span class="line">        res[i] = (s.empty() == <span class="literal">true</span> ) ? <span class="number">0</span> : s.top().second-i; <span class="comment">//这里返回的是距离,也可返回索引或数值</span></span><br><span class="line">        s.push(<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;(nums[i],i)); <span class="comment">//插入pair&lt;数字,索引&gt;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(N) </p>
+<p>空间复杂度：O(N)</p>
+<h2 id="Leetcode-相关题目"><a href="#Leetcode-相关题目" class="headerlink" title="Leetcode 相关题目"></a>Leetcode 相关题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/next-greater-element-i/">496. 下一个更大元素I</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/next-greater-element-ii/">503.下一个更大元素II</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-days-in-a-month">1118.一月有多少天</a></p>
+<blockquote>
+<p>  学习自labuladong</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/09/25/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/OXygenPanda.github.io/images/avatar.jpg">
+      <meta itemprop="name" content="劳振煜">
+      <meta itemprop="description" content="Warm welcome">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="劳振煜的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/OXygenPanda.github.io/2020/09/25/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/" class="post-title-link" itemprop="url">二叉树的遍历</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-25 18:58:19" itemprop="dateCreated datePublished" datetime="2020-09-25T18:58:19+08:00">2020-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-11 13:02:17" itemprop="dateModified" datetime="2020-11-11T13:02:17+08:00">2020-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E4%BA%8C%E5%8F%89%E6%A0%91/" itemprop="url" rel="index"><span itemprop="name">二叉树</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <a id="more"></a>
+
+<h1 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h1><p align="center">
+<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
+<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
+<a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
+
+<blockquote>
+<p>  博客文章主要目的是分享和记录。</p>
+<p>  分享给需要学习的同学，记录自己学习路上的点滴。</p>
+</blockquote>
+</p><p>相信大家对于二叉树的定义以及结构，在本科《数据结构与算法》课程中或者在其他同学的博客中有所了解。在此，不在过多地回顾课本理论知识。</p>
+<p>我们编码语言主要为C++，如下是二叉树在C++中类的表现形式，这边使用的是 struct 结构体，在C++中类和结构体的区别在于不标志 public , private 以及 protected 时, 成员变量和成员函数是 public 还是 private 以及默认的继承方式是 public 还是 private。使用 struct 的原因在于，结构体更想表达的是一种数据的组织形式，而不是ADT。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> &#123;</span></span><br><span class="line">  	<span class="keyword">int</span> val;</span><br><span class="line">  	TreeNode* left;</span><br><span class="line">  	TreeNode* right;</span><br><span class="line">  	TreeNode*(<span class="keyword">int</span> x):val(x),left(<span class="literal">nullptr</span>),right(<span class="literal">nullptr</span>)&#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>并且配图可以更好地理解二叉树的结构。</p>
+<img src="https://i.loli.net/2020/10/17/tFRamoSqrQC6M2n.png">
+
+<h2 id="二叉树的遍历方式"><a href="#二叉树的遍历方式" class="headerlink" title="二叉树的遍历方式"></a>二叉树的遍历方式</h2><p>在线性结构中，例如，在数组中我们采用索引值（即，地址偏移）的方式去遍历整个数组；在链表中我们采用迭代的方式去遍历整个链表。而二叉树和线性的数组和链表的最大区别在于，二叉树的每一个节点并非只有一个后继节点。因此就有了许多有趣的遍历方式。</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>按照遍历顺序可以分为三种:</p>
+<ul>
+<li>前序</li>
+<li>中序</li>
+<li>后序</li>
+<li>层序</li>
+</ul>
+<p>按照遍历算法的写法可以分为：</p>
+<ul>
+<li>DFS（对应前中后的递归）</li>
+<li>BFS（对应层序）</li>
+</ul>
+<p>还可以根据是否采用迭代写法分为：</p>
+<ul>
+<li>迭代</li>
+<li>递归</li>
+</ul>
+<h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><h4 id="递归框架（前序中序后序框架）"><a href="#递归框架（前序中序后序框架）" class="headerlink" title="递归框架（前序中序后序框架）"></a>递归框架（前序中序后序框架）</h4><p>首先是递归，也是最简单书写的一种，其代码框架如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">order</span><span class="params">(TreeNode * root)</span></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)	<span class="keyword">return</span>;</span><br><span class="line">  <span class="comment">// 前序</span></span><br><span class="line">  order(root-&gt;left);</span><br><span class="line">  <span class="comment">// 中序</span></span><br><span class="line">  order(root-&gt;right);</span><br><span class="line">  <span class="comment">// 后序</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h5><p><strong>优点</strong>：递归很简单，我们只需要记住这一个代码框架就可以完成前中后序遍历；</p>
+<p><strong>缺点</strong>：递归过程中，从根节点出发不断递归左右节点，这一些函数调用的开销发生在栈空间，使得栈空间消耗巨大，甚至可能会导致栈溢出。</p>
+<h5 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h5><p>那么，为什么这样就可以实现遍历呢？</p>
+<ul>
+<li><p>递归写法必须有一个递归出口，也就是我们框架函数体内第一个语句，也就是我们递归到了叶子节点的时候，会调用 <code>order(叶子节点的左孩子)</code> 和 <code>order(叶子节点的右孩子)</code> 。那么这两个调用我们就应该停止递归了，也就是遇到了 <code>root==nullptr</code> 这个条件为 <code>true </code> ，递归返回。</p>
+</li>
+<li><p>那么对于任意一个非空节点来说我们需要做什么？我们无非是要做 : 访问它，访问它的左孩子，访问它的右孩子这三件事。那么既然有三件事，一定会涉及到顺序问题。这三者的顺序不同，就分出了三种访问顺序：</p>
+<ul>
+<li><p>前序：根-左-右</p>
+</li>
+<li><p>中序：左-根-右</p>
+</li>
+<li><p>后序：左-右-根</p>
+<p>比如，我们要按照中序的顺序输出二叉树的节点值：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">order</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)	<span class="keyword">return</span>;</span><br><span class="line">    order(root-&gt;left);</span><br><span class="line">    <span class="comment">/*中序 begin */</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; root-&gt;val &lt;&lt; <span class="string">&#x27; &#x27;</span>; <span class="comment">//中序位置写执行语句,这一个区域写的root就是中序的节点</span></span><br><span class="line">    <span class="comment">/*中序 end */</span></span><br><span class="line">    order(root-&gt;right);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="迭代框架（前序框架-与-中序框架）"><a href="#迭代框架（前序框架-与-中序框架）" class="headerlink" title="迭代框架（前序框架 与 中序框架）"></a>迭代框架（前序框架 与 中序框架）</h4><p>迭代框架没有递归框架那么简单，既没有对前中后序以及层序的通用模板，也没有递归那么语句短小，接下来主要介绍：前序，中序，后序，层序的迭代框架（模板）。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PreOrder</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; s;</span><br><span class="line">    <span class="keyword">while</span> (root || !s.empty()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (root) &#123;</span><br><span class="line">            s.push(root);</span><br><span class="line">            <span class="comment">// res.push_back(root-&gt;val);  // PreOrder</span></span><br><span class="line">            root = root-&gt;left;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            root = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            <span class="comment">// res.push_back(root-&gt;val);  // InOrder</span></span><br><span class="line">            root = root-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码在上方，可以看到前序和中序的框架比较相似，在不同的位置执行操作，那么它的遍历顺序就可以不同。</p>
+<h5 id="理解-1"><a href="#理解-1" class="headerlink" title="理解"></a>理解</h5><p>前序遍历，我们总是先读根节点（或者对根节点做一系列操作），如果左孩子存在，再去访问当前根节点的左孩子，那么我们要访问当前节点的左孩子，如果我们需要之后再访问右孩子，我们岂不是无法回到那个根节点了？（树的结构不支持子节点到父节点的指针）。所以，我们需要借助一个辅助栈来存放没有访问过右节点的根节点，等我们把左子树访问完毕之后，再提出之前的根节点，来访问他的右子树。</p>
+<p><img src="https://i.loli.net/2020/10/17/xnbAWvpwgMqLfur.jpg"></p>
+<p>如图，我们访问了节点1，去访问了节点2，那么我们访问完节点5之后需要回到节点1，再去访问节点3，因此必须把1给保留下来，但是我们不能用单个变量来保存节点1，因为在访问过程中，访问了节点2之后，访问节点4，再之后需要通过节点2，再去访问节点5，这样又需要一个变量来保存节点2，因此再迭代过程中，这个节点记录是一个变长的，所以需要一个辅助栈。</p>
+<h4 id="迭代框架（后序框架）"><a href="#迭代框架（后序框架）" class="headerlink" title="迭代框架（后序框架）"></a>迭代框架（后序框架）</h4><p>前序和中序遍历的迭代框架是类似的，但是后序遍历的框架截然不同。后序遍历顺序：左-右-根。我们可以看到，后序的遍历顺序和前序遍历顺序（根-左-右）类似。我们可以稍微修改前序遍历的框架，再对数组进行反转，获得后序遍历顺序。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PostOrder</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; visit;</span><br><span class="line">    TreeNode *cur = root;</span><br><span class="line">    TreeNode *pre = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">while</span> (cur != <span class="literal">nullptr</span> || !visit.empty()) &#123;</span><br><span class="line">        <span class="keyword">while</span> (cur != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            visit.push(cur);</span><br><span class="line">            cur = cur-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        cur = visit.top();</span><br><span class="line">        <span class="keyword">if</span> (cur-&gt;right == <span class="literal">nullptr</span> || cur-&gt;right == pre) &#123;</span><br><span class="line">            visit.pop();</span><br><span class="line">            res.push_back(cur-&gt;val);</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = <span class="literal">nullptr</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cur = cur-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PostOrder_2</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; s;</span><br><span class="line">    TreeNode *p = root;</span><br><span class="line">    <span class="keyword">while</span> (p != <span class="literal">nullptr</span> || !s.empty()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            res.push_back(p-&gt;val); <span class="comment">//前序的位置</span></span><br><span class="line">            s.push(p);</span><br><span class="line">            p = p-&gt;right; <span class="comment">//区别在于遍历顺序是 根-右-左</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(!s.empty())&#123;</span><br><span class="line">            p = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            p = p-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    reverse(res.begin(),res.end()); <span class="comment">//得到 根-右-左, 反转之后得到 左-右-根</span></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="理解-2"><a href="#理解-2" class="headerlink" title="理解"></a>理解</h5><p>可以看一下以上的代码：<code>PostOrder(TreeNode* root)</code> 是正常思路的后序遍历迭代写法，而 <code>PostOrder_2(TreeNode* root)</code> 是前序遍历反转的写法。个人感觉前序遍历反转的模板和前序中序模板类似，思想方式较为统一。</p>
+<h4 id="迭代框架（层序遍历）"><a href="#迭代框架（层序遍历）" class="headerlink" title="迭代框架（层序遍历）"></a>迭代框架（层序遍历）</h4><p>层序遍历其实就是BFS的思想，遍历的顺序是按层从低到高来遍历。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">levelOrder</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="keyword">if</span>(!root)   <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">deque</span>&lt;TreeNode*&gt; q;</span><br><span class="line">    q.push_back(root);</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> size = q.size();</span><br><span class="line">        res.push_back(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= size;++i)&#123;</span><br><span class="line">            TreeNode* node = q.front();q.pop_front();</span><br><span class="line">            res.back().push_back(node-&gt;val);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left)  q.push_back(node-&gt;left);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;right) q.push_back(node-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="理解-3"><a href="#理解-3" class="headerlink" title="理解"></a>理解</h5><p><img src="https://i.loli.net/2020/10/17/Ct2SP5GclqrK4VF.jpg"></p>
+<p>层序遍历相较于前中后序来说，它访问到了当前节点的兄弟节点以后，我们无法访问前节点的孩子节点。因此，这里不同的是，需要一个辅助的队列来存放同层的节点。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>那么，二叉树的常见遍历写法都在这边啦。</p>
+<p>递归写法因为每一个节点访问一次，所以时间复杂度为:<code>O(N)</code>，而递归需要在栈空间里开辟许多空间，平均递归的深度是logN，因此空间复杂度也是:<code>O(logN)</code>。</p>
+<p>迭代写法因为每一个节点访问一次，所以时间复杂度为:<code>O(N)</code>，而迭代需要一个辅助栈或者辅助队列，平均的情况是把logN的节点放入栈或队列，最差的情况是把大多数节点全部放入栈或队列，因此空间复杂度也是：<code>O(logN)</code>。</p>
+<p>而还有一个遍历写法叫做morris遍历，它能够实现空间复杂度为<code>O(1)</code>。但是写法较为复杂，准备另外再写一篇关于morris遍历的模板。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
 
-<script>function siteTime(){
-    window.setTimeout("siteTime()", 1000);
-    var seconds = 1000;
-    var minutes = seconds * 60;
-    var hours = minutes * 60;
-    var days = hours * 24;
-    var years = days * 365;
-    var today = new Date();
-    var todayYear = today.getFullYear();
-    var todayMonth = today.getMonth()+1;
-    var todayDate = today.getDate();
-    var todayHour = today.getHours();
-    var todayMinute = today.getMinutes();
-    var todaySecond = today.getSeconds();
-    /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
-       year - 作为date对象的年份，为4位年份值
-       month - 0-11之间的整数，做为date对象的月份
-       day - 1-31之间的整数，做为date对象的天数
-       hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
-       minutes - 0-59之间的整数，做为date对象的分钟数
-       seconds - 0-59之间的整数，做为date对象的秒数
-       microseconds - 0-999之间的整数，做为date对象的毫秒数
-    */
-    var t1 = Date.UTC(2020,05,19,21,20,52); //t1为建站时间
-    var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
-    var diff = t2-t1;
-    var diffYears = Math.floor(diff/years);
-    var diffDays = Math.floor((diff/days)-diffYears*365);
-    var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
-    var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
-    var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
-    document.getElementById("sitetime").innerHTML="已运行"+/*diffYears+" 年 "+*/diffDays+"天"+diffHours+"小时"+diffMinutes+"分钟"+diffSeconds+"秒";
-    // 因为建站时间还没有一年，就将之注释掉了。需要的可以取消
-    }
-    siteTime();
-</script>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/OXygenPanda.github.io/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/OXygenPanda.github.io/">1</a><a class="page-number" href="/OXygenPanda.github.io/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
 
 
-  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+
+          </div>
+          
+
 <script>
-window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
 </script>
 
-<script src="/OXygenPanda.github.io/js/plugin.min.js"></script>
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="劳振煜"
+      src="/OXygenPanda.github.io/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">劳振煜</p>
+  <div class="site-description" itemprop="description">Warm welcome</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/OXygenPanda.github.io/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/OXygenPanda.github.io/categories/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/OXygenPanda.github.io/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/OXygenPanda" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;OXygenPanda" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
 
 
-<script src="/OXygenPanda.github.io/js/application.js"></script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-    <script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: '文章',
-            PAGES: '页面',
-            CATEGORIES: '分类',
-            TAGS: '标签',
-            UNTITLED: '(未命名)',
-        },
-        ROOT_URL: '/OXygenPanda.github.io/',
-        CONTENT_URL: '/OXygenPanda.github.io/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
-</script>
+      </div>
+    </main>
 
-<script src="/OXygenPanda.github.io/js/insight.js"></script>
+    <footer class="footer">
+      <div class="footer-inner">
+        
 
+        
 
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">劳振煜</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
 
-
-
-
-   
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
+        
 
 
 
 
 
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/OXygenPanda.github.io/lib/anime.min.js"></script>
+
+<script src="/OXygenPanda.github.io/js/utils.js"></script>
+
+
+<script src="/OXygenPanda.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/OXygenPanda.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/OXygenPanda.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
 </body>
 </html>
