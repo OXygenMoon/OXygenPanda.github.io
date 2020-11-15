@@ -37,6 +37,99 @@
       </tags>
   </entry>
   <entry>
+    <title>二叉树的遍历</title>
+    <url>/OXygenPanda.github.io/2020/09/25/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/</url>
+    <content><![CDATA[<a id="more"></a>
+
+<h1 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h1><p align="center">
+<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
+<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
+<a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
+
+<blockquote>
+<p>  博客文章主要目的是分享和记录。</p>
+<p>  分享给需要学习的同学，记录自己学习路上的点滴。</p>
+</blockquote>
+</p><p>相信大家对于二叉树的定义以及结构，在本科《数据结构与算法》课程中或者在其他同学的博客中有所了解。在此，不在过多地回顾课本理论知识。</p>
+<p>我们编码语言主要为C++，如下是二叉树在C++中类的表现形式，这边使用的是 struct 结构体，在C++中类和结构体的区别在于不标志 public , private 以及 protected 时, 成员变量和成员函数是 public 还是 private 以及默认的继承方式是 public 还是 private。使用 struct 的原因在于，结构体更想表达的是一种数据的组织形式，而不是ADT。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> &#123;</span></span><br><span class="line">  	<span class="keyword">int</span> val;</span><br><span class="line">  	TreeNode* left;</span><br><span class="line">  	TreeNode* right;</span><br><span class="line">  	TreeNode*(<span class="keyword">int</span> x):val(x),left(<span class="literal">nullptr</span>),right(<span class="literal">nullptr</span>)&#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>并且配图可以更好地理解二叉树的结构。</p>
+<img src="https://i.loli.net/2020/10/17/tFRamoSqrQC6M2n.png">
+
+<h2 id="二叉树的遍历方式"><a href="#二叉树的遍历方式" class="headerlink" title="二叉树的遍历方式"></a>二叉树的遍历方式</h2><p>在线性结构中，例如，在数组中我们采用索引值（即，地址偏移）的方式去遍历整个数组；在链表中我们采用迭代的方式去遍历整个链表。而二叉树和线性的数组和链表的最大区别在于，二叉树的每一个节点并非只有一个后继节点。因此就有了许多有趣的遍历方式。</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>按照遍历顺序可以分为三种:</p>
+<ul>
+<li>前序</li>
+<li>中序</li>
+<li>后序</li>
+<li>层序</li>
+</ul>
+<p>按照遍历算法的写法可以分为：</p>
+<ul>
+<li>DFS（对应前中后的递归）</li>
+<li>BFS（对应层序）</li>
+</ul>
+<p>还可以根据是否采用迭代写法分为：</p>
+<ul>
+<li>迭代</li>
+<li>递归</li>
+</ul>
+<h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><h4 id="递归框架（前序中序后序框架）"><a href="#递归框架（前序中序后序框架）" class="headerlink" title="递归框架（前序中序后序框架）"></a>递归框架（前序中序后序框架）</h4><p>首先是递归，也是最简单书写的一种，其代码框架如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">order</span><span class="params">(TreeNode * root)</span></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)	<span class="keyword">return</span>;</span><br><span class="line">  <span class="comment">// 前序</span></span><br><span class="line">  order(root-&gt;left);</span><br><span class="line">  <span class="comment">// 中序</span></span><br><span class="line">  order(root-&gt;right);</span><br><span class="line">  <span class="comment">// 后序</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h5><p><strong>优点</strong>：递归很简单，我们只需要记住这一个代码框架就可以完成前中后序遍历；</p>
+<p><strong>缺点</strong>：递归过程中，从根节点出发不断递归左右节点，这一些函数调用的开销发生在栈空间，使得栈空间消耗巨大，甚至可能会导致栈溢出。</p>
+<h5 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h5><p>那么，为什么这样就可以实现遍历呢？</p>
+<ul>
+<li><p>递归写法必须有一个递归出口，也就是我们框架函数体内第一个语句，也就是我们递归到了叶子节点的时候，会调用 <code>order(叶子节点的左孩子)</code> 和 <code>order(叶子节点的右孩子)</code> 。那么这两个调用我们就应该停止递归了，也就是遇到了 <code>root==nullptr</code> 这个条件为 <code>true </code> ，递归返回。</p>
+</li>
+<li><p>那么对于任意一个非空节点来说我们需要做什么？我们无非是要做 : 访问它，访问它的左孩子，访问它的右孩子这三件事。那么既然有三件事，一定会涉及到顺序问题。这三者的顺序不同，就分出了三种访问顺序：</p>
+<ul>
+<li><p>前序：根-左-右</p>
+</li>
+<li><p>中序：左-根-右</p>
+</li>
+<li><p>后序：左-右-根</p>
+<p>比如，我们要按照中序的顺序输出二叉树的节点值：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">order</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)	<span class="keyword">return</span>;</span><br><span class="line">    order(root-&gt;left);</span><br><span class="line">    <span class="comment">/*中序 begin */</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; root-&gt;val &lt;&lt; <span class="string">&#x27; &#x27;</span>; <span class="comment">//中序位置写执行语句,这一个区域写的root就是中序的节点</span></span><br><span class="line">    <span class="comment">/*中序 end */</span></span><br><span class="line">    order(root-&gt;right);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="迭代框架（前序框架-与-中序框架）"><a href="#迭代框架（前序框架-与-中序框架）" class="headerlink" title="迭代框架（前序框架 与 中序框架）"></a>迭代框架（前序框架 与 中序框架）</h4><p>迭代框架没有递归框架那么简单，既没有对前中后序以及层序的通用模板，也没有递归那么语句短小，接下来主要介绍：前序，中序，后序，层序的迭代框架（模板）。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PreOrder</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; s;</span><br><span class="line">    <span class="keyword">while</span> (root || !s.empty()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (root) &#123;</span><br><span class="line">            s.push(root);</span><br><span class="line">            <span class="comment">// res.push_back(root-&gt;val);  // PreOrder</span></span><br><span class="line">            root = root-&gt;left;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            root = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            <span class="comment">// res.push_back(root-&gt;val);  // InOrder</span></span><br><span class="line">            root = root-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码在上方，可以看到前序和中序的框架比较相似，在不同的位置执行操作，那么它的遍历顺序就可以不同。</p>
+<h5 id="理解-1"><a href="#理解-1" class="headerlink" title="理解"></a>理解</h5><p>前序遍历，我们总是先读根节点（或者对根节点做一系列操作），如果左孩子存在，再去访问当前根节点的左孩子，那么我们要访问当前节点的左孩子，如果我们需要之后再访问右孩子，我们岂不是无法回到那个根节点了？（树的结构不支持子节点到父节点的指针）。所以，我们需要借助一个辅助栈来存放没有访问过右节点的根节点，等我们把左子树访问完毕之后，再提出之前的根节点，来访问他的右子树。</p>
+<p><img src="https://i.loli.net/2020/10/17/xnbAWvpwgMqLfur.jpg"></p>
+<p>如图，我们访问了节点1，去访问了节点2，那么我们访问完节点5之后需要回到节点1，再去访问节点3，因此必须把1给保留下来，但是我们不能用单个变量来保存节点1，因为在访问过程中，访问了节点2之后，访问节点4，再之后需要通过节点2，再去访问节点5，这样又需要一个变量来保存节点2，因此再迭代过程中，这个节点记录是一个变长的，所以需要一个辅助栈。</p>
+<h4 id="迭代框架（后序框架）"><a href="#迭代框架（后序框架）" class="headerlink" title="迭代框架（后序框架）"></a>迭代框架（后序框架）</h4><p>前序和中序遍历的迭代框架是类似的，但是后序遍历的框架截然不同。后序遍历顺序：左-右-根。我们可以看到，后序的遍历顺序和前序遍历顺序（根-左-右）类似。我们可以稍微修改前序遍历的框架，再对数组进行反转，获得后序遍历顺序。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PostOrder</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; visit;</span><br><span class="line">    TreeNode *cur = root;</span><br><span class="line">    TreeNode *pre = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">while</span> (cur != <span class="literal">nullptr</span> || !visit.empty()) &#123;</span><br><span class="line">        <span class="keyword">while</span> (cur != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            visit.push(cur);</span><br><span class="line">            cur = cur-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        cur = visit.top();</span><br><span class="line">        <span class="keyword">if</span> (cur-&gt;right == <span class="literal">nullptr</span> || cur-&gt;right == pre) &#123;</span><br><span class="line">            visit.pop();</span><br><span class="line">            res.push_back(cur-&gt;val);</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = <span class="literal">nullptr</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cur = cur-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PostOrder_2</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; s;</span><br><span class="line">    TreeNode *p = root;</span><br><span class="line">    <span class="keyword">while</span> (p != <span class="literal">nullptr</span> || !s.empty()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            res.push_back(p-&gt;val); <span class="comment">//前序的位置</span></span><br><span class="line">            s.push(p);</span><br><span class="line">            p = p-&gt;right; <span class="comment">//区别在于遍历顺序是 根-右-左</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(!s.empty())&#123;</span><br><span class="line">            p = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            p = p-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    reverse(res.begin(),res.end()); <span class="comment">//得到 根-右-左, 反转之后得到 左-右-根</span></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="理解-2"><a href="#理解-2" class="headerlink" title="理解"></a>理解</h5><p>可以看一下以上的代码：<code>PostOrder(TreeNode* root)</code> 是正常思路的后序遍历迭代写法，而 <code>PostOrder_2(TreeNode* root)</code> 是前序遍历反转的写法。个人感觉前序遍历反转的模板和前序中序模板类似，思想方式较为统一。</p>
+<h4 id="迭代框架（层序遍历）"><a href="#迭代框架（层序遍历）" class="headerlink" title="迭代框架（层序遍历）"></a>迭代框架（层序遍历）</h4><p>层序遍历其实就是BFS的思想，遍历的顺序是按层从低到高来遍历。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">levelOrder</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="keyword">if</span>(!root)   <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">deque</span>&lt;TreeNode*&gt; q;</span><br><span class="line">    q.push_back(root);</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> size = q.size();</span><br><span class="line">        res.push_back(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= size;++i)&#123;</span><br><span class="line">            TreeNode* node = q.front();q.pop_front();</span><br><span class="line">            res.back().push_back(node-&gt;val);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left)  q.push_back(node-&gt;left);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;right) q.push_back(node-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="理解-3"><a href="#理解-3" class="headerlink" title="理解"></a>理解</h5><p><img src="https://i.loli.net/2020/10/17/Ct2SP5GclqrK4VF.jpg"></p>
+<p>层序遍历相较于前中后序来说，它访问到了当前节点的兄弟节点以后，我们无法访问前节点的孩子节点。因此，这里不同的是，需要一个辅助的队列来存放同层的节点。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>那么，二叉树的常见遍历写法都在这边啦。</p>
+<p>递归写法因为每一个节点访问一次，所以时间复杂度为:<code>O(N)</code>，而递归需要在栈空间里开辟许多空间，平均递归的深度是logN，因此空间复杂度也是:<code>O(logN)</code>。</p>
+<p>迭代写法因为每一个节点访问一次，所以时间复杂度为:<code>O(N)</code>，而迭代需要一个辅助栈或者辅助队列，平均的情况是把logN的节点放入栈或队列，最差的情况是把大多数节点全部放入栈或队列，因此空间复杂度也是：<code>O(logN)</code>。</p>
+<p>而还有一个遍历写法叫做morris遍历，它能够实现空间复杂度为<code>O(1)</code>。但是写法较为复杂，准备另外再写一篇关于morris遍历的模板。</p>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+        <category>二叉树</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>理解 iterator_traits</title>
     <url>/OXygenPanda.github.io/2020/10/30/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-iterator%20traits/</url>
     <content><![CDATA[<h1 id="iterator"><a href="#iterator" class="headerlink" title="iterator"></a>iterator</h1><p>iterator 意为迭代器，是常见的23种设计模式中的一种。</p>
@@ -150,43 +243,6 @@
         <tag>C++</tag>
         <tag>STL</tag>
         <tag>list</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>理解 type_traits</title>
-    <url>/OXygenPanda.github.io/2020/10/31/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-type%20traits/</url>
-    <content><![CDATA[<h1 id="type-traits"><a href="#type-traits" class="headerlink" title="__type_traits"></a>__type_traits</h1><blockquote>
-<p>  &lt;__type_traits.h&gt; 是 SGI 版本的 STL 的实现，其他版本的 STL 没有去调研过是否存在类型萃取。但是侯捷老师的源码剖析已经过去了那么多年，我相信比较好的一些实现，还是会被其他版本进行借鉴的。</p>
-</blockquote>
-<p>前一篇文章是 <code>iterator_traits</code> 迭代器萃取器，可以感受到，迭代器的萃取器会萃取出迭代器的元数据 : <code>value_type</code> <code>difference_type</code> <code>pointer</code>  <code>reference</code>  <code>iterator_category</code>。其中最重要的 <code>iterator_category</code> 元数据对一些算法进行选择有很大的帮助。</p>
-<p>相同的，<code>__type_traits</code>  负责萃取类型的元数据，比如 : 某类型是否拥有不重要的默认构造函数 <code>has_trivial_default_constructor</code> 。在迭代器萃取器中的 <code>iterator_category</code> 会回答五种类型，在类型萃取器中只会回答两种类型：<code>__true_type</code> <code>__false_type</code>。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">true_type</span>&#123;</span>&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">false_type</span>&#123;</span>&#125;;</span><br><span class="line"><span class="comment">// 不需要实现,进行函数调用时,需要不同的类型才能够进行类型推导</span></span><br><span class="line"><span class="comment">// 而不能是只回答同样bool类型的 : true / false</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="type-traits-源码"><a href="#type-traits-源码" class="headerlink" title="_type_traits 源码"></a>_type_traits 源码</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// __type_traits 的写法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 泛化__type_traits</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">type</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> __<span class="title">type_traits</span>&#123;</span></span><br><span class="line">		<span class="keyword">typedef</span> __true_type this_dummy_member_must_be_first;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_default_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_copy_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_assignment_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_destructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type is_POD_type;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 原则:</span></span><br><span class="line"><span class="comment">** trivial 是不重要的,回答 false. 即有重要的四种基本函数</span></span><br><span class="line"><span class="comment">** 保守起见,为所有的类型都设定为重要的构造和拷贝和析构</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//特别多的特化__type_traits</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">template</span>&lt;&gt; __STL_TEMPLATE_NULL;</span><br><span class="line">__STL_TEMPLATE_NULL <span class="class"><span class="keyword">struct</span> __<span class="title">type_traits</span>&lt;char&gt;&#123;</span></span><br><span class="line">		<span class="comment">//具体萃取 char 类型的元数据</span></span><br><span class="line">		<span class="comment">//C语言内置类型 都是以下的回答</span></span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_default_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_copy_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_assignment_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_destructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type is_POD_type;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//... 许多其他类型的类型萃取特化版本</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//特别的,指针类型也可以进行萃取</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">type_traits</span>&lt;T*&gt;&#123;</span></span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_default_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_copy_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_assignment_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_destructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type is_POD_type;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="type-traits-实例"><a href="#type-traits-实例" class="headerlink" title="__type_traits 实例"></a>__type_traits 实例</h2><p>来源于 侯捷老师 的例子</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//入口函数</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">ForwardIterator</span>, <span class="title">class</span> <span class="title">Size</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">ForwardIterator</span></span></span><br><span class="line"><span class="class"><span class="title">uninitialized_fill_n</span>(<span class="title">ForwardIterator</span> <span class="title">first</span>,</span></span><br><span class="line"><span class="class">					 <span class="title">Size</span> <span class="title">n</span>,</span></span><br><span class="line"><span class="class">					 <span class="title">const</span> <span class="title">T</span>&amp; <span class="title">x</span>)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">return</span> __uninitialized_fill_n(first, n, x, iterator_traits&lt;ForwardIterator&gt;::value_type);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//萃取“工具人”</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">ForwardIterator</span>, <span class="title">class</span> <span class="title">Size</span>, <span class="title">class</span> <span class="title">T</span>, <span class="title">class</span> <span class="title">T1</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">ForwardIterator</span></span></span><br><span class="line"><span class="class">__<span class="title">uninitialized_fill_n</span>(<span class="title">ForwardIterator</span> <span class="title">first</span>,</span></span><br><span class="line"><span class="class">					   <span class="title">Size</span> <span class="title">n</span>,</span></span><br><span class="line"><span class="class">					   <span class="title">const</span> <span class="title">T</span>&amp; <span class="title">x</span>,</span></span><br><span class="line"><span class="class">					   <span class="title">T1</span>*)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">typedef</span> <span class="keyword">typename</span> type_traits&lt;T1&gt;::is_POD_type is_POD;</span><br><span class="line">	<span class="keyword">return</span> __uninitialized_fill_n_aux(first, n, x, is_POD());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//实际上根据 is_POD 属性进行类型推导选择执行以下两个函数中的一个</span></span><br><span class="line"><span class="comment">//可以看到,这边如果是用true false来回答的话,这边就无法根据类型推导来选择不同函数了</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">ForwardIterator</span>, <span class="title">class</span> <span class="title">Size</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">ForwardIterator</span></span></span><br><span class="line"><span class="class">__<span class="title">uninitialized_fill_n_aux</span>(<span class="title">ForwardIterator</span> <span class="title">first</span>, <span class="title">Size</span> <span class="title">n</span>, <span class="title">const</span> <span class="title">T</span>&amp; <span class="title">x</span>,__<span class="title">false_type</span>)&#123;</span></span><br><span class="line">	ForwardIterator cur = first;</span><br><span class="line">	<span class="keyword">for</span>( ; n &gt; <span class="number">0</span>; --n, ++cur)</span><br><span class="line">		construct(&amp;*cur, x);</span><br><span class="line">	<span class="keyword">return</span> cur;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">ForwardIterator</span>, <span class="title">class</span> <span class="title">Size</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">ForwardIterator</span></span></span><br><span class="line"><span class="class">__<span class="title">uninitialized_fill_n_aux</span>(<span class="title">ForwardIterator</span> <span class="title">first</span>, <span class="title">Size</span> <span class="title">n</span>, <span class="title">const</span> <span class="title">T</span>&amp; <span class="title">x</span>,__<span class="title">true_type</span>)&#123;</span></span><br><span class="line">	<span class="keyword">return</span> fill_n(first, n, x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="融入-STL"><a href="#融入-STL" class="headerlink" title="融入 STL"></a>融入 STL</h2><p>如果不自己写一个特化版本的话，萃取该自定类型时，萃取结果会认为你的四种函数(构造、拷贝构造、拷贝赋值、析构)都是重要的，但是事实上如果不重要可以提高某一些算法的效率，因此如果真的不重要，就应该在特化版本中告诉编译器。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//比如有一个自定义的 class shape</span></span><br><span class="line"><span class="keyword">template</span>&lt;&gt;</span><br><span class="line">__type_traits&lt;shape&gt;&#123;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type  has_trivial_default_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_copy_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_assignment_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_destructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type is_POD_type;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>  学习自侯捷老师：《STL源码剖析》</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>C++</category>
-        <category>STL</category>
-        <category>迭代器</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>STL</tag>
-        <tag>iterator</tag>
       </tags>
   </entry>
   <entry>
@@ -392,6 +448,131 @@
       </tags>
   </entry>
   <entry>
+    <title>TCP通信[未完成]</title>
+    <url>/OXygenPanda.github.io/2020/10/26/%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-TCP/</url>
+    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>传输控制协议( TCP : Transmission Control Protocol )，是一种面向连接的，可靠的传输层控制协议。</p>
+<h2 id="面向连接"><a href="#面向连接" class="headerlink" title="面向连接"></a>面向连接</h2><p>一般，客户端发送给服务端的一个数据包携带的数据最大为1460字节。是因为，以太网帧结构数据长度是1500字节，其中包含20字节的IP头部以及20字节的TCP头部，所以数据能够携带1460字节。</p>
+<h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><p>三次握手，由内核完成。反应在程序中，是由客户端程序的 connect() 开始，由 服务端程序的 accept() 返回结束。</p>
+<p>示例</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">客户端发送：SYN <span class="number">1000</span>(<span class="number">0</span>) win <span class="number">4096</span> &lt;mss <span class="number">1460</span>&gt;</span><br><span class="line">服务端发送：SYN <span class="number">8000</span>(<span class="number">0</span>) win <span class="number">6144</span> ACK <span class="number">1001</span> &lt;mss <span class="number">1024</span>&gt;  <span class="comment">//ACK 1001 是接收到的序号+数据字节(SYN标志位也得占1字节)</span></span><br><span class="line">客户端发送：ACK <span class="number">8001</span>    win <span class="number">4096</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">** (0)        : 表示携带数据为0字节</span></span><br><span class="line"><span class="comment">** win 4096   : 发送端滑动窗口缓存4096字节</span></span><br><span class="line"><span class="comment">** &lt;mss 1460&gt; : 表示携带数据最大字节数为1460字节</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>总结</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">主动发起连接请求端：发送SYN标志位，请求建立连接。携带数据包包号，数据字节数(0)，滑动窗口大小</span><br><span class="line">被动接受连接请求端：发送ACK标志位，同时携带SYN请求标志位。携带序号，确认序号，数据字节数(0)，滑动窗口大小</span><br><span class="line">主动发起连接请求段：发送ACK标志位，应答服务器连接请求。携带确认序号。</span><br></pre></td></tr></table></figure>
+
+<p>要点</p>
+<p>为什么不是二次握手？</p>
+<ol>
+<li>彼此确定收发能力</li>
+</ol>
+<ul>
+<li>第一次客户端发送请求，服务端接收请求：服务端知道了客户端有发送的能力。</li>
+<li>第二次服务端发送请求，客户端接收请求：客户端知道了服务端有收发的能力。</li>
+<li>此时，服务端不知道客户端是不是有接收的能力。因此需要客户端再次告知服务端。</li>
+</ul>
+<ol start="2">
+<li>避免两次连接</li>
+</ol>
+<ul>
+<li>客户端发送的连接请求如果滞留在网络中，等到超时重传，会再次发起连接请求，而服务器接收到两个连接请求会打开两个连接。因此，需要三次握手。</li>
+</ul>
+<p>第三次客户端发送ACK时，可以携带数据</p>
+<ul>
+<li>因为此时，客户端服务端都知道双方都有收发数据的能力，所以可以开始通信。</li>
+</ul>
+<h2 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h2><p>四次挥手，目的是断开客户端到服务端的全双工链路。断开一端称为半关闭，会关闭一端的套接字的一个缓存区。</p>
+<p>示例</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">客户端发送：FIN <span class="number">501</span>(<span class="number">0</span>)  ACK <span class="number">701</span> </span><br><span class="line">服务端发送：ACK <span class="number">502</span>             ---- 半关闭</span><br><span class="line">服务端发送：FIN <span class="number">701</span>(<span class="number">0</span>)  ACK <span class="number">502</span></span><br><span class="line">客户端发送：ACK <span class="number">702</span>             ---- 完全断开</span><br></pre></td></tr></table></figure>
+
+<p>总结</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">主动关闭连接请求端：发送FIN标志位。</span><br><span class="line">被动关闭连接请求端：应答ACK标志位。 ———— 半关闭完成</span><br><span class="line">被动关闭连接请求端：发送FIN标志位。</span><br><span class="line">主动关闭连接请求端：应答ACK标志位。 —————连接全部关闭</span><br></pre></td></tr></table></figure>
+
+<p>客户端接收到服务器的应答之后，进入半关闭状态，不能发送数据给服务器，而服务器会在发送完剩余数据后，发起关闭请求，客户端应答服务器后需要等待 2MSL(最大报文存活时间)后释放连接。原因如下：</p>
+<ul>
+<li>如果客户端的应答数据包丢失，那么服务器会再次发送断开请求。</li>
+<li>等待一段时间，使本次连接过程中产生的数据包在网络中消失。</li>
+</ul>
+<h2 id="可靠传输"><a href="#可靠传输" class="headerlink" title="可靠传输"></a>可靠传输</h2><h3 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h3><p>TCP使用超时重传来实现可靠传输：如果一个已经发送的报文段在超时时间内没有收到确认，那么就重传这个报文段。</p>
+<p>一个报文段从发送到接收到确定所经历的时间称为往返时间RTT(加权平均RTTs)。超时时间 RTO 应该略大于 RTTs 。TCP使用的超时时间计算是 : RTO = RTTs + 4 * RTTd 。RTTd : 偏差的加权平均值。</p>
+<h3 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h3><p>滑动窗口是一个缓存区，用于暂时存放字节流。发送方和接收方各有一个窗口，接收方通过TCP报文段中的窗口字段告诉发送方自己的窗口大小，发送方根据这个值和其他信息来设置自己的窗口大小。</p>
+<p>对于发送方来说，当窗口靠左侧的数据包已经成功发送并被确认后，窗口向右滑动直到某一个未发送或者未确认的字节位置。</p>
+<p>对于接收方来说，当窗口靠左侧的数据包已经收到，窗口向右滑动直到某一个未接收到的字节。</p>
+<h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><p>流量控制是为了控制发送方发送速率，保证接收方来得及接收。</p>
+<p>接收方发送的确认报文中的窗口字段可以用来控制发送方窗口大小，从而影响发送方的发送速率。将窗口字段设置为 0，则发送方不能发送数据。</p>
+<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>如果网络出现拥塞，发送方发送的数据包丢失，发送方重传导致网络难以恢复。因此要进行一定的拥塞控制使得发送方降低发送速率。发送方需要维护一个拥塞窗口（cwnd）状态变量：决定发送方能发送多少数据。</p>
+<h4 id="慢开始与拥塞避免"><a href="#慢开始与拥塞避免" class="headerlink" title="慢开始与拥塞避免"></a>慢开始与拥塞避免</h4><img src="https://i.loli.net/2020/10/30/8s2w3yMNVT6RL1k.png">
+
+<p>发送的最初执行慢开始，令 cwnd = 1，发送方只能发送 1 个报文段；当收到确认后，将 cwnd 加倍，因此之后发送方能够发送的报文段数量为：2、4、8 …</p>
+<p>注意到慢开始每个轮次都将 cwnd 加倍，这样会让 cwnd 增长速度非常快，从而使得发送方发送的速度增长速度过快，网络拥塞的可能性也就更高。设置一个慢开始门限 ssthresh，当 cwnd &gt;= ssthresh 时，进入拥塞避免，每个轮次只将 cwnd 加 1。</p>
+<p>如果出现了超时，则令 ssthresh = cwnd / 2，然后重新执行慢开始。</p>
+<h4 id="快速重传与快速恢复"><a href="#快速重传与快速恢复" class="headerlink" title="快速重传与快速恢复"></a>快速重传与快速恢复</h4><p>在接收方，要求每次接收到报文段都应该对最后一个已收到的有序报文段进行确认。例如已经接收到 M1 和 M2，此时收到 M4，应当发送对 M2 的确认。</p>
+<p>在发送方，如果收到三个重复确认，那么可以知道下一个报文段丢失，此时执行快重传，立即重传下一个报文段。例如收到三个 M2，则 M3 丢失，立即重传 M3。</p>
+<p>在这种情况下，只是丢失个别报文段，而不是网络拥塞。因此执行快恢复，令 ssthresh = cwnd / 2 ，cwnd = ssthresh，注意到此时直接进入拥塞避免。</p>
+<p>慢开始和快恢复的快慢指的是 cwnd 的设定值，而不是 cwnd 的增长速率。慢开始 cwnd 设定为 1，而快恢复 cwnd 设定为 ssthresh。</p>
+]]></content>
+      <categories>
+        <category>网络通信</category>
+        <category>传输层</category>
+        <category>TCP</category>
+      </categories>
+      <tags>
+        <tag>tcp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>前缀/中缀/后缀表达式的转换/计算/构建二叉树[未完成]</title>
+    <url>/OXygenPanda.github.io/2020/10/18/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E5%89%8D%E7%BC%80%E4%B8%AD%E7%BC%80%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2%E6%B1%82%E5%80%BC/</url>
+    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p align="center">
+<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
+<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
+<a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
+
+</p><p>我们从小学至今，接触到最多的表达式就是中缀表达式，形如 : <code>(5+(3*2)-6/2)</code> 作用的运算符落在数字两边。但是这一个表达式作为字符串输入到计算机中，计算机可不太喜欢这样的表达式，它顺序遍历的时候，由于运算符优先级不同，难以计算。因此，出现了前缀表达式和后缀表达式，他们两者的特点是不携带括号，顺序遍历时，明确了运算的优先级。前缀和后缀表达式都可以由中缀表达式转换而来。</p>
+<p>本篇文章会带你学习如何把中缀表达式转换成前缀 / 后缀表达式，如果根据前缀 / 后缀表达式计算表达式的值，最后由表达式来构建出一棵表达式二叉树。</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="前缀表达式"><a href="#前缀表达式" class="headerlink" title="前缀表达式"></a>前缀表达式</h3><p>前缀表达式是一种没有括号的算术表达式，与中缀表达式不同的是，其将运算符写在前面，操作数写在后面。</p>
+<blockquote>
+<p>  为纪念其发明者波兰数学家Jan Lukasiewicz，前缀表达式也称为“波兰式”。</p>
+</blockquote>
+<p>例如，<code>- 1 + 2 3</code>，它等价于<code>1 - (2 + 3)</code>。</p>
+<h3 id="中缀表达式"><a href="#中缀表达式" class="headerlink" title="中缀表达式"></a>中缀表达式</h3><p>中缀表达式是一个通用的算术或逻辑公式表示方法， 操作符是以中缀形式处于操作数的中间。</p>
+<p>例如：<code>3 + 4</code>。</p>
+<h3 id="后缀表达式"><a href="#后缀表达式" class="headerlink" title="后缀表达式"></a>后缀表达式</h3><p>后缀表达式与前缀表达式类似的是一种没有括号的算术表达式，不同的是运算符写在后面，操作数写在前面。</p>
+<blockquote>
+<p>  后缀表达式也称为“逆波兰式”。</p>
+</blockquote>
+<p>例如<code>+ 2 3</code>，它等价于 <code>2 + 3</code>。</p>
+<h3 id="表达式二叉树"><a href="#表达式二叉树" class="headerlink" title="表达式二叉树"></a>表达式二叉树</h3><p>算数表达式是分层的递归结构，一个运算符作用于相应的运算对象，其运算对象又可以是任意复杂的表达式。树的递归结构正好用来表示这种表达式。下面只讨论二元表达式。<br>二元表达式可以很自然的联系到二叉树：以基本运算对象作为叶节点中的数据；以运算符作为非叶节点中的数据，其两棵子树是它的运算对象，子树可以是基本运算对象，也可以是复杂表达式。如图是一个表达式树。</p>
+<img src="https://i.loli.net/2020/10/21/WXc2r8deZBVKYCR.jpg">
+
+<p>留意一下颜色和遍历顺序和表达式类型的对应关系。</p>
+<ul>
+<li>表达式树的先序遍历：前缀表达式</li>
+<li>表达式树的中序遍历：中缀表达式</li>
+<li>表达式树的后序遍历：后缀表达式</li>
+</ul>
+<p><font color="\#87CEEB">运算数</font> ：是二叉树的叶子节点</p>
+<p><font color="#EE6363">运算符</font>：是二叉树的非叶子节点</p>
+<h2 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h2><h3 id="中缀表达式转前缀表达式"><a href="#中缀表达式转前缀表达式" class="headerlink" title="中缀表达式转前缀表达式"></a>中缀表达式转前缀表达式</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">prefix</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp; mid_str)</span></span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 中缀表达式转换成前缀表达式</span></span><br><span class="line"><span class="comment">     * 采用 vector &lt; string &gt; 的存储方式存储</span></span><br><span class="line"><span class="comment">     * 运算符占用一字符串, 多位整数占用一字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; pre;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt; op;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt; tmp; <span class="comment">// 用于最后转置所有字符串顺序</span></span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt; priority;</span><br><span class="line">    priority[<span class="string">&quot;+&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">    priority[<span class="string">&quot;-&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">    priority[<span class="string">&quot;*&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    priority[<span class="string">&quot;/&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = mid_str.size() - <span class="number">1</span> ; i &gt;= <span class="number">0</span> ; i -- )&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isdigit</span>(mid_str[i][<span class="number">0</span>]) || <span class="built_in">isalpha</span>(mid_str[i][<span class="number">0</span>]))&#123;</span><br><span class="line">            tmp.push(mid_str[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (mid_str[i] == <span class="string">&quot;)&quot;</span>)&#123;</span><br><span class="line">            op.push(<span class="string">&quot;)&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(mid_str[i] == <span class="string">&quot;(&quot;</span>)&#123;</span><br><span class="line">            <span class="keyword">while</span>(op.top() != <span class="string">&quot;)&quot;</span>)&#123;</span><br><span class="line">                tmp.push(op.top());</span><br><span class="line">                op.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            op.pop(); <span class="comment">//弹出 &quot;)&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (mid_str[i] == <span class="string">&quot;+&quot;</span> || mid_str[i] == <span class="string">&quot;-&quot;</span> || mid_str[i] == <span class="string">&quot;*&quot;</span> || mid_str[i] == <span class="string">&quot;/&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span>(!op.empty() &amp;&amp; op.top() != <span class="string">&quot;)&quot;</span> &amp;&amp; priority[mid_str[i]] &lt;= priority[op.top()])&#123;</span><br><span class="line">                tmp.push(op.top());</span><br><span class="line">                op.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            op.push(mid_str[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!op.empty())&#123;</span><br><span class="line">        tmp.push(op.top());</span><br><span class="line">        op.pop();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!tmp.empty())&#123;</span><br><span class="line">        pre.push_back(tmp.top());</span><br><span class="line">        tmp.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pre;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="中缀表达式转后缀表达式"><a href="#中缀表达式转后缀表达式" class="headerlink" title="中缀表达式转后缀表达式"></a>中缀表达式转后缀表达式</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">postfix</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;mid_str)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 中缀表达式转换成后缀表达式</span></span><br><span class="line"><span class="comment">     * 采用 vector &lt; string &gt; 的存储方式存储</span></span><br><span class="line"><span class="comment">     * 运算符占用一字符串, 多位整数占用一字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;post;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt; op;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt; priority;</span><br><span class="line">    priority[<span class="string">&quot;+&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">    priority[<span class="string">&quot;-&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">    priority[<span class="string">&quot;*&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    priority[<span class="string">&quot;/&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mid_str.size(); ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isdigit</span>(mid_str[i][<span class="number">0</span>]) || <span class="built_in">isalpha</span>(mid_str[i][<span class="number">0</span>]))&#123;</span><br><span class="line">            post.push_back(mid_str[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (mid_str[i] == <span class="string">&quot;(&quot;</span>)&#123;</span><br><span class="line">            op.push(<span class="string">&quot;(&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(mid_str[i] == <span class="string">&quot;)&quot;</span>)&#123;</span><br><span class="line">            <span class="keyword">while</span>(op.top() != <span class="string">&quot;(&quot;</span>)&#123;</span><br><span class="line">                post.push_back(op.top());</span><br><span class="line">                op.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            op.pop(); <span class="comment">//弹出 &quot;(&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (mid_str[i] == <span class="string">&quot;+&quot;</span> || mid_str[i] == <span class="string">&quot;-&quot;</span> || mid_str[i] == <span class="string">&quot;*&quot;</span> || mid_str[i] == <span class="string">&quot;/&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span>(!op.empty() &amp;&amp; op.top() != <span class="string">&quot;(&quot;</span> &amp;&amp; priority[mid_str[i]] &lt;= priority[op.top()])&#123;</span><br><span class="line">                post.push_back(op.top());</span><br><span class="line">                op.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            op.push(mid_str[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!op.empty())&#123;</span><br><span class="line">        post.push_back(op.top());</span><br><span class="line">        op.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> post;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试部分"><a href="#测试部分" class="headerlink" title="测试部分"></a>测试部分</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//    vector&lt;string&gt; mid(&#123;&quot;2&quot;,&quot;+&quot;,&quot;9&quot;,&quot;/&quot;,&quot;3&quot;,&quot;-&quot;,&quot;5&quot;&#125;);  // 2 + 9 / 3 - 5</span></span><br><span class="line"><span class="comment">//    vector&lt;string&gt; mid(&#123;&quot;a&quot;,&quot;*&quot;,&quot;(&quot;,&quot;b&quot;,&quot;+&quot;,&quot;c&quot;,&quot;)&quot;,&quot;/&quot;,&quot;d&quot;&#125;);  //  a * (b + c) / d</span></span><br><span class="line"><span class="comment">//    vector&lt;string&gt; mid(&#123;&quot;2&quot;,&quot;*&quot;,&quot;(&quot;,&quot;9&quot;,&quot;+&quot;,&quot;6&quot;,&quot;/&quot;,&quot;3&quot;,&quot;-&quot;,&quot;5&quot;,&quot;)&quot;,&quot;+&quot;,&quot;4&quot;&#125;);  // 2 * (9 + 6 / 3 - 5) + 4</span></span><br><span class="line"><span class="comment">//    vector&lt;string&gt; mid(&#123;&quot;a&quot;,&quot;+&quot;,&quot;b&quot;,&quot;*&quot;,&quot;c&quot;,&quot;-&quot;,&quot;(&quot;,&quot;d&quot;,&quot;+&quot;,&quot;e&quot;,&quot;)&quot;&#125;);  // a + b * c - (d + e)</span></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">mid</span><span class="params">(&#123;<span class="string">&quot;(&quot;</span>,<span class="string">&quot;3&quot;</span>,<span class="string">&quot;+&quot;</span>,<span class="string">&quot;4&quot;</span>,<span class="string">&quot;)&quot;</span>,<span class="string">&quot;*&quot;</span>,<span class="string">&quot;5&quot;</span>,<span class="string">&quot;-&quot;</span>,<span class="string">&quot;6&quot;</span>&#125;)</span></span>;  <span class="comment">//(3 + 4) * 5 - 6</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; post = postfix(mid);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; pre = prefix(mid);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h2><h3 id="前缀表达式计算"><a href="#前缀表达式计算" class="headerlink" title="前缀表达式计算"></a>前缀表达式计算</h3><h3 id="后缀表达式计算"><a href="#后缀表达式计算" class="headerlink" title="后缀表达式计算"></a>后缀表达式计算</h3><p><a class="btn" href="https://leetcode-cn.com/problems/evaluate-reverse-polish-notation/" title="leetcode链接">后缀表达式求值</a></p>
+<h2 id="构建二叉树"><a href="#构建二叉树" class="headerlink" title="构建二叉树"></a>构建二叉树</h2><h3 id="前缀和中缀表达式构建二叉树"><a href="#前缀和中缀表达式构建二叉树" class="headerlink" title="前缀和中缀表达式构建二叉树"></a>前缀和中缀表达式构建二叉树</h3><h3 id="后缀和中缀表达式构建二叉树"><a href="#后缀和中缀表达式构建二叉树" class="headerlink" title="后缀和中缀表达式构建二叉树"></a>后缀和中缀表达式构建二叉树</h3>]]></content>
+      <categories>
+        <category>数据结构</category>
+        <category>栈</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+        <tag>数据结构</tag>
+        <tag>栈</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>两数之和</title>
     <url>/OXygenPanda.github.io/2020/10/09/leetcode/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
     <content><![CDATA[<h1 id="两数之和问题"><a href="#两数之和问题" class="headerlink" title="两数之和问题"></a>两数之和问题</h1><h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a href="https://leetcode-cn.com/problems/two-sum/">Leetcode 1.两数之和</a></p>
@@ -472,9 +653,9 @@
         <category>栈</category>
       </categories>
       <tags>
-        <tag>单调栈</tag>
-        <tag>栈</tag>
         <tag>数据结构</tag>
+        <tag>栈</tag>
+        <tag>单调栈</tag>
       </tags>
   </entry>
   <entry>
@@ -508,224 +689,6 @@
         <tag>数据结构</tag>
         <tag>单调队列</tag>
         <tag>队列</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>二叉树的遍历</title>
-    <url>/OXygenPanda.github.io/2020/09/25/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/</url>
-    <content><![CDATA[<a id="more"></a>
-
-<h1 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h1><p align="center">
-<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
-<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
-<a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
-
-<blockquote>
-<p>  博客文章主要目的是分享和记录。</p>
-<p>  分享给需要学习的同学，记录自己学习路上的点滴。</p>
-</blockquote>
-</p><p>相信大家对于二叉树的定义以及结构，在本科《数据结构与算法》课程中或者在其他同学的博客中有所了解。在此，不在过多地回顾课本理论知识。</p>
-<p>我们编码语言主要为C++，如下是二叉树在C++中类的表现形式，这边使用的是 struct 结构体，在C++中类和结构体的区别在于不标志 public , private 以及 protected 时, 成员变量和成员函数是 public 还是 private 以及默认的继承方式是 public 还是 private。使用 struct 的原因在于，结构体更想表达的是一种数据的组织形式，而不是ADT。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> &#123;</span></span><br><span class="line">  	<span class="keyword">int</span> val;</span><br><span class="line">  	TreeNode* left;</span><br><span class="line">  	TreeNode* right;</span><br><span class="line">  	TreeNode*(<span class="keyword">int</span> x):val(x),left(<span class="literal">nullptr</span>),right(<span class="literal">nullptr</span>)&#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>并且配图可以更好地理解二叉树的结构。</p>
-<img src="https://i.loli.net/2020/10/17/tFRamoSqrQC6M2n.png">
-
-<h2 id="二叉树的遍历方式"><a href="#二叉树的遍历方式" class="headerlink" title="二叉树的遍历方式"></a>二叉树的遍历方式</h2><p>在线性结构中，例如，在数组中我们采用索引值（即，地址偏移）的方式去遍历整个数组；在链表中我们采用迭代的方式去遍历整个链表。而二叉树和线性的数组和链表的最大区别在于，二叉树的每一个节点并非只有一个后继节点。因此就有了许多有趣的遍历方式。</p>
-<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>按照遍历顺序可以分为三种:</p>
-<ul>
-<li>前序</li>
-<li>中序</li>
-<li>后序</li>
-<li>层序</li>
-</ul>
-<p>按照遍历算法的写法可以分为：</p>
-<ul>
-<li>DFS（对应前中后的递归）</li>
-<li>BFS（对应层序）</li>
-</ul>
-<p>还可以根据是否采用迭代写法分为：</p>
-<ul>
-<li>迭代</li>
-<li>递归</li>
-</ul>
-<h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><h4 id="递归框架（前序中序后序框架）"><a href="#递归框架（前序中序后序框架）" class="headerlink" title="递归框架（前序中序后序框架）"></a>递归框架（前序中序后序框架）</h4><p>首先是递归，也是最简单书写的一种，其代码框架如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">order</span><span class="params">(TreeNode * root)</span></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)	<span class="keyword">return</span>;</span><br><span class="line">  <span class="comment">// 前序</span></span><br><span class="line">  order(root-&gt;left);</span><br><span class="line">  <span class="comment">// 中序</span></span><br><span class="line">  order(root-&gt;right);</span><br><span class="line">  <span class="comment">// 后序</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h5><p><strong>优点</strong>：递归很简单，我们只需要记住这一个代码框架就可以完成前中后序遍历；</p>
-<p><strong>缺点</strong>：递归过程中，从根节点出发不断递归左右节点，这一些函数调用的开销发生在栈空间，使得栈空间消耗巨大，甚至可能会导致栈溢出。</p>
-<h5 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h5><p>那么，为什么这样就可以实现遍历呢？</p>
-<ul>
-<li><p>递归写法必须有一个递归出口，也就是我们框架函数体内第一个语句，也就是我们递归到了叶子节点的时候，会调用 <code>order(叶子节点的左孩子)</code> 和 <code>order(叶子节点的右孩子)</code> 。那么这两个调用我们就应该停止递归了，也就是遇到了 <code>root==nullptr</code> 这个条件为 <code>true </code> ，递归返回。</p>
-</li>
-<li><p>那么对于任意一个非空节点来说我们需要做什么？我们无非是要做 : 访问它，访问它的左孩子，访问它的右孩子这三件事。那么既然有三件事，一定会涉及到顺序问题。这三者的顺序不同，就分出了三种访问顺序：</p>
-<ul>
-<li><p>前序：根-左-右</p>
-</li>
-<li><p>中序：左-根-右</p>
-</li>
-<li><p>后序：左-右-根</p>
-<p>比如，我们要按照中序的顺序输出二叉树的节点值：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">order</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)	<span class="keyword">return</span>;</span><br><span class="line">    order(root-&gt;left);</span><br><span class="line">    <span class="comment">/*中序 begin */</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; root-&gt;val &lt;&lt; <span class="string">&#x27; &#x27;</span>; <span class="comment">//中序位置写执行语句,这一个区域写的root就是中序的节点</span></span><br><span class="line">    <span class="comment">/*中序 end */</span></span><br><span class="line">    order(root-&gt;right);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="迭代框架（前序框架-与-中序框架）"><a href="#迭代框架（前序框架-与-中序框架）" class="headerlink" title="迭代框架（前序框架 与 中序框架）"></a>迭代框架（前序框架 与 中序框架）</h4><p>迭代框架没有递归框架那么简单，既没有对前中后序以及层序的通用模板，也没有递归那么语句短小，接下来主要介绍：前序，中序，后序，层序的迭代框架（模板）。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PreOrder</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; s;</span><br><span class="line">    <span class="keyword">while</span> (root || !s.empty()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (root) &#123;</span><br><span class="line">            s.push(root);</span><br><span class="line">            <span class="comment">// res.push_back(root-&gt;val);  // PreOrder</span></span><br><span class="line">            root = root-&gt;left;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            root = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            <span class="comment">// res.push_back(root-&gt;val);  // InOrder</span></span><br><span class="line">            root = root-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>代码在上方，可以看到前序和中序的框架比较相似，在不同的位置执行操作，那么它的遍历顺序就可以不同。</p>
-<h5 id="理解-1"><a href="#理解-1" class="headerlink" title="理解"></a>理解</h5><p>前序遍历，我们总是先读根节点（或者对根节点做一系列操作），如果左孩子存在，再去访问当前根节点的左孩子，那么我们要访问当前节点的左孩子，如果我们需要之后再访问右孩子，我们岂不是无法回到那个根节点了？（树的结构不支持子节点到父节点的指针）。所以，我们需要借助一个辅助栈来存放没有访问过右节点的根节点，等我们把左子树访问完毕之后，再提出之前的根节点，来访问他的右子树。</p>
-<p><img src="https://i.loli.net/2020/10/17/xnbAWvpwgMqLfur.jpg"></p>
-<p>如图，我们访问了节点1，去访问了节点2，那么我们访问完节点5之后需要回到节点1，再去访问节点3，因此必须把1给保留下来，但是我们不能用单个变量来保存节点1，因为在访问过程中，访问了节点2之后，访问节点4，再之后需要通过节点2，再去访问节点5，这样又需要一个变量来保存节点2，因此再迭代过程中，这个节点记录是一个变长的，所以需要一个辅助栈。</p>
-<h4 id="迭代框架（后序框架）"><a href="#迭代框架（后序框架）" class="headerlink" title="迭代框架（后序框架）"></a>迭代框架（后序框架）</h4><p>前序和中序遍历的迭代框架是类似的，但是后序遍历的框架截然不同。后序遍历顺序：左-右-根。我们可以看到，后序的遍历顺序和前序遍历顺序（根-左-右）类似。我们可以稍微修改前序遍历的框架，再对数组进行反转，获得后序遍历顺序。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PostOrder</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; visit;</span><br><span class="line">    TreeNode *cur = root;</span><br><span class="line">    TreeNode *pre = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">while</span> (cur != <span class="literal">nullptr</span> || !visit.empty()) &#123;</span><br><span class="line">        <span class="keyword">while</span> (cur != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            visit.push(cur);</span><br><span class="line">            cur = cur-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        cur = visit.top();</span><br><span class="line">        <span class="keyword">if</span> (cur-&gt;right == <span class="literal">nullptr</span> || cur-&gt;right == pre) &#123;</span><br><span class="line">            visit.pop();</span><br><span class="line">            res.push_back(cur-&gt;val);</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = <span class="literal">nullptr</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cur = cur-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PostOrder_2</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; s;</span><br><span class="line">    TreeNode *p = root;</span><br><span class="line">    <span class="keyword">while</span> (p != <span class="literal">nullptr</span> || !s.empty()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            res.push_back(p-&gt;val); <span class="comment">//前序的位置</span></span><br><span class="line">            s.push(p);</span><br><span class="line">            p = p-&gt;right; <span class="comment">//区别在于遍历顺序是 根-右-左</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(!s.empty())&#123;</span><br><span class="line">            p = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            p = p-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    reverse(res.begin(),res.end()); <span class="comment">//得到 根-右-左, 反转之后得到 左-右-根</span></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="理解-2"><a href="#理解-2" class="headerlink" title="理解"></a>理解</h5><p>可以看一下以上的代码：<code>PostOrder(TreeNode* root)</code> 是正常思路的后序遍历迭代写法，而 <code>PostOrder_2(TreeNode* root)</code> 是前序遍历反转的写法。个人感觉前序遍历反转的模板和前序中序模板类似，思想方式较为统一。</p>
-<h4 id="迭代框架（层序遍历）"><a href="#迭代框架（层序遍历）" class="headerlink" title="迭代框架（层序遍历）"></a>迭代框架（层序遍历）</h4><p>层序遍历其实就是BFS的思想，遍历的顺序是按层从低到高来遍历。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">levelOrder</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="keyword">if</span>(!root)   <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">deque</span>&lt;TreeNode*&gt; q;</span><br><span class="line">    q.push_back(root);</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> size = q.size();</span><br><span class="line">        res.push_back(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= size;++i)&#123;</span><br><span class="line">            TreeNode* node = q.front();q.pop_front();</span><br><span class="line">            res.back().push_back(node-&gt;val);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left)  q.push_back(node-&gt;left);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;right) q.push_back(node-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="理解-3"><a href="#理解-3" class="headerlink" title="理解"></a>理解</h5><p><img src="https://i.loli.net/2020/10/17/Ct2SP5GclqrK4VF.jpg"></p>
-<p>层序遍历相较于前中后序来说，它访问到了当前节点的兄弟节点以后，我们无法访问前节点的孩子节点。因此，这里不同的是，需要一个辅助的队列来存放同层的节点。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>那么，二叉树的常见遍历写法都在这边啦。</p>
-<p>递归写法因为每一个节点访问一次，所以时间复杂度为:<code>O(N)</code>，而递归需要在栈空间里开辟许多空间，平均递归的深度是logN，因此空间复杂度也是:<code>O(logN)</code>。</p>
-<p>迭代写法因为每一个节点访问一次，所以时间复杂度为:<code>O(N)</code>，而迭代需要一个辅助栈或者辅助队列，平均的情况是把logN的节点放入栈或队列，最差的情况是把大多数节点全部放入栈或队列，因此空间复杂度也是：<code>O(logN)</code>。</p>
-<p>而还有一个遍历写法叫做morris遍历，它能够实现空间复杂度为<code>O(1)</code>。但是写法较为复杂，准备另外再写一篇关于morris遍历的模板。</p>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-        <category>二叉树</category>
-      </categories>
-      <tags>
-        <tag>二叉树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>前缀/中缀/后缀表达式的转换/计算/构建二叉树[未完成]</title>
-    <url>/OXygenPanda.github.io/2020/10/18/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E5%89%8D%E7%BC%80%E4%B8%AD%E7%BC%80%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2%E6%B1%82%E5%80%BC/</url>
-    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p align="center">
-<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
-<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
-<a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
-
-</p><p>我们从小学至今，接触到最多的表达式就是中缀表达式，形如 : <code>(5+(3*2)-6/2)</code> 作用的运算符落在数字两边。但是这一个表达式作为字符串输入到计算机中，计算机可不太喜欢这样的表达式，它顺序遍历的时候，由于运算符优先级不同，难以计算。因此，出现了前缀表达式和后缀表达式，他们两者的特点是不携带括号，顺序遍历时，明确了运算的优先级。前缀和后缀表达式都可以由中缀表达式转换而来。</p>
-<p>本篇文章会带你学习如何把中缀表达式转换成前缀 / 后缀表达式，如果根据前缀 / 后缀表达式计算表达式的值，最后由表达式来构建出一棵表达式二叉树。</p>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="前缀表达式"><a href="#前缀表达式" class="headerlink" title="前缀表达式"></a>前缀表达式</h3><p>前缀表达式是一种没有括号的算术表达式，与中缀表达式不同的是，其将运算符写在前面，操作数写在后面。</p>
-<blockquote>
-<p>  为纪念其发明者波兰数学家Jan Lukasiewicz，前缀表达式也称为“波兰式”。</p>
-</blockquote>
-<p>例如，<code>- 1 + 2 3</code>，它等价于<code>1 - (2 + 3)</code>。</p>
-<h3 id="中缀表达式"><a href="#中缀表达式" class="headerlink" title="中缀表达式"></a>中缀表达式</h3><p>中缀表达式是一个通用的算术或逻辑公式表示方法， 操作符是以中缀形式处于操作数的中间。</p>
-<p>例如：<code>3 + 4</code>。</p>
-<h3 id="后缀表达式"><a href="#后缀表达式" class="headerlink" title="后缀表达式"></a>后缀表达式</h3><p>后缀表达式与前缀表达式类似的是一种没有括号的算术表达式，不同的是运算符写在后面，操作数写在前面。</p>
-<blockquote>
-<p>  后缀表达式也称为“逆波兰式”。</p>
-</blockquote>
-<p>例如<code>+ 2 3</code>，它等价于 <code>2 + 3</code>。</p>
-<h3 id="表达式二叉树"><a href="#表达式二叉树" class="headerlink" title="表达式二叉树"></a>表达式二叉树</h3><p>算数表达式是分层的递归结构，一个运算符作用于相应的运算对象，其运算对象又可以是任意复杂的表达式。树的递归结构正好用来表示这种表达式。下面只讨论二元表达式。<br>二元表达式可以很自然的联系到二叉树：以基本运算对象作为叶节点中的数据；以运算符作为非叶节点中的数据，其两棵子树是它的运算对象，子树可以是基本运算对象，也可以是复杂表达式。如图是一个表达式树。</p>
-<img src="https://i.loli.net/2020/10/21/WXc2r8deZBVKYCR.jpg">
-
-<p>留意一下颜色和遍历顺序和表达式类型的对应关系。</p>
-<ul>
-<li>表达式树的先序遍历：前缀表达式</li>
-<li>表达式树的中序遍历：中缀表达式</li>
-<li>表达式树的后序遍历：后缀表达式</li>
-</ul>
-<p><font color="\#87CEEB">运算数</font> ：是二叉树的叶子节点</p>
-<p><font color="#EE6363">运算符</font>：是二叉树的非叶子节点</p>
-<h2 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h2><h3 id="中缀表达式转前缀表达式"><a href="#中缀表达式转前缀表达式" class="headerlink" title="中缀表达式转前缀表达式"></a>中缀表达式转前缀表达式</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">prefix</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp; mid_str)</span></span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 中缀表达式转换成前缀表达式</span></span><br><span class="line"><span class="comment">     * 采用 vector &lt; string &gt; 的存储方式存储</span></span><br><span class="line"><span class="comment">     * 运算符占用一字符串, 多位整数占用一字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; pre;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt; op;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt; tmp; <span class="comment">// 用于最后转置所有字符串顺序</span></span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt; priority;</span><br><span class="line">    priority[<span class="string">&quot;+&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">    priority[<span class="string">&quot;-&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">    priority[<span class="string">&quot;*&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    priority[<span class="string">&quot;/&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = mid_str.size() - <span class="number">1</span> ; i &gt;= <span class="number">0</span> ; i -- )&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isdigit</span>(mid_str[i][<span class="number">0</span>]) || <span class="built_in">isalpha</span>(mid_str[i][<span class="number">0</span>]))&#123;</span><br><span class="line">            tmp.push(mid_str[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (mid_str[i] == <span class="string">&quot;)&quot;</span>)&#123;</span><br><span class="line">            op.push(<span class="string">&quot;)&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(mid_str[i] == <span class="string">&quot;(&quot;</span>)&#123;</span><br><span class="line">            <span class="keyword">while</span>(op.top() != <span class="string">&quot;)&quot;</span>)&#123;</span><br><span class="line">                tmp.push(op.top());</span><br><span class="line">                op.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            op.pop(); <span class="comment">//弹出 &quot;)&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (mid_str[i] == <span class="string">&quot;+&quot;</span> || mid_str[i] == <span class="string">&quot;-&quot;</span> || mid_str[i] == <span class="string">&quot;*&quot;</span> || mid_str[i] == <span class="string">&quot;/&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span>(!op.empty() &amp;&amp; op.top() != <span class="string">&quot;)&quot;</span> &amp;&amp; priority[mid_str[i]] &lt;= priority[op.top()])&#123;</span><br><span class="line">                tmp.push(op.top());</span><br><span class="line">                op.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            op.push(mid_str[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!op.empty())&#123;</span><br><span class="line">        tmp.push(op.top());</span><br><span class="line">        op.pop();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!tmp.empty())&#123;</span><br><span class="line">        pre.push_back(tmp.top());</span><br><span class="line">        tmp.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pre;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="中缀表达式转后缀表达式"><a href="#中缀表达式转后缀表达式" class="headerlink" title="中缀表达式转后缀表达式"></a>中缀表达式转后缀表达式</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">postfix</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;mid_str)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 中缀表达式转换成后缀表达式</span></span><br><span class="line"><span class="comment">     * 采用 vector &lt; string &gt; 的存储方式存储</span></span><br><span class="line"><span class="comment">     * 运算符占用一字符串, 多位整数占用一字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;post;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt; op;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt; priority;</span><br><span class="line">    priority[<span class="string">&quot;+&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">    priority[<span class="string">&quot;-&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">    priority[<span class="string">&quot;*&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    priority[<span class="string">&quot;/&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mid_str.size(); ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isdigit</span>(mid_str[i][<span class="number">0</span>]) || <span class="built_in">isalpha</span>(mid_str[i][<span class="number">0</span>]))&#123;</span><br><span class="line">            post.push_back(mid_str[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (mid_str[i] == <span class="string">&quot;(&quot;</span>)&#123;</span><br><span class="line">            op.push(<span class="string">&quot;(&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(mid_str[i] == <span class="string">&quot;)&quot;</span>)&#123;</span><br><span class="line">            <span class="keyword">while</span>(op.top() != <span class="string">&quot;(&quot;</span>)&#123;</span><br><span class="line">                post.push_back(op.top());</span><br><span class="line">                op.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            op.pop(); <span class="comment">//弹出 &quot;(&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (mid_str[i] == <span class="string">&quot;+&quot;</span> || mid_str[i] == <span class="string">&quot;-&quot;</span> || mid_str[i] == <span class="string">&quot;*&quot;</span> || mid_str[i] == <span class="string">&quot;/&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span>(!op.empty() &amp;&amp; op.top() != <span class="string">&quot;(&quot;</span> &amp;&amp; priority[mid_str[i]] &lt;= priority[op.top()])&#123;</span><br><span class="line">                post.push_back(op.top());</span><br><span class="line">                op.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            op.push(mid_str[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!op.empty())&#123;</span><br><span class="line">        post.push_back(op.top());</span><br><span class="line">        op.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> post;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="测试部分"><a href="#测试部分" class="headerlink" title="测试部分"></a>测试部分</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//    vector&lt;string&gt; mid(&#123;&quot;2&quot;,&quot;+&quot;,&quot;9&quot;,&quot;/&quot;,&quot;3&quot;,&quot;-&quot;,&quot;5&quot;&#125;);  // 2 + 9 / 3 - 5</span></span><br><span class="line"><span class="comment">//    vector&lt;string&gt; mid(&#123;&quot;a&quot;,&quot;*&quot;,&quot;(&quot;,&quot;b&quot;,&quot;+&quot;,&quot;c&quot;,&quot;)&quot;,&quot;/&quot;,&quot;d&quot;&#125;);  //  a * (b + c) / d</span></span><br><span class="line"><span class="comment">//    vector&lt;string&gt; mid(&#123;&quot;2&quot;,&quot;*&quot;,&quot;(&quot;,&quot;9&quot;,&quot;+&quot;,&quot;6&quot;,&quot;/&quot;,&quot;3&quot;,&quot;-&quot;,&quot;5&quot;,&quot;)&quot;,&quot;+&quot;,&quot;4&quot;&#125;);  // 2 * (9 + 6 / 3 - 5) + 4</span></span><br><span class="line"><span class="comment">//    vector&lt;string&gt; mid(&#123;&quot;a&quot;,&quot;+&quot;,&quot;b&quot;,&quot;*&quot;,&quot;c&quot;,&quot;-&quot;,&quot;(&quot;,&quot;d&quot;,&quot;+&quot;,&quot;e&quot;,&quot;)&quot;&#125;);  // a + b * c - (d + e)</span></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">mid</span><span class="params">(&#123;<span class="string">&quot;(&quot;</span>,<span class="string">&quot;3&quot;</span>,<span class="string">&quot;+&quot;</span>,<span class="string">&quot;4&quot;</span>,<span class="string">&quot;)&quot;</span>,<span class="string">&quot;*&quot;</span>,<span class="string">&quot;5&quot;</span>,<span class="string">&quot;-&quot;</span>,<span class="string">&quot;6&quot;</span>&#125;)</span></span>;  <span class="comment">//(3 + 4) * 5 - 6</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; post = postfix(mid);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; pre = prefix(mid);</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h2><h3 id="前缀表达式计算"><a href="#前缀表达式计算" class="headerlink" title="前缀表达式计算"></a>前缀表达式计算</h3><h3 id="后缀表达式计算"><a href="#后缀表达式计算" class="headerlink" title="后缀表达式计算"></a>后缀表达式计算</h3><p><a class="btn" href="https://leetcode-cn.com/problems/evaluate-reverse-polish-notation/" title="leetcode链接">后缀表达式求值</a></p>
-<h2 id="构建二叉树"><a href="#构建二叉树" class="headerlink" title="构建二叉树"></a>构建二叉树</h2><h3 id="前缀和中缀表达式构建二叉树"><a href="#前缀和中缀表达式构建二叉树" class="headerlink" title="前缀和中缀表达式构建二叉树"></a>前缀和中缀表达式构建二叉树</h3><h3 id="后缀和中缀表达式构建二叉树"><a href="#后缀和中缀表达式构建二叉树" class="headerlink" title="后缀和中缀表达式构建二叉树"></a>后缀和中缀表达式构建二叉树</h3>]]></content>
-      <categories>
-        <category>数据结构</category>
-        <category>栈</category>
-      </categories>
-      <tags>
-        <tag>栈</tag>
-        <tag>数据结构</tag>
-        <tag>二叉树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>TCP通信[未完成]</title>
-    <url>/OXygenPanda.github.io/2020/10/26/%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-TCP/</url>
-    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>传输控制协议( TCP : Transmission Control Protocol )，是一种面向连接的，可靠的传输层控制协议。</p>
-<h2 id="面向连接"><a href="#面向连接" class="headerlink" title="面向连接"></a>面向连接</h2><p>一般，客户端发送给服务端的一个数据包携带的数据最大为1460字节。是因为，以太网帧结构数据长度是1500字节，其中包含20字节的IP头部以及20字节的TCP头部，所以数据能够携带1460字节。</p>
-<h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><p>三次握手，由内核完成。反应在程序中，是由客户端程序的 connect() 开始，由 服务端程序的 accept() 返回结束。</p>
-<p>示例</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">客户端发送：SYN <span class="number">1000</span>(<span class="number">0</span>) win <span class="number">4096</span> &lt;mss <span class="number">1460</span>&gt;</span><br><span class="line">服务端发送：SYN <span class="number">8000</span>(<span class="number">0</span>) win <span class="number">6144</span> ACK <span class="number">1001</span> &lt;mss <span class="number">1024</span>&gt;  <span class="comment">//ACK 1001 是接收到的序号+数据字节(SYN标志位也得占1字节)</span></span><br><span class="line">客户端发送：ACK <span class="number">8001</span>    win <span class="number">4096</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">** (0)        : 表示携带数据为0字节</span></span><br><span class="line"><span class="comment">** win 4096   : 发送端滑动窗口缓存4096字节</span></span><br><span class="line"><span class="comment">** &lt;mss 1460&gt; : 表示携带数据最大字节数为1460字节</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-<p>总结</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">主动发起连接请求端：发送SYN标志位，请求建立连接。携带数据包包号，数据字节数(0)，滑动窗口大小</span><br><span class="line">被动接受连接请求端：发送ACK标志位，同时携带SYN请求标志位。携带序号，确认序号，数据字节数(0)，滑动窗口大小</span><br><span class="line">主动发起连接请求段：发送ACK标志位，应答服务器连接请求。携带确认序号。</span><br></pre></td></tr></table></figure>
-
-<p>要点</p>
-<p>为什么不是二次握手？</p>
-<ol>
-<li>彼此确定收发能力</li>
-</ol>
-<ul>
-<li>第一次客户端发送请求，服务端接收请求：服务端知道了客户端有发送的能力。</li>
-<li>第二次服务端发送请求，客户端接收请求：客户端知道了服务端有收发的能力。</li>
-<li>此时，服务端不知道客户端是不是有接收的能力。因此需要客户端再次告知服务端。</li>
-</ul>
-<ol start="2">
-<li>避免两次连接</li>
-</ol>
-<ul>
-<li>客户端发送的连接请求如果滞留在网络中，等到超时重传，会再次发起连接请求，而服务器接收到两个连接请求会打开两个连接。因此，需要三次握手。</li>
-</ul>
-<p>第三次客户端发送ACK时，可以携带数据</p>
-<ul>
-<li>因为此时，客户端服务端都知道双方都有收发数据的能力，所以可以开始通信。</li>
-</ul>
-<h2 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h2><p>四次挥手，目的是断开客户端到服务端的全双工链路。断开一端称为半关闭，会关闭一端的套接字的一个缓存区。</p>
-<p>示例</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">客户端发送：FIN <span class="number">501</span>(<span class="number">0</span>)  ACK <span class="number">701</span> </span><br><span class="line">服务端发送：ACK <span class="number">502</span>             ---- 半关闭</span><br><span class="line">服务端发送：FIN <span class="number">701</span>(<span class="number">0</span>)  ACK <span class="number">502</span></span><br><span class="line">客户端发送：ACK <span class="number">702</span>             ---- 完全断开</span><br></pre></td></tr></table></figure>
-
-<p>总结</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">主动关闭连接请求端：发送FIN标志位。</span><br><span class="line">被动关闭连接请求端：应答ACK标志位。 ———— 半关闭完成</span><br><span class="line">被动关闭连接请求端：发送FIN标志位。</span><br><span class="line">主动关闭连接请求端：应答ACK标志位。 —————连接全部关闭</span><br></pre></td></tr></table></figure>
-
-<p>客户端接收到服务器的应答之后，进入半关闭状态，不能发送数据给服务器，而服务器会在发送完剩余数据后，发起关闭请求，客户端应答服务器后需要等待 2MSL(最大报文存活时间)后释放连接。原因如下：</p>
-<ul>
-<li>如果客户端的应答数据包丢失，那么服务器会再次发送断开请求。</li>
-<li>等待一段时间，使本次连接过程中产生的数据包在网络中消失。</li>
-</ul>
-<h2 id="可靠传输"><a href="#可靠传输" class="headerlink" title="可靠传输"></a>可靠传输</h2><h3 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h3><p>TCP使用超时重传来实现可靠传输：如果一个已经发送的报文段在超时时间内没有收到确认，那么就重传这个报文段。</p>
-<p>一个报文段从发送到接收到确定所经历的时间称为往返时间RTT(加权平均RTTs)。超时时间 RTO 应该略大于 RTTs 。TCP使用的超时时间计算是 : RTO = RTTs + 4 * RTTd 。RTTd : 偏差的加权平均值。</p>
-<h3 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h3><p>滑动窗口是一个缓存区，用于暂时存放字节流。发送方和接收方各有一个窗口，接收方通过TCP报文段中的窗口字段告诉发送方自己的窗口大小，发送方根据这个值和其他信息来设置自己的窗口大小。</p>
-<p>对于发送方来说，当窗口靠左侧的数据包已经成功发送并被确认后，窗口向右滑动直到某一个未发送或者未确认的字节位置。</p>
-<p>对于接收方来说，当窗口靠左侧的数据包已经收到，窗口向右滑动直到某一个未接收到的字节。</p>
-<h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><p>流量控制是为了控制发送方发送速率，保证接收方来得及接收。</p>
-<p>接收方发送的确认报文中的窗口字段可以用来控制发送方窗口大小，从而影响发送方的发送速率。将窗口字段设置为 0，则发送方不能发送数据。</p>
-<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>如果网络出现拥塞，发送方发送的数据包丢失，发送方重传导致网络难以恢复。因此要进行一定的拥塞控制使得发送方降低发送速率。发送方需要维护一个拥塞窗口（cwnd）状态变量：决定发送方能发送多少数据。</p>
-<h4 id="慢开始与拥塞避免"><a href="#慢开始与拥塞避免" class="headerlink" title="慢开始与拥塞避免"></a>慢开始与拥塞避免</h4><img src="https://i.loli.net/2020/10/30/8s2w3yMNVT6RL1k.png">
-
-<p>发送的最初执行慢开始，令 cwnd = 1，发送方只能发送 1 个报文段；当收到确认后，将 cwnd 加倍，因此之后发送方能够发送的报文段数量为：2、4、8 …</p>
-<p>注意到慢开始每个轮次都将 cwnd 加倍，这样会让 cwnd 增长速度非常快，从而使得发送方发送的速度增长速度过快，网络拥塞的可能性也就更高。设置一个慢开始门限 ssthresh，当 cwnd &gt;= ssthresh 时，进入拥塞避免，每个轮次只将 cwnd 加 1。</p>
-<p>如果出现了超时，则令 ssthresh = cwnd / 2，然后重新执行慢开始。</p>
-<h4 id="快速重传与快速恢复"><a href="#快速重传与快速恢复" class="headerlink" title="快速重传与快速恢复"></a>快速重传与快速恢复</h4><p>在接收方，要求每次接收到报文段都应该对最后一个已收到的有序报文段进行确认。例如已经接收到 M1 和 M2，此时收到 M4，应当发送对 M2 的确认。</p>
-<p>在发送方，如果收到三个重复确认，那么可以知道下一个报文段丢失，此时执行快重传，立即重传下一个报文段。例如收到三个 M2，则 M3 丢失，立即重传 M3。</p>
-<p>在这种情况下，只是丢失个别报文段，而不是网络拥塞。因此执行快恢复，令 ssthresh = cwnd / 2 ，cwnd = ssthresh，注意到此时直接进入拥塞避免。</p>
-<p>慢开始和快恢复的快慢指的是 cwnd 的设定值，而不是 cwnd 的增长速率。慢开始 cwnd 设定为 1，而快恢复 cwnd 设定为 ssthresh。</p>
-]]></content>
-      <categories>
-        <category>网络通信</category>
-        <category>传输层</category>
-        <category>TCP</category>
-      </categories>
-      <tags>
-        <tag>tcp</tag>
       </tags>
   </entry>
   <entry>
@@ -902,22 +865,35 @@
       </tags>
   </entry>
   <entry>
-    <title>模板模式</title>
-    <url>/OXygenPanda.github.io/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="组件协作模式"><a href="#组件协作模式" class="headerlink" title="组件协作模式"></a>组件协作模式</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>现代软件专业分工之后的第一个结果是“框架与应用程序的划分”，“组件协作”模式通过晚期绑定，来实现框架与应用程序之间的松耦合，是二者之间协作时常用的模式。</p>
-<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>在软件构建过程中，对于某一项任务，它常常有稳定的整体操作结构，但是各个子步骤却又很多改变的需求，或者由于固有的原因（比如框架与应用之间的关系）而无法和任务的整体结构同时实现。</p>
-<p>如何在确定稳定操作结构的前提下，来灵活应对各个子步骤的变化或者晚期实现需求？</p>
-<h1 id="模板模式-Template-Method"><a href="#模板模式-Template-Method" class="headerlink" title="模板模式 Template Method"></a>模板模式 Template Method</h1><h2 id="不好的设计"><a href="#不好的设计" class="headerlink" title="不好的设计"></a>不好的设计</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//程序库开发</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Library</span>&#123;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">step1</span><span class="params">()</span></span>&#123;...&#125;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">step3</span><span class="params">()</span></span>&#123;...&#125;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">step5</span><span class="params">()</span></span>&#123;...&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//应用开发</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Application</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">bool</span> <span class="title">step2</span><span class="params">()</span></span>&#123;...&#125;</span><br><span class="line">		<span class="function"><span class="keyword">bool</span> <span class="title">step5</span><span class="params">()</span></span>&#123;...&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Library lib;</span><br><span class="line">		Application app;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//逻辑部分</span></span><br><span class="line">		lib.step1();</span><br><span class="line">		<span class="keyword">if</span>(app.step2())&#123;</span><br><span class="line">				lib.step3();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;++i)&#123;</span><br><span class="line">				app.step4();</span><br><span class="line">		&#125;</span><br><span class="line">		lib.step5();</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>装饰器模式</title>
+    <url>/OXygenPanda.github.io/2020/10/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4.%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E6%A8%A1%E5%BC%8F_%E8%A3%85%E9%A5%B0%E5%99%A8/</url>
+    <content><![CDATA[<h1 id="装饰器模式-Decorator"><a href="#装饰器模式-Decorator" class="headerlink" title="装饰器模式 Decorator"></a>装饰器模式 Decorator</h1><blockquote>
+<p>  动态（组合）地给一个对象增加一些额外的职责。就增加功能而言，Decorator模式 比生成子类（继承）更为灵活（消除重复代码&amp;减少子类个数）—— GoF</p>
+</blockquote>
+<p>本次项目里，原本的代码的一个类的继承关系如下：</p>
+<p>其中 <code>Stream</code> 是流的基类，在此之上创建了几个派生类，分别是：<code>FileStream</code> <code>NetworkStream</code> <code>MemoryStream</code>。到这里并没有问题，但是如果要对每一种派生的类做加密或者增加缓存或者其他以后可能会出现的需求时，继续继承派生会使得类的数量特别庞大。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">    Stream &lt;|-- FileStream</span><br><span class="line">    Stream &lt;|-- NetworkStream</span><br><span class="line">    Stream &lt;|-- MemoryStream</span><br><span class="line">    FileStream &lt;|-- CryptoFileStream</span><br><span class="line">    FileStream &lt;|-- BufferedFileStream</span><br><span class="line">    FileStream &lt;|-- CryptoBufferedFileStream</span><br><span class="line">    NetworkStream &lt;|-- CryptoNetworkStream</span><br><span class="line">    NetworkStream &lt;|-- BufferedNetworkStream</span><br><span class="line">    NetworkStream &lt;|-- CryptoBufferedNetworkStream</span><br><span class="line">    MemoryStream &lt;|-- CryptoMemoryStream</span><br><span class="line">    MemoryStream &lt;|-- BufferedMemoryStream</span><br><span class="line">    MemoryStream &lt;|-- CryptoBufferedMemoryStream</span><br></pre></td></tr></table></figure>
 
-<p>如此编码的话，做应用开发的程序员压力会很大，还需要完成逻辑部分。</p>
-<h2 id="模板模式"><a href="#模板模式" class="headerlink" title="模板模式"></a>模板模式</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//程序库开发</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Library</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123; <span class="comment">//稳定</span></span><br><span class="line">				step1();</span><br><span class="line">				<span class="keyword">if</span>(step2())&#123;</span><br><span class="line">						step3();</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;++i)&#123;</span><br><span class="line">						step4();</span><br><span class="line">				&#125;</span><br><span class="line">				step5();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">virtual</span> ~Library()&#123;&#125;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">step1</span><span class="params">()</span></span>&#123;...&#125; <span class="comment">//稳定</span></span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">step3</span><span class="params">()</span></span>&#123;...&#125; <span class="comment">//稳定</span></span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">step5</span><span class="params">()</span></span>&#123;...&#125; <span class="comment">//稳定</span></span><br><span class="line">		<span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">step2</span><span class="params">()</span> </span>= <span class="number">0</span>; <span class="comment">//变化</span></span><br><span class="line">		<span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">step4</span><span class="params">()</span> </span>= <span class="number">0</span>; <span class="comment">//变化</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//应用开发</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Application</span> :</span> <span class="keyword">public</span> Library&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">		<span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">step2</span><span class="params">()</span></span>&#123;&#125; <span class="comment">//重写</span></span><br><span class="line">		<span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">step4</span><span class="params">()</span></span>&#123;&#125; <span class="comment">//重写		</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Library * plib = <span class="keyword">new</span> Application();</span><br><span class="line">		plib-&gt;run();</span><br><span class="line">		<span class="keyword">delete</span> plib;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过装饰器模式的改进，使得关系图如下：</p>
+<p>使得功能扩展继承自一个<code>DecoratorStream</code>的类，该类中组合了一个<code>Stream</code>的类，通过多态性对不同类型的流进行特定的操作，在操作外层套上对应的功能（需求）。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">    Stream &lt;|-- FileStream</span><br><span class="line">    Stream &lt;|-- NetworkStream</span><br><span class="line">    Stream &lt;|-- MemoryStream</span><br><span class="line">    Stream &lt;|-- DecoratorStream</span><br><span class="line">    DecoratorStream &lt;|-- CyptroStream</span><br><span class="line">    DecoratorStream &lt;|-- BufferedStream</span><br></pre></td></tr></table></figure>
 
-<p>如此编码，通过继承实现运行时多态，把逻辑部分封装在父类中。</p>
+<h2 id="不好的设计"><a href="#不好的设计" class="headerlink" title="不好的设计"></a>不好的设计</h2><p>不好的设计原因主要是，在进行功能扩展时，生成了特别多的类和冗余的代码。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//抽象类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stream</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">virtual</span> ~Stream() &#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//主体类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileStream</span> :</span> <span class="keyword">public</span> Stream &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> <span class="keyword">override</span> </span>&#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> <span class="keyword">override</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> <span class="keyword">override</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NetworkStream</span> :</span> <span class="keyword">public</span> Stream &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> <span class="keyword">override</span> </span>&#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> <span class="keyword">override</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> <span class="keyword">override</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//...还有许多其他继承流抽象的子类</span></span><br><span class="line"><span class="comment">//...但是如果涉及到要对子类进行加密增加缓存操作时,十分繁琐</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//扩展操作_加密</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CryptoFileStream</span> :</span> <span class="keyword">public</span> FileStream &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">      FileStream::Read(number); <span class="comment">//包裹函数</span></span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">      FileStream::Seek(position);</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">      FileStream::Write(data);</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CryptoNetworkStream</span> :</span> <span class="keyword">public</span> NetworkStream &#123;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//...这里还要对其他流也要做加密操作</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//拓展操作_缓存</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BufferedFileStream</span> :</span> <span class="keyword">public</span> FileStream &#123;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BufferedNetworkStream</span> :</span> <span class="keyword">public</span> NetworkStream &#123;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//扩展操作_加密_缓存</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CryptoBufferedFileStream</span> :</span> <span class="keyword">public</span> FileStream &#123;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CryptoBufferedNetworkStream</span> :</span> <span class="keyword">public</span> FileStream &#123;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//其实,所有流的Read()的加密操作都是相同的,不需要写多份,缓存也是如此</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Process</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="comment">//编译时装配</span></span><br><span class="line">  CryptoFileStream *fs1 = <span class="keyword">new</span> CryptoFileStream();</span><br><span class="line">  BufferedFileStream *fs2 = <span class="keyword">new</span> BufferedFileStream();</span><br><span class="line">  CryptoBufferedFileStream *fs3 = <span class="keyword">new</span> CryptoBufferedFileStream();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h2><p>只需要为功能扩展组合一个基类，就可以利用多态性来减少大量冗余的代码和子类的数量。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//抽象类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stream</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">virtual</span> ~Stream() &#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//主体类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileStream</span> :</span> <span class="keyword">public</span> Stream &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> <span class="keyword">override</span> </span>&#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> <span class="keyword">override</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> <span class="keyword">override</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NetworkStream</span> :</span> <span class="keyword">public</span> Stream &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> <span class="keyword">override</span> </span>&#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> <span class="keyword">override</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> <span class="keyword">override</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//扩展</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DecoratorStream</span> :</span> <span class="keyword">public</span> Stream&#123; <span class="comment">//继承为了完善接口规范</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    Stream *stream;</span><br><span class="line">    <span class="comment">// = new FileStream();</span></span><br><span class="line">    <span class="comment">// = new NetworkStream();</span></span><br><span class="line">    <span class="comment">// = new MemoryStream();</span></span><br><span class="line">    DecoratorStream(Stream * stream):stream(stream)&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CryptoStream</span> :</span> <span class="keyword">public</span> DecoratorStream &#123;</span><br><span class="line">    <span class="comment">//加密操作抽象出来,通过多态来给不同的类型流加密</span></span><br><span class="line">    <span class="comment">// public Stream 为了接口规范</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    CryptoStream(Stream *stream) : DecoratorStream(stream) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">      stream-&gt;Read(number); <span class="comment">//包裹函数</span></span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">      stream-&gt;Seek(position);</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">      stream-&gt;Write(data);</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BufferedStream</span> :</span> <span class="keyword">public</span> DecoratorStream &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    BufferedStream(Stream *stream) : DecoratorStream(stream) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//缓存</span></span><br><span class="line">      stream-&gt;Read(number);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//缓存</span></span><br><span class="line">      stream-&gt;Seek(position);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//缓存</span></span><br><span class="line">      stream-&gt;Write(data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Process</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">//运行时装配</span></span><br><span class="line">  FileStream *s1 = <span class="keyword">new</span> FileStream();</span><br><span class="line">  CryptoStream *s2 = <span class="keyword">new</span> CryptoStream(s1);     <span class="comment">//加密</span></span><br><span class="line">  BufferedStream *s3 = <span class="keyword">new</span> BufferedStream(s1); <span class="comment">//缓存</span></span><br><span class="line">  BufferedStream *s4 = <span class="keyword">new</span> BufferedStream(s2); <span class="comment">//加密 &amp; 缓存</span></span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h2 id="要点总结"><a href="#要点总结" class="headerlink" title="要点总结"></a>要点总结</h2><ul>
+<li>通过采用组合而非继承的手法，Decorator模式实现了在运行时多态扩展对象功能的能力，而且可以根据需要扩展多个功能。避免了所有继承带来的灵活性差和多子类衍生问题。</li>
+<li>Decorator类在接口上表现为 is-a Component的继承关系，即Decorator类继承了Component类所具有的接口。但在是线上又表现为 has-a Component的组合关系，即Decorator类又使用了另外一个Component类。</li>
+<li>Decorator模式的目的并非解决“多子类衍生的多继承”问题，Decorator模式应用的要点在于解决“主体类在多个方向上的扩展功能”——是为“装饰”含义。</li>
+</ul>
 ]]></content>
       <categories>
         <category>读书笔记</category>
         <category>《设计模式》</category>
-        <category>组件协作模式</category>
+        <category>单一职责模式</category>
       </categories>
       <tags>
         <tag>设计模式</tag>
@@ -951,35 +927,22 @@
       </tags>
   </entry>
   <entry>
-    <title>装饰器模式</title>
-    <url>/OXygenPanda.github.io/2020/10/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4.%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E6%A8%A1%E5%BC%8F_%E8%A3%85%E9%A5%B0%E5%99%A8/</url>
-    <content><![CDATA[<h1 id="装饰器模式-Decorator"><a href="#装饰器模式-Decorator" class="headerlink" title="装饰器模式 Decorator"></a>装饰器模式 Decorator</h1><blockquote>
-<p>  动态（组合）地给一个对象增加一些额外的职责。就增加功能而言，Decorator模式 比生成子类（继承）更为灵活（消除重复代码&amp;减少子类个数）—— GoF</p>
-</blockquote>
-<p>本次项目里，原本的代码的一个类的继承关系如下：</p>
-<p>其中 <code>Stream</code> 是流的基类，在此之上创建了几个派生类，分别是：<code>FileStream</code> <code>NetworkStream</code> <code>MemoryStream</code>。到这里并没有问题，但是如果要对每一种派生的类做加密或者增加缓存或者其他以后可能会出现的需求时，继续继承派生会使得类的数量特别庞大。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">    Stream &lt;|-- FileStream</span><br><span class="line">    Stream &lt;|-- NetworkStream</span><br><span class="line">    Stream &lt;|-- MemoryStream</span><br><span class="line">    FileStream &lt;|-- CryptoFileStream</span><br><span class="line">    FileStream &lt;|-- BufferedFileStream</span><br><span class="line">    FileStream &lt;|-- CryptoBufferedFileStream</span><br><span class="line">    NetworkStream &lt;|-- CryptoNetworkStream</span><br><span class="line">    NetworkStream &lt;|-- BufferedNetworkStream</span><br><span class="line">    NetworkStream &lt;|-- CryptoBufferedNetworkStream</span><br><span class="line">    MemoryStream &lt;|-- CryptoMemoryStream</span><br><span class="line">    MemoryStream &lt;|-- BufferedMemoryStream</span><br><span class="line">    MemoryStream &lt;|-- CryptoBufferedMemoryStream</span><br></pre></td></tr></table></figure>
+    <title>模板模式</title>
+    <url>/OXygenPanda.github.io/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="组件协作模式"><a href="#组件协作模式" class="headerlink" title="组件协作模式"></a>组件协作模式</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>现代软件专业分工之后的第一个结果是“框架与应用程序的划分”，“组件协作”模式通过晚期绑定，来实现框架与应用程序之间的松耦合，是二者之间协作时常用的模式。</p>
+<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>在软件构建过程中，对于某一项任务，它常常有稳定的整体操作结构，但是各个子步骤却又很多改变的需求，或者由于固有的原因（比如框架与应用之间的关系）而无法和任务的整体结构同时实现。</p>
+<p>如何在确定稳定操作结构的前提下，来灵活应对各个子步骤的变化或者晚期实现需求？</p>
+<h1 id="模板模式-Template-Method"><a href="#模板模式-Template-Method" class="headerlink" title="模板模式 Template Method"></a>模板模式 Template Method</h1><h2 id="不好的设计"><a href="#不好的设计" class="headerlink" title="不好的设计"></a>不好的设计</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//程序库开发</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Library</span>&#123;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">step1</span><span class="params">()</span></span>&#123;...&#125;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">step3</span><span class="params">()</span></span>&#123;...&#125;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">step5</span><span class="params">()</span></span>&#123;...&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//应用开发</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Application</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">bool</span> <span class="title">step2</span><span class="params">()</span></span>&#123;...&#125;</span><br><span class="line">		<span class="function"><span class="keyword">bool</span> <span class="title">step5</span><span class="params">()</span></span>&#123;...&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Library lib;</span><br><span class="line">		Application app;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//逻辑部分</span></span><br><span class="line">		lib.step1();</span><br><span class="line">		<span class="keyword">if</span>(app.step2())&#123;</span><br><span class="line">				lib.step3();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;++i)&#123;</span><br><span class="line">				app.step4();</span><br><span class="line">		&#125;</span><br><span class="line">		lib.step5();</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>通过装饰器模式的改进，使得关系图如下：</p>
-<p>使得功能扩展继承自一个<code>DecoratorStream</code>的类，该类中组合了一个<code>Stream</code>的类，通过多态性对不同类型的流进行特定的操作，在操作外层套上对应的功能（需求）。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">    Stream &lt;|-- FileStream</span><br><span class="line">    Stream &lt;|-- NetworkStream</span><br><span class="line">    Stream &lt;|-- MemoryStream</span><br><span class="line">    Stream &lt;|-- DecoratorStream</span><br><span class="line">    DecoratorStream &lt;|-- CyptroStream</span><br><span class="line">    DecoratorStream &lt;|-- BufferedStream</span><br></pre></td></tr></table></figure>
+<p>如此编码的话，做应用开发的程序员压力会很大，还需要完成逻辑部分。</p>
+<h2 id="模板模式"><a href="#模板模式" class="headerlink" title="模板模式"></a>模板模式</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//程序库开发</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Library</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123; <span class="comment">//稳定</span></span><br><span class="line">				step1();</span><br><span class="line">				<span class="keyword">if</span>(step2())&#123;</span><br><span class="line">						step3();</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;++i)&#123;</span><br><span class="line">						step4();</span><br><span class="line">				&#125;</span><br><span class="line">				step5();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">virtual</span> ~Library()&#123;&#125;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">step1</span><span class="params">()</span></span>&#123;...&#125; <span class="comment">//稳定</span></span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">step3</span><span class="params">()</span></span>&#123;...&#125; <span class="comment">//稳定</span></span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">step5</span><span class="params">()</span></span>&#123;...&#125; <span class="comment">//稳定</span></span><br><span class="line">		<span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">step2</span><span class="params">()</span> </span>= <span class="number">0</span>; <span class="comment">//变化</span></span><br><span class="line">		<span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">step4</span><span class="params">()</span> </span>= <span class="number">0</span>; <span class="comment">//变化</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//应用开发</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Application</span> :</span> <span class="keyword">public</span> Library&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">		<span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">step2</span><span class="params">()</span></span>&#123;&#125; <span class="comment">//重写</span></span><br><span class="line">		<span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">step4</span><span class="params">()</span></span>&#123;&#125; <span class="comment">//重写		</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Library * plib = <span class="keyword">new</span> Application();</span><br><span class="line">		plib-&gt;run();</span><br><span class="line">		<span class="keyword">delete</span> plib;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="不好的设计"><a href="#不好的设计" class="headerlink" title="不好的设计"></a>不好的设计</h2><p>不好的设计原因主要是，在进行功能扩展时，生成了特别多的类和冗余的代码。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//抽象类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stream</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">virtual</span> ~Stream() &#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//主体类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileStream</span> :</span> <span class="keyword">public</span> Stream &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> <span class="keyword">override</span> </span>&#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> <span class="keyword">override</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> <span class="keyword">override</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NetworkStream</span> :</span> <span class="keyword">public</span> Stream &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> <span class="keyword">override</span> </span>&#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> <span class="keyword">override</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> <span class="keyword">override</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//...还有许多其他继承流抽象的子类</span></span><br><span class="line"><span class="comment">//...但是如果涉及到要对子类进行加密增加缓存操作时,十分繁琐</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//扩展操作_加密</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CryptoFileStream</span> :</span> <span class="keyword">public</span> FileStream &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">      FileStream::Read(number); <span class="comment">//包裹函数</span></span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">      FileStream::Seek(position);</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">      FileStream::Write(data);</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CryptoNetworkStream</span> :</span> <span class="keyword">public</span> NetworkStream &#123;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//...这里还要对其他流也要做加密操作</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//拓展操作_缓存</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BufferedFileStream</span> :</span> <span class="keyword">public</span> FileStream &#123;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BufferedNetworkStream</span> :</span> <span class="keyword">public</span> NetworkStream &#123;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//扩展操作_加密_缓存</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CryptoBufferedFileStream</span> :</span> <span class="keyword">public</span> FileStream &#123;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CryptoBufferedNetworkStream</span> :</span> <span class="keyword">public</span> FileStream &#123;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//其实,所有流的Read()的加密操作都是相同的,不需要写多份,缓存也是如此</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Process</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="comment">//编译时装配</span></span><br><span class="line">  CryptoFileStream *fs1 = <span class="keyword">new</span> CryptoFileStream();</span><br><span class="line">  BufferedFileStream *fs2 = <span class="keyword">new</span> BufferedFileStream();</span><br><span class="line">  CryptoBufferedFileStream *fs3 = <span class="keyword">new</span> CryptoBufferedFileStream();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h2><p>只需要为功能扩展组合一个基类，就可以利用多态性来减少大量冗余的代码和子类的数量。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//抽象类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stream</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">virtual</span> ~Stream() &#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//主体类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileStream</span> :</span> <span class="keyword">public</span> Stream &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> <span class="keyword">override</span> </span>&#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> <span class="keyword">override</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> <span class="keyword">override</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NetworkStream</span> :</span> <span class="keyword">public</span> Stream &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> <span class="keyword">override</span> </span>&#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> <span class="keyword">override</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> <span class="keyword">override</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//扩展</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DecoratorStream</span> :</span> <span class="keyword">public</span> Stream&#123; <span class="comment">//继承为了完善接口规范</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    Stream *stream;</span><br><span class="line">    <span class="comment">// = new FileStream();</span></span><br><span class="line">    <span class="comment">// = new NetworkStream();</span></span><br><span class="line">    <span class="comment">// = new MemoryStream();</span></span><br><span class="line">    DecoratorStream(Stream * stream):stream(stream)&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CryptoStream</span> :</span> <span class="keyword">public</span> DecoratorStream &#123;</span><br><span class="line">    <span class="comment">//加密操作抽象出来,通过多态来给不同的类型流加密</span></span><br><span class="line">    <span class="comment">// public Stream 为了接口规范</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    CryptoStream(Stream *stream) : DecoratorStream(stream) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">      stream-&gt;Read(number); <span class="comment">//包裹函数</span></span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">      stream-&gt;Seek(position);</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">      stream-&gt;Write(data);</span><br><span class="line">      <span class="comment">//额外的加密操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BufferedStream</span> :</span> <span class="keyword">public</span> DecoratorStream &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    BufferedStream(Stream *stream) : DecoratorStream(stream) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">char</span> <span class="title">Read</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//缓存</span></span><br><span class="line">      stream-&gt;Read(number);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Seek</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//缓存</span></span><br><span class="line">      stream-&gt;Seek(position);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">char</span> data)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//缓存</span></span><br><span class="line">      stream-&gt;Write(data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Process</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">//运行时装配</span></span><br><span class="line">  FileStream *s1 = <span class="keyword">new</span> FileStream();</span><br><span class="line">  CryptoStream *s2 = <span class="keyword">new</span> CryptoStream(s1);     <span class="comment">//加密</span></span><br><span class="line">  BufferedStream *s3 = <span class="keyword">new</span> BufferedStream(s1); <span class="comment">//缓存</span></span><br><span class="line">  BufferedStream *s4 = <span class="keyword">new</span> BufferedStream(s2); <span class="comment">//加密 &amp; 缓存</span></span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-
-<h2 id="要点总结"><a href="#要点总结" class="headerlink" title="要点总结"></a>要点总结</h2><ul>
-<li>通过采用组合而非继承的手法，Decorator模式实现了在运行时多态扩展对象功能的能力，而且可以根据需要扩展多个功能。避免了所有继承带来的灵活性差和多子类衍生问题。</li>
-<li>Decorator类在接口上表现为 is-a Component的继承关系，即Decorator类继承了Component类所具有的接口。但在是线上又表现为 has-a Component的组合关系，即Decorator类又使用了另外一个Component类。</li>
-<li>Decorator模式的目的并非解决“多子类衍生的多继承”问题，Decorator模式应用的要点在于解决“主体类在多个方向上的扩展功能”——是为“装饰”含义。</li>
-</ul>
+<p>如此编码，通过继承实现运行时多态，把逻辑部分封装在父类中。</p>
 ]]></content>
       <categories>
         <category>读书笔记</category>
         <category>《设计模式》</category>
-        <category>单一职责模式</category>
+        <category>组件协作模式</category>
       </categories>
       <tags>
         <tag>设计模式</tag>
@@ -1091,6 +1054,43 @@
       </tags>
   </entry>
   <entry>
+    <title>剑指 Offer 04. 二维数组中的查找</title>
+    <url>/OXygenPanda.github.io/2020/10/12/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2004.%20%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/</url>
+    <content><![CDATA[<h2 id="剑指-Offer-04-二维数组中的查找"><a href="#剑指-Offer-04-二维数组中的查找" class="headerlink" title="剑指 Offer 04. 二维数组中的查找"></a>剑指 Offer 04. 二维数组中的查找</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">剑指 Offer 04. 二维数组中的查找</a></p>
+<p><strong>难度:</strong><font color="green">简单</font></p>
+<p><strong>描述</strong></p>
+<p>在一个 n * m 的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
+<p><strong>示例</strong></p>
+<p>现有矩阵 matrix 如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">  [<span class="number">1</span>,   <span class="number">4</span>,  <span class="number">7</span>, <span class="number">11</span>, <span class="number">15</span>],</span><br><span class="line">  [<span class="number">2</span>,   <span class="number">5</span>,  <span class="number">8</span>, <span class="number">12</span>, <span class="number">19</span>],</span><br><span class="line">  [<span class="number">3</span>,   <span class="number">6</span>,  <span class="number">9</span>, <span class="number">16</span>, <span class="number">22</span>],</span><br><span class="line">  [<span class="number">10</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">17</span>, <span class="number">24</span>],</span><br><span class="line">  [<span class="number">18</span>, <span class="number">21</span>, <span class="number">23</span>, <span class="number">26</span>, <span class="number">30</span>]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">给定 target = <span class="number">5</span>，返回 <span class="literal">true</span>。</span><br><span class="line"></span><br><span class="line">给定 target = <span class="number">20</span>，返回 <span class="literal">false</span>。</span><br><span class="line"></span><br><span class="line">函数签名:</span><br><span class="line"><span class="keyword">bool</span> findNumberIn2DArray(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> target)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>第一种思路是类似暴力法，因为二维数组每一个维度都是从 <code>index = 0</code> 到 <code>index = size()-1</code> 升序，因此我们可以找到两个边界，缩小遍历的空间大小。</p>
+<p>我们只需要两次循环找到边界，再用找到的边界二层循环去寻找 <code>target</code>。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">findNumberIn2DArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(matrix.size() == <span class="number">0</span> || matrix[<span class="number">0</span>].size() == <span class="number">0</span>)  <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">//边界</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> s_m,s_n; <span class="comment">//每一个维度的边界</span></span><br><span class="line">    <span class="keyword">int</span> size_0 = matrix.size();</span><br><span class="line">    <span class="keyword">int</span> size_1 = matrix[<span class="number">0</span>].size();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>;i&lt;size_0;++i) <span class="comment">//找到纵向的边界</span></span><br><span class="line">        <span class="keyword">if</span>(matrix[i][<span class="number">0</span>] &gt; target)&#123;</span><br><span class="line">            s_m = i;</span><br><span class="line">            <span class="keyword">break</span>;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; size_1; ++ j) <span class="comment">//找到横向的边界</span></span><br><span class="line">        <span class="keyword">if</span>(matrix[<span class="number">0</span>][j] &gt; target)&#123;</span><br><span class="line">            s_n = j;</span><br><span class="line">            <span class="keyword">break</span>;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s_m;++i) <span class="comment">//缩小遍历空间大小</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;s_n;++j)</span><br><span class="line">            <span class="keyword">if</span>(matrix[i][j] == target)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度 : <code>O(N*M)</code> 空间复杂度 : <code>O(1)</code> 。但是，如果二维数组特别大，这么做应该还是能够有效减少遍历次数的。</p>
+<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>第二种思路是类似于二叉搜索树。</p>
+<p>我们只需要遍历一次数组，每一次先判定当前元素是否出现过(在集合中)，如果没有出现过加入到集合中，如果出现过就直接返回这个元素值即可。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">findNumberIn2DArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(matrix.size() == <span class="number">0</span> || matrix[<span class="number">0</span>].size() == <span class="number">0</span>)  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j = matrix[<span class="number">0</span>].size() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>( i &lt; matrix.size() &amp;&amp; j &gt;= <span class="number">0</span> )&#123;</span><br><span class="line">            <span class="comment">// 站在右上角,把数组看成二叉搜索树</span></span><br><span class="line">            <span class="keyword">if</span>(matrix[i][j] == target)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(matrix[i][j] &gt; target)</span><br><span class="line">                j--;<span class="comment">// 1</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1 : 这里不需要给i置零</span></span><br><span class="line"><span class="comment">// 比如我们要找14,我们11的时候要i++,12的时候i++,16的时候j--,但是target已经大于12了，必不需要从7开始重新判断</span></span><br></pre></td></tr></table></figure>
+
+<p>可以发现这一种解法一步到位，但是也类似于第一种方法，只是我们的起点设计的比较巧妙，能够通过索引 <code>i</code> <code>j</code> 的一定规律的移动就能找到 <code>target</code> 是否存在。</p>
+<p>时间复杂度 : <code>O(N+M)</code> , 空间复杂度 :  <code>O(1)</code>。 </p>
+]]></content>
+      <categories>
+        <category>Leetcode</category>
+        <category>剑指 Offer 专题</category>
+      </categories>
+      <tags>
+        <tag>Leetcode</tag>
+        <tag>数组</tag>
+        <tag>简单</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>剑指 Offer 05. 替换空格</title>
     <url>/OXygenPanda.github.io/2020/10/12/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87%20Offer%2005.%20%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/</url>
     <content><![CDATA[<h2 id="剑指-Offer-05-替换空格"><a href="#剑指-Offer-05-替换空格" class="headerlink" title="剑指 Offer 05. 替换空格"></a>剑指 Offer 05. 替换空格</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a href="https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/">剑指 Offer 05. 替换空格</a></p>
@@ -1119,8 +1119,8 @@
       </categories>
       <tags>
         <tag>Leetcode</tag>
-        <tag>字符串</tag>
         <tag>简单</tag>
+        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
@@ -1164,43 +1164,6 @@
         <tag>Leetcode</tag>
         <tag>简单</tag>
         <tag>哈希集合</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>剑指 Offer 04. 二维数组中的查找</title>
-    <url>/OXygenPanda.github.io/2020/10/12/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2004.%20%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/</url>
-    <content><![CDATA[<h2 id="剑指-Offer-04-二维数组中的查找"><a href="#剑指-Offer-04-二维数组中的查找" class="headerlink" title="剑指 Offer 04. 二维数组中的查找"></a>剑指 Offer 04. 二维数组中的查找</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">剑指 Offer 04. 二维数组中的查找</a></p>
-<p><strong>难度:</strong><font color="green">简单</font></p>
-<p><strong>描述</strong></p>
-<p>在一个 n * m 的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
-<p><strong>示例</strong></p>
-<p>现有矩阵 matrix 如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">  [<span class="number">1</span>,   <span class="number">4</span>,  <span class="number">7</span>, <span class="number">11</span>, <span class="number">15</span>],</span><br><span class="line">  [<span class="number">2</span>,   <span class="number">5</span>,  <span class="number">8</span>, <span class="number">12</span>, <span class="number">19</span>],</span><br><span class="line">  [<span class="number">3</span>,   <span class="number">6</span>,  <span class="number">9</span>, <span class="number">16</span>, <span class="number">22</span>],</span><br><span class="line">  [<span class="number">10</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">17</span>, <span class="number">24</span>],</span><br><span class="line">  [<span class="number">18</span>, <span class="number">21</span>, <span class="number">23</span>, <span class="number">26</span>, <span class="number">30</span>]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">给定 target = <span class="number">5</span>，返回 <span class="literal">true</span>。</span><br><span class="line"></span><br><span class="line">给定 target = <span class="number">20</span>，返回 <span class="literal">false</span>。</span><br><span class="line"></span><br><span class="line">函数签名:</span><br><span class="line"><span class="keyword">bool</span> findNumberIn2DArray(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> target)</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>第一种思路是类似暴力法，因为二维数组每一个维度都是从 <code>index = 0</code> 到 <code>index = size()-1</code> 升序，因此我们可以找到两个边界，缩小遍历的空间大小。</p>
-<p>我们只需要两次循环找到边界，再用找到的边界二层循环去寻找 <code>target</code>。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">findNumberIn2DArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(matrix.size() == <span class="number">0</span> || matrix[<span class="number">0</span>].size() == <span class="number">0</span>)  <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">//边界</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> s_m,s_n; <span class="comment">//每一个维度的边界</span></span><br><span class="line">    <span class="keyword">int</span> size_0 = matrix.size();</span><br><span class="line">    <span class="keyword">int</span> size_1 = matrix[<span class="number">0</span>].size();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>;i&lt;size_0;++i) <span class="comment">//找到纵向的边界</span></span><br><span class="line">        <span class="keyword">if</span>(matrix[i][<span class="number">0</span>] &gt; target)&#123;</span><br><span class="line">            s_m = i;</span><br><span class="line">            <span class="keyword">break</span>;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; size_1; ++ j) <span class="comment">//找到横向的边界</span></span><br><span class="line">        <span class="keyword">if</span>(matrix[<span class="number">0</span>][j] &gt; target)&#123;</span><br><span class="line">            s_n = j;</span><br><span class="line">            <span class="keyword">break</span>;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s_m;++i) <span class="comment">//缩小遍历空间大小</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;s_n;++j)</span><br><span class="line">            <span class="keyword">if</span>(matrix[i][j] == target)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度 : <code>O(N*M)</code> 空间复杂度 : <code>O(1)</code> 。但是，如果二维数组特别大，这么做应该还是能够有效减少遍历次数的。</p>
-<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>第二种思路是类似于二叉搜索树。</p>
-<p>我们只需要遍历一次数组，每一次先判定当前元素是否出现过(在集合中)，如果没有出现过加入到集合中，如果出现过就直接返回这个元素值即可。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">findNumberIn2DArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(matrix.size() == <span class="number">0</span> || matrix[<span class="number">0</span>].size() == <span class="number">0</span>)  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j = matrix[<span class="number">0</span>].size() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>( i &lt; matrix.size() &amp;&amp; j &gt;= <span class="number">0</span> )&#123;</span><br><span class="line">            <span class="comment">// 站在右上角,把数组看成二叉搜索树</span></span><br><span class="line">            <span class="keyword">if</span>(matrix[i][j] == target)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(matrix[i][j] &gt; target)</span><br><span class="line">                j--;<span class="comment">// 1</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1 : 这里不需要给i置零</span></span><br><span class="line"><span class="comment">// 比如我们要找14,我们11的时候要i++,12的时候i++,16的时候j--,但是target已经大于12了，必不需要从7开始重新判断</span></span><br></pre></td></tr></table></figure>
-
-<p>可以发现这一种解法一步到位，但是也类似于第一种方法，只是我们的起点设计的比较巧妙，能够通过索引 <code>i</code> <code>j</code> 的一定规律的移动就能找到 <code>target</code> 是否存在。</p>
-<p>时间复杂度 : <code>O(N+M)</code> , 空间复杂度 :  <code>O(1)</code>。 </p>
-]]></content>
-      <categories>
-        <category>Leetcode</category>
-        <category>剑指 Offer 专题</category>
-      </categories>
-      <tags>
-        <tag>Leetcode</tag>
-        <tag>简单</tag>
-        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
@@ -1284,8 +1247,8 @@
         <category>剑指 Offer 专题</category>
       </categories>
       <tags>
-        <tag>Leetcode</tag>
         <tag>二叉树</tag>
+        <tag>Leetcode</tag>
         <tag>中等</tag>
       </tags>
   </entry>
@@ -1312,8 +1275,8 @@
         <category>剑指 Offer 专题</category>
       </categories>
       <tags>
-        <tag>Leetcode</tag>
         <tag>栈</tag>
+        <tag>Leetcode</tag>
         <tag>队列</tag>
       </tags>
   </entry>
@@ -1559,6 +1522,43 @@
       </tags>
   </entry>
   <entry>
+    <title>理解 type_traits</title>
+    <url>/OXygenPanda.github.io/2020/10/31/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-type%20traits/</url>
+    <content><![CDATA[<h1 id="type-traits"><a href="#type-traits" class="headerlink" title="__type_traits"></a>__type_traits</h1><blockquote>
+<p>  &lt;__type_traits.h&gt; 是 SGI 版本的 STL 的实现，其他版本的 STL 没有去调研过是否存在类型萃取。但是侯捷老师的源码剖析已经过去了那么多年，我相信比较好的一些实现，还是会被其他版本进行借鉴的。</p>
+</blockquote>
+<p>前一篇文章是 <code>iterator_traits</code> 迭代器萃取器，可以感受到，迭代器的萃取器会萃取出迭代器的元数据 : <code>value_type</code> <code>difference_type</code> <code>pointer</code>  <code>reference</code>  <code>iterator_category</code>。其中最重要的 <code>iterator_category</code> 元数据对一些算法进行选择有很大的帮助。</p>
+<p>相同的，<code>__type_traits</code>  负责萃取类型的元数据，比如 : 某类型是否拥有不重要的默认构造函数 <code>has_trivial_default_constructor</code> 。在迭代器萃取器中的 <code>iterator_category</code> 会回答五种类型，在类型萃取器中只会回答两种类型：<code>__true_type</code> <code>__false_type</code>。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">true_type</span>&#123;</span>&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">false_type</span>&#123;</span>&#125;;</span><br><span class="line"><span class="comment">// 不需要实现,进行函数调用时,需要不同的类型才能够进行类型推导</span></span><br><span class="line"><span class="comment">// 而不能是只回答同样bool类型的 : true / false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="type-traits-源码"><a href="#type-traits-源码" class="headerlink" title="_type_traits 源码"></a>_type_traits 源码</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// __type_traits 的写法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 泛化__type_traits</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">type</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> __<span class="title">type_traits</span>&#123;</span></span><br><span class="line">		<span class="keyword">typedef</span> __true_type this_dummy_member_must_be_first;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_default_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_copy_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_assignment_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_destructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type is_POD_type;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 原则:</span></span><br><span class="line"><span class="comment">** trivial 是不重要的,回答 false. 即有重要的四种基本函数</span></span><br><span class="line"><span class="comment">** 保守起见,为所有的类型都设定为重要的构造和拷贝和析构</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//特别多的特化__type_traits</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">template</span>&lt;&gt; __STL_TEMPLATE_NULL;</span><br><span class="line">__STL_TEMPLATE_NULL <span class="class"><span class="keyword">struct</span> __<span class="title">type_traits</span>&lt;char&gt;&#123;</span></span><br><span class="line">		<span class="comment">//具体萃取 char 类型的元数据</span></span><br><span class="line">		<span class="comment">//C语言内置类型 都是以下的回答</span></span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_default_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_copy_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_assignment_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_destructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type is_POD_type;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//... 许多其他类型的类型萃取特化版本</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//特别的,指针类型也可以进行萃取</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">type_traits</span>&lt;T*&gt;&#123;</span></span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_default_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_copy_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_assignment_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type has_trivial_destructor;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type is_POD_type;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="type-traits-实例"><a href="#type-traits-实例" class="headerlink" title="__type_traits 实例"></a>__type_traits 实例</h2><p>来源于 侯捷老师 的例子</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//入口函数</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">ForwardIterator</span>, <span class="title">class</span> <span class="title">Size</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">ForwardIterator</span></span></span><br><span class="line"><span class="class"><span class="title">uninitialized_fill_n</span>(<span class="title">ForwardIterator</span> <span class="title">first</span>,</span></span><br><span class="line"><span class="class">					 <span class="title">Size</span> <span class="title">n</span>,</span></span><br><span class="line"><span class="class">					 <span class="title">const</span> <span class="title">T</span>&amp; <span class="title">x</span>)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">return</span> __uninitialized_fill_n(first, n, x, iterator_traits&lt;ForwardIterator&gt;::value_type);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//萃取“工具人”</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">ForwardIterator</span>, <span class="title">class</span> <span class="title">Size</span>, <span class="title">class</span> <span class="title">T</span>, <span class="title">class</span> <span class="title">T1</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">ForwardIterator</span></span></span><br><span class="line"><span class="class">__<span class="title">uninitialized_fill_n</span>(<span class="title">ForwardIterator</span> <span class="title">first</span>,</span></span><br><span class="line"><span class="class">					   <span class="title">Size</span> <span class="title">n</span>,</span></span><br><span class="line"><span class="class">					   <span class="title">const</span> <span class="title">T</span>&amp; <span class="title">x</span>,</span></span><br><span class="line"><span class="class">					   <span class="title">T1</span>*)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">typedef</span> <span class="keyword">typename</span> type_traits&lt;T1&gt;::is_POD_type is_POD;</span><br><span class="line">	<span class="keyword">return</span> __uninitialized_fill_n_aux(first, n, x, is_POD());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//实际上根据 is_POD 属性进行类型推导选择执行以下两个函数中的一个</span></span><br><span class="line"><span class="comment">//可以看到,这边如果是用true false来回答的话,这边就无法根据类型推导来选择不同函数了</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">ForwardIterator</span>, <span class="title">class</span> <span class="title">Size</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">ForwardIterator</span></span></span><br><span class="line"><span class="class">__<span class="title">uninitialized_fill_n_aux</span>(<span class="title">ForwardIterator</span> <span class="title">first</span>, <span class="title">Size</span> <span class="title">n</span>, <span class="title">const</span> <span class="title">T</span>&amp; <span class="title">x</span>,__<span class="title">false_type</span>)&#123;</span></span><br><span class="line">	ForwardIterator cur = first;</span><br><span class="line">	<span class="keyword">for</span>( ; n &gt; <span class="number">0</span>; --n, ++cur)</span><br><span class="line">		construct(&amp;*cur, x);</span><br><span class="line">	<span class="keyword">return</span> cur;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">ForwardIterator</span>, <span class="title">class</span> <span class="title">Size</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">ForwardIterator</span></span></span><br><span class="line"><span class="class">__<span class="title">uninitialized_fill_n_aux</span>(<span class="title">ForwardIterator</span> <span class="title">first</span>, <span class="title">Size</span> <span class="title">n</span>, <span class="title">const</span> <span class="title">T</span>&amp; <span class="title">x</span>,__<span class="title">true_type</span>)&#123;</span></span><br><span class="line">	<span class="keyword">return</span> fill_n(first, n, x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="融入-STL"><a href="#融入-STL" class="headerlink" title="融入 STL"></a>融入 STL</h2><p>如果不自己写一个特化版本的话，萃取该自定类型时，萃取结果会认为你的四种函数(构造、拷贝构造、拷贝赋值、析构)都是重要的，但是事实上如果不重要可以提高某一些算法的效率，因此如果真的不重要，就应该在特化版本中告诉编译器。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//比如有一个自定义的 class shape</span></span><br><span class="line"><span class="keyword">template</span>&lt;&gt;</span><br><span class="line">__type_traits&lt;shape&gt;&#123;</span><br><span class="line">		<span class="keyword">typedef</span> __true_type  has_trivial_default_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_copy_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_assignment_constructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type has_trivial_destructor;</span><br><span class="line">		<span class="keyword">typedef</span> __false_type is_POD_type;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>  学习自侯捷老师：《STL源码剖析》</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>C++</category>
+        <category>STL</category>
+        <category>迭代器</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>STL</tag>
+        <tag>iterator</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>深入理解操作系统学习笔记</title>
     <url>/OXygenPanda.github.io/2020/11/08/OperatingSystem/QingHua/Deep_into_OperatingSystem_all/</url>
     <content><![CDATA[<p align="center">
@@ -1572,6 +1572,8 @@
 <p>  第一章的主要内容是 : 操作系统的一些知识</p>
 </blockquote>
 <h3 id="操作系统是什么？"><a href="#操作系统是什么？" class="headerlink" title="操作系统是什么？"></a>操作系统是什么？</h3><p>用户角度：操作系统是一个控制软件</p>
+<a id="more"></a>
+
 <ul>
 <li>管理应用程序</li>
 <li>为应用程序提供服务</li>
@@ -2279,6 +2281,145 @@
 <h3 id="抖动问题"><a href="#抖动问题" class="headerlink" title="抖动问题"></a>抖动问题</h3><ul>
 <li>如果分配给一个进程的物理页面太少, 不能包含整个的工作集, 即常驻集 属于 工作集, 那么进程将会造成很多的缺页中断, 需要频繁的在内存与外存之间替换页面, 从而使进程的运行速度变得很慢, 我们把这种状态称为 “抖动”.</li>
 <li>产生抖动的原因 : 随着驻留内存的进程数目增加, 分配给每个进程的物理页面数不断就减小, 缺页率不断上升. 所以OS要选择一个适当的进程数目和进程需要的帧数, 以便在并发水平和缺页率之间达到一个平衡.</li>
+</ul>
+<h1 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h1><blockquote>
+<p>  第七章的主要内容是：进程</p>
+</blockquote>
+<h2 id="进程-process-描述"><a href="#进程-process-描述" class="headerlink" title="进程(process)描述"></a>进程(process)描述</h2><h3 id="进程定义"><a href="#进程定义" class="headerlink" title="进程定义"></a>进程定义</h3><p>进程 : 一个具有一定独立功能的程序在一个数据集合上的一次动态执行过程.</p>
+<h3 id="进程的组成"><a href="#进程的组成" class="headerlink" title="进程的组成"></a>进程的组成</h3><p>进程包括 :</p>
+<ul>
+<li>程序的代码</li>
+<li>程序处理的数据</li>
+<li>程序计数器中的值, 指示下一条将运行的指令</li>
+<li>一组通用的寄存器的当前值, 堆, 栈</li>
+<li>一组系统资源(如打开的文件)</li>
+</ul>
+<p>进程和程序的联系 :</p>
+<ul>
+<li>程序是产生进程的基础</li>
+<li>程序的每次运行构成不同的进程</li>
+<li>进程是程序功能的体现</li>
+<li>通过多次执行, 一个程序可以对应多个进程, 通过调用关系, 一个进程可包括多个程序.</li>
+</ul>
+<p>进程和程序的区别 :</p>
+<ul>
+<li>进程是动态的,  程序是静态的 : 程序是有序代码的集合. 进程是程序的执行, 进程有核心态 / 用户态.</li>
+<li>进程是暂时的, 程序是永久的. 进程是一个状态变化的过程, 程序可以长久保存.</li>
+<li>进程和程序的组成不同 : 进程的组成包括程序, 数据和进程控制块(进程状态信息)</li>
+</ul>
+<h3 id="进程的特点"><a href="#进程的特点" class="headerlink" title="进程的特点"></a>进程的特点</h3><p><strong>动态性</strong> : 可动态地创建, 结果进程;</p>
+<p><strong>并发性</strong> : 进程可以被独立调度并占用处理机运行; (并发:一段, 并行:一时刻)</p>
+<p><strong>独立性</strong> : 不同进程的工作不相互影响;(页表是保障措施之一)</p>
+<p><strong>制约性</strong> : 因访问共享数据, 资源或进程间同步而产生制约.</p>
+<blockquote>
+<p>  抛出了一个问题 : 如果你要设计一个OS, 怎么样来实现其中的进程管理机制?</p>
+</blockquote>
+<h3 id="进程控制结构"><a href="#进程控制结构" class="headerlink" title="进程控制结构"></a>进程控制结构</h3><p>描述进程的数据结构 : 进程控制块 (Process Control Block)</p>
+<p>操作系统为每个进程都维护了一个PCB, 用来保存与该进程有关的各种状态信息.</p>
+<p><strong>进程控制块 :</strong> 操作系统管理控制进程运行所用的信息集合.</p>
+<p>进程的创建 : 为该进程生成一个PCB</p>
+<p><strong>进程的终止 :</strong> 回收它的PCB</p>
+<p><strong>进程的组织管理 :</strong> 通过对PCB的组织管理来实现</p>
+<p>(PCB具体包含什么信息? 如何组织的? 进程的状态转换?)</p>
+<p><strong>PCB有以下三大类信息 :</strong></p>
+<ul>
+<li>进程标志信息. 如本进程的标志, 本进程的产生者标志(父进程标志). 用户标志</li>
+<li>处理机状态信息保存区 : 保存进程的运行现场信息 :<ul>
+<li>用户可见寄存器. 用户程序可以使用的数据, 地址等寄存器</li>
+<li>控制和状态寄存器. 如程序计数器(PC), 程序状态字(PSW)</li>
+<li>栈指针. 过程调用, 系统调用, 中断处理和返回时需要用到它</li>
+</ul>
+</li>
+<li>进程控制信息<ul>
+<li>调度和状态信息. 用于操作系统调度进程并占用处理机使用.</li>
+<li>进程间通信信息. 为支持进程间与通信相关的各种标志, 信号, 信件等, 这些信息都存在接收方的进程控制块中.</li>
+<li>存储管理信息. 包含有指向本进程映像存储空间的数据结构.</li>
+<li>进程所用资源. 说明由进程打开, 使用的系统资源. 如打开的文件等.</li>
+<li>有关数据结构的链接信息. 进程可以连接到一个进程队列中, 或连接到相关的其他进程的PCB.</li>
+</ul>
+</li>
+</ul>
+<p><strong>进程的组织方式</strong></p>
+<p>链表 : 同一状态的进程其PCB成一链表, 多个状态对应多个不同的链表.(各状态的进程形成不同的链表 : 就绪链表, 阻塞链表)</p>
+<p>索引表 : 同一状态的进程归入一个index表(由index指向PCB), 多个状态对应多个不同的index表(各状态的进行形成不同的索引表 : 就绪索引表, 阻塞索引表)</p>
+<h2 id="进程状态-state"><a href="#进程状态-state" class="headerlink" title="进程状态(state)"></a>进程状态(state)</h2><h3 id="进程的生命期管理"><a href="#进程的生命期管理" class="headerlink" title="进程的生命期管理"></a>进程的生命期管理</h3><h4 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h4><p>引起进程创建的3个主要事件 :</p>
+<ul>
+<li>系统初始化;</li>
+<li>用户请求创建一个新进程;</li>
+<li>正在运行的进程执行了创建进程的系统调用.</li>
+</ul>
+<h4 id="进程运行"><a href="#进程运行" class="headerlink" title="进程运行"></a>进程运行</h4><p>内核选择一个就绪的进程, 让它占用处理机并执行</p>
+<p>(为何选择?如何选择?)</p>
+<h4 id="进程等待-阻塞"><a href="#进程等待-阻塞" class="headerlink" title="进程等待(阻塞)"></a>进程等待(阻塞)</h4><p>在以下情况下, 进程等待(阻塞):</p>
+<ol>
+<li>请求并等待系统服务, 无法马上完成</li>
+<li>启动某种操作, 无法马上完成</li>
+<li>需要的数据没有到达</li>
+</ol>
+<p>进程只能自己阻塞自己, 因为只有进程自身才能知道何时需要等待某种事件的发生.</p>
+<h4 id="进程唤醒"><a href="#进程唤醒" class="headerlink" title="进程唤醒"></a>进程唤醒</h4><p>唤醒进程的原因 :</p>
+<ol>
+<li>被阻塞进程需要的资源可被满足</li>
+<li>被阻塞进程等待的事件到达</li>
+<li>将该进程的PCB插入到就绪队列</li>
+</ol>
+<p>进程只能被别的进程或操作系统唤醒</p>
+<h4 id="进程结束"><a href="#进程结束" class="headerlink" title="进程结束"></a>进程结束</h4><p>在以下四种情况下, 进程结束 :</p>
+<ul>
+<li>正常退出(自愿)</li>
+<li>错误退出(自愿)</li>
+<li>致命错误(强制性)</li>
+<li>被其他进程杀死(强制性)</li>
+</ul>
+<h3 id="进程状态变化模型"><a href="#进程状态变化模型" class="headerlink" title="进程状态变化模型"></a>进程状态变化模型</h3><p><strong>进程的三种基本状态 :</strong> 进程在生命结束前处于三种基本状态之一.</p>
+<p>不同系统设置的进程状态数目不同.</p>
+<p><strong>三种基本状态</strong></p>
+<ol>
+<li>运行状态(Running) : 当一个进程正在处理机上运行时</li>
+<li>就绪状态(Ready) : 一个进程获得了除处理机之外的一切所需资源, 一旦得到处理机即可运行</li>
+<li>等待状态(阻塞状态 Blocked) : 一个进程正在等待某一时间而暂停运行时. 如等待某资源, 等待输入/输出完成.</li>
+</ol>
+<p><strong>进程其它的基本状态</strong></p>
+<p>创建状态(New) : 一个进程正在被创建, 还没被转到就绪状态之前的状态</p>
+<p>结束状态(Exit): 一个进程正在从系统中消失时的状态, 这是因为进程结束或由于其它原因所导致.</p>
+<p><strong>可能的状态变化如下 :</strong></p>
+<p>NULL → New : 一个新进程被产生出来执行一个程序</p>
+<p>New → Ready: 当进程创建完成并初始化后, 一切就绪准备运行时, 变为就绪状态</p>
+<p>Ready → Running  : 处于就绪态的进程被进程调度程序选中后, 就分配到处理机上来运行</p>
+<p>Running → Exit   : 当进程表示它已经完成或者因出错, 当前运行进程会由操作系统作结束处理</p>
+<p>Running → Ready  : 处于运行状态的进程在其运行过程中, 由于分配它的处理机时间片用完而让出处理机</p>
+<p>Running → Blocked: 当进程请求某样东西且必须等待时</p>
+<p>Blocked → Ready  : 当进程要等待某事件到来时, 它从阻塞状态变到就绪状态</p>
+<h3 id="进程挂起"><a href="#进程挂起" class="headerlink" title="进程挂起"></a>进程挂起</h3><p>进程挂起, 为了合理且充分地利用系统资源.</p>
+<p>进程在挂起状态时, 意味着进程没有占用内存空间, 处在挂起状态的进程映像在磁盘上.(把进程放到磁盘上)</p>
+<p><strong>两种挂起状态</strong></p>
+<ol>
+<li>阻塞挂起状态 : 进程在外存并等待某事件的出现;</li>
+<li>就绪挂起状态 : 进程在外存, 但只要进入内存, 即可运行.</li>
+</ol>
+<p><strong>与挂起相关的状态转换</strong></p>
+<p><strong>挂起 :</strong> 把一个进程从内存转到外存, 可能有以下几种情况 :</p>
+<ul>
+<li>阻塞到阻塞挂起 : 没有进程处于就绪状态或就绪进程要求更多内存资源时, 会进行这种转换, 以提交新进程或运行时就绪进程.</li>
+<li>就绪到就绪挂起 : 当有高优先级阻塞(系统认为会很快就绪的)进程和低优先级就绪进程时, 系统会选择挂起低优先级就绪进程.</li>
+<li>运行到就绪挂起 : 对抢先式分时系统, 当有高优先级阻塞挂起进程因事件出现而进入就绪挂起时, 系统可能会把运行进程转导就绪挂起状态.</li>
+</ul>
+<p><strong>在外存时的状态转换 :</strong></p>
+<ul>
+<li>阻塞挂起到就绪挂起 : 当有阻塞挂起因相关事件出现时, 系统会把阻塞挂起进程转换为就绪挂起进程.</li>
+</ul>
+<p><strong>解挂, 激活 :</strong> 把一个进程从外存转到内存; 可能有以下几种情况 :</p>
+<ul>
+<li>就绪挂起到就绪 : 没有就绪进程或挂起就绪进程优先级高于就绪进程时, 会进行这种转换.</li>
+<li>阻塞挂起到阻塞 : 当一个进程释放足够内存时, 系统会把一个高优先级阻塞挂起(系统认为会很快出现所等待的事件)进程转换为阻塞进程.</li>
+</ul>
+<blockquote>
+<p>  抛出一个问题 : OS怎么通过PCB和定义的进程状态来管理PCB, 帮助完成进程的调度过程?</p>
+</blockquote>
+<h3 id="状态队列"><a href="#状态队列" class="headerlink" title="状态队列"></a>状态队列</h3><ul>
+<li>由操作系统来维护一组队列, 用来表示系统当中所有进程的当前状态;</li>
+<li>不同的状态分别用不同的队列来表示(就绪队列, 各种类型的阻塞队列);</li>
+<li>每个进程的PCB都根据它的状态加入到相应的队列当中, 当一个进程的状态发生变化时, 它的PCB从一个状态中脱离出来, 加入到另外一个队列.</li>
 </ul>
 ]]></content>
       <categories>
