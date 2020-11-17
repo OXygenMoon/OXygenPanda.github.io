@@ -6,7 +6,7 @@
   <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/atom.xml" rel="self"/>
   
   <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/"/>
-  <updated>2020-11-14T16:01:32.062Z</updated>
+  <updated>2020-11-17T11:03:18.555Z</updated>
   <id>https://oxygenpanda.github.io/OXygenPanda.github.io/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指 Offer 11. 旋转数组的最小数字</title>
+    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2011/"/>
+    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2011/</id>
+    <published>2020-11-17T10:45:00.000Z</published>
+    <updated>2020-11-17T11:03:18.555Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="剑指-Offer-11-旋转数组的最小数字"><a href="#剑指-Offer-11-旋转数组的最小数字" class="headerlink" title="剑指 Offer 11. 旋转数组的最小数字"></a>剑指 Offer 11. 旋转数组的最小数字</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" href="https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/" title="leetcode链接">剑指 Offer 11. 旋转数组的最小数字</a></p><p><strong>难度:</strong><font color="green">简单</font></p><p><strong>描述</strong></p><p>把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。例如，数组<code> [3,4,5,1,2]</code> 为 <code>[1,2,3,4,5]</code> 的一个旋转，该数组的最小值为1。  </p><a id="more"></a><p><strong>示例</strong></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>]</span><br><span class="line">输出：<span class="number">1</span></span><br><span class="line"></span><br><span class="line">输入：[<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">1</span>]</span><br><span class="line">输出：<span class="number">0</span></span><br></pre></td></tr></table></figure><h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>遥记得很久以前写斐波那契数列的问题时, 不考虑时间空间复杂度. 一股脑把所有的斐波那契数存下来, 现在针对这一题来说, 它没有必要存下每一个斐波那契数, 只需要返回第<code>n</code>个,所以就把DP问题优化了一下,减少了空间复杂度.<code>mod</code>的位置比较重要, 因为中途计算的时候可能会使得dp_2超出整形范围,所以在运算时就得<code>mod</code>.</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span> || n == <span class="number">1</span>)    <span class="keyword">return</span> n;</span><br><span class="line">        <span class="keyword">int</span> mod = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">        <span class="keyword">int</span> dp_0 = <span class="number">0</span>, dp_1 = <span class="number">1</span>, dp_2;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; ++i)&#123;</span><br><span class="line">            dp_2 = (dp_0 + dp_1) % mod;</span><br><span class="line">            dp_0 = dp_1;</span><br><span class="line">            dp_1 = dp_2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp_2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;剑指-Offer-11-旋转数组的最小数字&quot;&gt;&lt;a href=&quot;#剑指-Offer-11-旋转数组的最小数字&quot; class=&quot;headerlink&quot; title=&quot;剑指 Offer 11. 旋转数组的最小数字&quot;&gt;&lt;/a&gt;剑指 Offer 11. 旋转数组的最小数字&lt;/h2&gt;&lt;h2 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h2&gt;&lt;p&gt;&lt;a class=&quot;btn&quot; href=&quot;https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/&quot; title=&quot;leetcode链接&quot;&gt;剑指 Offer 11. 旋转数组的最小数字&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;难度:&lt;/strong&gt;&lt;font color=&quot;green&quot;&gt;简单&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。例如，数组&lt;code&gt; [3,4,5,1,2]&lt;/code&gt; 为 &lt;code&gt;[1,2,3,4,5]&lt;/code&gt; 的一个旋转，该数组的最小值为1。  &lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Leetcode" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/categories/Leetcode/"/>
+    
+    <category term="剑指 Offer 专题" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/categories/Leetcode/%E5%89%91%E6%8C%87-Offer-%E4%B8%93%E9%A2%98/"/>
+    
+    
+    <category term="Leetcode" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/Leetcode/"/>
+    
+    <category term="动态规划" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>剑指 Offer 10- I. 斐波那契数列</title>
+    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2010/"/>
+    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2010/</id>
+    <published>2020-11-17T10:25:00.000Z</published>
+    <updated>2020-11-17T10:44:13.857Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="剑指-Offer-10-I-斐波那契数列"><a href="#剑指-Offer-10-I-斐波那契数列" class="headerlink" title="剑指 Offer 10- I. 斐波那契数列"></a>剑指 Offer 10- I. 斐波那契数列</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" href="https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/" title="leetcode链接">剑指 Offer 10. 斐波那契数列</a></p><p><strong>难度:</strong><font color="green">简单</font></p><p><strong>描述</strong></p><p>写一个函数，输入 <code>n</code> ，求斐波那契（Fibonacci）数列的第 <code>n</code> 项。斐波那契数列的定义如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">F(<span class="number">0</span>) = <span class="number">0</span>,   F(<span class="number">1</span>) = <span class="number">1</span></span><br><span class="line">F(N) = F(N - <span class="number">1</span>) + F(N - <span class="number">2</span>), 其中 N &gt; <span class="number">1.</span></span><br></pre></td></tr></table></figure><p>斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。</p><p>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</p><p><strong>示例</strong></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：n = <span class="number">2</span></span><br><span class="line">输出：<span class="number">1</span></span><br><span class="line"></span><br><span class="line">输入：n = <span class="number">5</span></span><br><span class="line">输出：<span class="number">5</span></span><br><span class="line">   </span><br><span class="line">限制：</span><br><span class="line"><span class="number">0</span> &lt;= n &lt;= <span class="number">100</span></span><br></pre></td></tr></table></figure><h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>遥记得很久以前写斐波那契数列的问题时, 不考虑时间空间复杂度. 一股脑把所有的斐波那契数存下来, 现在针对这一题来说, 它没有必要存下每一个斐波那契数, 只需要返回第<code>n</code>个,所以就把DP问题优化了一下,减少了空间复杂度.<code>mod</code>的位置比较重要, 因为中途计算的时候可能会使得dp_2超出整形范围,所以在运算时就得<code>mod</code>.</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span> || n == <span class="number">1</span>)    <span class="keyword">return</span> n;</span><br><span class="line">        <span class="keyword">int</span> mod = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">        <span class="keyword">int</span> dp_0 = <span class="number">0</span>, dp_1 = <span class="number">1</span>, dp_2;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; ++i)&#123;</span><br><span class="line">            dp_2 = (dp_0 + dp_1) % mod;</span><br><span class="line">            dp_0 = dp_1;</span><br><span class="line">            dp_1 = dp_2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp_2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;剑指-Offer-10-I-斐波那契数列&quot;&gt;&lt;a href=&quot;#剑指-Offer-10-I-斐波那契数列&quot; class=&quot;headerlink&quot; title=&quot;剑指 Offer 10- I. 斐波那契数列&quot;&gt;&lt;/a&gt;剑指 Offer 10- I. 斐波那契数列&lt;/</summary>
+      
+    
+    
+    
+    <category term="Leetcode" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/categories/Leetcode/"/>
+    
+    <category term="剑指 Offer 专题" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/categories/Leetcode/%E5%89%91%E6%8C%87-Offer-%E4%B8%93%E9%A2%98/"/>
+    
+    
+    <category term="Leetcode" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/Leetcode/"/>
+    
+    <category term="动态规划" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    
+  </entry>
   
   <entry>
     <title>shared_ptr的简单实现</title>
@@ -395,11 +451,11 @@
     <category term="剑指 Offer 专题" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/categories/Leetcode/%E5%89%91%E6%8C%87-Offer-%E4%B8%93%E9%A2%98/"/>
     
     
+    <category term="Leetcode" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/Leetcode/"/>
+    
     <category term="栈" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E6%A0%88/"/>
     
     <category term="队列" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E9%98%9F%E5%88%97/"/>
-    
-    <category term="Leetcode" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/Leetcode/"/>
     
   </entry>
   
@@ -426,11 +482,11 @@
     <category term="栈" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88/"/>
     
     
-    <category term="二叉树" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    <category term="栈" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E6%A0%88/"/>
     
     <category term="数据结构" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-    <category term="栈" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E6%A0%88/"/>
+    <category term="二叉树" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
     
   </entry>
   
@@ -456,9 +512,9 @@
     <category term="剑指 Offer 专题" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/categories/Leetcode/%E5%89%91%E6%8C%87-Offer-%E4%B8%93%E9%A2%98/"/>
     
     
-    <category term="二叉树" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    
     <category term="Leetcode" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/Leetcode/"/>
+    
+    <category term="二叉树" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
     
     <category term="中等" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E4%B8%AD%E7%AD%89/"/>
     
@@ -469,7 +525,7 @@
     <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/14/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2006/"/>
     <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/14/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2006/</id>
     <published>2020-10-14T07:47:31.000Z</published>
-    <updated>2020-10-14T08:05:45.220Z</updated>
+    <updated>2020-11-17T10:45:26.038Z</updated>
     
     <content type="html"><![CDATA[<h2 id="剑指-Offer-06-从尾到头打印链表"><a href="#剑指-Offer-06-从尾到头打印链表" class="headerlink" title="剑指 Offer 06. 从尾到头打印链表"></a>剑指 Offer 06. 从尾到头打印链表</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">剑指 Offer 06. 从尾到头打印链表</a></p><p><strong>难度:</strong><font color="green">简单</font></p><p><strong>描述</strong></p><p>输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。</p><p><strong>示例</strong></p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">    head = [<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>]</span><br><span class="line">输出：</span><br><span class="line">    [<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>]</span><br><span class="line">限制:</span><br><span class="line"><span class="number">0</span> &lt;= 链表长度 &lt;= <span class="number">10000</span></span><br><span class="line">函数签名:</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; reversePrint(ListNode* head);</span><br></pre></td></tr></table></figure><h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>第一种思路栈。</p><p>我们看到了 <em>反过来</em> 这几个字眼，心里应该要知道这个地方可以借助一个辅助栈来完成。栈这一种数据结构的特性是先进后出，那么原本是<code>1-2-3-4-5</code> 的序列，经过 <strong>入栈</strong> 和 <strong>出栈</strong> 的操作之后，就变成了 <code>5-4-3-2-1</code> 的序列。</p><p>那么来看这一个题目，一个链表遍历的方法是迭代遍历而不是地址偏移的随机访问遍历，因此我们在遍历过程中把节点的值放入一个辅助栈中，当链表遍历完成后，再将辅助栈的数值给赋值到一个数组中返回。</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">reversePrint</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res; <span class="comment">//结果</span></span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s; <span class="comment">//辅助栈</span></span><br><span class="line">    <span class="keyword">if</span>(!head)   <span class="keyword">return</span> res;</span><br><span class="line">    ListNode* cur = head; <span class="comment">//尽量不破坏传入的指针</span></span><br><span class="line">    <span class="keyword">while</span>(cur)&#123;</span><br><span class="line">        <span class="comment">//正序遍历链表,将值入栈</span></span><br><span class="line">        s.push(cur-&gt;val); </span><br><span class="line">        cur = cur-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!s.empty())&#123;</span><br><span class="line">        <span class="comment">//将值出栈</span></span><br><span class="line">        res.push_back(s.top());</span><br><span class="line">        s.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>因为我们只需要遍历一次链表和访问<code>N</code>次栈，而空间需要一个返回的<code>vector&lt;int&gt;</code>的结果和一个辅助栈。</p><p>因此，时间复杂度 : <code>O(N)</code> 空间复杂度 : <code>O(N)</code> 。</p><h3 id="解法一·改进"><a href="#解法一·改进" class="headerlink" title="解法一·改进"></a>解法一·改进</h3><p>仍然是解法一的思路。</p><p>我们可以不需要一个栈，而是反转数组。</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">reversePrint</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res; <span class="comment">//结果</span></span><br><span class="line">        <span class="keyword">if</span>(!head)   <span class="keyword">return</span> res;</span><br><span class="line">        ListNode* cur = head;</span><br><span class="line">        <span class="keyword">while</span>(cur)&#123;</span><br><span class="line">            <span class="comment">//正序遍历链表,直接加入到数组中</span></span><br><span class="line">            res.push_back(cur-&gt;val);</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="comment">//用反向迭代器创建一个vector&lt;int&gt;对象</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(res.rbegin(),res.rend());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这里偷懒使用了反向迭代器</span></span><br><span class="line"><span class="comment">//也可以使用双指针原地反转数组</span></span><br><span class="line"><span class="keyword">int</span> left = <span class="number">0</span>, right = res.size() - <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>(left &lt; right)&#123;</span><br><span class="line">    <span class="keyword">int</span> tmp = res[left];</span><br><span class="line">    res[left] = res[right];</span><br><span class="line">    res[right] = tmp;</span><br><span class="line">    left ++;</span><br><span class="line">    right --;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>时间复杂度 : <code>O(N)</code> 空间复杂度 : <code>O(N)</code> 。</p><h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>第二种思路是利用链表和数组的迭代次数与索引的关系。</p><p>我们可以想到，链表的迭代次数和数组的索引值是有一定关系的：<code>迭代次数 + 索引值 = 链表长度 - 1</code></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">reversePrint</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!head)   <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    ListNode* cur = head;</span><br><span class="line">    <span class="keyword">while</span>(cur)&#123;</span><br><span class="line">       <span class="comment">//遍历计数链表长度</span></span><br><span class="line">        count ++;</span><br><span class="line">        cur = cur-&gt;next; </span><br><span class="line">    &#125;        </span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">res</span><span class="params">(count)</span></span>; <span class="comment">//创建链表长度的数组</span></span><br><span class="line">    <span class="keyword">int</span> index = count - <span class="number">1</span>;</span><br><span class="line">    cur = head;</span><br><span class="line">    <span class="keyword">while</span>(cur)&#123;</span><br><span class="line">        <span class="comment">//利用关系</span></span><br><span class="line">        res[index--] = cur-&gt;val;</span><br><span class="line">        cur = cur-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>  这里第11行，<code>vector&lt;int&gt; res(count);</code> 是必须的。如果没有使用传入一个整型值来确定<code>res</code>的构造函数来构造对象的话，<code>res.size()</code> 和 <code>res.capacity()</code> 都会是0，因此无法使用例如<code>res[8]</code>这样的方式去存取数值。如果没有了解过这一方面的知识，可以看我之前的一篇文章：<a href="https://blog.csdn.net/qq_32416781/article/details/109071413">浅析STL中vector容器的用法/特性/实现</a>。</p></blockquote><p>时间复杂度 : <code>O(N)</code> , 空间复杂度 :  <code>O(N)</code>。 </p>]]></content>
     
@@ -518,9 +574,9 @@
     
     <category term="Leetcode" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/Leetcode/"/>
     
-    <category term="字符串" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
     <category term="简单" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E7%AE%80%E5%8D%95/"/>
+    
+    <category term="字符串" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
   </entry>
   
@@ -551,68 +607,6 @@
     <category term="简单" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E7%AE%80%E5%8D%95/"/>
     
     <category term="数组" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指Offer 03. 数组中重复的数字</title>
-    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/11/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2003.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/"/>
-    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/11/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2003.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/</id>
-    <published>2020-10-11T14:20:31.000Z</published>
-    <updated>2020-10-14T07:14:44.734Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="剑指Offer-03-数组中重复的数字"><a href="#剑指Offer-03-数组中重复的数字" class="headerlink" title="剑指Offer 03. 数组中重复的数字"></a>剑指Offer 03. 数组中重复的数字</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">剑指 Offer 03. 数组中重复的数字</a></p><p><strong>难度:</strong><font color="green">简单</font></p><p><strong>描述</strong></p><p>找出数组中重复的数字。</p><p>在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。请找出数组中任意一个重复的数字。</p><p><strong>示例</strong></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">[<span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>]</span><br><span class="line">输出:</span><br><span class="line"><span class="number">2</span> 或 <span class="number">3</span></span><br><span class="line">限制:</span><br><span class="line"><span class="number">2</span> &lt;= n &lt;= <span class="number">100000</span></span><br><span class="line">函数签名:</span><br><span class="line"><span class="keyword">int</span> findRepeatNumber(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span><br></pre></td></tr></table></figure><h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>第一种思路是采用暴力法。</p><p>我们只需要两层循环遍历数组，当内外层索引对应的元素值相等时，返回这个元素值即可。</p><p>时间复杂度 : <code>O(N^2)</code> 空间复杂度 : <code>O(1)</code> 。</p><h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>第二种思路是采用哈希集合。</p><p>我们只需要遍历一次数组，每一次先判定当前元素是否出现过(在集合中)，如果没有出现过加入到集合中，如果出现过就直接返回这个元素值即可。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findRepeatNumber</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; record; <span class="comment">//存出现过的数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num : nums)&#123;</span><br><span class="line">        <span class="keyword">if</span>(record.find(num) != record.end()) <span class="comment">// 找到了</span></span><br><span class="line">            <span class="keyword">return</span> num;</span><br><span class="line">        record.insert(num);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>因为我们在 <code>hashset</code> 中查找的时间复杂度是 <code>O(1)</code> 。</p><p>因此，时间复杂度 : <code>O(N)</code> , 空间复杂度 :  <code>O(N)</code>。 </p><h3 id="解法三"><a href="#解法三" class="headerlink" title="解法三"></a>解法三</h3><p>第三种思路是一个萝卜一个坑。剑指Offer书中解答。</p><p>因为数组中的编号是 [0, n-1]，因此每一个索引应该对应的是它的值，即<code>i == nums[i]</code> ，所以我们如果现在 <code>i != nums[i]</code> 就把当前的 <code>nums[i]</code> 放到合适的位置，进行两数交换。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findRepeatNumber</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();++i)&#123;</span><br><span class="line">        <span class="keyword">while</span>(nums[i] != i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i] == nums[nums[i]]) <span class="comment">//如果交换位置的元素相等就直接找到了</span></span><br><span class="line">                <span class="keyword">return</span> nums[i];</span><br><span class="line">            <span class="comment">//两数交换</span></span><br><span class="line">            <span class="keyword">int</span> tmp = nums[i];</span><br><span class="line">            nums[i] = nums[tmp];</span><br><span class="line">            nums[tmp] = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>因为有题目的限制：</p><ol><li>一定有重复；</li><li>最大元素值是 <code>size()-1</code>。</li></ol><p>所以题目中的 <code>while</code> 循环一定能够退出。 </p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;剑指Offer-03-数组中重复的数字&quot;&gt;&lt;a href=&quot;#剑指Offer-03-数组中重复的数字&quot; class=&quot;headerlink&quot; title=&quot;剑指Offer 03. 数组中重复的数字&quot;&gt;&lt;/a&gt;剑指Offer 03. 数组中重复的数字&lt;/h2&gt;&lt;h3</summary>
-      
-    
-    
-    
-    <category term="Leetcode" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/categories/Leetcode/"/>
-    
-    <category term="剑指 Offer 专题" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/categories/Leetcode/%E5%89%91%E6%8C%87-Offer-%E4%B8%93%E9%A2%98/"/>
-    
-    
-    <category term="Leetcode" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/Leetcode/"/>
-    
-    <category term="简单" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E7%AE%80%E5%8D%95/"/>
-    
-    <category term="哈希集合" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E5%93%88%E5%B8%8C%E9%9B%86%E5%90%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>浅析list用法/特性/实现</title>
-    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/11/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-list%20%E5%88%86%E6%9E%90/"/>
-    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/11/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-list%20%E5%88%86%E6%9E%90/</id>
-    <published>2020-10-11T10:52:16.000Z</published>
-    <updated>2020-10-18T05:05:24.441Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="list-容器"><a href="#list-容器" class="headerlink" title="list 容器"></a>list 容器</h1><p><strong>list</strong> 在 C++ 中是一种用起来像链表的模板类。侯捷老师主要介绍的是<code>G2.9</code>和<code>G4.9</code>两个版本。我将阅读一下 <code>clang</code> 中的源码。</p><h2 id="list-结构"><a href="#list-结构" class="headerlink" title="list . 结构"></a>list . 结构</h2><p><strong>G2.9</strong> 下，<strong>list</strong> 只有一个成员变量，<code>list_node * node</code> ，是<code>list_node</code>类的指针，在32位机中占用4个字节，在64位机中占用8个字节。</p><p>而 <code>list_node</code> 类中，又有三个成员变量 :</p><ul><li><code>void * prev</code> : 指向当前节点的前驱</li><li><code>void * next</code> : 指向当前节点的后继</li><li><code>void * data</code> : 指向当前节点</li></ul><p>数据结构课程里的双向链表就是这样的一个结构，每一个节点拥有前驱后继节点且有一个数据。因此，<strong>list</strong> 容器是一个双向链表，与之对应的还有一个单向链表容器 <strong>forward_list</strong>。</p><blockquote><p>  侯捷老师提到此处设计有一个不合理的点 : <code>list_node</code> 已经接收到了模板参数，但是其内部的指针和数据的类型都是 <code>void</code> 。</p></blockquote><p>双向链表底层逻辑是一个环状链表结构，也就是说最后一个节点 <code>next</code> 的 <code>next</code> 是头结点。尾结点后还有一个节点，是为了考虑所有迭代器的区间是前闭后开。</p><p><strong>G4.9</strong> 下，<strong>list</strong> 中有两个成员变量。</p><h2 id="list-iterator"><a href="#list-iterator" class="headerlink" title="list . iterator"></a>list . iterator</h2><p>除了 <strong>array</strong> 和 <strong>vector</strong> 之外的所有容器的 <strong>iterator</strong> 必须得是一个类。因为需要重载许多运算符。</p><p><strong>list</strong> 相较于 <strong>vector</strong> 的迭代器中的 <code>++</code> 操作，就不能是简单的在内存中做偏移了，而是得去寻找 <strong>list</strong> 的下一个节点，也就是迭代器 <strong>iterator</strong> 所指节点的 <code>next</code>。</p><blockquote><p>  运算符重载中的 <code>i++</code> 和 <code>++i</code> 的声明方式</p><p>  <code>Self&amp; operator++()</code> 重载的是 <code>++i</code> 操作</p><p>  <code>Self&amp; operator++(int)</code> 重载的是 <code>i++</code> 操作，其中 <code>int</code> 是占位符</p></blockquote><h2 id="list-继承关系"><a href="#list-继承关系" class="headerlink" title="list . 继承关系"></a>list . 继承关系</h2><p>待补充</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;list-容器&quot;&gt;&lt;a href=&quot;#list-容器&quot; class=&quot;headerlink&quot; title=&quot;list 容器&quot;&gt;&lt;/a&gt;list 容器&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;list&lt;/strong&gt; 在 C++ 中是一种用起来像链表的模板类。侯捷老师主要介</summary>
-      
-    
-    
-    
-    <category term="C++" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/categories/C/"/>
-    
-    <category term="STL" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/categories/C/STL/"/>
-    
-    <category term="容器" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/categories/C/STL/%E5%AE%B9%E5%99%A8/"/>
-    
-    
-    <category term="C++" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/C/"/>
-    
-    <category term="STL" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/STL/"/>
-    
-    <category term="list" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/list/"/>
     
   </entry>
   
