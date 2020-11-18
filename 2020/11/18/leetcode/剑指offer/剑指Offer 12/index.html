@@ -22,21 +22,21 @@
     var CONFIG = {"hostname":"oxygenpanda.github.io","root":"/OXygenPanda.github.io/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="剑指 Offer 10- I. 斐波那契数列题目描述剑指 Offer 10. 斐波那契数列 难度:简单 描述 写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项。斐波那契数列的定义如下： 12F(0) &#x3D; 0,   F(1) &#x3D; 1F(N) &#x3D; F(N - 1) + F(N - 2), 其中 N &gt; 1.  斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的">
+  <meta name="description" content="剑指 Offer 12. 矩阵中的路径题目描述剑指 Offer 12. 矩阵中的路径 难度:中等 描述 请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。路径可以从矩阵中的任意一格开始，每一步可以在矩阵中向左、右、上、下移动一格。如果一条路径经过了矩阵的某一格，那么该路径不能再次进入该格子。例如，在下面的3×4的矩阵中包含一条字符串“bfce”的路径（路径中的字母用加粗标">
 <meta property="og:type" content="article">
-<meta property="og:title" content="剑指 Offer 10- I. 斐波那契数列">
-<meta property="og:url" content="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2010/index.html">
+<meta property="og:title" content="剑指 Offer 12. 矩阵中的路径">
+<meta property="og:url" content="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/18/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2012/index.html">
 <meta property="og:site_name" content="劳振煜的博客">
-<meta property="og:description" content="剑指 Offer 10- I. 斐波那契数列题目描述剑指 Offer 10. 斐波那契数列 难度:简单 描述 写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项。斐波那契数列的定义如下： 12F(0) &#x3D; 0,   F(1) &#x3D; 1F(N) &#x3D; F(N - 1) + F(N - 2), 其中 N &gt; 1.  斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的">
+<meta property="og:description" content="剑指 Offer 12. 矩阵中的路径题目描述剑指 Offer 12. 矩阵中的路径 难度:中等 描述 请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。路径可以从矩阵中的任意一格开始，每一步可以在矩阵中向左、右、上、下移动一格。如果一条路径经过了矩阵的某一格，那么该路径不能再次进入该格子。例如，在下面的3×4的矩阵中包含一条字符串“bfce”的路径（路径中的字母用加粗标">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-11-17T10:25:00.000Z">
-<meta property="article:modified_time" content="2020-11-17T10:44:13.857Z">
+<meta property="article:published_time" content="2020-11-18T02:30:00.000Z">
+<meta property="article:modified_time" content="2020-11-18T02:40:20.875Z">
 <meta property="article:author" content="劳振煜">
 <meta property="article:tag" content="Leetcode">
-<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="DFS">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2010/">
+<link rel="canonical" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/18/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2012/">
 
 
 <script id="page-configurations">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>剑指 Offer 10- I. 斐波那契数列 | 劳振煜的博客</title>
+  <title>剑指 Offer 12. 矩阵中的路径 | 劳振煜的博客</title>
   
 
 
@@ -224,7 +224,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2010/">
+    <link itemprop="mainEntityOfPage" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/18/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2012/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/OXygenPanda.github.io/images/avatar.jpg">
@@ -237,7 +237,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          剑指 Offer 10- I. 斐波那契数列
+          剑指 Offer 12. 矩阵中的路径
         </h1>
 
         <div class="post-meta">
@@ -248,7 +248,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-11-17 18:25:00 / 修改时间：18:44:13" itemprop="dateCreated datePublished" datetime="2020-11-17T18:25:00+08:00">2020-11-17</time>
+              <time title="创建时间：2020-11-18 10:30:00 / 修改时间：10:40:20" itemprop="dateCreated datePublished" datetime="2020-11-18T10:30:00+08:00">2020-11-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -275,19 +275,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="剑指-Offer-10-I-斐波那契数列"><a href="#剑指-Offer-10-I-斐波那契数列" class="headerlink" title="剑指 Offer 10- I. 斐波那契数列"></a>剑指 Offer 10- I. 斐波那契数列</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/" title="leetcode链接">剑指 Offer 10. 斐波那契数列</a></p>
-<p><strong>难度:</strong><font color="green">简单</font></p>
+        <h2 id="剑指-Offer-12-矩阵中的路径"><a href="#剑指-Offer-12-矩阵中的路径" class="headerlink" title="剑指 Offer 12. 矩阵中的路径"></a>剑指 Offer 12. 矩阵中的路径</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/ju-zhen-zhong-de-lu-jing-lcof/" title="leetcode链接">剑指 Offer 12. 矩阵中的路径</a></p>
+<p><strong>难度:</strong><font color="orange">中等</font></p>
 <p><strong>描述</strong></p>
-<p>写一个函数，输入 <code>n</code> ，求斐波那契（Fibonacci）数列的第 <code>n</code> 项。斐波那契数列的定义如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">F(<span class="number">0</span>) = <span class="number">0</span>,   F(<span class="number">1</span>) = <span class="number">1</span></span><br><span class="line">F(N) = F(N - <span class="number">1</span>) + F(N - <span class="number">2</span>), 其中 N &gt; <span class="number">1.</span></span><br></pre></td></tr></table></figure>
+<p>请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。路径可以从矩阵中的任意一格开始，每一步可以在矩阵中向左、右、上、下移动一格。如果一条路径经过了矩阵的某一格，那么该路径不能再次进入该格子。例如，在下面的3×4的矩阵中包含一条字符串“bfce”的路径（路径中的字母用加粗标出）。</p>
+<p>[[“a”,<strong>“b”</strong>,”c”,”e”],<br> [“s”,<strong>“f”</strong>,<strong>“c”</strong>,”s”],<br> [“a”,”d”,<strong>“e”</strong>,”e”]]</p>
+<p>但矩阵中不包含字符串“abfb”的路径，因为字符串的第一个字符b占据了矩阵中的第一行第二个格子之后，路径不能再次进入这个格子。</p>
+<a id="more"></a>
 
-<p>斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。</p>
-<p>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</p>
 <p><strong>示例</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：n = <span class="number">2</span></span><br><span class="line">输出：<span class="number">1</span></span><br><span class="line"></span><br><span class="line">输入：n = <span class="number">5</span></span><br><span class="line">输出：<span class="number">5</span></span><br><span class="line">   </span><br><span class="line">限制：</span><br><span class="line"><span class="number">0</span> &lt;= n &lt;= <span class="number">100</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">输入: board = [[<span class="string">&quot;A&quot;</span>,<span class="string">&quot;B&quot;</span>,<span class="string">&quot;C&quot;</span>,<span class="string">&quot;E&quot;</span>],[<span class="string">&quot;S&quot;</span>,<span class="string">&quot;F&quot;</span>,<span class="string">&quot;C&quot;</span>,<span class="string">&quot;S&quot;</span>],[<span class="string">&quot;A&quot;</span>,<span class="string">&quot;D&quot;</span>,<span class="string">&quot;E&quot;</span>,<span class="string">&quot;E&quot;</span>]], word = <span class="string">&quot;ABCCED&quot;</span></span><br><span class="line">输出: <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">输入: board = [[<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>],[<span class="string">&quot;c&quot;</span>,<span class="string">&quot;d&quot;</span>]], word = <span class="string">&quot;abcd&quot;</span></span><br><span class="line">输出: <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">限制:</span><br><span class="line"><span class="number">1</span> &lt;= board.length &lt;= <span class="number">200</span></span><br><span class="line"><span class="number">1</span> &lt;= board[i].length &lt;= <span class="number">200</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>遥记得很久以前写斐波那契数列的问题时, 不考虑时间空间复杂度. 一股脑把所有的斐波那契数存下来, 现在针对这一题来说, 它没有必要存下每一个斐波那契数, 只需要返回第<code>n</code>个,所以就把DP问题优化了一下,减少了空间复杂度.<code>mod</code>的位置比较重要, 因为中途计算的时候可能会使得dp_2超出整形范围,所以在运算时就得<code>mod</code>.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span> || n == <span class="number">1</span>)    <span class="keyword">return</span> n;</span><br><span class="line">        <span class="keyword">int</span> mod = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">        <span class="keyword">int</span> dp_0 = <span class="number">0</span>, dp_1 = <span class="number">1</span>, dp_2;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; ++i)&#123;</span><br><span class="line">            dp_2 = (dp_0 + dp_1) % mod;</span><br><span class="line">            dp_0 = dp_1;</span><br><span class="line">            dp_1 = dp_2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp_2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>这是一道很经典的走迷宫题目了, 而且学习过DFS的话, 一定也看到过或者做过这道题目.</p>
+<p>DFS: 深度优先搜索的意图是通过迭代的方式穷极一条路径, 如果最终无法匹配则舍弃(可以提前剪枝), 然后再选择其他路径再一往无前走到底.</p>
+<p>在这个题目里的意思是, 我先从每一个位置 <code>(i,j)</code> 递归出<code>N</code>条长度和字符串长度相同的路径, 如果路径正好能够和字符串匹配则返回 <code>true</code> , 如果不匹配则再去寻找其他路径.</p>
+<p>但是有几个优化的地方 : </p>
+<ul>
+<li>提前剪枝 : 判断边界不在 <code>board</code> 范围内, 或者当前位置的字符和我期待的字符串的某个字符不同就提前结束</li>
+<li>board[i][j] = ‘#’ : 可以不使用 visit 数组来标记是否访问过该节点, 通过先把当前字符修改后还原节约空间</li>
+<li>或运算的短路 : 像注释里那么写的话, 每一层递归都会做四次运算, 递归深度过大的话, 会超时; 而像 <code>13:16</code> 这么写, 可以有效利用”短路”, 当某一个<code>dfs</code>返回<code>true</code>时, 不需要去执行后续的递归操作, 大大节约了时间.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt; &amp; board, <span class="built_in">string</span> word, <span class="keyword">int</span> start)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;<span class="number">0</span> || i&gt;=n || j&lt;<span class="number">0</span> || j&gt;=m || board[i][j] != word[start])</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(word.length() == start + <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">char</span> tmp = board[i][j];</span><br><span class="line">        board[i][j] = <span class="string">&#x27;#&#x27;</span>;</span><br><span class="line">        <span class="keyword">int</span> dx[<span class="number">4</span>] = &#123;<span class="number">1</span>,<span class="number">-1</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> dy[<span class="number">4</span>] = &#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">-1</span>,<span class="number">1</span>&#125;;</span><br><span class="line">        <span class="keyword">bool</span> ret = dfs(i+dx[<span class="number">0</span>], j+dy[<span class="number">0</span>], board, word, start + <span class="number">1</span>) ||</span><br><span class="line">                   dfs(i+dx[<span class="number">1</span>], j+dy[<span class="number">1</span>], board, word, start + <span class="number">1</span>) ||</span><br><span class="line">                   dfs(i+dx[<span class="number">2</span>], j+dy[<span class="number">2</span>], board, word, start + <span class="number">1</span>) ||</span><br><span class="line">                   dfs(i+dx[<span class="number">3</span>], j+dy[<span class="number">3</span>], board, word, start + <span class="number">1</span>);</span><br><span class="line">        <span class="comment">//        for(int index = 0; index &lt; 4; ++index)&#123;</span></span><br><span class="line">        <span class="comment">//            ret |= dfs(i+dx[index], j+dy[index], board, word, start + 1);</span></span><br><span class="line">        board[i][j] = tmp;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">exist</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board, <span class="built_in">string</span> word)</span> </span>&#123;</span><br><span class="line">        n = board.size(), m = board[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; m; ++j)</span><br><span class="line">                <span class="keyword">if</span>(dfs(i, j, board, word, <span class="number">0</span>))</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -321,7 +329,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/OXygenPanda.github.io/tags/Leetcode/" rel="tag"># Leetcode</a>
-              <a href="/OXygenPanda.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+              <a href="/OXygenPanda.github.io/tags/DFS/" rel="tag"># DFS</a>
           </div>
 
         
@@ -330,13 +338,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/OXygenPanda.github.io/2020/11/12/C++11/smart_ptr/" rel="prev" title="shared_ptr的简单实现">
-      <i class="fa fa-chevron-left"></i> shared_ptr的简单实现
+    <a href="/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2011/" rel="prev" title="剑指 Offer 11. 旋转数组的最小数字">
+      <i class="fa fa-chevron-left"></i> 剑指 Offer 11. 旋转数组的最小数字
     </a></div>
-      <div class="post-nav-item">
-    <a href="/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2011/" rel="next" title="剑指 Offer 11. 旋转数组的最小数字">
-      剑指 Offer 11. 旋转数组的最小数字 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -395,7 +400,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%91%E6%8C%87-Offer-10-I-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97"><span class="nav-number">1.</span> <span class="nav-text">剑指 Offer 10- I. 斐波那契数列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">题目描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">解法</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%91%E6%8C%87-Offer-12-%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84"><span class="nav-number">1.</span> <span class="nav-text">剑指 Offer 12. 矩阵中的路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">题目描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">解法</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
