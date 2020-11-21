@@ -1,125 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>两数之和</title>
-    <url>/OXygenPanda.github.io/2020/10/09/leetcode/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
-    <content><![CDATA[<h1 id="两数之和问题"><a href="#两数之和问题" class="headerlink" title="两数之和问题"></a>两数之和问题</h1><h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a href="https://leetcode-cn.com/problems/two-sum/">Leetcode 1.两数之和</a></p>
-<p><strong>难度:</strong><font color="green">简单</font></p>
-<p><strong>描述</strong></p>
-<p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</p>
-<p>* 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。</p>
-<p><strong>示例</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">给定 nums = [<span class="number">2</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">15</span>], target = <span class="number">9</span></span><br><span class="line">函数签名 <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span><br></pre></td></tr></table></figure>
-
-<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>第一种思路是采用暴力法(虽然说暴力法是无法通过leetcode的,但确实是首先想到的方法)。</p>
-<p>我们只需要两层循环遍历数组，在循环索引不相等但是之和为 <code>target</code> 的时候，返回两个索引组成的数组即可。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res; <span class="comment">// 结果</span></span><br><span class="line">    <span class="keyword">if</span>(nums.empty())    <span class="keyword">return</span> res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size()<span class="number">-1</span>;++i)&#123; <span class="comment">//为减少内存循环次数,i只循环到最大值-1</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;nums.size();++j)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums.at(i) + nums.at(j) == target)&#123;</span><br><span class="line">                res.push_back(i);</span><br><span class="line">                res.push_back(j);</span><br><span class="line">                <span class="keyword">return</span> res;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>因为数组中同一元素不能使用两遍，因此内层循环索引 <code>j</code> 只需要从 <code>i+1</code> 开始，但是注意的是 <code>i</code> 不能到达 <code>nums.size()-1</code> ，否则 <code>j</code> 会越界。所以外层判断条件得是 <code>i&lt;nums.size()-1</code>  。</p>
-<p>时间复杂度 : <code>O(N^2)</code> 空间复杂度 : <code>O(1)</code> 。</p>
-<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>第二种思路是采用哈希表。</p>
-<p>我们需要遍历一次数组，存下每一个&lt;num,index&gt;对，再逐一判断 <code>key:target-num[i]</code> 是否出现在哈希表中。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res; <span class="comment">// 结果</span></span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; record; <span class="comment">//&lt;数值,索引&gt;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();++i)</span><br><span class="line">        record[nums.at(i)] = i;</span><br><span class="line">    <span class="comment">// 等同于 record.insert(pair&lt;int,int&gt;(nums.at(i),i));</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();++i)</span><br><span class="line">        <span class="keyword">if</span>(record.find(target-nums.at(i)) != record.end()) &#123;</span><br><span class="line">            <span class="comment">//找到</span></span><br><span class="line">            res.push_back(i);</span><br><span class="line">            res.push_back(record[target - nums.at(i)]);</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>因为我们在 <code>hashmap</code> 中查找的时间复杂度是 <code>O(1)</code> 。</p>
-<p>因此，时间复杂度 : <code>O(N)</code> , 空间复杂度 :  <code>O(N)</code>。 </p>
-<h3 id="解法三"><a href="#解法三" class="headerlink" title="解法三"></a>解法三</h3><p>第三种思路是采用排序+双指针。</p>
-<p>因为形式参数的<code>nums</code>是传引用，所以我们需要对传入的<code>nums</code>进行一次拷贝，在拷贝上进行排序。排序后采用双指针法，找到两个加数的索引。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res; <span class="comment">// 结果</span></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">nums_cp</span><span class="params">(nums)</span></span>; <span class="comment">// 不让排序操作改变原数组</span></span><br><span class="line">    sort(nums_cp.begin(),nums_cp.end());</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = nums_cp.size() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left &lt; right)&#123; <span class="comment">// 1</span></span><br><span class="line">        <span class="keyword">int</span> sum = nums_cp.at(left) + nums_cp.at(right);</span><br><span class="line">        <span class="keyword">if</span>( sum == target)&#123;</span><br><span class="line">            res.push_back(left);</span><br><span class="line">            res.push_back(right);</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>( sum &gt; target)</span><br><span class="line">            right --;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>( sum &lt; target)</span><br><span class="line">            left ++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>注释:1</code> 不能有等号，虽然我们定义的<code>left</code> <code>right</code> 是左闭右闭区间，但是题目要求一个数不能使用两次。因此不能取相等的情况。</p>
-<p>时间复杂度 : <code>O(NlogN+N) = O(NlogN)</code> 空间复杂度 : <code>O(N)</code> 主要是多了一份拷贝。</p>
-<h2 id="两数之和数据结构设计"><a href="#两数之和数据结构设计" class="headerlink" title="两数之和数据结构设计"></a>两数之和数据结构设计</h2><h3 id="设计API"><a href="#设计API" class="headerlink" title="设计API"></a>设计API</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoSum</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 向数组中添加一个新的数 number</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> number)</span></span>;</span><br><span class="line">    <span class="comment">// 查找当前数组中是否有两数之和为 value</span></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> value)</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoSum</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; record; <span class="comment">//&lt;数值,索引&gt;</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> index;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> number)</span></span>&#123;</span><br><span class="line">        record[number] = index++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">        <span class="comment">//采用双指针法在红黑树的map</span></span><br><span class="line">        <span class="keyword">auto</span> left = record.begin();</span><br><span class="line">        <span class="keyword">auto</span> right = record.end();</span><br><span class="line">        right --;</span><br><span class="line">        <span class="keyword">while</span>(left != right)&#123;</span><br><span class="line">            <span class="keyword">int</span> sum = (*left).first + (*right).first; <span class="comment">//每一个节点是一个pair</span></span><br><span class="line">            <span class="keyword">if</span>(sum == value)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(sum &lt; value)</span><br><span class="line">                left ++;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(sum &gt; value)</span><br><span class="line">                right --;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">int</span> TwoSum::index = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
-
-<p>实现find的时候，和我们做题的时候方法略有不同。因为我们做题的时候，是有vector作为数据的支撑，我们能够在一个随机访问的内存结构里存取数据，而现在我们整个类只有record这一个map&lt;int,int&gt;类的数据和一个静态索引值，而且红黑树的迭代器遍历顺序是按照key升序的，因此我们可以采用双指针的方式来遍历。</p>
-<p><code>class TwoSum</code> 空间复杂度 : <code>O(N)</code></p>
-<p><code>add(int)</code> 时间复杂度 : <code>O(1)</code> </p>
-<p><code>find(int)</code> 时间复杂度 : <code>O(N)</code> </p>
-<h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3><p>如果是一个查询次数明显对于插入次数的场景，那么我们的 <code>find()</code> 函数的效率就有点过于低下，我们会重复查询许多次。于是，我们可以把查询的结果也给存下来，记录下每一种可能的和的数值。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoSum</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums; <span class="comment">//记录现有数组</span></span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; sums; <span class="comment">//记录可能的和</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> number)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n:nums) <span class="comment">//每一次插入都把所有和给记录下来</span></span><br><span class="line">            sums.insert(n+number);</span><br><span class="line">        nums.push_back(number);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (sums.find(value) != sums.end()); <span class="comment">//查找到value返回true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p><code>class TwoSum</code> 空间复杂度 : <code>O(N)</code></p>
-<p><code>add(int)</code> 时间复杂度 : <code>O(N)</code> </p>
-<p><code>find(int)</code> 时间复杂度 : <code>O(1)</code> </p>
-<blockquote>
-<p>  学习自 labuladong</p>
-</blockquote>
-<h2 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h2><h2 id="N数之和"><a href="#N数之和" class="headerlink" title="N数之和"></a>N数之和</h2>]]></content>
-      <categories>
-        <category>Leetcode</category>
-      </categories>
-      <tags>
-        <tag>Leetcode</tag>
-        <tag>双指针</tag>
-        <tag>哈希表</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>单调栈</title>
-    <url>/OXygenPanda.github.io/2020/10/06/leetcode/%E5%8D%95%E8%B0%83%E6%A0%88/</url>
-    <content><![CDATA[<a id="more"></a>
-
-<h1 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>单调栈是一种特殊的数据结构。专门用于解决一类问题叫做 Next Greater Number的问题。</p>
-<p>性质：单调栈本身还是栈，只是每一次入栈，都会使得栈的排列有序。(其实也就是不满足有序的元素都不要)</p>
-<p>通过适配 stack 而来。</p>
-<h1 id="Next-Greater-Number"><a href="#Next-Greater-Number" class="headerlink" title="Next Greater Number"></a>Next Greater Number</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>找到数组中每一个数之后最近的一个比该数大的数字(两种情况，返回索引或返回数值)</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">next_greater_elem</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp; nums)</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">res</span><span class="params">(nums.size())</span></span>; <span class="comment">//为了倒序访问,提前确定大小方便索引</span></span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt; s; <span class="comment">//单调栈 : pair&lt;数字,索引&gt;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=nums.size()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">        <span class="keyword">while</span>(!s.empty() &amp;&amp; s.top().first &lt;= nums[i]) <span class="comment">//如果栈顶端的数无法满足有序性,就全弹出</span></span><br><span class="line">            s.pop();</span><br><span class="line">        res[i] = (s.empty() == <span class="literal">true</span> ) ? <span class="number">0</span> : s.top().second-i; <span class="comment">//这里返回的是距离,也可返回索引或数值</span></span><br><span class="line">        s.push(<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;(nums[i],i)); <span class="comment">//插入pair&lt;数字,索引&gt;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(N) </p>
-<p>空间复杂度：O(N)</p>
-<h2 id="Leetcode-相关题目"><a href="#Leetcode-相关题目" class="headerlink" title="Leetcode 相关题目"></a>Leetcode 相关题目</h2><p><a href="https://leetcode-cn.com/problems/next-greater-element-i/">496. 下一个更大元素I</a></p>
-<p><a href="https://leetcode-cn.com/problems/next-greater-element-ii/">503.下一个更大元素II</a></p>
-<p><a href="https://leetcode-cn.com/problems/number-of-days-in-a-month">1118.一月有多少天</a></p>
-<blockquote>
-<p>  学习自labuladong</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-        <category>栈</category>
-      </categories>
-      <tags>
-        <tag>单调栈</tag>
-        <tag>栈</tag>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>单调队列</title>
-    <url>/OXygenPanda.github.io/2020/10/07/leetcode/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/</url>
-    <content><![CDATA[<a id="more"></a>
-
-<h1 id="单调队列"><a href="#单调队列" class="headerlink" title="单调队列"></a>单调队列</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>单调队列是一种特殊的数据结构。用来保持一个有序的队列。(无序的数据出队列)</p>
-<p>通过适配 deque 而来。</p>
-<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt; <span class="class"><span class="keyword">class</span> <span class="title">Type</span> &gt;</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">monotonous_queue</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">deque</span>&lt;Type&gt; data; <span class="comment">//或者使用queue</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(Type)</span></span>; <span class="comment">//尾部插入到单调队列中</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">(Type)</span></span>; <span class="comment">//从头部离开单调队列</span></span><br><span class="line">    <span class="function">Type <span class="title">max</span><span class="params">()</span></span>; <span class="comment">//返回单调队列中的最大元素</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt; <span class="class"><span class="keyword">class</span> <span class="title">Type</span> &gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">monotonous_queue</span>&lt;Type&gt;:</span>:push(Type n)&#123;</span><br><span class="line">    <span class="keyword">while</span>(!data.empty() &amp;&amp; n &gt; data.back()) <span class="comment">//保持单调队列特性，尾部比输入小的数值全部舍弃</span></span><br><span class="line">        data.pop_back();</span><br><span class="line">    data.push_back(n);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt; <span class="class"><span class="keyword">class</span> <span class="title">Type</span> &gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">monotonous_queue</span>&lt;Type&gt;:</span>:pop(Type n)&#123; </span><br><span class="line">    <span class="keyword">if</span>(!data.empty() &amp;&amp; data.front() == n) <span class="comment">//有可能在pop之前，就因为push()中的步骤pop掉</span></span><br><span class="line">        data.pop_front();</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt; <span class="class"><span class="keyword">class</span> <span class="title">Type</span> &gt;</span></span><br><span class="line"><span class="class"><span class="title">Type</span> <span class="title">monotonous_queue</span>&lt;Type&gt;:</span>:max()&#123;</span><br><span class="line">    <span class="keyword">return</span> data.front();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>实际上单调队列这一种数据结构使用的是队列中的<code>pop_back()</code>  <code>push_back()</code> <code>pop_front()</code> <code>back()</code> <code>front()</code> 方法，queue容器中不提供 <code>pop_back()</code> 方法，因此不可以通过适配 queue 而来。</p>
-<h2 id="Leetcode-239-滑动窗口最大值"><a href="#Leetcode-239-滑动窗口最大值" class="headerlink" title="Leetcode 239 滑动窗口最大值"></a>Leetcode 239 滑动窗口最大值</h2><p>难度:hard</p>
-<p>链接:<a href="https://leetcode-cn.com/problems/sliding-window-maximum/">https://leetcode-cn.com/problems/sliding-window-maximum/</a></p>
-<p>源码:</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">maxSlidingWindow</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    monotonous_queue&lt;<span class="keyword">int</span>&gt; mq;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();++i)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;k<span class="number">-1</span>) <span class="comment">//当前滑动窗口中的元素小于k个时,直接入队</span></span><br><span class="line">            mq.push(nums[i]);</span><br><span class="line">        <span class="keyword">else</span>&#123; <span class="comment">//入队后,输出窗口中的最大值给res,再弹出最前端为 nums[i-k+1] 的值,没有就不弹出</span></span><br><span class="line">            mq.push(nums[i]);</span><br><span class="line">            res.push_back(mq.max());</span><br><span class="line">            mq.pop(nums[i-k+<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(N) </p>
-<p>空间复杂度：O(k)</p>
-<blockquote>
-<p>  学习自labuladong</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-        <category>队列</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-        <tag>单调队列</tag>
-        <tag>队列</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>理解 iterator_traits</title>
     <url>/OXygenPanda.github.io/2020/10/30/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-iterator%20traits/</url>
     <content><![CDATA[<h1 id="iterator"><a href="#iterator" class="headerlink" title="iterator"></a>iterator</h1><p>iterator 意为迭代器，是常见的23种设计模式中的一种。</p>
@@ -475,74 +356,122 @@
       </tags>
   </entry>
   <entry>
-    <title>TCP通信[未完成]</title>
-    <url>/OXygenPanda.github.io/2020/10/26/%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-TCP/</url>
-    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>传输控制协议( TCP : Transmission Control Protocol )，是一种面向连接的，可靠的传输层控制协议。</p>
-<h2 id="面向连接"><a href="#面向连接" class="headerlink" title="面向连接"></a>面向连接</h2><p>一般，客户端发送给服务端的一个数据包携带的数据最大为1460字节。是因为，以太网帧结构数据长度是1500字节，其中包含20字节的IP头部以及20字节的TCP头部，所以数据能够携带1460字节。</p>
-<h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><p>三次握手，由内核完成。反应在程序中，是由客户端程序的 connect() 开始，由 服务端程序的 accept() 返回结束。</p>
-<p>示例</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">客户端发送：SYN <span class="number">1000</span>(<span class="number">0</span>) win <span class="number">4096</span> &lt;mss <span class="number">1460</span>&gt;</span><br><span class="line">服务端发送：SYN <span class="number">8000</span>(<span class="number">0</span>) win <span class="number">6144</span> ACK <span class="number">1001</span> &lt;mss <span class="number">1024</span>&gt;  <span class="comment">//ACK 1001 是接收到的序号+数据字节(SYN标志位也得占1字节)</span></span><br><span class="line">客户端发送：ACK <span class="number">8001</span>    win <span class="number">4096</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">** (0)        : 表示携带数据为0字节</span></span><br><span class="line"><span class="comment">** win 4096   : 发送端滑动窗口缓存4096字节</span></span><br><span class="line"><span class="comment">** &lt;mss 1460&gt; : 表示携带数据最大字节数为1460字节</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+    <title>两数之和</title>
+    <url>/OXygenPanda.github.io/2020/10/09/leetcode/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
+    <content><![CDATA[<h1 id="两数之和问题"><a href="#两数之和问题" class="headerlink" title="两数之和问题"></a>两数之和问题</h1><h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a href="https://leetcode-cn.com/problems/two-sum/">Leetcode 1.两数之和</a></p>
+<p><strong>难度:</strong><font color="green">简单</font></p>
+<p><strong>描述</strong></p>
+<p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</p>
+<p>* 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。</p>
+<p><strong>示例</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">给定 nums = [<span class="number">2</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">15</span>], target = <span class="number">9</span></span><br><span class="line">函数签名 <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span><br></pre></td></tr></table></figure>
 
-<p>总结</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">主动发起连接请求端：发送SYN标志位，请求建立连接。携带数据包包号，数据字节数(0)，滑动窗口大小</span><br><span class="line">被动接受连接请求端：发送ACK标志位，同时携带SYN请求标志位。携带序号，确认序号，数据字节数(0)，滑动窗口大小</span><br><span class="line">主动发起连接请求段：发送ACK标志位，应答服务器连接请求。携带确认序号。</span><br></pre></td></tr></table></figure>
+<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>第一种思路是采用暴力法(虽然说暴力法是无法通过leetcode的,但确实是首先想到的方法)。</p>
+<p>我们只需要两层循环遍历数组，在循环索引不相等但是之和为 <code>target</code> 的时候，返回两个索引组成的数组即可。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res; <span class="comment">// 结果</span></span><br><span class="line">    <span class="keyword">if</span>(nums.empty())    <span class="keyword">return</span> res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size()<span class="number">-1</span>;++i)&#123; <span class="comment">//为减少内存循环次数,i只循环到最大值-1</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;nums.size();++j)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums.at(i) + nums.at(j) == target)&#123;</span><br><span class="line">                res.push_back(i);</span><br><span class="line">                res.push_back(j);</span><br><span class="line">                <span class="keyword">return</span> res;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>要点</p>
-<p>为什么不是二次握手？</p>
-<ol>
-<li>彼此确定收发能力</li>
-</ol>
-<ul>
-<li>第一次客户端发送请求，服务端接收请求：服务端知道了客户端有发送的能力。</li>
-<li>第二次服务端发送请求，客户端接收请求：客户端知道了服务端有收发的能力。</li>
-<li>此时，服务端不知道客户端是不是有接收的能力。因此需要客户端再次告知服务端。</li>
-</ul>
-<ol start="2">
-<li>避免两次连接</li>
-</ol>
-<ul>
-<li>客户端发送的连接请求如果滞留在网络中，等到超时重传，会再次发起连接请求，而服务器接收到两个连接请求会打开两个连接。因此，需要三次握手。</li>
-</ul>
-<p>第三次客户端发送ACK时，可以携带数据</p>
-<ul>
-<li>因为此时，客户端服务端都知道双方都有收发数据的能力，所以可以开始通信。</li>
-</ul>
-<h2 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h2><p>四次挥手，目的是断开客户端到服务端的全双工链路。断开一端称为半关闭，会关闭一端的套接字的一个缓存区。</p>
-<p>示例</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">客户端发送：FIN <span class="number">501</span>(<span class="number">0</span>)  ACK <span class="number">701</span> </span><br><span class="line">服务端发送：ACK <span class="number">502</span>             ---- 半关闭</span><br><span class="line">服务端发送：FIN <span class="number">701</span>(<span class="number">0</span>)  ACK <span class="number">502</span></span><br><span class="line">客户端发送：ACK <span class="number">702</span>             ---- 完全断开</span><br></pre></td></tr></table></figure>
+<p>因为数组中同一元素不能使用两遍，因此内层循环索引 <code>j</code> 只需要从 <code>i+1</code> 开始，但是注意的是 <code>i</code> 不能到达 <code>nums.size()-1</code> ，否则 <code>j</code> 会越界。所以外层判断条件得是 <code>i&lt;nums.size()-1</code>  。</p>
+<p>时间复杂度 : <code>O(N^2)</code> 空间复杂度 : <code>O(1)</code> 。</p>
+<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>第二种思路是采用哈希表。</p>
+<p>我们需要遍历一次数组，存下每一个&lt;num,index&gt;对，再逐一判断 <code>key:target-num[i]</code> 是否出现在哈希表中。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res; <span class="comment">// 结果</span></span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; record; <span class="comment">//&lt;数值,索引&gt;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();++i)</span><br><span class="line">        record[nums.at(i)] = i;</span><br><span class="line">    <span class="comment">// 等同于 record.insert(pair&lt;int,int&gt;(nums.at(i),i));</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();++i)</span><br><span class="line">        <span class="keyword">if</span>(record.find(target-nums.at(i)) != record.end()) &#123;</span><br><span class="line">            <span class="comment">//找到</span></span><br><span class="line">            res.push_back(i);</span><br><span class="line">            res.push_back(record[target - nums.at(i)]);</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>总结</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">主动关闭连接请求端：发送FIN标志位。</span><br><span class="line">被动关闭连接请求端：应答ACK标志位。 ———— 半关闭完成</span><br><span class="line">被动关闭连接请求端：发送FIN标志位。</span><br><span class="line">主动关闭连接请求端：应答ACK标志位。 —————连接全部关闭</span><br></pre></td></tr></table></figure>
+<p>因为我们在 <code>hashmap</code> 中查找的时间复杂度是 <code>O(1)</code> 。</p>
+<p>因此，时间复杂度 : <code>O(N)</code> , 空间复杂度 :  <code>O(N)</code>。 </p>
+<h3 id="解法三"><a href="#解法三" class="headerlink" title="解法三"></a>解法三</h3><p>第三种思路是采用排序+双指针。</p>
+<p>因为形式参数的<code>nums</code>是传引用，所以我们需要对传入的<code>nums</code>进行一次拷贝，在拷贝上进行排序。排序后采用双指针法，找到两个加数的索引。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res; <span class="comment">// 结果</span></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">nums_cp</span><span class="params">(nums)</span></span>; <span class="comment">// 不让排序操作改变原数组</span></span><br><span class="line">    sort(nums_cp.begin(),nums_cp.end());</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = nums_cp.size() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left &lt; right)&#123; <span class="comment">// 1</span></span><br><span class="line">        <span class="keyword">int</span> sum = nums_cp.at(left) + nums_cp.at(right);</span><br><span class="line">        <span class="keyword">if</span>( sum == target)&#123;</span><br><span class="line">            res.push_back(left);</span><br><span class="line">            res.push_back(right);</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>( sum &gt; target)</span><br><span class="line">            right --;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>( sum &lt; target)</span><br><span class="line">            left ++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>客户端接收到服务器的应答之后，进入半关闭状态，不能发送数据给服务器，而服务器会在发送完剩余数据后，发起关闭请求，客户端应答服务器后需要等待 2MSL(最大报文存活时间)后释放连接。原因如下：</p>
-<ul>
-<li>如果客户端的应答数据包丢失，那么服务器会再次发送断开请求。</li>
-<li>等待一段时间，使本次连接过程中产生的数据包在网络中消失。</li>
-</ul>
-<h2 id="可靠传输"><a href="#可靠传输" class="headerlink" title="可靠传输"></a>可靠传输</h2><h3 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h3><p>TCP使用超时重传来实现可靠传输：如果一个已经发送的报文段在超时时间内没有收到确认，那么就重传这个报文段。</p>
-<p>一个报文段从发送到接收到确定所经历的时间称为往返时间RTT(加权平均RTTs)。超时时间 RTO 应该略大于 RTTs 。TCP使用的超时时间计算是 : RTO = RTTs + 4 * RTTd 。RTTd : 偏差的加权平均值。</p>
-<h3 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h3><p>滑动窗口是一个缓存区，用于暂时存放字节流。发送方和接收方各有一个窗口，接收方通过TCP报文段中的窗口字段告诉发送方自己的窗口大小，发送方根据这个值和其他信息来设置自己的窗口大小。</p>
-<p>对于发送方来说，当窗口靠左侧的数据包已经成功发送并被确认后，窗口向右滑动直到某一个未发送或者未确认的字节位置。</p>
-<p>对于接收方来说，当窗口靠左侧的数据包已经收到，窗口向右滑动直到某一个未接收到的字节。</p>
-<h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><p>流量控制是为了控制发送方发送速率，保证接收方来得及接收。</p>
-<p>接收方发送的确认报文中的窗口字段可以用来控制发送方窗口大小，从而影响发送方的发送速率。将窗口字段设置为 0，则发送方不能发送数据。</p>
-<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>如果网络出现拥塞，发送方发送的数据包丢失，发送方重传导致网络难以恢复。因此要进行一定的拥塞控制使得发送方降低发送速率。发送方需要维护一个拥塞窗口（cwnd）状态变量：决定发送方能发送多少数据。</p>
-<h4 id="慢开始与拥塞避免"><a href="#慢开始与拥塞避免" class="headerlink" title="慢开始与拥塞避免"></a>慢开始与拥塞避免</h4><img src="https://i.loli.net/2020/10/30/8s2w3yMNVT6RL1k.png">
+<p><code>注释:1</code> 不能有等号，虽然我们定义的<code>left</code> <code>right</code> 是左闭右闭区间，但是题目要求一个数不能使用两次。因此不能取相等的情况。</p>
+<p>时间复杂度 : <code>O(NlogN+N) = O(NlogN)</code> 空间复杂度 : <code>O(N)</code> 主要是多了一份拷贝。</p>
+<h2 id="两数之和数据结构设计"><a href="#两数之和数据结构设计" class="headerlink" title="两数之和数据结构设计"></a>两数之和数据结构设计</h2><h3 id="设计API"><a href="#设计API" class="headerlink" title="设计API"></a>设计API</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoSum</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 向数组中添加一个新的数 number</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> number)</span></span>;</span><br><span class="line">    <span class="comment">// 查找当前数组中是否有两数之和为 value</span></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> value)</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>发送的最初执行慢开始，令 cwnd = 1，发送方只能发送 1 个报文段；当收到确认后，将 cwnd 加倍，因此之后发送方能够发送的报文段数量为：2、4、8 …</p>
-<p>注意到慢开始每个轮次都将 cwnd 加倍，这样会让 cwnd 增长速度非常快，从而使得发送方发送的速度增长速度过快，网络拥塞的可能性也就更高。设置一个慢开始门限 ssthresh，当 cwnd &gt;= ssthresh 时，进入拥塞避免，每个轮次只将 cwnd 加 1。</p>
-<p>如果出现了超时，则令 ssthresh = cwnd / 2，然后重新执行慢开始。</p>
-<h4 id="快速重传与快速恢复"><a href="#快速重传与快速恢复" class="headerlink" title="快速重传与快速恢复"></a>快速重传与快速恢复</h4><p>在接收方，要求每次接收到报文段都应该对最后一个已收到的有序报文段进行确认。例如已经接收到 M1 和 M2，此时收到 M4，应当发送对 M2 的确认。</p>
-<p>在发送方，如果收到三个重复确认，那么可以知道下一个报文段丢失，此时执行快重传，立即重传下一个报文段。例如收到三个 M2，则 M3 丢失，立即重传 M3。</p>
-<p>在这种情况下，只是丢失个别报文段，而不是网络拥塞。因此执行快恢复，令 ssthresh = cwnd / 2 ，cwnd = ssthresh，注意到此时直接进入拥塞避免。</p>
-<p>慢开始和快恢复的快慢指的是 cwnd 的设定值，而不是 cwnd 的增长速率。慢开始 cwnd 设定为 1，而快恢复 cwnd 设定为 ssthresh。</p>
-]]></content>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoSum</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; record; <span class="comment">//&lt;数值,索引&gt;</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> index;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> number)</span></span>&#123;</span><br><span class="line">        record[number] = index++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">        <span class="comment">//采用双指针法在红黑树的map</span></span><br><span class="line">        <span class="keyword">auto</span> left = record.begin();</span><br><span class="line">        <span class="keyword">auto</span> right = record.end();</span><br><span class="line">        right --;</span><br><span class="line">        <span class="keyword">while</span>(left != right)&#123;</span><br><span class="line">            <span class="keyword">int</span> sum = (*left).first + (*right).first; <span class="comment">//每一个节点是一个pair</span></span><br><span class="line">            <span class="keyword">if</span>(sum == value)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(sum &lt; value)</span><br><span class="line">                left ++;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(sum &gt; value)</span><br><span class="line">                right --;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">int</span> TwoSum::index = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p>实现find的时候，和我们做题的时候方法略有不同。因为我们做题的时候，是有vector作为数据的支撑，我们能够在一个随机访问的内存结构里存取数据，而现在我们整个类只有record这一个map&lt;int,int&gt;类的数据和一个静态索引值，而且红黑树的迭代器遍历顺序是按照key升序的，因此我们可以采用双指针的方式来遍历。</p>
+<p><code>class TwoSum</code> 空间复杂度 : <code>O(N)</code></p>
+<p><code>add(int)</code> 时间复杂度 : <code>O(1)</code> </p>
+<p><code>find(int)</code> 时间复杂度 : <code>O(N)</code> </p>
+<h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3><p>如果是一个查询次数明显对于插入次数的场景，那么我们的 <code>find()</code> 函数的效率就有点过于低下，我们会重复查询许多次。于是，我们可以把查询的结果也给存下来，记录下每一种可能的和的数值。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoSum</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums; <span class="comment">//记录现有数组</span></span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; sums; <span class="comment">//记录可能的和</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> number)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n:nums) <span class="comment">//每一次插入都把所有和给记录下来</span></span><br><span class="line">            sums.insert(n+number);</span><br><span class="line">        nums.push_back(number);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (sums.find(value) != sums.end()); <span class="comment">//查找到value返回true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>class TwoSum</code> 空间复杂度 : <code>O(N)</code></p>
+<p><code>add(int)</code> 时间复杂度 : <code>O(N)</code> </p>
+<p><code>find(int)</code> 时间复杂度 : <code>O(1)</code> </p>
+<blockquote>
+<p>  学习自 labuladong</p>
+</blockquote>
+<h2 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h2><h2 id="N数之和"><a href="#N数之和" class="headerlink" title="N数之和"></a>N数之和</h2>]]></content>
       <categories>
-        <category>网络通信</category>
-        <category>传输层</category>
-        <category>TCP</category>
+        <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>tcp</tag>
+        <tag>Leetcode</tag>
+        <tag>双指针</tag>
+        <tag>哈希表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>单调栈</title>
+    <url>/OXygenPanda.github.io/2020/10/06/leetcode/%E5%8D%95%E8%B0%83%E6%A0%88/</url>
+    <content><![CDATA[<a id="more"></a>
+
+<h1 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>单调栈是一种特殊的数据结构。专门用于解决一类问题叫做 Next Greater Number的问题。</p>
+<p>性质：单调栈本身还是栈，只是每一次入栈，都会使得栈的排列有序。(其实也就是不满足有序的元素都不要)</p>
+<p>通过适配 stack 而来。</p>
+<h1 id="Next-Greater-Number"><a href="#Next-Greater-Number" class="headerlink" title="Next Greater Number"></a>Next Greater Number</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>找到数组中每一个数之后最近的一个比该数大的数字(两种情况，返回索引或返回数值)</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">next_greater_elem</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp; nums)</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">res</span><span class="params">(nums.size())</span></span>; <span class="comment">//为了倒序访问,提前确定大小方便索引</span></span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt; s; <span class="comment">//单调栈 : pair&lt;数字,索引&gt;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=nums.size()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">        <span class="keyword">while</span>(!s.empty() &amp;&amp; s.top().first &lt;= nums[i]) <span class="comment">//如果栈顶端的数无法满足有序性,就全弹出</span></span><br><span class="line">            s.pop();</span><br><span class="line">        res[i] = (s.empty() == <span class="literal">true</span> ) ? <span class="number">0</span> : s.top().second-i; <span class="comment">//这里返回的是距离,也可返回索引或数值</span></span><br><span class="line">        s.push(<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;(nums[i],i)); <span class="comment">//插入pair&lt;数字,索引&gt;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(N) </p>
+<p>空间复杂度：O(N)</p>
+<h2 id="Leetcode-相关题目"><a href="#Leetcode-相关题目" class="headerlink" title="Leetcode 相关题目"></a>Leetcode 相关题目</h2><p><a href="https://leetcode-cn.com/problems/next-greater-element-i/">496. 下一个更大元素I</a></p>
+<p><a href="https://leetcode-cn.com/problems/next-greater-element-ii/">503.下一个更大元素II</a></p>
+<p><a href="https://leetcode-cn.com/problems/number-of-days-in-a-month">1118.一月有多少天</a></p>
+<blockquote>
+<p>  学习自labuladong</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+        <category>栈</category>
+      </categories>
+      <tags>
+        <tag>单调栈</tag>
+        <tag>栈</tag>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>单调队列</title>
+    <url>/OXygenPanda.github.io/2020/10/07/leetcode/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/</url>
+    <content><![CDATA[<a id="more"></a>
+
+<h1 id="单调队列"><a href="#单调队列" class="headerlink" title="单调队列"></a>单调队列</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>单调队列是一种特殊的数据结构。用来保持一个有序的队列。(无序的数据出队列)</p>
+<p>通过适配 deque 而来。</p>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt; <span class="class"><span class="keyword">class</span> <span class="title">Type</span> &gt;</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">monotonous_queue</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">deque</span>&lt;Type&gt; data; <span class="comment">//或者使用queue</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(Type)</span></span>; <span class="comment">//尾部插入到单调队列中</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">(Type)</span></span>; <span class="comment">//从头部离开单调队列</span></span><br><span class="line">    <span class="function">Type <span class="title">max</span><span class="params">()</span></span>; <span class="comment">//返回单调队列中的最大元素</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt; <span class="class"><span class="keyword">class</span> <span class="title">Type</span> &gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">monotonous_queue</span>&lt;Type&gt;:</span>:push(Type n)&#123;</span><br><span class="line">    <span class="keyword">while</span>(!data.empty() &amp;&amp; n &gt; data.back()) <span class="comment">//保持单调队列特性，尾部比输入小的数值全部舍弃</span></span><br><span class="line">        data.pop_back();</span><br><span class="line">    data.push_back(n);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt; <span class="class"><span class="keyword">class</span> <span class="title">Type</span> &gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">monotonous_queue</span>&lt;Type&gt;:</span>:pop(Type n)&#123; </span><br><span class="line">    <span class="keyword">if</span>(!data.empty() &amp;&amp; data.front() == n) <span class="comment">//有可能在pop之前，就因为push()中的步骤pop掉</span></span><br><span class="line">        data.pop_front();</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt; <span class="class"><span class="keyword">class</span> <span class="title">Type</span> &gt;</span></span><br><span class="line"><span class="class"><span class="title">Type</span> <span class="title">monotonous_queue</span>&lt;Type&gt;:</span>:max()&#123;</span><br><span class="line">    <span class="keyword">return</span> data.front();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实际上单调队列这一种数据结构使用的是队列中的<code>pop_back()</code>  <code>push_back()</code> <code>pop_front()</code> <code>back()</code> <code>front()</code> 方法，queue容器中不提供 <code>pop_back()</code> 方法，因此不可以通过适配 queue 而来。</p>
+<h2 id="Leetcode-239-滑动窗口最大值"><a href="#Leetcode-239-滑动窗口最大值" class="headerlink" title="Leetcode 239 滑动窗口最大值"></a>Leetcode 239 滑动窗口最大值</h2><p>难度:hard</p>
+<p>链接:<a href="https://leetcode-cn.com/problems/sliding-window-maximum/">https://leetcode-cn.com/problems/sliding-window-maximum/</a></p>
+<p>源码:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">maxSlidingWindow</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    monotonous_queue&lt;<span class="keyword">int</span>&gt; mq;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();++i)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;k<span class="number">-1</span>) <span class="comment">//当前滑动窗口中的元素小于k个时,直接入队</span></span><br><span class="line">            mq.push(nums[i]);</span><br><span class="line">        <span class="keyword">else</span>&#123; <span class="comment">//入队后,输出窗口中的最大值给res,再弹出最前端为 nums[i-k+1] 的值,没有就不弹出</span></span><br><span class="line">            mq.push(nums[i]);</span><br><span class="line">            res.push_back(mq.max());</span><br><span class="line">            mq.pop(nums[i-k+<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(N) </p>
+<p>空间复杂度：O(k)</p>
+<blockquote>
+<p>  学习自labuladong</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+        <category>队列</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>单调队列</tag>
+        <tag>队列</tag>
       </tags>
   </entry>
   <entry>
@@ -690,6 +619,113 @@
         <tag>栈</tag>
         <tag>数据结构</tag>
         <tag>二叉树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TCP通信[未完成]</title>
+    <url>/OXygenPanda.github.io/2020/10/26/%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-TCP/</url>
+    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>传输控制协议( TCP : Transmission Control Protocol )，是一种面向连接的，可靠的传输层控制协议。</p>
+<h2 id="面向连接"><a href="#面向连接" class="headerlink" title="面向连接"></a>面向连接</h2><p>一般，客户端发送给服务端的一个数据包携带的数据最大为1460字节。是因为，以太网帧结构数据长度是1500字节，其中包含20字节的IP头部以及20字节的TCP头部，所以数据能够携带1460字节。</p>
+<h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><p>三次握手，由内核完成。反应在程序中，是由客户端程序的 connect() 开始，由 服务端程序的 accept() 返回结束。</p>
+<p>示例</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">客户端发送：SYN <span class="number">1000</span>(<span class="number">0</span>) win <span class="number">4096</span> &lt;mss <span class="number">1460</span>&gt;</span><br><span class="line">服务端发送：SYN <span class="number">8000</span>(<span class="number">0</span>) win <span class="number">6144</span> ACK <span class="number">1001</span> &lt;mss <span class="number">1024</span>&gt;  <span class="comment">//ACK 1001 是接收到的序号+数据字节(SYN标志位也得占1字节)</span></span><br><span class="line">客户端发送：ACK <span class="number">8001</span>    win <span class="number">4096</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">** (0)        : 表示携带数据为0字节</span></span><br><span class="line"><span class="comment">** win 4096   : 发送端滑动窗口缓存4096字节</span></span><br><span class="line"><span class="comment">** &lt;mss 1460&gt; : 表示携带数据最大字节数为1460字节</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>总结</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">主动发起连接请求端：发送SYN标志位，请求建立连接。携带数据包包号，数据字节数(0)，滑动窗口大小</span><br><span class="line">被动接受连接请求端：发送ACK标志位，同时携带SYN请求标志位。携带序号，确认序号，数据字节数(0)，滑动窗口大小</span><br><span class="line">主动发起连接请求段：发送ACK标志位，应答服务器连接请求。携带确认序号。</span><br></pre></td></tr></table></figure>
+
+<p>要点</p>
+<p>为什么不是二次握手？</p>
+<ol>
+<li>彼此确定收发能力</li>
+</ol>
+<ul>
+<li>第一次客户端发送请求，服务端接收请求：服务端知道了客户端有发送的能力。</li>
+<li>第二次服务端发送请求，客户端接收请求：客户端知道了服务端有收发的能力。</li>
+<li>此时，服务端不知道客户端是不是有接收的能力。因此需要客户端再次告知服务端。</li>
+</ul>
+<ol start="2">
+<li>避免两次连接</li>
+</ol>
+<ul>
+<li>客户端发送的连接请求如果滞留在网络中，等到超时重传，会再次发起连接请求，而服务器接收到两个连接请求会打开两个连接。因此，需要三次握手。</li>
+</ul>
+<p>第三次客户端发送ACK时，可以携带数据</p>
+<ul>
+<li>因为此时，客户端服务端都知道双方都有收发数据的能力，所以可以开始通信。</li>
+</ul>
+<h2 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h2><p>四次挥手，目的是断开客户端到服务端的全双工链路。断开一端称为半关闭，会关闭一端的套接字的一个缓存区。</p>
+<p>示例</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">客户端发送：FIN <span class="number">501</span>(<span class="number">0</span>)  ACK <span class="number">701</span> </span><br><span class="line">服务端发送：ACK <span class="number">502</span>             ---- 半关闭</span><br><span class="line">服务端发送：FIN <span class="number">701</span>(<span class="number">0</span>)  ACK <span class="number">502</span></span><br><span class="line">客户端发送：ACK <span class="number">702</span>             ---- 完全断开</span><br></pre></td></tr></table></figure>
+
+<p>总结</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">主动关闭连接请求端：发送FIN标志位。</span><br><span class="line">被动关闭连接请求端：应答ACK标志位。 ———— 半关闭完成</span><br><span class="line">被动关闭连接请求端：发送FIN标志位。</span><br><span class="line">主动关闭连接请求端：应答ACK标志位。 —————连接全部关闭</span><br></pre></td></tr></table></figure>
+
+<p>客户端接收到服务器的应答之后，进入半关闭状态，不能发送数据给服务器，而服务器会在发送完剩余数据后，发起关闭请求，客户端应答服务器后需要等待 2MSL(最大报文存活时间)后释放连接。原因如下：</p>
+<ul>
+<li>如果客户端的应答数据包丢失，那么服务器会再次发送断开请求。</li>
+<li>等待一段时间，使本次连接过程中产生的数据包在网络中消失。</li>
+</ul>
+<h2 id="可靠传输"><a href="#可靠传输" class="headerlink" title="可靠传输"></a>可靠传输</h2><h3 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h3><p>TCP使用超时重传来实现可靠传输：如果一个已经发送的报文段在超时时间内没有收到确认，那么就重传这个报文段。</p>
+<p>一个报文段从发送到接收到确定所经历的时间称为往返时间RTT(加权平均RTTs)。超时时间 RTO 应该略大于 RTTs 。TCP使用的超时时间计算是 : RTO = RTTs + 4 * RTTd 。RTTd : 偏差的加权平均值。</p>
+<h3 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h3><p>滑动窗口是一个缓存区，用于暂时存放字节流。发送方和接收方各有一个窗口，接收方通过TCP报文段中的窗口字段告诉发送方自己的窗口大小，发送方根据这个值和其他信息来设置自己的窗口大小。</p>
+<p>对于发送方来说，当窗口靠左侧的数据包已经成功发送并被确认后，窗口向右滑动直到某一个未发送或者未确认的字节位置。</p>
+<p>对于接收方来说，当窗口靠左侧的数据包已经收到，窗口向右滑动直到某一个未接收到的字节。</p>
+<h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><p>流量控制是为了控制发送方发送速率，保证接收方来得及接收。</p>
+<p>接收方发送的确认报文中的窗口字段可以用来控制发送方窗口大小，从而影响发送方的发送速率。将窗口字段设置为 0，则发送方不能发送数据。</p>
+<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>如果网络出现拥塞，发送方发送的数据包丢失，发送方重传导致网络难以恢复。因此要进行一定的拥塞控制使得发送方降低发送速率。发送方需要维护一个拥塞窗口（cwnd）状态变量：决定发送方能发送多少数据。</p>
+<h4 id="慢开始与拥塞避免"><a href="#慢开始与拥塞避免" class="headerlink" title="慢开始与拥塞避免"></a>慢开始与拥塞避免</h4><img src="https://i.loli.net/2020/10/30/8s2w3yMNVT6RL1k.png">
+
+<p>发送的最初执行慢开始，令 cwnd = 1，发送方只能发送 1 个报文段；当收到确认后，将 cwnd 加倍，因此之后发送方能够发送的报文段数量为：2、4、8 …</p>
+<p>注意到慢开始每个轮次都将 cwnd 加倍，这样会让 cwnd 增长速度非常快，从而使得发送方发送的速度增长速度过快，网络拥塞的可能性也就更高。设置一个慢开始门限 ssthresh，当 cwnd &gt;= ssthresh 时，进入拥塞避免，每个轮次只将 cwnd 加 1。</p>
+<p>如果出现了超时，则令 ssthresh = cwnd / 2，然后重新执行慢开始。</p>
+<h4 id="快速重传与快速恢复"><a href="#快速重传与快速恢复" class="headerlink" title="快速重传与快速恢复"></a>快速重传与快速恢复</h4><p>在接收方，要求每次接收到报文段都应该对最后一个已收到的有序报文段进行确认。例如已经接收到 M1 和 M2，此时收到 M4，应当发送对 M2 的确认。</p>
+<p>在发送方，如果收到三个重复确认，那么可以知道下一个报文段丢失，此时执行快重传，立即重传下一个报文段。例如收到三个 M2，则 M3 丢失，立即重传 M3。</p>
+<p>在这种情况下，只是丢失个别报文段，而不是网络拥塞。因此执行快恢复，令 ssthresh = cwnd / 2 ，cwnd = ssthresh，注意到此时直接进入拥塞避免。</p>
+<p>慢开始和快恢复的快慢指的是 cwnd 的设定值，而不是 cwnd 的增长速率。慢开始 cwnd 设定为 1，而快恢复 cwnd 设定为 ssthresh。</p>
+]]></content>
+      <categories>
+        <category>网络通信</category>
+        <category>传输层</category>
+        <category>TCP</category>
+      </categories>
+      <tags>
+        <tag>tcp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>shared_ptr的简单实现</title>
+    <url>/OXygenPanda.github.io/2020/11/12/C++11/smart_ptr/</url>
+    <content><![CDATA[<h1 id="智能指针的实现"><a href="#智能指针的实现" class="headerlink" title="智能指针的实现"></a>智能指针的实现</h1><p align="center">
+<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
+<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
+<a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
+
+</p><p>程序运行时需要分配内存释放内存, 在C++中我们使用关键词 <code>new</code> 和 <code>delete</code> . </p>
+<p><code>new</code> 是一个运算符, 负责申请堆内存, 分为两个步骤 : 1.malloc 2.operator new, 即先申请内存, 再构造对象. 最后返回该堆内存的指针. </p>
+<p><code>delete</code>也是一个运算符, 负责释放堆内存, 分为两个步骤 :1.operator delete 2.free, 即先调用对象的析构函数, 再释放内存.</p>
+<p>堆内存需要程序员手动释放, 因此如果程序抛出异常, 来不及释放内存或者忘记释放内存都会导致内存泄漏. </p>
+<a id="more"></a>
+
+<p>因此, C++11以后有了三种更加安全, 更加智能的”指针”. 说是指针, 其实是用起来像指针的类. 这一种思想和STL的仿函数, 迭代器中类似.</p>
+<p>标准库提供的三种智能指针的区别在于管理底层指针的方法不同, <code>shared_ptr</code> 允许多个指针指向同一个对象, <code>unique_ptr</code> 则”独占”所指向的对象. 标准库还定义了一种名为<code>weak_ptr</code>的伴随类, 它是一种弱引用, 指向<code>shared_ptr</code>所管理的对象, 这三种智能指针都定义在<code>memory</code>头文件中.</p>
+<p>这一篇文章主要是手动实现了一下 <code>shared_ptr</code> 和 <code>unique_ptr</code> 类. </p>
+<h2 id="shared-ptr"><a href="#shared-ptr" class="headerlink" title="shared_ptr"></a>shared_ptr</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">myshared_ptr</span>&#123;</span></span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		T * _ptr;</span><br><span class="line">		<span class="keyword">int</span> * _count;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="comment">// 构造函数</span></span><br><span class="line">		myshared_ptr():_ptr(<span class="literal">nullptr</span>),_count(<span class="literal">nullptr</span>)&#123;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;default ctor&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		myshared_ptr(T * ptr):_ptr(ptr),_count(<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">1</span>))&#123;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;raw pointer ctor : &quot;</span> &lt;&lt; *ptr  &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		myshared_ptr(myshared_ptr &amp; ref):_ptr(ref._ptr),_count(&amp;(++*(ref._count)))&#123;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;shared_ptr ctor : &quot;</span> &lt;&lt; *ref._ptr &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 析构函数</span></span><br><span class="line">		~myshared_ptr()&#123;</span><br><span class="line">			<span class="keyword">if</span>(--*(<span class="keyword">this</span>-&gt;_count) == <span class="number">0</span>)&#123;</span><br><span class="line">				<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; *_ptr &lt;&lt; <span class="string">&quot; dector!&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">				<span class="keyword">delete</span> _ptr;</span><br><span class="line">				<span class="keyword">delete</span> _count;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 拷贝赋值</span></span><br><span class="line">		myshared_ptr &amp; <span class="keyword">operator</span>=(myshared_ptr &amp; ref)&#123;</span><br><span class="line">			<span class="keyword">if</span>(&amp;ref == <span class="keyword">this</span>)</span><br><span class="line">				<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">			++*ref._count;</span><br><span class="line">			<span class="keyword">if</span>(--*(<span class="keyword">this</span>-&gt;_count) == <span class="number">0</span>)&#123;</span><br><span class="line">				<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; *_ptr &lt;&lt; <span class="string">&quot; dector!&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">				<span class="keyword">delete</span> <span class="keyword">this</span>-&gt;_ptr;</span><br><span class="line">				<span class="keyword">delete</span> <span class="keyword">this</span>-&gt;_count;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">this</span>-&gt;_ptr = ref._ptr;</span><br><span class="line">			<span class="keyword">this</span>-&gt;_count = ref._count;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;operator = success&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">		<span class="comment">// 引用</span></span><br><span class="line">	    T <span class="keyword">operator</span>*()&#123;</span><br><span class="line">			<span class="keyword">if</span>(_count == <span class="number">0</span>)</span><br><span class="line">				<span class="keyword">return</span> (T)<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">return</span> *<span class="keyword">this</span>-&gt;_ptr;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 箭头</span></span><br><span class="line">	    T * <span class="keyword">operator</span>-&gt;()&#123;</span><br><span class="line">			<span class="keyword">if</span>(_count == <span class="number">0</span>)</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span>-&gt;_ptr;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//main()</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line">    <span class="function">myshared_ptr&lt;<span class="built_in">string</span>&gt; <span class="title">pstr1</span><span class="params">(<span class="keyword">new</span> <span class="built_in">string</span>(<span class="string">&quot;hello&quot;</span>))</span></span>;</span><br><span class="line">    <span class="function">myshared_ptr&lt;<span class="built_in">string</span>&gt; <span class="title">pstr2</span><span class="params">(pstr1)</span></span>;</span><br><span class="line">    <span class="function">myshared_ptr&lt;<span class="built_in">string</span>&gt; <span class="title">pstr3</span><span class="params">(<span class="keyword">new</span> <span class="built_in">string</span>(<span class="string">&quot;world&quot;</span>))</span></span>;</span><br><span class="line">    pstr3 = pstr1;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//运行结果</span></span><br><span class="line">--------------------</span><br><span class="line">raw pointer ctor : hello</span><br><span class="line"><span class="built_in">shared_ptr</span> ctor : hello</span><br><span class="line">raw pointer ctor : world</span><br><span class="line">world dector!</span><br><span class="line"><span class="keyword">operator</span> = success</span><br><span class="line">hello dector!</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="unique-ptr"><a href="#unique-ptr" class="headerlink" title="unique_ptr"></a>unique_ptr</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Deleter</span>&#123;</span></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">(T *p)</span></span>&#123;</span><br><span class="line">			<span class="keyword">delete</span> p;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> D = Deleter&gt;</span><br><span class="line">class myunique_ptr&#123;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * 1. 一个对象只能有一个 unique_ptr 指向, 当指针销毁,对象也销毁</span></span><br><span class="line"><span class="comment">	 * 2. 初始化 unique_ptr 只能采用直接初始化的方式(explicit 修饰构造函数)</span></span><br><span class="line"><span class="comment">	 * 3. 不支持拷贝构造和拷贝赋值</span></span><br><span class="line"><span class="comment">	 * 4. 支持搬移构造和搬移赋值获得函数返回值或者函数局部变量</span></span><br><span class="line"><span class="comment">	 * 5. 必须提供删除器</span></span><br><span class="line"><span class="comment">	 *</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		T * _ptr;</span><br><span class="line">		D del;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">explicit</span> <span class="title">myunique_ptr</span><span class="params">(T *pointer = <span class="literal">nullptr</span>, <span class="keyword">const</span> D &amp;dd = D())</span></span></span><br><span class="line">			:_ptr(pointer),del(dd)&#123;&#125;</span><br><span class="line">		~myunique_ptr()&#123;</span><br><span class="line">			<span class="keyword">delete</span> _ptr;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		myunique_ptr(<span class="keyword">const</span> myunique_ptr&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">		myunique_ptr &amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> myunique_ptr&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		myunique_ptr(myunique_ptr &amp;&amp; right_value)</span><br><span class="line">			:_ptr(right_value._ptr),del(<span class="built_in">std</span>::move(right_value.del))&#123;</span><br><span class="line">				right_value._ptr = <span class="literal">nullptr</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		myunique_ptr &amp; <span class="keyword">operator</span>=(myunique_ptr &amp;&amp; right_value) <span class="keyword">noexcept</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(<span class="keyword">this</span> != &amp;right_value)&#123;</span><br><span class="line">				<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;operator &amp;&amp; right_value&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">				del(*<span class="keyword">this</span>);</span><br><span class="line">				_ptr = right_value._ptr;</span><br><span class="line">				del = <span class="built_in">std</span>::move(right_value.del);</span><br><span class="line">				right_value._ptr = <span class="literal">nullptr</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="comment">// release() 返回资源,释放管理</span></span><br><span class="line">		<span class="function">T * <span class="title">release</span><span class="params">()</span></span>&#123;</span><br><span class="line">			T * tmp = _ptr;</span><br><span class="line">			_ptr = <span class="literal">nullptr</span>;</span><br><span class="line">			<span class="keyword">return</span> tmp;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// reset()</span></span><br><span class="line">		<span class="comment">// reset(T * ptr)</span></span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">reset</span><span class="params">()</span></span>&#123;</span><br><span class="line">			del(_ptr);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">reset</span><span class="params">(T * ptr)</span></span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(_ptr != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">				del(_ptr);</span><br><span class="line">				_ptr = ptr;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// swap()</span></span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(myunique_ptr &amp; other)</span> <span class="keyword">noexcept</span></span>&#123;</span><br><span class="line">			<span class="keyword">using</span> <span class="built_in">std</span>::swap;</span><br><span class="line">			swap(_ptr, other._ptr);</span><br><span class="line">			swap(del, other.del);</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">T* <span class="title">get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> _ptr; &#125;</span><br><span class="line">		<span class="function">D&amp; <span class="title">get_deleter</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> del;   &#125;</span><br><span class="line">		T&amp; <span class="keyword">operator</span>*()   &#123; <span class="keyword">return</span> *_ptr; &#125;</span><br><span class="line">		T* <span class="keyword">operator</span>-&gt;()  &#123; <span class="keyword">return</span> _ptr;  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//main</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	base()&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;ctor&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	~base()&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;dector&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	base(<span class="keyword">const</span> base&amp;)&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;left_value ctor&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	base(base&amp;&amp;)&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;right_value ctor&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">base_deleter</span>&#123;</span></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">(base* p)</span> <span class="keyword">const</span></span>&#123;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;deleter function call&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">delete</span> p;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> ** argv)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// myunique_ptr&lt;string&gt; uptr1;</span></span><br><span class="line">		<span class="comment">// myunique_ptr&lt;string&gt; uptr2(new string(&quot;abc&quot;));</span></span><br><span class="line">		<span class="comment">// myunique_ptr&lt;string&gt; uptr3(nullptr);</span></span><br><span class="line">		<span class="comment">//</span></span><br><span class="line">		base_deleter d;</span><br><span class="line">		myunique_ptr&lt;base,base_deleter&gt; uptr1;</span><br><span class="line">		myunique_ptr&lt;base,base_deleter&gt; uptr2(nullptr);</span><br><span class="line">		myunique_ptr&lt;base,base_deleter&gt; uptr3(new base);</span><br><span class="line">		myunique_ptr&lt;base,base_deleter&gt; uptr4(new base, d);</span><br><span class="line">		base* fp = uptr4.release();</span><br><span class="line">		assert(uptr4.get() == <span class="literal">nullptr</span>);</span><br><span class="line">		<span class="keyword">delete</span> fp;</span><br><span class="line">		uptr3.reset(<span class="keyword">new</span> base());</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//结果</span></span><br><span class="line">--------------------</span><br><span class="line">ctor</span><br><span class="line">ctor</span><br><span class="line">dector</span><br><span class="line">ctor</span><br><span class="line">deleter function call</span><br><span class="line">dector</span><br><span class="line">dector</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++11</tag>
+        <tag>智能指针</tag>
       </tags>
   </entry>
   <entry>
@@ -947,42 +983,6 @@
       </categories>
       <tags>
         <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>shared_ptr的简单实现</title>
-    <url>/OXygenPanda.github.io/2020/11/12/C++11/smart_ptr/</url>
-    <content><![CDATA[<h1 id="智能指针的实现"><a href="#智能指针的实现" class="headerlink" title="智能指针的实现"></a>智能指针的实现</h1><p align="center">
-<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
-<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
-<a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
-
-</p><p>程序运行时需要分配内存释放内存, 在C++中我们使用关键词 <code>new</code> 和 <code>delete</code> . </p>
-<p><code>new</code> 是一个运算符, 负责申请堆内存, 分为两个步骤 : 1.malloc 2.operator new, 即先申请内存, 再构造对象. 最后返回该堆内存的指针. </p>
-<p><code>delete</code>也是一个运算符, 负责释放堆内存, 分为两个步骤 :1.operator delete 2.free, 即先调用对象的析构函数, 再释放内存.</p>
-<p>堆内存需要程序员手动释放, 因此如果程序抛出异常, 来不及释放内存或者忘记释放内存都会导致内存泄漏. </p>
-<a id="more"></a>
-
-<p>因此, C++11以后有了三种更加安全, 更加智能的”指针”. 说是指针, 其实是用起来像指针的类. 这一种思想和STL的仿函数, 迭代器中类似.</p>
-<p>标准库提供的三种智能指针的区别在于管理底层指针的方法不同, <code>shared_ptr</code> 允许多个指针指向同一个对象, <code>unique_ptr</code> 则”独占”所指向的对象. 标准库还定义了一种名为<code>weak_ptr</code>的伴随类, 它是一种弱引用, 指向<code>shared_ptr</code>所管理的对象, 这三种智能指针都定义在<code>memory</code>头文件中.</p>
-<p>这一篇文章主要是手动实现了一下 <code>shared_ptr</code> 和 <code>unique_ptr</code> 类. </p>
-<h2 id="shared-ptr"><a href="#shared-ptr" class="headerlink" title="shared_ptr"></a>shared_ptr</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">myshared_ptr</span>&#123;</span></span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		T * _ptr;</span><br><span class="line">		<span class="keyword">int</span> * _count;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="comment">// 构造函数</span></span><br><span class="line">		myshared_ptr():_ptr(<span class="literal">nullptr</span>),_count(<span class="literal">nullptr</span>)&#123;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;default ctor&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		myshared_ptr(T * ptr):_ptr(ptr),_count(<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">1</span>))&#123;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;raw pointer ctor : &quot;</span> &lt;&lt; *ptr  &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		myshared_ptr(myshared_ptr &amp; ref):_ptr(ref._ptr),_count(&amp;(++*(ref._count)))&#123;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;shared_ptr ctor : &quot;</span> &lt;&lt; *ref._ptr &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 析构函数</span></span><br><span class="line">		~myshared_ptr()&#123;</span><br><span class="line">			<span class="keyword">if</span>(--*(<span class="keyword">this</span>-&gt;_count) == <span class="number">0</span>)&#123;</span><br><span class="line">				<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; *_ptr &lt;&lt; <span class="string">&quot; dector!&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">				<span class="keyword">delete</span> _ptr;</span><br><span class="line">				<span class="keyword">delete</span> _count;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 拷贝赋值</span></span><br><span class="line">		myshared_ptr &amp; <span class="keyword">operator</span>=(myshared_ptr &amp; ref)&#123;</span><br><span class="line">			<span class="keyword">if</span>(&amp;ref == <span class="keyword">this</span>)</span><br><span class="line">				<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">			++*ref._count;</span><br><span class="line">			<span class="keyword">if</span>(--*(<span class="keyword">this</span>-&gt;_count) == <span class="number">0</span>)&#123;</span><br><span class="line">				<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; *_ptr &lt;&lt; <span class="string">&quot; dector!&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">				<span class="keyword">delete</span> <span class="keyword">this</span>-&gt;_ptr;</span><br><span class="line">				<span class="keyword">delete</span> <span class="keyword">this</span>-&gt;_count;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">this</span>-&gt;_ptr = ref._ptr;</span><br><span class="line">			<span class="keyword">this</span>-&gt;_count = ref._count;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;operator = success&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">		<span class="comment">// 引用</span></span><br><span class="line">	    T <span class="keyword">operator</span>*()&#123;</span><br><span class="line">			<span class="keyword">if</span>(_count == <span class="number">0</span>)</span><br><span class="line">				<span class="keyword">return</span> (T)<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">return</span> *<span class="keyword">this</span>-&gt;_ptr;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 箭头</span></span><br><span class="line">	    T * <span class="keyword">operator</span>-&gt;()&#123;</span><br><span class="line">			<span class="keyword">if</span>(_count == <span class="number">0</span>)</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span>-&gt;_ptr;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//main()</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line">    <span class="function">myshared_ptr&lt;<span class="built_in">string</span>&gt; <span class="title">pstr1</span><span class="params">(<span class="keyword">new</span> <span class="built_in">string</span>(<span class="string">&quot;hello&quot;</span>))</span></span>;</span><br><span class="line">    <span class="function">myshared_ptr&lt;<span class="built_in">string</span>&gt; <span class="title">pstr2</span><span class="params">(pstr1)</span></span>;</span><br><span class="line">    <span class="function">myshared_ptr&lt;<span class="built_in">string</span>&gt; <span class="title">pstr3</span><span class="params">(<span class="keyword">new</span> <span class="built_in">string</span>(<span class="string">&quot;world&quot;</span>))</span></span>;</span><br><span class="line">    pstr3 = pstr1;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//运行结果</span></span><br><span class="line">--------------------</span><br><span class="line">raw pointer ctor : hello</span><br><span class="line"><span class="built_in">shared_ptr</span> ctor : hello</span><br><span class="line">raw pointer ctor : world</span><br><span class="line">world dector!</span><br><span class="line"><span class="keyword">operator</span> = success</span><br><span class="line">hello dector!</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="unique-ptr"><a href="#unique-ptr" class="headerlink" title="unique_ptr"></a>unique_ptr</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Deleter</span>&#123;</span></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">(T *p)</span></span>&#123;</span><br><span class="line">			<span class="keyword">delete</span> p;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> D = Deleter&gt;</span><br><span class="line">class myunique_ptr&#123;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * 1. 一个对象只能有一个 unique_ptr 指向, 当指针销毁,对象也销毁</span></span><br><span class="line"><span class="comment">	 * 2. 初始化 unique_ptr 只能采用直接初始化的方式(explicit 修饰构造函数)</span></span><br><span class="line"><span class="comment">	 * 3. 不支持拷贝构造和拷贝赋值</span></span><br><span class="line"><span class="comment">	 * 4. 支持搬移构造和搬移赋值获得函数返回值或者函数局部变量</span></span><br><span class="line"><span class="comment">	 * 5. 必须提供删除器</span></span><br><span class="line"><span class="comment">	 *</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		T * _ptr;</span><br><span class="line">		D del;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">explicit</span> <span class="title">myunique_ptr</span><span class="params">(T *pointer = <span class="literal">nullptr</span>, <span class="keyword">const</span> D &amp;dd = D())</span></span></span><br><span class="line">			:_ptr(pointer),del(dd)&#123;&#125;</span><br><span class="line">		~myunique_ptr()&#123;</span><br><span class="line">			<span class="keyword">delete</span> _ptr;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		myunique_ptr(<span class="keyword">const</span> myunique_ptr&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">		myunique_ptr &amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> myunique_ptr&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		myunique_ptr(myunique_ptr &amp;&amp; right_value)</span><br><span class="line">			:_ptr(right_value._ptr),del(<span class="built_in">std</span>::move(right_value.del))&#123;</span><br><span class="line">				right_value._ptr = <span class="literal">nullptr</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		myunique_ptr &amp; <span class="keyword">operator</span>=(myunique_ptr &amp;&amp; right_value) <span class="keyword">noexcept</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(<span class="keyword">this</span> != &amp;right_value)&#123;</span><br><span class="line">				<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;operator &amp;&amp; right_value&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">				del(*<span class="keyword">this</span>);</span><br><span class="line">				_ptr = right_value._ptr;</span><br><span class="line">				del = <span class="built_in">std</span>::move(right_value.del);</span><br><span class="line">				right_value._ptr = <span class="literal">nullptr</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="comment">// release() 返回资源,释放管理</span></span><br><span class="line">		<span class="function">T * <span class="title">release</span><span class="params">()</span></span>&#123;</span><br><span class="line">			T * tmp = _ptr;</span><br><span class="line">			_ptr = <span class="literal">nullptr</span>;</span><br><span class="line">			<span class="keyword">return</span> tmp;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// reset()</span></span><br><span class="line">		<span class="comment">// reset(T * ptr)</span></span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">reset</span><span class="params">()</span></span>&#123;</span><br><span class="line">			del(_ptr);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">reset</span><span class="params">(T * ptr)</span></span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(_ptr != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">				del(_ptr);</span><br><span class="line">				_ptr = ptr;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// swap()</span></span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(myunique_ptr &amp; other)</span> <span class="keyword">noexcept</span></span>&#123;</span><br><span class="line">			<span class="keyword">using</span> <span class="built_in">std</span>::swap;</span><br><span class="line">			swap(_ptr, other._ptr);</span><br><span class="line">			swap(del, other.del);</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function">T* <span class="title">get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> _ptr; &#125;</span><br><span class="line">		<span class="function">D&amp; <span class="title">get_deleter</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> del;   &#125;</span><br><span class="line">		T&amp; <span class="keyword">operator</span>*()   &#123; <span class="keyword">return</span> *_ptr; &#125;</span><br><span class="line">		T* <span class="keyword">operator</span>-&gt;()  &#123; <span class="keyword">return</span> _ptr;  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//main</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	base()&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;ctor&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	~base()&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;dector&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	base(<span class="keyword">const</span> base&amp;)&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;left_value ctor&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	base(base&amp;&amp;)&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;right_value ctor&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">base_deleter</span>&#123;</span></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">(base* p)</span> <span class="keyword">const</span></span>&#123;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;deleter function call&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">delete</span> p;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> ** argv)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// myunique_ptr&lt;string&gt; uptr1;</span></span><br><span class="line">		<span class="comment">// myunique_ptr&lt;string&gt; uptr2(new string(&quot;abc&quot;));</span></span><br><span class="line">		<span class="comment">// myunique_ptr&lt;string&gt; uptr3(nullptr);</span></span><br><span class="line">		<span class="comment">//</span></span><br><span class="line">		base_deleter d;</span><br><span class="line">		myunique_ptr&lt;base,base_deleter&gt; uptr1;</span><br><span class="line">		myunique_ptr&lt;base,base_deleter&gt; uptr2(nullptr);</span><br><span class="line">		myunique_ptr&lt;base,base_deleter&gt; uptr3(new base);</span><br><span class="line">		myunique_ptr&lt;base,base_deleter&gt; uptr4(new base, d);</span><br><span class="line">		base* fp = uptr4.release();</span><br><span class="line">		assert(uptr4.get() == <span class="literal">nullptr</span>);</span><br><span class="line">		<span class="keyword">delete</span> fp;</span><br><span class="line">		uptr3.reset(<span class="keyword">new</span> base());</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//结果</span></span><br><span class="line">--------------------</span><br><span class="line">ctor</span><br><span class="line">ctor</span><br><span class="line">dector</span><br><span class="line">ctor</span><br><span class="line">deleter function call</span><br><span class="line">dector</span><br><span class="line">dector</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>C++11</tag>
-        <tag>智能指针</tag>
       </tags>
   </entry>
   <entry>
@@ -3533,6 +3533,286 @@
 <ul>
 <li>Socket</li>
 </ul>
+<h1 id="第十二章"><a href="#第十二章" class="headerlink" title="第十二章"></a>第十二章</h1><blockquote>
+<p>  第十二章的主要内容是：文件管理</p>
+</blockquote>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="文件系统和文件"><a href="#文件系统和文件" class="headerlink" title="文件系统和文件"></a>文件系统和文件</h3><p>文件系统: 一种用于持久性存储的系统抽象</p>
+<ul>
+<li>在存储上: 组织,控制,导航,访问和检索数据</li>
+<li>在大多数计算机系统包含文件系统</li>
+<li>个人电脑,服务器,笔记本电脑</li>
+<li>ipod,tivo,机顶盒,手机,电脑</li>
+<li>google可能也是由一个文件系统构成的</li>
+</ul>
+<p>文件: 文件系统中的一个单元的相关数据在操作系统中的抽象</p>
+<p>文件系统的功能:</p>
+<ul>
+<li>分配文件磁盘空间<ul>
+<li>管理文件块(哪一块属于哪一个文件)</li>
+<li>管理空闲空间(哪一块是空闲的)</li>
+<li>分配算法(策略)</li>
+</ul>
+</li>
+<li>管理文件集合<ul>
+<li>定位文件及其内容</li>
+<li>命名: 通过名字找到文件的接口</li>
+<li>最常见: 分层文件系统</li>
+<li>文件系统类型(组织文件的不同方式)</li>
+</ul>
+</li>
+<li>提供的便利及特征<ul>
+<li>保护: 分层来保护数据安全</li>
+<li>可靠性,持久性: 保持文件的持久即使发生崩溃,媒体错误,攻击等</li>
+</ul>
+</li>
+</ul>
+<p>文件和块:</p>
+<p>文件属性: 名称,类型,位置,大小,保护,创建者,创建时间,最久修改时间…</p>
+<p>文件头: 在存储元数据中保存了每个文件的信息,保存文件的属性,跟踪哪一块存储块属于逻辑上文件结构的哪个偏移</p>
+<h3 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h3><p>文件使用模式:</p>
+<p>使用程序必须在使用前先”打开”文件</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">f = open(name, flag);</span><br><span class="line">...</span><br><span class="line">... = read(f, ...);</span><br><span class="line">...</span><br><span class="line">close(f);</span><br></pre></td></tr></table></figure>
+
+<p>内核跟踪每个进程打开的文件:</p>
+<ul>
+<li>操作系统为每个进程维护一个打开文件表</li>
+<li>一个打开文件描述符是这个表中的索引</li>
+</ul>
+<p>需要元数据来管理打开文件:</p>
+<p>文件指针: 指向最近的一次读写位置,每个打开了这个文件的进程都这个指针</p>
+<p>文件打开计数: 记录文件打开的次数 - 当最后一个进程关闭了文件时,允许将其从打开文件表中移除</p>
+<p>文件磁盘位置: 缓存数据访问信息</p>
+<p>访问权限: 每个程序访问模式信息</p>
+<p>用户视图: 持久的数据结构</p>
+<p>系统访问接口:</p>
+<p>字节的集合(UNIX)</p>
+<p>系统不会关心你想存储在磁盘上的任何的数据结构</p>
+<p>操作系统内部视角:</p>
+<p>块的集合(块是逻辑转换单元,而扇区是物理转换单元)</p>
+<p>块大小&lt;&gt; 扇区大小: 在UNIX中, 块的大小是 4KB</p>
+<p>当用户说: 给我2-12字节空间时会发生什么?</p>
+<p>获取字节所在的快</p>
+<p>返回快内对应部分</p>
+<p>如果要写2-12字节?</p>
+<p>获取块</p>
+<p>修改块内对应部分</p>
+<p>写回块</p>
+<p>在文件系统中的所有操作都是在整个块空间上进行的: <code>getc()</code> <code>putc()</code> 即使每次只访问1字节的数据,也会缓存目标数据4096字节(一个磁盘块)</p>
+<p>用户怎么访问文件: 在系统层面需要知道用户的访问模式</p>
+<p>顺序访问: 按字节依次读取(几乎所有的访问都是这种方式)</p>
+<p>随机访问: 从中间读写(不常用,但是仍然重要,如: 虚拟内存支持文件,内存页存储在文件中;更加快速,不希望获取文件中间的内容的时候也必须先获取块内所有字节)</p>
+<p>内容访问: 通过特征</p>
+<p>文件内部结构:</p>
+<p>无结构: 单词,比特的队列</p>
+<p>简单记录结构: 列,固定长度,可变长度</p>
+<p>复杂结构: 格式化的文档(word, PDF), 可执行文件, …</p>
+<p>多用户系统中的文件共享是很必要的</p>
+<p>访问控制:</p>
+<p>谁能够获得哪些文件的哪些访问权限</p>
+<p>访问模式: 读,写,执行,删除,列举等</p>
+<p>文件访问控制列表(ACL):</p>
+<p>&lt;文件实体, 权限&gt;</p>
+<p>UNIX模式:</p>
+<p>&lt;用户|组|所有人,读|写|可执行&gt;</p>
+<p>用户ID识别用户,表明每个用户所允许的权限及保护模式</p>
+<p>组ID允许用户组成组,并指定了组访问权限</p>
+<p>指定多用户,客户如何同时访问共享文件:</p>
+<p>和过程同步算法相似</p>
+<p>因磁盘IO和网络延迟而设计简单</p>
+<p>UNIX文件系统(UFS)语义:</p>
+<p>对打开文件的写入内容立即对其他打开同一文件的其他用户可见</p>
+<p>共享文件指针允许多用户同时读取和写入文件</p>
+<p>会话语义:</p>
+<p>写入内容只有当文件关闭时可见</p>
+<p>锁:</p>
+<p>一些操作系统和文件系统提供该功能</p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><p>文件以目录的方式组织起来</p>
+<p>目录是一类特殊的文件: 每个目录都包含了一张表&lt;name, pointer to file header&gt;</p>
+<p>目录和文件的树形结构: 早期的文件系统是扁平的(只有一层目录)</p>
+<p>层次名称空间: /spell/mail/prt/first  /programs/p/list</p>
+<p>典型操作:</p>
+<p>搜索文件</p>
+<p>创建文件</p>
+<p>删除文件</p>
+<p>枚举目录</p>
+<p>重命名文件</p>
+<p>在文件系统中遍历一个路径</p>
+<p>操作系统应该只允许内核模式修改目录: 确保映射的完整性,应用程序能够读目录(ls)</p>
+<p>文件名的线性列表,包含了指向数据块的指针: 编程简单,执行耗时</p>
+<p>Hash表 - hash数据结构的线性表: 减少目录搜索时间,碰撞,固定大小</p>
+<p>名字解析: 逻辑名字转换成物理资源(如文件)的过程:</p>
+<p>在文件系统中: 到实际文件的文件名(路径)</p>
+<p>遍历文件目录直到找到目标文件</p>
+<p>举例: 解析”/bin/ls”:</p>
+<p>读取root的文件头(在磁盘固定位置)</p>
+<p>读取root的数据块: 搜索bin项</p>
+<p>读取bin的文件头</p>
+<p>读取bin的数据块: 搜索ls项</p>
+<p>读取ls的文件头</p>
+<p>当前工作目录:</p>
+<p>每个进程都会指向一个文件目录用于解析文件名</p>
+<p>允许用户指定相对路径来代替绝对路径</p>
+<p>一个文件系统需要先挂载才能被访问</p>
+<p>一个未挂载的文件系统被挂载在挂载点上</p>
+<h3 id="文件别名"><a href="#文件别名" class="headerlink" title="文件别名"></a>文件别名</h3><p>两个或多个文件名关联同一个文件:</p>
+<p>硬链接: 多个文件项指向一个文件</p>
+<p>软链接: 以快捷方式指向其他文件</p>
+<p>通过存储真实文件的逻辑名称来实现</p>
+<p>如果删除一个有别名的文件会如何呢? : 这个别名将成为一个悬空指针</p>
+<p>Backpointers 方案:</p>
+<p>每个文件有一个包含多个backpointers的列表,所以删除所有的Backpointers</p>
+<p>backpointers使用菊花链管理</p>
+<p>添加一个间接层: 目录项数据结构</p>
+<p>链接: 已存在文件的另外一个名字(指针)</p>
+<p>链接处理: 跟随指针来定位文件</p>
+<p>我们如何保证没有循环呢?</p>
+<p>只允许到文件的链接, 不允许在子目录的链接</p>
+<p>每增加一个新的链接都用循环检测算法确定是否合理</p>
+<p>限制路径可遍历文件目录的数量</p>
+<h3 id="文件系统种类"><a href="#文件系统种类" class="headerlink" title="文件系统种类"></a>文件系统种类</h3><p>磁盘文件系统: 文件存储在数据存储设备上,如磁盘; 例如: FAT,NTFS,ext2,3,ISO9660等</p>
+<p>数据库文件系统: 文件根据其特征是可被寻址的; 例如: WinFS</p>
+<p>日志文件系统: 记录文件系统的修改,事件; 例如: journaling file system</p>
+<p>网络,分布式文件系统: 例如: NFS,SMB,AFS,GFS</p>
+<p>特殊,虚拟文件系统</p>
+<h2 id="虚拟文件系统"><a href="#虚拟文件系统" class="headerlink" title="虚拟文件系统"></a>虚拟文件系统</h2><p>分层结构:</p>
+<p>顶层: 文件,文件系统API</p>
+<p>上层: 虚拟(逻辑)文件系统 (将所有设备IO,网络IO全抽象成为文件,使得接口一致)</p>
+<p>底层: 特定文件系统模块</p>
+<p>目的: 对所有不同文件系统的抽象</p>
+<p>功能:</p>
+<p>提供相同的文件和文件系统接口</p>
+<p>管理所有文件和文件系统关联的数据结构</p>
+<p>高效查询例程,遍历文件系统</p>
+<p>与特定文件系统模块的交互</p>
+<p>数据结构:</p>
+<p>卷[第四声]控制块(UNIX: “superblock”)</p>
+<p>每个文件系统一个</p>
+<p>文件系统详细信息</p>
+<p>块,块大小,空余块,计数,指针等</p>
+<p>文件控制块(UNIX: “vnode” or “inode”)</p>
+<p>每个文件一个</p>
+<p>文件详细信息</p>
+<p>许可,拥有者,大小,数据库位置等</p>
+<p>目录节点(Linux: “dentry”)</p>
+<p>每个目录项一个(目录和文件)</p>
+<p>将目录项数据结构及树形布局编码成树形数据结构</p>
+<p>指向文件控制块,父节点,项目列表等</p>
+<p>其中: 卷控制块(每个文件系统一个),文件控制块(每个文件一个),目录节点(每个目录项一个)</p>
+<p>持续存储在二级存储中: 在分配在存储设备中的数据块中</p>
+<p>当需要时加载进内存:</p>
+<p>卷控制块: 当文件系统挂载时进入内存</p>
+<p>文件控制块: 当文件被访问时进入内存</p>
+<p>目录节点: 在遍历一个文件路径时进入内存</p>
+<h2 id="数据块缓存"><a href="#数据块缓存" class="headerlink" title="数据块缓存"></a>数据块缓存</h2><p>数据块按需读入内存:</p>
+<p>提供 <code>read()</code> 操作</p>
+<p>预读: 预先读取后面的数据块</p>
+<p>数据块使用后被缓存:</p>
+<p>假设数据将会再次被使用</p>
+<p>写操作可能被缓存和延迟写入</p>
+<p>两种数据块缓存方式:</p>
+<p>普通缓冲区缓存</p>
+<p>页缓存: 同一缓存数据块和内存页</p>
+<p>分页要求: 当需要一个页时才将其载入内存</p>
+<p>支持存储: 一个页(在虚拟地址空间中)可以被映射到一个本地文件中(在二级存储中)</p>
+<h2 id="打开文件的数据结构"><a href="#打开文件的数据结构" class="headerlink" title="打开文件的数据结构"></a>打开文件的数据结构</h2><p>打开文件描述:</p>
+<p>每个被打开的文件一个</p>
+<p>文件状态信息</p>
+<p>目录项,当前文件指针,文件操作设置等</p>
+<p>打开文件表:</p>
+<p>一个进程一个</p>
+<p>一个系统级的</p>
+<p>每个卷控制块也会保存一个列表</p>
+<p>所以如果有文件被打开将不能被卸载</p>
+<p>一些操作系统和文件系统提供该功能</p>
+<p>调节对文件的访问</p>
+<p>强制和劝告:</p>
+<p>强制 - 根据锁保持情况和需求拒绝访问</p>
+<p>劝告 - 进程可以查找锁的状态来决定怎么做</p>
+<h2 id="文件分配"><a href="#文件分配" class="headerlink" title="文件分配"></a>文件分配</h2><p>大多数文件都很小:</p>
+<p>需要对小文件提供强力的支持</p>
+<p>块空间不能太小</p>
+<p>一些文件非常大:</p>
+<p>必须支持大文件(64-bit 文件偏移)</p>
+<p>大文件访问需要相当高效</p>
+<p>如何为一个文件分配数据块</p>
+<p>分配方式:</p>
+<p>连续分配</p>
+<p>链式分配</p>
+<p>索引分配</p>
+<p>指标:</p>
+<p>高效: 如存储利用(外部碎片)</p>
+<p>表现: 如访问速度</p>
+<p>连续分配:</p>
+<p>文件头指定起始块和长度</p>
+<p>位置,分配策略: 最先匹配,最佳匹配,…</p>
+<p>优势: 文件读取表现好;高效的顺序和随机访问</p>
+<p>劣势: 碎片;文件增长问题</p>
+<p>链式分配:</p>
+<p>文件以数据块链表方式存储</p>
+<p>文件头包含了到第一块和最后一块的指针</p>
+<p>优势: 创建,增大,缩小很容易;没有碎片</p>
+<p>劣势: 不可能进行真正的随机访问;可靠性</p>
+<p>索引分配:</p>
+<p>为每个文件创建一个名为索引数据块的非数据数据块(到文件数据块的指针列表)</p>
+<p>文件头包含了索引数据块</p>
+<p>优势: 创建,增大,缩小很容易;没有碎片;支持直接访问</p>
+<p>劣势: 当文件很小时,存储索引的开销大;处理大文件难</p>
+<h2 id="空闲空间列表"><a href="#空闲空间列表" class="headerlink" title="空闲空间列表"></a>空闲空间列表</h2><p>跟踪在存储中的所有未分配的数据块</p>
+<p>空闲空间列表存储在哪里?</p>
+<p>空闲空间列表的最佳数据结构怎么样?</p>
+<p>用位图代表空闲数据块列表: 11111101101110111 如果 i = 0表明数据块i是空闲的,反之是分配的</p>
+<p>使用简单但是可能会是一个big vector:</p>
+<p>160GB disk → 40M blocks → 5MB worth of bits</p>
+<p>然而,如果空闲空间在磁盘中均匀分布,那么再找到”0”之前需要扫描 磁盘上数据块总数 / 空闲块的数目</p>
+<p>需要保护:</p>
+<p>指向空闲列表的指针</p>
+<p>位图:</p>
+<p>必须保存在磁盘上;在内存和磁盘拷贝可能有所不同;不允许block[i]在内存中的状态为bit[i]=1而在磁盘中bit[i]=0</p>
+<p>解决:</p>
+<p>在磁盘上设置bit[i] = 1; 分配block[i]; 在内存中设置bit[i] = 1</p>
+<h2 id="多磁盘管理-RAID"><a href="#多磁盘管理-RAID" class="headerlink" title="多磁盘管理 - RAID"></a>多磁盘管理 - RAID</h2><p>通常磁盘通过分区来最大限度减小寻道时间:</p>
+<p>一个分区是一个柱面的集合</p>
+<p>每个分区都是逻辑上独立的磁盘</p>
+<p>分区: 硬件磁盘的一种适合操作系统指定格式的划分</p>
+<p>卷: 一个拥有一个文件系统实例的可访问的存储空间(通常常驻在磁盘的单个分区上)</p>
+<p>使用多个并行磁盘来增加: 吞吐量(通过并行),可靠性和可用性(通过冗余)</p>
+<p>RAID - 冗余磁盘阵列: 各种磁盘管理技术;RAID levels: 不同RAID分类,如RAID-0,RAID-1,RAID-5</p>
+<p>实现: 在操作系统内核: 存储,卷管理; RAID硬件控制器(IO)</p>
+<p>RAID-0</p>
+<p>数据块分成多个子块, 存储在独立的磁盘中: 和内存交叉相似</p>
+<p>通过更大的有效块大小来提供更大的磁盘带宽</p>
+<p>RAID-1</p>
+<p>可靠性成倍增长</p>
+<p>读取性能线性增加(向两个磁盘写入,从任何一个读取)</p>
+<p>RAID-4</p>
+<p>数据块级磁带配有专用奇偶校验磁盘: 允许从任意一个故障磁盘中恢复</p>
+<p>条带化和奇偶校验按byte-by-byte或者bit-by-bit: RAID-0,4,5: block-wise ;RAID-3: bit-wise</p>
+<p>RAID-5</p>
+<p>每个条带快有一个奇偶校验块,允许有一个磁盘错误</p>
+<p>RAID-6</p>
+<p>两个冗余块,有一种特殊的编码方式,允许两个磁盘错误</p>
+<h2 id="磁盘调度"><a href="#磁盘调度" class="headerlink" title="磁盘调度"></a>磁盘调度</h2><p>读取或写入时,磁头必须被定位在期望的磁道,并从所期望的扇区开始</p>
+<p>寻道时间: 定位到期望的磁道所花费的时间</p>
+<p>旋转延迟: 从扇区的开始处到到达目的处花费的时间</p>
+<p>平均旋转延迟时间 = 磁盘旋转一周时间的一半</p>
+<p>寻道时间是性能上区别的原因</p>
+<p>对单个磁盘,会有一个IO请求数目</p>
+<p>如果请求是随机的,那么会表现很差</p>
+<p>FIFO:</p>
+<p>按顺序处理请求</p>
+<p>公平对待所有进程</p>
+<p>在有很多进程的情况下,接近随机调度的性能</p>
+<p>最短服务优先:</p>
+<p>选择从磁臂当前位置需要移动最少的IO请求</p>
+<p>总是选择最短寻道时间</p>
+<p>skan:</p>
+<p>磁臂在一个方向上移动,满足所有为完成的请求,直到磁臂到达该方向上最后的磁道</p>
+<p>调换方向</p>
+<p>c-skan:</p>
+<p>限制了仅在一个方向上扫描</p>
+<p>当最后一个磁道也被访问过了后,磁臂返回到磁盘的另外一端再次进行扫描</p>
+<p>c-loop(c-skan改进):</p>
+<p>磁臂先到达该方向上最后一个请求处,然后立即反转</p>
 ]]></content>
       <categories>
         <category>操作系统</category>
