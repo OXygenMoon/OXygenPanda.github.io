@@ -1,6 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>二叉树的遍历</title>
+    <url>/OXygenPanda.github.io/2020/09/25/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/</url>
+    <content><![CDATA[<a id="more"></a>
+
+<h1 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h1><p align="center">
+<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
+<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
+<a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
+
+<blockquote>
+<p>  博客文章主要目的是分享和记录。</p>
+<p>  分享给需要学习的同学，记录自己学习路上的点滴。</p>
+</blockquote>
+</p><p>相信大家对于二叉树的定义以及结构，在本科《数据结构与算法》课程中或者在其他同学的博客中有所了解。在此，不在过多地回顾课本理论知识。</p>
+<p>我们编码语言主要为C++，如下是二叉树在C++中类的表现形式，这边使用的是 struct 结构体，在C++中类和结构体的区别在于不标志 public , private 以及 protected 时, 成员变量和成员函数是 public 还是 private 以及默认的继承方式是 public 还是 private。使用 struct 的原因在于，结构体更想表达的是一种数据的组织形式，而不是ADT。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> &#123;</span></span><br><span class="line">  	<span class="keyword">int</span> val;</span><br><span class="line">  	TreeNode* left;</span><br><span class="line">  	TreeNode* right;</span><br><span class="line">  	TreeNode*(<span class="keyword">int</span> x):val(x),left(<span class="literal">nullptr</span>),right(<span class="literal">nullptr</span>)&#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>并且配图可以更好地理解二叉树的结构。</p>
+<img src="https://i.loli.net/2020/10/17/tFRamoSqrQC6M2n.png">
+
+<h2 id="二叉树的遍历方式"><a href="#二叉树的遍历方式" class="headerlink" title="二叉树的遍历方式"></a>二叉树的遍历方式</h2><p>在线性结构中，例如，在数组中我们采用索引值（即，地址偏移）的方式去遍历整个数组；在链表中我们采用迭代的方式去遍历整个链表。而二叉树和线性的数组和链表的最大区别在于，二叉树的每一个节点并非只有一个后继节点。因此就有了许多有趣的遍历方式。</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>按照遍历顺序可以分为三种:</p>
+<ul>
+<li>前序</li>
+<li>中序</li>
+<li>后序</li>
+<li>层序</li>
+</ul>
+<p>按照遍历算法的写法可以分为：</p>
+<ul>
+<li>DFS（对应前中后的递归）</li>
+<li>BFS（对应层序）</li>
+</ul>
+<p>还可以根据是否采用迭代写法分为：</p>
+<ul>
+<li>迭代</li>
+<li>递归</li>
+</ul>
+<h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><h4 id="递归框架（前序中序后序框架）"><a href="#递归框架（前序中序后序框架）" class="headerlink" title="递归框架（前序中序后序框架）"></a>递归框架（前序中序后序框架）</h4><p>首先是递归，也是最简单书写的一种，其代码框架如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">order</span><span class="params">(TreeNode * root)</span></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)	<span class="keyword">return</span>;</span><br><span class="line">  <span class="comment">// 前序</span></span><br><span class="line">  order(root-&gt;left);</span><br><span class="line">  <span class="comment">// 中序</span></span><br><span class="line">  order(root-&gt;right);</span><br><span class="line">  <span class="comment">// 后序</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h5><p><strong>优点</strong>：递归很简单，我们只需要记住这一个代码框架就可以完成前中后序遍历；</p>
+<p><strong>缺点</strong>：递归过程中，从根节点出发不断递归左右节点，这一些函数调用的开销发生在栈空间，使得栈空间消耗巨大，甚至可能会导致栈溢出。</p>
+<h5 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h5><p>那么，为什么这样就可以实现遍历呢？</p>
+<ul>
+<li><p>递归写法必须有一个递归出口，也就是我们框架函数体内第一个语句，也就是我们递归到了叶子节点的时候，会调用 <code>order(叶子节点的左孩子)</code> 和 <code>order(叶子节点的右孩子)</code> 。那么这两个调用我们就应该停止递归了，也就是遇到了 <code>root==nullptr</code> 这个条件为 <code>true </code> ，递归返回。</p>
+</li>
+<li><p>那么对于任意一个非空节点来说我们需要做什么？我们无非是要做 : 访问它，访问它的左孩子，访问它的右孩子这三件事。那么既然有三件事，一定会涉及到顺序问题。这三者的顺序不同，就分出了三种访问顺序：</p>
+<ul>
+<li><p>前序：根-左-右</p>
+</li>
+<li><p>中序：左-根-右</p>
+</li>
+<li><p>后序：左-右-根</p>
+<p>比如，我们要按照中序的顺序输出二叉树的节点值：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">order</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)	<span class="keyword">return</span>;</span><br><span class="line">    order(root-&gt;left);</span><br><span class="line">    <span class="comment">/*中序 begin */</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; root-&gt;val &lt;&lt; <span class="string">&#x27; &#x27;</span>; <span class="comment">//中序位置写执行语句,这一个区域写的root就是中序的节点</span></span><br><span class="line">    <span class="comment">/*中序 end */</span></span><br><span class="line">    order(root-&gt;right);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="迭代框架（前序框架-与-中序框架）"><a href="#迭代框架（前序框架-与-中序框架）" class="headerlink" title="迭代框架（前序框架 与 中序框架）"></a>迭代框架（前序框架 与 中序框架）</h4><p>迭代框架没有递归框架那么简单，既没有对前中后序以及层序的通用模板，也没有递归那么语句短小，接下来主要介绍：前序，中序，后序，层序的迭代框架（模板）。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PreOrder</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; s;</span><br><span class="line">    <span class="keyword">while</span> (root || !s.empty()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (root) &#123;</span><br><span class="line">            s.push(root);</span><br><span class="line">            <span class="comment">// res.push_back(root-&gt;val);  // PreOrder</span></span><br><span class="line">            root = root-&gt;left;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            root = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            <span class="comment">// res.push_back(root-&gt;val);  // InOrder</span></span><br><span class="line">            root = root-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码在上方，可以看到前序和中序的框架比较相似，在不同的位置执行操作，那么它的遍历顺序就可以不同。</p>
+<h5 id="理解-1"><a href="#理解-1" class="headerlink" title="理解"></a>理解</h5><p>前序遍历，我们总是先读根节点（或者对根节点做一系列操作），如果左孩子存在，再去访问当前根节点的左孩子，那么我们要访问当前节点的左孩子，如果我们需要之后再访问右孩子，我们岂不是无法回到那个根节点了？（树的结构不支持子节点到父节点的指针）。所以，我们需要借助一个辅助栈来存放没有访问过右节点的根节点，等我们把左子树访问完毕之后，再提出之前的根节点，来访问他的右子树。</p>
+<p><img src="https://i.loli.net/2020/10/17/xnbAWvpwgMqLfur.jpg"></p>
+<p>如图，我们访问了节点1，去访问了节点2，那么我们访问完节点5之后需要回到节点1，再去访问节点3，因此必须把1给保留下来，但是我们不能用单个变量来保存节点1，因为在访问过程中，访问了节点2之后，访问节点4，再之后需要通过节点2，再去访问节点5，这样又需要一个变量来保存节点2，因此再迭代过程中，这个节点记录是一个变长的，所以需要一个辅助栈。</p>
+<h4 id="迭代框架（后序框架）"><a href="#迭代框架（后序框架）" class="headerlink" title="迭代框架（后序框架）"></a>迭代框架（后序框架）</h4><p>前序和中序遍历的迭代框架是类似的，但是后序遍历的框架截然不同。后序遍历顺序：左-右-根。我们可以看到，后序的遍历顺序和前序遍历顺序（根-左-右）类似。我们可以稍微修改前序遍历的框架，再对数组进行反转，获得后序遍历顺序。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PostOrder</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; visit;</span><br><span class="line">    TreeNode *cur = root;</span><br><span class="line">    TreeNode *pre = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">while</span> (cur != <span class="literal">nullptr</span> || !visit.empty()) &#123;</span><br><span class="line">        <span class="keyword">while</span> (cur != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            visit.push(cur);</span><br><span class="line">            cur = cur-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        cur = visit.top();</span><br><span class="line">        <span class="keyword">if</span> (cur-&gt;right == <span class="literal">nullptr</span> || cur-&gt;right == pre) &#123;</span><br><span class="line">            visit.pop();</span><br><span class="line">            res.push_back(cur-&gt;val);</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = <span class="literal">nullptr</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cur = cur-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PostOrder_2</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; s;</span><br><span class="line">    TreeNode *p = root;</span><br><span class="line">    <span class="keyword">while</span> (p != <span class="literal">nullptr</span> || !s.empty()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            res.push_back(p-&gt;val); <span class="comment">//前序的位置</span></span><br><span class="line">            s.push(p);</span><br><span class="line">            p = p-&gt;right; <span class="comment">//区别在于遍历顺序是 根-右-左</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(!s.empty())&#123;</span><br><span class="line">            p = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            p = p-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    reverse(res.begin(),res.end()); <span class="comment">//得到 根-右-左, 反转之后得到 左-右-根</span></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="理解-2"><a href="#理解-2" class="headerlink" title="理解"></a>理解</h5><p>可以看一下以上的代码：<code>PostOrder(TreeNode* root)</code> 是正常思路的后序遍历迭代写法，而 <code>PostOrder_2(TreeNode* root)</code> 是前序遍历反转的写法。个人感觉前序遍历反转的模板和前序中序模板类似，思想方式较为统一。</p>
+<h4 id="迭代框架（层序遍历）"><a href="#迭代框架（层序遍历）" class="headerlink" title="迭代框架（层序遍历）"></a>迭代框架（层序遍历）</h4><p>层序遍历其实就是BFS的思想，遍历的顺序是按层从低到高来遍历。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">levelOrder</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="keyword">if</span>(!root)   <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">deque</span>&lt;TreeNode*&gt; q;</span><br><span class="line">    q.push_back(root);</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> size = q.size();</span><br><span class="line">        res.push_back(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= size;++i)&#123;</span><br><span class="line">            TreeNode* node = q.front();q.pop_front();</span><br><span class="line">            res.back().push_back(node-&gt;val);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left)  q.push_back(node-&gt;left);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;right) q.push_back(node-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="理解-3"><a href="#理解-3" class="headerlink" title="理解"></a>理解</h5><p><img src="https://i.loli.net/2020/10/17/Ct2SP5GclqrK4VF.jpg"></p>
+<p>层序遍历相较于前中后序来说，它访问到了当前节点的兄弟节点以后，我们无法访问前节点的孩子节点。因此，这里不同的是，需要一个辅助的队列来存放同层的节点。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>那么，二叉树的常见遍历写法都在这边啦。</p>
+<p>递归写法因为每一个节点访问一次，所以时间复杂度为:<code>O(N)</code>，而递归需要在栈空间里开辟许多空间，平均递归的深度是logN，因此空间复杂度也是:<code>O(logN)</code>。</p>
+<p>迭代写法因为每一个节点访问一次，所以时间复杂度为:<code>O(N)</code>，而迭代需要一个辅助栈或者辅助队列，平均的情况是把logN的节点放入栈或队列，最差的情况是把大多数节点全部放入栈或队列，因此空间复杂度也是：<code>O(logN)</code>。</p>
+<p>而还有一个遍历写法叫做morris遍历，它能够实现空间复杂度为<code>O(1)</code>。但是写法较为复杂，准备另外再写一篇关于morris遍历的模板。</p>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+        <category>二叉树</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>前缀/中缀/后缀表达式的转换/计算/构建二叉树[未完成]</title>
+    <url>/OXygenPanda.github.io/2020/10/18/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E5%89%8D%E7%BC%80%E4%B8%AD%E7%BC%80%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2%E6%B1%82%E5%80%BC/</url>
+    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p align="center">
+<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
+<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
+<a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
+
+</p><p>我们从小学至今，接触到最多的表达式就是中缀表达式，形如 : <code>(5+(3*2)-6/2)</code> 作用的运算符落在数字两边。但是这一个表达式作为字符串输入到计算机中，计算机可不太喜欢这样的表达式，它顺序遍历的时候，由于运算符优先级不同，难以计算。因此，出现了前缀表达式和后缀表达式，他们两者的特点是不携带括号，顺序遍历时，明确了运算的优先级。前缀和后缀表达式都可以由中缀表达式转换而来。</p>
+<p>本篇文章会带你学习如何把中缀表达式转换成前缀 / 后缀表达式，如果根据前缀 / 后缀表达式计算表达式的值，最后由表达式来构建出一棵表达式二叉树。</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="前缀表达式"><a href="#前缀表达式" class="headerlink" title="前缀表达式"></a>前缀表达式</h3><p>前缀表达式是一种没有括号的算术表达式，与中缀表达式不同的是，其将运算符写在前面，操作数写在后面。</p>
+<blockquote>
+<p>  为纪念其发明者波兰数学家Jan Lukasiewicz，前缀表达式也称为“波兰式”。</p>
+</blockquote>
+<p>例如，<code>- 1 + 2 3</code>，它等价于<code>1 - (2 + 3)</code>。</p>
+<h3 id="中缀表达式"><a href="#中缀表达式" class="headerlink" title="中缀表达式"></a>中缀表达式</h3><p>中缀表达式是一个通用的算术或逻辑公式表示方法， 操作符是以中缀形式处于操作数的中间。</p>
+<p>例如：<code>3 + 4</code>。</p>
+<h3 id="后缀表达式"><a href="#后缀表达式" class="headerlink" title="后缀表达式"></a>后缀表达式</h3><p>后缀表达式与前缀表达式类似的是一种没有括号的算术表达式，不同的是运算符写在后面，操作数写在前面。</p>
+<blockquote>
+<p>  后缀表达式也称为“逆波兰式”。</p>
+</blockquote>
+<p>例如<code>+ 2 3</code>，它等价于 <code>2 + 3</code>。</p>
+<h3 id="表达式二叉树"><a href="#表达式二叉树" class="headerlink" title="表达式二叉树"></a>表达式二叉树</h3><p>算数表达式是分层的递归结构，一个运算符作用于相应的运算对象，其运算对象又可以是任意复杂的表达式。树的递归结构正好用来表示这种表达式。下面只讨论二元表达式。<br>二元表达式可以很自然的联系到二叉树：以基本运算对象作为叶节点中的数据；以运算符作为非叶节点中的数据，其两棵子树是它的运算对象，子树可以是基本运算对象，也可以是复杂表达式。如图是一个表达式树。</p>
+<img src="https://i.loli.net/2020/10/21/WXc2r8deZBVKYCR.jpg">
+
+<p>留意一下颜色和遍历顺序和表达式类型的对应关系。</p>
+<ul>
+<li>表达式树的先序遍历：前缀表达式</li>
+<li>表达式树的中序遍历：中缀表达式</li>
+<li>表达式树的后序遍历：后缀表达式</li>
+</ul>
+<p><font color="\#87CEEB">运算数</font> ：是二叉树的叶子节点</p>
+<p><font color="#EE6363">运算符</font>：是二叉树的非叶子节点</p>
+<h2 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h2><h3 id="中缀表达式转前缀表达式"><a href="#中缀表达式转前缀表达式" class="headerlink" title="中缀表达式转前缀表达式"></a>中缀表达式转前缀表达式</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">prefix</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp; mid_str)</span></span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 中缀表达式转换成前缀表达式</span></span><br><span class="line"><span class="comment">     * 采用 vector &lt; string &gt; 的存储方式存储</span></span><br><span class="line"><span class="comment">     * 运算符占用一字符串, 多位整数占用一字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; pre;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt; op;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt; tmp; <span class="comment">// 用于最后转置所有字符串顺序</span></span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt; priority;</span><br><span class="line">    priority[<span class="string">&quot;+&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">    priority[<span class="string">&quot;-&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">    priority[<span class="string">&quot;*&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    priority[<span class="string">&quot;/&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = mid_str.size() - <span class="number">1</span> ; i &gt;= <span class="number">0</span> ; i -- )&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isdigit</span>(mid_str[i][<span class="number">0</span>]) || <span class="built_in">isalpha</span>(mid_str[i][<span class="number">0</span>]))&#123;</span><br><span class="line">            tmp.push(mid_str[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (mid_str[i] == <span class="string">&quot;)&quot;</span>)&#123;</span><br><span class="line">            op.push(<span class="string">&quot;)&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(mid_str[i] == <span class="string">&quot;(&quot;</span>)&#123;</span><br><span class="line">            <span class="keyword">while</span>(op.top() != <span class="string">&quot;)&quot;</span>)&#123;</span><br><span class="line">                tmp.push(op.top());</span><br><span class="line">                op.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            op.pop(); <span class="comment">//弹出 &quot;)&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (mid_str[i] == <span class="string">&quot;+&quot;</span> || mid_str[i] == <span class="string">&quot;-&quot;</span> || mid_str[i] == <span class="string">&quot;*&quot;</span> || mid_str[i] == <span class="string">&quot;/&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span>(!op.empty() &amp;&amp; op.top() != <span class="string">&quot;)&quot;</span> &amp;&amp; priority[mid_str[i]] &lt;= priority[op.top()])&#123;</span><br><span class="line">                tmp.push(op.top());</span><br><span class="line">                op.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            op.push(mid_str[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!op.empty())&#123;</span><br><span class="line">        tmp.push(op.top());</span><br><span class="line">        op.pop();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!tmp.empty())&#123;</span><br><span class="line">        pre.push_back(tmp.top());</span><br><span class="line">        tmp.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pre;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="中缀表达式转后缀表达式"><a href="#中缀表达式转后缀表达式" class="headerlink" title="中缀表达式转后缀表达式"></a>中缀表达式转后缀表达式</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">postfix</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;mid_str)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 中缀表达式转换成后缀表达式</span></span><br><span class="line"><span class="comment">     * 采用 vector &lt; string &gt; 的存储方式存储</span></span><br><span class="line"><span class="comment">     * 运算符占用一字符串, 多位整数占用一字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;post;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt; op;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt; priority;</span><br><span class="line">    priority[<span class="string">&quot;+&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">    priority[<span class="string">&quot;-&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">    priority[<span class="string">&quot;*&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    priority[<span class="string">&quot;/&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mid_str.size(); ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isdigit</span>(mid_str[i][<span class="number">0</span>]) || <span class="built_in">isalpha</span>(mid_str[i][<span class="number">0</span>]))&#123;</span><br><span class="line">            post.push_back(mid_str[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (mid_str[i] == <span class="string">&quot;(&quot;</span>)&#123;</span><br><span class="line">            op.push(<span class="string">&quot;(&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(mid_str[i] == <span class="string">&quot;)&quot;</span>)&#123;</span><br><span class="line">            <span class="keyword">while</span>(op.top() != <span class="string">&quot;(&quot;</span>)&#123;</span><br><span class="line">                post.push_back(op.top());</span><br><span class="line">                op.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            op.pop(); <span class="comment">//弹出 &quot;(&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (mid_str[i] == <span class="string">&quot;+&quot;</span> || mid_str[i] == <span class="string">&quot;-&quot;</span> || mid_str[i] == <span class="string">&quot;*&quot;</span> || mid_str[i] == <span class="string">&quot;/&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span>(!op.empty() &amp;&amp; op.top() != <span class="string">&quot;(&quot;</span> &amp;&amp; priority[mid_str[i]] &lt;= priority[op.top()])&#123;</span><br><span class="line">                post.push_back(op.top());</span><br><span class="line">                op.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            op.push(mid_str[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!op.empty())&#123;</span><br><span class="line">        post.push_back(op.top());</span><br><span class="line">        op.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> post;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试部分"><a href="#测试部分" class="headerlink" title="测试部分"></a>测试部分</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//    vector&lt;string&gt; mid(&#123;&quot;2&quot;,&quot;+&quot;,&quot;9&quot;,&quot;/&quot;,&quot;3&quot;,&quot;-&quot;,&quot;5&quot;&#125;);  // 2 + 9 / 3 - 5</span></span><br><span class="line"><span class="comment">//    vector&lt;string&gt; mid(&#123;&quot;a&quot;,&quot;*&quot;,&quot;(&quot;,&quot;b&quot;,&quot;+&quot;,&quot;c&quot;,&quot;)&quot;,&quot;/&quot;,&quot;d&quot;&#125;);  //  a * (b + c) / d</span></span><br><span class="line"><span class="comment">//    vector&lt;string&gt; mid(&#123;&quot;2&quot;,&quot;*&quot;,&quot;(&quot;,&quot;9&quot;,&quot;+&quot;,&quot;6&quot;,&quot;/&quot;,&quot;3&quot;,&quot;-&quot;,&quot;5&quot;,&quot;)&quot;,&quot;+&quot;,&quot;4&quot;&#125;);  // 2 * (9 + 6 / 3 - 5) + 4</span></span><br><span class="line"><span class="comment">//    vector&lt;string&gt; mid(&#123;&quot;a&quot;,&quot;+&quot;,&quot;b&quot;,&quot;*&quot;,&quot;c&quot;,&quot;-&quot;,&quot;(&quot;,&quot;d&quot;,&quot;+&quot;,&quot;e&quot;,&quot;)&quot;&#125;);  // a + b * c - (d + e)</span></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">mid</span><span class="params">(&#123;<span class="string">&quot;(&quot;</span>,<span class="string">&quot;3&quot;</span>,<span class="string">&quot;+&quot;</span>,<span class="string">&quot;4&quot;</span>,<span class="string">&quot;)&quot;</span>,<span class="string">&quot;*&quot;</span>,<span class="string">&quot;5&quot;</span>,<span class="string">&quot;-&quot;</span>,<span class="string">&quot;6&quot;</span>&#125;)</span></span>;  <span class="comment">//(3 + 4) * 5 - 6</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; post = postfix(mid);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; pre = prefix(mid);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h2><h3 id="前缀表达式计算"><a href="#前缀表达式计算" class="headerlink" title="前缀表达式计算"></a>前缀表达式计算</h3><h3 id="后缀表达式计算"><a href="#后缀表达式计算" class="headerlink" title="后缀表达式计算"></a>后缀表达式计算</h3><p><a class="btn" href="https://leetcode-cn.com/problems/evaluate-reverse-polish-notation/" title="leetcode链接">后缀表达式求值</a></p>
+<h2 id="构建二叉树"><a href="#构建二叉树" class="headerlink" title="构建二叉树"></a>构建二叉树</h2><h3 id="前缀和中缀表达式构建二叉树"><a href="#前缀和中缀表达式构建二叉树" class="headerlink" title="前缀和中缀表达式构建二叉树"></a>前缀和中缀表达式构建二叉树</h3><h3 id="后缀和中缀表达式构建二叉树"><a href="#后缀和中缀表达式构建二叉树" class="headerlink" title="后缀和中缀表达式构建二叉树"></a>后缀和中缀表达式构建二叉树</h3>]]></content>
+      <categories>
+        <category>数据结构</category>
+        <category>栈</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+        <tag>数据结构</tag>
+        <tag>栈</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TCP通信[未完成]</title>
+    <url>/OXygenPanda.github.io/2020/10/26/%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-TCP/</url>
+    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>传输控制协议( TCP : Transmission Control Protocol )，是一种面向连接的，可靠的传输层控制协议。</p>
+<h2 id="面向连接"><a href="#面向连接" class="headerlink" title="面向连接"></a>面向连接</h2><p>一般，客户端发送给服务端的一个数据包携带的数据最大为1460字节。是因为，以太网帧结构数据长度是1500字节，其中包含20字节的IP头部以及20字节的TCP头部，所以数据能够携带1460字节。</p>
+<h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><p>三次握手，由内核完成。反应在程序中，是由客户端程序的 connect() 开始，由 服务端程序的 accept() 返回结束。</p>
+<p>示例</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">客户端发送：SYN <span class="number">1000</span>(<span class="number">0</span>) win <span class="number">4096</span> &lt;mss <span class="number">1460</span>&gt;</span><br><span class="line">服务端发送：SYN <span class="number">8000</span>(<span class="number">0</span>) win <span class="number">6144</span> ACK <span class="number">1001</span> &lt;mss <span class="number">1024</span>&gt;  <span class="comment">//ACK 1001 是接收到的序号+数据字节(SYN标志位也得占1字节)</span></span><br><span class="line">客户端发送：ACK <span class="number">8001</span>    win <span class="number">4096</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">** (0)        : 表示携带数据为0字节</span></span><br><span class="line"><span class="comment">** win 4096   : 发送端滑动窗口缓存4096字节</span></span><br><span class="line"><span class="comment">** &lt;mss 1460&gt; : 表示携带数据最大字节数为1460字节</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>总结</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">主动发起连接请求端：发送SYN标志位，请求建立连接。携带数据包包号，数据字节数(0)，滑动窗口大小</span><br><span class="line">被动接受连接请求端：发送ACK标志位，同时携带SYN请求标志位。携带序号，确认序号，数据字节数(0)，滑动窗口大小</span><br><span class="line">主动发起连接请求段：发送ACK标志位，应答服务器连接请求。携带确认序号。</span><br></pre></td></tr></table></figure>
+
+<p>要点</p>
+<p>为什么不是二次握手？</p>
+<ol>
+<li>彼此确定收发能力</li>
+</ol>
+<ul>
+<li>第一次客户端发送请求，服务端接收请求：服务端知道了客户端有发送的能力。</li>
+<li>第二次服务端发送请求，客户端接收请求：客户端知道了服务端有收发的能力。</li>
+<li>此时，服务端不知道客户端是不是有接收的能力。因此需要客户端再次告知服务端。</li>
+</ul>
+<ol start="2">
+<li>避免两次连接</li>
+</ol>
+<ul>
+<li>客户端发送的连接请求如果滞留在网络中，等到超时重传，会再次发起连接请求，而服务器接收到两个连接请求会打开两个连接。因此，需要三次握手。</li>
+</ul>
+<p>第三次客户端发送ACK时，可以携带数据</p>
+<ul>
+<li>因为此时，客户端服务端都知道双方都有收发数据的能力，所以可以开始通信。</li>
+</ul>
+<h2 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h2><p>四次挥手，目的是断开客户端到服务端的全双工链路。断开一端称为半关闭，会关闭一端的套接字的一个缓存区。</p>
+<p>示例</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">客户端发送：FIN <span class="number">501</span>(<span class="number">0</span>)  ACK <span class="number">701</span> </span><br><span class="line">服务端发送：ACK <span class="number">502</span>             ---- 半关闭</span><br><span class="line">服务端发送：FIN <span class="number">701</span>(<span class="number">0</span>)  ACK <span class="number">502</span></span><br><span class="line">客户端发送：ACK <span class="number">702</span>             ---- 完全断开</span><br></pre></td></tr></table></figure>
+
+<p>总结</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">主动关闭连接请求端：发送FIN标志位。</span><br><span class="line">被动关闭连接请求端：应答ACK标志位。 ———— 半关闭完成</span><br><span class="line">被动关闭连接请求端：发送FIN标志位。</span><br><span class="line">主动关闭连接请求端：应答ACK标志位。 —————连接全部关闭</span><br></pre></td></tr></table></figure>
+
+<p>客户端接收到服务器的应答之后，进入半关闭状态，不能发送数据给服务器，而服务器会在发送完剩余数据后，发起关闭请求，客户端应答服务器后需要等待 2MSL(最大报文存活时间)后释放连接。原因如下：</p>
+<ul>
+<li>如果客户端的应答数据包丢失，那么服务器会再次发送断开请求。</li>
+<li>等待一段时间，使本次连接过程中产生的数据包在网络中消失。</li>
+</ul>
+<h2 id="可靠传输"><a href="#可靠传输" class="headerlink" title="可靠传输"></a>可靠传输</h2><h3 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h3><p>TCP使用超时重传来实现可靠传输：如果一个已经发送的报文段在超时时间内没有收到确认，那么就重传这个报文段。</p>
+<p>一个报文段从发送到接收到确定所经历的时间称为往返时间RTT(加权平均RTTs)。超时时间 RTO 应该略大于 RTTs 。TCP使用的超时时间计算是 : RTO = RTTs + 4 * RTTd 。RTTd : 偏差的加权平均值。</p>
+<h3 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h3><p>滑动窗口是一个缓存区，用于暂时存放字节流。发送方和接收方各有一个窗口，接收方通过TCP报文段中的窗口字段告诉发送方自己的窗口大小，发送方根据这个值和其他信息来设置自己的窗口大小。</p>
+<p>对于发送方来说，当窗口靠左侧的数据包已经成功发送并被确认后，窗口向右滑动直到某一个未发送或者未确认的字节位置。</p>
+<p>对于接收方来说，当窗口靠左侧的数据包已经收到，窗口向右滑动直到某一个未接收到的字节。</p>
+<h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><p>流量控制是为了控制发送方发送速率，保证接收方来得及接收。</p>
+<p>接收方发送的确认报文中的窗口字段可以用来控制发送方窗口大小，从而影响发送方的发送速率。将窗口字段设置为 0，则发送方不能发送数据。</p>
+<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>如果网络出现拥塞，发送方发送的数据包丢失，发送方重传导致网络难以恢复。因此要进行一定的拥塞控制使得发送方降低发送速率。发送方需要维护一个拥塞窗口（cwnd）状态变量：决定发送方能发送多少数据。</p>
+<h4 id="慢开始与拥塞避免"><a href="#慢开始与拥塞避免" class="headerlink" title="慢开始与拥塞避免"></a>慢开始与拥塞避免</h4><img src="https://i.loli.net/2020/10/30/8s2w3yMNVT6RL1k.png">
+
+<p>发送的最初执行慢开始，令 cwnd = 1，发送方只能发送 1 个报文段；当收到确认后，将 cwnd 加倍，因此之后发送方能够发送的报文段数量为：2、4、8 …</p>
+<p>注意到慢开始每个轮次都将 cwnd 加倍，这样会让 cwnd 增长速度非常快，从而使得发送方发送的速度增长速度过快，网络拥塞的可能性也就更高。设置一个慢开始门限 ssthresh，当 cwnd &gt;= ssthresh 时，进入拥塞避免，每个轮次只将 cwnd 加 1。</p>
+<p>如果出现了超时，则令 ssthresh = cwnd / 2，然后重新执行慢开始。</p>
+<h4 id="快速重传与快速恢复"><a href="#快速重传与快速恢复" class="headerlink" title="快速重传与快速恢复"></a>快速重传与快速恢复</h4><p>在接收方，要求每次接收到报文段都应该对最后一个已收到的有序报文段进行确认。例如已经接收到 M1 和 M2，此时收到 M4，应当发送对 M2 的确认。</p>
+<p>在发送方，如果收到三个重复确认，那么可以知道下一个报文段丢失，此时执行快重传，立即重传下一个报文段。例如收到三个 M2，则 M3 丢失，立即重传 M3。</p>
+<p>在这种情况下，只是丢失个别报文段，而不是网络拥塞。因此执行快恢复，令 ssthresh = cwnd / 2 ，cwnd = ssthresh，注意到此时直接进入拥塞避免。</p>
+<p>慢开始和快恢复的快慢指的是 cwnd 的设定值，而不是 cwnd 的增长速率。慢开始 cwnd 设定为 1，而快恢复 cwnd 设定为 ssthresh。</p>
+]]></content>
+      <categories>
+        <category>网络通信</category>
+        <category>传输层</category>
+        <category>TCP</category>
+      </categories>
+      <tags>
+        <tag>tcp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>shared_ptr的简单实现</title>
     <url>/OXygenPanda.github.io/2020/11/12/C++11/smart_ptr/</url>
     <content><![CDATA[<h1 id="智能指针的实现"><a href="#智能指针的实现" class="headerlink" title="智能指针的实现"></a>智能指针的实现</h1><p align="center">
@@ -472,9 +690,9 @@
         <category>栈</category>
       </categories>
       <tags>
-        <tag>单调栈</tag>
-        <tag>栈</tag>
         <tag>数据结构</tag>
+        <tag>栈</tag>
+        <tag>单调栈</tag>
       </tags>
   </entry>
   <entry>
@@ -768,224 +986,6 @@
       </tags>
   </entry>
   <entry>
-    <title>二叉树的遍历</title>
-    <url>/OXygenPanda.github.io/2020/09/25/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/</url>
-    <content><![CDATA[<a id="more"></a>
-
-<h1 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h1><p align="center">
-<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
-<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
-<a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
-
-<blockquote>
-<p>  博客文章主要目的是分享和记录。</p>
-<p>  分享给需要学习的同学，记录自己学习路上的点滴。</p>
-</blockquote>
-</p><p>相信大家对于二叉树的定义以及结构，在本科《数据结构与算法》课程中或者在其他同学的博客中有所了解。在此，不在过多地回顾课本理论知识。</p>
-<p>我们编码语言主要为C++，如下是二叉树在C++中类的表现形式，这边使用的是 struct 结构体，在C++中类和结构体的区别在于不标志 public , private 以及 protected 时, 成员变量和成员函数是 public 还是 private 以及默认的继承方式是 public 还是 private。使用 struct 的原因在于，结构体更想表达的是一种数据的组织形式，而不是ADT。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> &#123;</span></span><br><span class="line">  	<span class="keyword">int</span> val;</span><br><span class="line">  	TreeNode* left;</span><br><span class="line">  	TreeNode* right;</span><br><span class="line">  	TreeNode*(<span class="keyword">int</span> x):val(x),left(<span class="literal">nullptr</span>),right(<span class="literal">nullptr</span>)&#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>并且配图可以更好地理解二叉树的结构。</p>
-<img src="https://i.loli.net/2020/10/17/tFRamoSqrQC6M2n.png">
-
-<h2 id="二叉树的遍历方式"><a href="#二叉树的遍历方式" class="headerlink" title="二叉树的遍历方式"></a>二叉树的遍历方式</h2><p>在线性结构中，例如，在数组中我们采用索引值（即，地址偏移）的方式去遍历整个数组；在链表中我们采用迭代的方式去遍历整个链表。而二叉树和线性的数组和链表的最大区别在于，二叉树的每一个节点并非只有一个后继节点。因此就有了许多有趣的遍历方式。</p>
-<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>按照遍历顺序可以分为三种:</p>
-<ul>
-<li>前序</li>
-<li>中序</li>
-<li>后序</li>
-<li>层序</li>
-</ul>
-<p>按照遍历算法的写法可以分为：</p>
-<ul>
-<li>DFS（对应前中后的递归）</li>
-<li>BFS（对应层序）</li>
-</ul>
-<p>还可以根据是否采用迭代写法分为：</p>
-<ul>
-<li>迭代</li>
-<li>递归</li>
-</ul>
-<h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><h4 id="递归框架（前序中序后序框架）"><a href="#递归框架（前序中序后序框架）" class="headerlink" title="递归框架（前序中序后序框架）"></a>递归框架（前序中序后序框架）</h4><p>首先是递归，也是最简单书写的一种，其代码框架如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">order</span><span class="params">(TreeNode * root)</span></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)	<span class="keyword">return</span>;</span><br><span class="line">  <span class="comment">// 前序</span></span><br><span class="line">  order(root-&gt;left);</span><br><span class="line">  <span class="comment">// 中序</span></span><br><span class="line">  order(root-&gt;right);</span><br><span class="line">  <span class="comment">// 后序</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h5><p><strong>优点</strong>：递归很简单，我们只需要记住这一个代码框架就可以完成前中后序遍历；</p>
-<p><strong>缺点</strong>：递归过程中，从根节点出发不断递归左右节点，这一些函数调用的开销发生在栈空间，使得栈空间消耗巨大，甚至可能会导致栈溢出。</p>
-<h5 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h5><p>那么，为什么这样就可以实现遍历呢？</p>
-<ul>
-<li><p>递归写法必须有一个递归出口，也就是我们框架函数体内第一个语句，也就是我们递归到了叶子节点的时候，会调用 <code>order(叶子节点的左孩子)</code> 和 <code>order(叶子节点的右孩子)</code> 。那么这两个调用我们就应该停止递归了，也就是遇到了 <code>root==nullptr</code> 这个条件为 <code>true </code> ，递归返回。</p>
-</li>
-<li><p>那么对于任意一个非空节点来说我们需要做什么？我们无非是要做 : 访问它，访问它的左孩子，访问它的右孩子这三件事。那么既然有三件事，一定会涉及到顺序问题。这三者的顺序不同，就分出了三种访问顺序：</p>
-<ul>
-<li><p>前序：根-左-右</p>
-</li>
-<li><p>中序：左-根-右</p>
-</li>
-<li><p>后序：左-右-根</p>
-<p>比如，我们要按照中序的顺序输出二叉树的节点值：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">order</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">nullptr</span>)	<span class="keyword">return</span>;</span><br><span class="line">    order(root-&gt;left);</span><br><span class="line">    <span class="comment">/*中序 begin */</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; root-&gt;val &lt;&lt; <span class="string">&#x27; &#x27;</span>; <span class="comment">//中序位置写执行语句,这一个区域写的root就是中序的节点</span></span><br><span class="line">    <span class="comment">/*中序 end */</span></span><br><span class="line">    order(root-&gt;right);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="迭代框架（前序框架-与-中序框架）"><a href="#迭代框架（前序框架-与-中序框架）" class="headerlink" title="迭代框架（前序框架 与 中序框架）"></a>迭代框架（前序框架 与 中序框架）</h4><p>迭代框架没有递归框架那么简单，既没有对前中后序以及层序的通用模板，也没有递归那么语句短小，接下来主要介绍：前序，中序，后序，层序的迭代框架（模板）。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PreOrder</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; s;</span><br><span class="line">    <span class="keyword">while</span> (root || !s.empty()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (root) &#123;</span><br><span class="line">            s.push(root);</span><br><span class="line">            <span class="comment">// res.push_back(root-&gt;val);  // PreOrder</span></span><br><span class="line">            root = root-&gt;left;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            root = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            <span class="comment">// res.push_back(root-&gt;val);  // InOrder</span></span><br><span class="line">            root = root-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>代码在上方，可以看到前序和中序的框架比较相似，在不同的位置执行操作，那么它的遍历顺序就可以不同。</p>
-<h5 id="理解-1"><a href="#理解-1" class="headerlink" title="理解"></a>理解</h5><p>前序遍历，我们总是先读根节点（或者对根节点做一系列操作），如果左孩子存在，再去访问当前根节点的左孩子，那么我们要访问当前节点的左孩子，如果我们需要之后再访问右孩子，我们岂不是无法回到那个根节点了？（树的结构不支持子节点到父节点的指针）。所以，我们需要借助一个辅助栈来存放没有访问过右节点的根节点，等我们把左子树访问完毕之后，再提出之前的根节点，来访问他的右子树。</p>
-<p><img src="https://i.loli.net/2020/10/17/xnbAWvpwgMqLfur.jpg"></p>
-<p>如图，我们访问了节点1，去访问了节点2，那么我们访问完节点5之后需要回到节点1，再去访问节点3，因此必须把1给保留下来，但是我们不能用单个变量来保存节点1，因为在访问过程中，访问了节点2之后，访问节点4，再之后需要通过节点2，再去访问节点5，这样又需要一个变量来保存节点2，因此再迭代过程中，这个节点记录是一个变长的，所以需要一个辅助栈。</p>
-<h4 id="迭代框架（后序框架）"><a href="#迭代框架（后序框架）" class="headerlink" title="迭代框架（后序框架）"></a>迭代框架（后序框架）</h4><p>前序和中序遍历的迭代框架是类似的，但是后序遍历的框架截然不同。后序遍历顺序：左-右-根。我们可以看到，后序的遍历顺序和前序遍历顺序（根-左-右）类似。我们可以稍微修改前序遍历的框架，再对数组进行反转，获得后序遍历顺序。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PostOrder</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; visit;</span><br><span class="line">    TreeNode *cur = root;</span><br><span class="line">    TreeNode *pre = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">while</span> (cur != <span class="literal">nullptr</span> || !visit.empty()) &#123;</span><br><span class="line">        <span class="keyword">while</span> (cur != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            visit.push(cur);</span><br><span class="line">            cur = cur-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        cur = visit.top();</span><br><span class="line">        <span class="keyword">if</span> (cur-&gt;right == <span class="literal">nullptr</span> || cur-&gt;right == pre) &#123;</span><br><span class="line">            visit.pop();</span><br><span class="line">            res.push_back(cur-&gt;val);</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = <span class="literal">nullptr</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cur = cur-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">PostOrder_2</span><span class="params">(TreeNode *root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; s;</span><br><span class="line">    TreeNode *p = root;</span><br><span class="line">    <span class="keyword">while</span> (p != <span class="literal">nullptr</span> || !s.empty()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            res.push_back(p-&gt;val); <span class="comment">//前序的位置</span></span><br><span class="line">            s.push(p);</span><br><span class="line">            p = p-&gt;right; <span class="comment">//区别在于遍历顺序是 根-右-左</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(!s.empty())&#123;</span><br><span class="line">            p = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            p = p-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    reverse(res.begin(),res.end()); <span class="comment">//得到 根-右-左, 反转之后得到 左-右-根</span></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="理解-2"><a href="#理解-2" class="headerlink" title="理解"></a>理解</h5><p>可以看一下以上的代码：<code>PostOrder(TreeNode* root)</code> 是正常思路的后序遍历迭代写法，而 <code>PostOrder_2(TreeNode* root)</code> 是前序遍历反转的写法。个人感觉前序遍历反转的模板和前序中序模板类似，思想方式较为统一。</p>
-<h4 id="迭代框架（层序遍历）"><a href="#迭代框架（层序遍历）" class="headerlink" title="迭代框架（层序遍历）"></a>迭代框架（层序遍历）</h4><p>层序遍历其实就是BFS的思想，遍历的顺序是按层从低到高来遍历。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">levelOrder</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="keyword">if</span>(!root)   <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">deque</span>&lt;TreeNode*&gt; q;</span><br><span class="line">    q.push_back(root);</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> size = q.size();</span><br><span class="line">        res.push_back(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= size;++i)&#123;</span><br><span class="line">            TreeNode* node = q.front();q.pop_front();</span><br><span class="line">            res.back().push_back(node-&gt;val);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left)  q.push_back(node-&gt;left);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;right) q.push_back(node-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="理解-3"><a href="#理解-3" class="headerlink" title="理解"></a>理解</h5><p><img src="https://i.loli.net/2020/10/17/Ct2SP5GclqrK4VF.jpg"></p>
-<p>层序遍历相较于前中后序来说，它访问到了当前节点的兄弟节点以后，我们无法访问前节点的孩子节点。因此，这里不同的是，需要一个辅助的队列来存放同层的节点。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>那么，二叉树的常见遍历写法都在这边啦。</p>
-<p>递归写法因为每一个节点访问一次，所以时间复杂度为:<code>O(N)</code>，而递归需要在栈空间里开辟许多空间，平均递归的深度是logN，因此空间复杂度也是:<code>O(logN)</code>。</p>
-<p>迭代写法因为每一个节点访问一次，所以时间复杂度为:<code>O(N)</code>，而迭代需要一个辅助栈或者辅助队列，平均的情况是把logN的节点放入栈或队列，最差的情况是把大多数节点全部放入栈或队列，因此空间复杂度也是：<code>O(logN)</code>。</p>
-<p>而还有一个遍历写法叫做morris遍历，它能够实现空间复杂度为<code>O(1)</code>。但是写法较为复杂，准备另外再写一篇关于morris遍历的模板。</p>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-        <category>二叉树</category>
-      </categories>
-      <tags>
-        <tag>二叉树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>前缀/中缀/后缀表达式的转换/计算/构建二叉树[未完成]</title>
-    <url>/OXygenPanda.github.io/2020/10/18/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E5%89%8D%E7%BC%80%E4%B8%AD%E7%BC%80%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2%E6%B1%82%E5%80%BC/</url>
-    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p align="center">
-<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
-<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
-<a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
-
-</p><p>我们从小学至今，接触到最多的表达式就是中缀表达式，形如 : <code>(5+(3*2)-6/2)</code> 作用的运算符落在数字两边。但是这一个表达式作为字符串输入到计算机中，计算机可不太喜欢这样的表达式，它顺序遍历的时候，由于运算符优先级不同，难以计算。因此，出现了前缀表达式和后缀表达式，他们两者的特点是不携带括号，顺序遍历时，明确了运算的优先级。前缀和后缀表达式都可以由中缀表达式转换而来。</p>
-<p>本篇文章会带你学习如何把中缀表达式转换成前缀 / 后缀表达式，如果根据前缀 / 后缀表达式计算表达式的值，最后由表达式来构建出一棵表达式二叉树。</p>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="前缀表达式"><a href="#前缀表达式" class="headerlink" title="前缀表达式"></a>前缀表达式</h3><p>前缀表达式是一种没有括号的算术表达式，与中缀表达式不同的是，其将运算符写在前面，操作数写在后面。</p>
-<blockquote>
-<p>  为纪念其发明者波兰数学家Jan Lukasiewicz，前缀表达式也称为“波兰式”。</p>
-</blockquote>
-<p>例如，<code>- 1 + 2 3</code>，它等价于<code>1 - (2 + 3)</code>。</p>
-<h3 id="中缀表达式"><a href="#中缀表达式" class="headerlink" title="中缀表达式"></a>中缀表达式</h3><p>中缀表达式是一个通用的算术或逻辑公式表示方法， 操作符是以中缀形式处于操作数的中间。</p>
-<p>例如：<code>3 + 4</code>。</p>
-<h3 id="后缀表达式"><a href="#后缀表达式" class="headerlink" title="后缀表达式"></a>后缀表达式</h3><p>后缀表达式与前缀表达式类似的是一种没有括号的算术表达式，不同的是运算符写在后面，操作数写在前面。</p>
-<blockquote>
-<p>  后缀表达式也称为“逆波兰式”。</p>
-</blockquote>
-<p>例如<code>+ 2 3</code>，它等价于 <code>2 + 3</code>。</p>
-<h3 id="表达式二叉树"><a href="#表达式二叉树" class="headerlink" title="表达式二叉树"></a>表达式二叉树</h3><p>算数表达式是分层的递归结构，一个运算符作用于相应的运算对象，其运算对象又可以是任意复杂的表达式。树的递归结构正好用来表示这种表达式。下面只讨论二元表达式。<br>二元表达式可以很自然的联系到二叉树：以基本运算对象作为叶节点中的数据；以运算符作为非叶节点中的数据，其两棵子树是它的运算对象，子树可以是基本运算对象，也可以是复杂表达式。如图是一个表达式树。</p>
-<img src="https://i.loli.net/2020/10/21/WXc2r8deZBVKYCR.jpg">
-
-<p>留意一下颜色和遍历顺序和表达式类型的对应关系。</p>
-<ul>
-<li>表达式树的先序遍历：前缀表达式</li>
-<li>表达式树的中序遍历：中缀表达式</li>
-<li>表达式树的后序遍历：后缀表达式</li>
-</ul>
-<p><font color="\#87CEEB">运算数</font> ：是二叉树的叶子节点</p>
-<p><font color="#EE6363">运算符</font>：是二叉树的非叶子节点</p>
-<h2 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h2><h3 id="中缀表达式转前缀表达式"><a href="#中缀表达式转前缀表达式" class="headerlink" title="中缀表达式转前缀表达式"></a>中缀表达式转前缀表达式</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">prefix</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp; mid_str)</span></span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 中缀表达式转换成前缀表达式</span></span><br><span class="line"><span class="comment">     * 采用 vector &lt; string &gt; 的存储方式存储</span></span><br><span class="line"><span class="comment">     * 运算符占用一字符串, 多位整数占用一字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; pre;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt; op;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt; tmp; <span class="comment">// 用于最后转置所有字符串顺序</span></span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt; priority;</span><br><span class="line">    priority[<span class="string">&quot;+&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">    priority[<span class="string">&quot;-&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">    priority[<span class="string">&quot;*&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    priority[<span class="string">&quot;/&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = mid_str.size() - <span class="number">1</span> ; i &gt;= <span class="number">0</span> ; i -- )&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isdigit</span>(mid_str[i][<span class="number">0</span>]) || <span class="built_in">isalpha</span>(mid_str[i][<span class="number">0</span>]))&#123;</span><br><span class="line">            tmp.push(mid_str[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (mid_str[i] == <span class="string">&quot;)&quot;</span>)&#123;</span><br><span class="line">            op.push(<span class="string">&quot;)&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(mid_str[i] == <span class="string">&quot;(&quot;</span>)&#123;</span><br><span class="line">            <span class="keyword">while</span>(op.top() != <span class="string">&quot;)&quot;</span>)&#123;</span><br><span class="line">                tmp.push(op.top());</span><br><span class="line">                op.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            op.pop(); <span class="comment">//弹出 &quot;)&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (mid_str[i] == <span class="string">&quot;+&quot;</span> || mid_str[i] == <span class="string">&quot;-&quot;</span> || mid_str[i] == <span class="string">&quot;*&quot;</span> || mid_str[i] == <span class="string">&quot;/&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span>(!op.empty() &amp;&amp; op.top() != <span class="string">&quot;)&quot;</span> &amp;&amp; priority[mid_str[i]] &lt;= priority[op.top()])&#123;</span><br><span class="line">                tmp.push(op.top());</span><br><span class="line">                op.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            op.push(mid_str[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!op.empty())&#123;</span><br><span class="line">        tmp.push(op.top());</span><br><span class="line">        op.pop();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!tmp.empty())&#123;</span><br><span class="line">        pre.push_back(tmp.top());</span><br><span class="line">        tmp.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pre;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="中缀表达式转后缀表达式"><a href="#中缀表达式转后缀表达式" class="headerlink" title="中缀表达式转后缀表达式"></a>中缀表达式转后缀表达式</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">postfix</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;mid_str)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 中缀表达式转换成后缀表达式</span></span><br><span class="line"><span class="comment">     * 采用 vector &lt; string &gt; 的存储方式存储</span></span><br><span class="line"><span class="comment">     * 运算符占用一字符串, 多位整数占用一字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;post;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt; op;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt; priority;</span><br><span class="line">    priority[<span class="string">&quot;+&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">    priority[<span class="string">&quot;-&quot;</span>] = <span class="number">0</span>;</span><br><span class="line">    priority[<span class="string">&quot;*&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    priority[<span class="string">&quot;/&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mid_str.size(); ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">isdigit</span>(mid_str[i][<span class="number">0</span>]) || <span class="built_in">isalpha</span>(mid_str[i][<span class="number">0</span>]))&#123;</span><br><span class="line">            post.push_back(mid_str[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (mid_str[i] == <span class="string">&quot;(&quot;</span>)&#123;</span><br><span class="line">            op.push(<span class="string">&quot;(&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(mid_str[i] == <span class="string">&quot;)&quot;</span>)&#123;</span><br><span class="line">            <span class="keyword">while</span>(op.top() != <span class="string">&quot;(&quot;</span>)&#123;</span><br><span class="line">                post.push_back(op.top());</span><br><span class="line">                op.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            op.pop(); <span class="comment">//弹出 &quot;(&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (mid_str[i] == <span class="string">&quot;+&quot;</span> || mid_str[i] == <span class="string">&quot;-&quot;</span> || mid_str[i] == <span class="string">&quot;*&quot;</span> || mid_str[i] == <span class="string">&quot;/&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">while</span>(!op.empty() &amp;&amp; op.top() != <span class="string">&quot;(&quot;</span> &amp;&amp; priority[mid_str[i]] &lt;= priority[op.top()])&#123;</span><br><span class="line">                post.push_back(op.top());</span><br><span class="line">                op.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            op.push(mid_str[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!op.empty())&#123;</span><br><span class="line">        post.push_back(op.top());</span><br><span class="line">        op.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> post;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="测试部分"><a href="#测试部分" class="headerlink" title="测试部分"></a>测试部分</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//    vector&lt;string&gt; mid(&#123;&quot;2&quot;,&quot;+&quot;,&quot;9&quot;,&quot;/&quot;,&quot;3&quot;,&quot;-&quot;,&quot;5&quot;&#125;);  // 2 + 9 / 3 - 5</span></span><br><span class="line"><span class="comment">//    vector&lt;string&gt; mid(&#123;&quot;a&quot;,&quot;*&quot;,&quot;(&quot;,&quot;b&quot;,&quot;+&quot;,&quot;c&quot;,&quot;)&quot;,&quot;/&quot;,&quot;d&quot;&#125;);  //  a * (b + c) / d</span></span><br><span class="line"><span class="comment">//    vector&lt;string&gt; mid(&#123;&quot;2&quot;,&quot;*&quot;,&quot;(&quot;,&quot;9&quot;,&quot;+&quot;,&quot;6&quot;,&quot;/&quot;,&quot;3&quot;,&quot;-&quot;,&quot;5&quot;,&quot;)&quot;,&quot;+&quot;,&quot;4&quot;&#125;);  // 2 * (9 + 6 / 3 - 5) + 4</span></span><br><span class="line"><span class="comment">//    vector&lt;string&gt; mid(&#123;&quot;a&quot;,&quot;+&quot;,&quot;b&quot;,&quot;*&quot;,&quot;c&quot;,&quot;-&quot;,&quot;(&quot;,&quot;d&quot;,&quot;+&quot;,&quot;e&quot;,&quot;)&quot;&#125;);  // a + b * c - (d + e)</span></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">mid</span><span class="params">(&#123;<span class="string">&quot;(&quot;</span>,<span class="string">&quot;3&quot;</span>,<span class="string">&quot;+&quot;</span>,<span class="string">&quot;4&quot;</span>,<span class="string">&quot;)&quot;</span>,<span class="string">&quot;*&quot;</span>,<span class="string">&quot;5&quot;</span>,<span class="string">&quot;-&quot;</span>,<span class="string">&quot;6&quot;</span>&#125;)</span></span>;  <span class="comment">//(3 + 4) * 5 - 6</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; post = postfix(mid);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; pre = prefix(mid);</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h2><h3 id="前缀表达式计算"><a href="#前缀表达式计算" class="headerlink" title="前缀表达式计算"></a>前缀表达式计算</h3><h3 id="后缀表达式计算"><a href="#后缀表达式计算" class="headerlink" title="后缀表达式计算"></a>后缀表达式计算</h3><p><a class="btn" href="https://leetcode-cn.com/problems/evaluate-reverse-polish-notation/" title="leetcode链接">后缀表达式求值</a></p>
-<h2 id="构建二叉树"><a href="#构建二叉树" class="headerlink" title="构建二叉树"></a>构建二叉树</h2><h3 id="前缀和中缀表达式构建二叉树"><a href="#前缀和中缀表达式构建二叉树" class="headerlink" title="前缀和中缀表达式构建二叉树"></a>前缀和中缀表达式构建二叉树</h3><h3 id="后缀和中缀表达式构建二叉树"><a href="#后缀和中缀表达式构建二叉树" class="headerlink" title="后缀和中缀表达式构建二叉树"></a>后缀和中缀表达式构建二叉树</h3>]]></content>
-      <categories>
-        <category>数据结构</category>
-        <category>栈</category>
-      </categories>
-      <tags>
-        <tag>栈</tag>
-        <tag>数据结构</tag>
-        <tag>二叉树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>TCP通信[未完成]</title>
-    <url>/OXygenPanda.github.io/2020/10/26/%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-TCP/</url>
-    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>传输控制协议( TCP : Transmission Control Protocol )，是一种面向连接的，可靠的传输层控制协议。</p>
-<h2 id="面向连接"><a href="#面向连接" class="headerlink" title="面向连接"></a>面向连接</h2><p>一般，客户端发送给服务端的一个数据包携带的数据最大为1460字节。是因为，以太网帧结构数据长度是1500字节，其中包含20字节的IP头部以及20字节的TCP头部，所以数据能够携带1460字节。</p>
-<h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><p>三次握手，由内核完成。反应在程序中，是由客户端程序的 connect() 开始，由 服务端程序的 accept() 返回结束。</p>
-<p>示例</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">客户端发送：SYN <span class="number">1000</span>(<span class="number">0</span>) win <span class="number">4096</span> &lt;mss <span class="number">1460</span>&gt;</span><br><span class="line">服务端发送：SYN <span class="number">8000</span>(<span class="number">0</span>) win <span class="number">6144</span> ACK <span class="number">1001</span> &lt;mss <span class="number">1024</span>&gt;  <span class="comment">//ACK 1001 是接收到的序号+数据字节(SYN标志位也得占1字节)</span></span><br><span class="line">客户端发送：ACK <span class="number">8001</span>    win <span class="number">4096</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">** (0)        : 表示携带数据为0字节</span></span><br><span class="line"><span class="comment">** win 4096   : 发送端滑动窗口缓存4096字节</span></span><br><span class="line"><span class="comment">** &lt;mss 1460&gt; : 表示携带数据最大字节数为1460字节</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-<p>总结</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">主动发起连接请求端：发送SYN标志位，请求建立连接。携带数据包包号，数据字节数(0)，滑动窗口大小</span><br><span class="line">被动接受连接请求端：发送ACK标志位，同时携带SYN请求标志位。携带序号，确认序号，数据字节数(0)，滑动窗口大小</span><br><span class="line">主动发起连接请求段：发送ACK标志位，应答服务器连接请求。携带确认序号。</span><br></pre></td></tr></table></figure>
-
-<p>要点</p>
-<p>为什么不是二次握手？</p>
-<ol>
-<li>彼此确定收发能力</li>
-</ol>
-<ul>
-<li>第一次客户端发送请求，服务端接收请求：服务端知道了客户端有发送的能力。</li>
-<li>第二次服务端发送请求，客户端接收请求：客户端知道了服务端有收发的能力。</li>
-<li>此时，服务端不知道客户端是不是有接收的能力。因此需要客户端再次告知服务端。</li>
-</ul>
-<ol start="2">
-<li>避免两次连接</li>
-</ol>
-<ul>
-<li>客户端发送的连接请求如果滞留在网络中，等到超时重传，会再次发起连接请求，而服务器接收到两个连接请求会打开两个连接。因此，需要三次握手。</li>
-</ul>
-<p>第三次客户端发送ACK时，可以携带数据</p>
-<ul>
-<li>因为此时，客户端服务端都知道双方都有收发数据的能力，所以可以开始通信。</li>
-</ul>
-<h2 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h2><p>四次挥手，目的是断开客户端到服务端的全双工链路。断开一端称为半关闭，会关闭一端的套接字的一个缓存区。</p>
-<p>示例</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">客户端发送：FIN <span class="number">501</span>(<span class="number">0</span>)  ACK <span class="number">701</span> </span><br><span class="line">服务端发送：ACK <span class="number">502</span>             ---- 半关闭</span><br><span class="line">服务端发送：FIN <span class="number">701</span>(<span class="number">0</span>)  ACK <span class="number">502</span></span><br><span class="line">客户端发送：ACK <span class="number">702</span>             ---- 完全断开</span><br></pre></td></tr></table></figure>
-
-<p>总结</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">主动关闭连接请求端：发送FIN标志位。</span><br><span class="line">被动关闭连接请求端：应答ACK标志位。 ———— 半关闭完成</span><br><span class="line">被动关闭连接请求端：发送FIN标志位。</span><br><span class="line">主动关闭连接请求端：应答ACK标志位。 —————连接全部关闭</span><br></pre></td></tr></table></figure>
-
-<p>客户端接收到服务器的应答之后，进入半关闭状态，不能发送数据给服务器，而服务器会在发送完剩余数据后，发起关闭请求，客户端应答服务器后需要等待 2MSL(最大报文存活时间)后释放连接。原因如下：</p>
-<ul>
-<li>如果客户端的应答数据包丢失，那么服务器会再次发送断开请求。</li>
-<li>等待一段时间，使本次连接过程中产生的数据包在网络中消失。</li>
-</ul>
-<h2 id="可靠传输"><a href="#可靠传输" class="headerlink" title="可靠传输"></a>可靠传输</h2><h3 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h3><p>TCP使用超时重传来实现可靠传输：如果一个已经发送的报文段在超时时间内没有收到确认，那么就重传这个报文段。</p>
-<p>一个报文段从发送到接收到确定所经历的时间称为往返时间RTT(加权平均RTTs)。超时时间 RTO 应该略大于 RTTs 。TCP使用的超时时间计算是 : RTO = RTTs + 4 * RTTd 。RTTd : 偏差的加权平均值。</p>
-<h3 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h3><p>滑动窗口是一个缓存区，用于暂时存放字节流。发送方和接收方各有一个窗口，接收方通过TCP报文段中的窗口字段告诉发送方自己的窗口大小，发送方根据这个值和其他信息来设置自己的窗口大小。</p>
-<p>对于发送方来说，当窗口靠左侧的数据包已经成功发送并被确认后，窗口向右滑动直到某一个未发送或者未确认的字节位置。</p>
-<p>对于接收方来说，当窗口靠左侧的数据包已经收到，窗口向右滑动直到某一个未接收到的字节。</p>
-<h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><p>流量控制是为了控制发送方发送速率，保证接收方来得及接收。</p>
-<p>接收方发送的确认报文中的窗口字段可以用来控制发送方窗口大小，从而影响发送方的发送速率。将窗口字段设置为 0，则发送方不能发送数据。</p>
-<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>如果网络出现拥塞，发送方发送的数据包丢失，发送方重传导致网络难以恢复。因此要进行一定的拥塞控制使得发送方降低发送速率。发送方需要维护一个拥塞窗口（cwnd）状态变量：决定发送方能发送多少数据。</p>
-<h4 id="慢开始与拥塞避免"><a href="#慢开始与拥塞避免" class="headerlink" title="慢开始与拥塞避免"></a>慢开始与拥塞避免</h4><img src="https://i.loli.net/2020/10/30/8s2w3yMNVT6RL1k.png">
-
-<p>发送的最初执行慢开始，令 cwnd = 1，发送方只能发送 1 个报文段；当收到确认后，将 cwnd 加倍，因此之后发送方能够发送的报文段数量为：2、4、8 …</p>
-<p>注意到慢开始每个轮次都将 cwnd 加倍，这样会让 cwnd 增长速度非常快，从而使得发送方发送的速度增长速度过快，网络拥塞的可能性也就更高。设置一个慢开始门限 ssthresh，当 cwnd &gt;= ssthresh 时，进入拥塞避免，每个轮次只将 cwnd 加 1。</p>
-<p>如果出现了超时，则令 ssthresh = cwnd / 2，然后重新执行慢开始。</p>
-<h4 id="快速重传与快速恢复"><a href="#快速重传与快速恢复" class="headerlink" title="快速重传与快速恢复"></a>快速重传与快速恢复</h4><p>在接收方，要求每次接收到报文段都应该对最后一个已收到的有序报文段进行确认。例如已经接收到 M1 和 M2，此时收到 M4，应当发送对 M2 的确认。</p>
-<p>在发送方，如果收到三个重复确认，那么可以知道下一个报文段丢失，此时执行快重传，立即重传下一个报文段。例如收到三个 M2，则 M3 丢失，立即重传 M3。</p>
-<p>在这种情况下，只是丢失个别报文段，而不是网络拥塞。因此执行快恢复，令 ssthresh = cwnd / 2 ，cwnd = ssthresh，注意到此时直接进入拥塞避免。</p>
-<p>慢开始和快恢复的快慢指的是 cwnd 的设定值，而不是 cwnd 的增长速率。慢开始 cwnd 设定为 1，而快恢复 cwnd 设定为 ssthresh。</p>
-]]></content>
-      <categories>
-        <category>网络通信</category>
-        <category>传输层</category>
-        <category>TCP</category>
-      </categories>
-      <tags>
-        <tag>tcp</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>深入理解计算机网络</title>
     <url>/OXygenPanda.github.io/2020/11/23/HugeFour/Network/Deep_into_Network/</url>
     <content><![CDATA[<p align="center">
@@ -999,7 +999,7 @@
 <p>传送门 : <a class="btn" href="https://www.bilibili.com/video/BV17p411f7ZZ?p=1" title="传送门">b站 韩立刚 计算机网络</a></p>
 <a id="more"></a>
 
-<h1 id="计算机网络-第一章"><a href="#计算机网络-第一章" class="headerlink" title="# 计算机网络 第一章"></a># 计算机网络 第一章</h1><blockquote>
+<h1 id="计算机网络-第一章"><a href="#计算机网络-第一章" class="headerlink" title="计算机网络 第一章"></a>计算机网络 第一章</h1><blockquote>
 <p>  计算机网络第一章的主要内容是 : 概述</p>
 </blockquote>
 <h2 id="课程安排"><a href="#课程安排" class="headerlink" title="课程安排"></a>课程安排</h2><p>第一章 : 概述</p>
@@ -1142,7 +1142,110 @@
 <p>​    网络层 - IP数据报(IP分组)</p>
 <p>​    数据链路层 - 数据帧</p>
 <p>​    物理层 - bits</p>
-]]></content>
+<h1 id="计算机网络-第二章"><a href="#计算机网络-第二章" class="headerlink" title="计算机网络 第二章"></a>计算机网络 第二章</h1><p>由于是物理层, 暂时先跳过学习</p>
+<h1 id="计算机网络-第三章"><a href="#计算机网络-第三章" class="headerlink" title="计算机网络 第三章"></a>计算机网络 第三章</h1><blockquote>
+<p>  第三章的主要内容是 : 数据链路层</p>
+</blockquote>
+<h2 id="数据链路层基本概念及基本问题"><a href="#数据链路层基本概念及基本问题" class="headerlink" title="数据链路层基本概念及基本问题"></a>数据链路层基本概念及基本问题</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>数据发送模型 :</p>
+<ul>
+<li>主机1 - 电话网 - 路由器1 - 局域网 - 路由器2 - 广域网 - 路由器3 - 局域网 - 主机2.</li>
+<li>在路由器上数据上升到网络层, 再进行转发.</li>
+</ul>
+<p>数据链路层的信道类型 :</p>
+<ul>
+<li>点对点信道</li>
+<li>广播信道</li>
+</ul>
+<p>链路与数据链路 :</p>
+<ul>
+<li>链路 (link) 是一条点对点的物理线路段</li>
+<li>数据链路 (data link) 除了物理线路外, 还必须有通信协议来控制这些数据的传输</li>
+</ul>
+<p>帧 :</p>
+<ul>
+<li>链路层传输的数据单元</li>
+<li>获得网络层的数据报增加帧头和帧尾, 传递给物理层</li>
+</ul>
+<h3 id="三个基本问题"><a href="#三个基本问题" class="headerlink" title="三个基本问题"></a>三个基本问题</h3><ol>
+<li><p>封装成帧</p>
+<p>封装成帧就是在一段数据的前后分别添加首部和尾部, 然后就构成一个帧, 确定帧的边界.</p>
+<p>首部和尾部的一个重要作用就是进行帧定界.</p>
+<p>帧的数据部分长度最大为1500字节.</p>
+<p>帧首部和帧尾部定界的作用 : 确保数据的完整性</p>
+</li>
+<li><p>透明传输</p>
+<p>在帧数据部分出现了SOH帧首部或EOT帧尾部内容, 会出现提前结束.</p>
+<p>解决方法 :</p>
+<ul>
+<li>发送端的数据链路层在数据中出现控制字符”SOH”或者”EOT”的前面插入转义字符”ESC”(十六进制编码为1B).</li>
+<li>字节填充或字符填充——接收端的数据链路层在将数据送往网络层之前删除插入的转义字符.</li>
+<li>如果转义字符也出现在数据中, 那么应该在转义字符前插入一个转义字符. 当接收端收到连续的两个转义字符时, 就删除前面一个.</li>
+</ul>
+</li>
+<li><p>差错控制</p>
+<p>传输过程中可能会产生比特差错 : 1 可能会变成 0 , 0 可能会变成 1.</p>
+<p>在一段时间内, 传输错误的比特占所传输比特总数的比率称为误码率 BER (bit error rate).</p>
+<p>误码率与信噪比有很大的关系.</p>
+<p>为了保证数据传输的可靠性, 在计算机网络传输数据时, 必须采用各种差错检测措施.</p>
+<p>循环冗余检验 CRC :</p>
+<ul>
+<li>在数据链路层传送的帧中, 广泛使用了 CRC 的技术.</li>
+<li>在发送端, 先把数据划分为组. 假定每组为 k 个比特</li>
+<li>假设待传送的一组数据 M = 101001 (k = 6), 我们在 M 的后面再添加供差错检测用的 n 位冗余码一起发送.</li>
+<li>101001 - 000 (增加3位0, 要求除数是4位) / 1101 = 001 (FCS) , 把001加在101001后面, 组成 101001001 , 接收方除以相同的四位数 1101, 如果最终结果是 0 , 说明没有出错. 这个四位数 1101 或者更多位的数, 是链路层保证双方相同的.</li>
+<li>链路层的差错控制, 是无差错接收, 只接受没有比特差错的情况, 不需要重传.(重传是传输层的要求)</li>
+</ul>
+<p>帧检验序列 FCS :</p>
+<ul>
+<li>在数据后面添加上的冗余码称为帧检验序列 FCS.</li>
+<li>循环冗余检验 CRC 和帧检验序列 FCS 并不等同. (CRC 不是获得 FCS 的唯一途径)</li>
+</ul>
+</li>
+</ol>
+<h2 id="两种情况下的数据链路层"><a href="#两种情况下的数据链路层" class="headerlink" title="两种情况下的数据链路层"></a>两种情况下的数据链路层</h2><h3 id="使用点对点信道的数据链路层"><a href="#使用点对点信道的数据链路层" class="headerlink" title="使用点对点信道的数据链路层"></a>使用点对点信道的数据链路层</h3><p>PPP协议( Pointer-to-Pointer Protocol)</p>
+<p>用户使用拨号电话线接入因特网的时候, 一般都是使用PPP协议. 具有拨号, 身份验证, 可以记账的特性.</p>
+<p>PPP协议应该满足的要求 : 简单, 封装成帧, 透明性, 多层网络层协议, 多种类型链路, 差错检测, 检测连接状态, 最大传送单元, 网络层地址协商, 数据压缩协商.</p>
+<p>PPP协议不需要满足的要求 : 纠错, 流量控制, 序号, 多点线路, 半双工或单工链路.</p>
+<p>PPP协议的组成 :</p>
+<ul>
+<li>数据链路层协议可以用于异步串行或同步串行介质.</li>
+<li>它使用LCP(链路控制协议)建立并维护数据链路连接.</li>
+<li>网络控制协议(NCP)允许在点到点连接上使用多种网络层协议.</li>
+</ul>
+<p>|3. 上层协议 : IP IPX AppleTalk |</p>
+<p>|2. 网络控制协议 NCP 针对每一个网络层协议 |</p>
+<p>|2. 链路控制协议 LCP |</p>
+<p>|2. 高级数据链路控制协议 HDLC |</p>
+<p>|1. 物理层 |</p>
+<p>PPP协议帧格式 :</p>
+<p>首部 : | F{1} | A{1} | C{1} | 协议{2} | . 其中, A,C = FF,03 是固定的.</p>
+<ul>
+<li>协议{2} :<ul>
+<li>0x0021 - PPP帧的信息字段就是IP数据报</li>
+<li>0xC021 - 信息字段是PPP链路控制数据</li>
+<li>0x8021 - 网络控制数据</li>
+<li>0xC023 - 安全性认证PAP</li>
+<li>0xC025 - LQR</li>
+<li>0xC223 - 安全性认证CHAP</li>
+</ul>
+</li>
+</ul>
+<p>数据部分 : IP数据报不超过1500字节.</p>
+<p>尾部 : | FCS{2} | F{1} | . PPP协议的头尾的 F(=7E) 字段相同.</p>
+<p>字节填充 : 信息字段出现标志字段的值的问题 : 信息字段的 0x7E 被拆分称为0x7D 0x5E, 信息字段的 0x7D 被拆分成0x7D 0x5D, ASCII 控制符(数值小于0x20)前加一个 0x7D 字节.(因此实际传输的信息可能是达不到1500字节)</p>
+<p>零比特填充方法 :</p>
+<ul>
+<li>PPP协议用在SONET/SDH链路时, 是使用同步传输一连串的比特连续传送). 这时, PPP协议采用零比特填充方法来实现透明传输.</li>
+<li>在发送端, 只要连续发现5个连续的1, 就立即填充一个0. 接收端扫描时, 5个连续的1后删除1个0.(可以用于避免0x7E的出现)</li>
+</ul>
+<p>PPP协议的工作状态 :</p>
+<ul>
+<li>当用户拨号接入ISP时, 路由器的调制解调器对拨号做出确认, 并建立一条物理连接.</li>
+<li>PC机向路由器发送一系列的LCP分组(封装成多个PPP帧).</li>
+<li>这些分组及其响应选择一些PPP参数, 和进行网络层配置, NCP给新接入的PC机分配一个临时的IP地址, 使PC机称为因特网上的一个主机.</li>
+<li>通信完毕时, NCP释放网络层连接, 收回原来分配出去的IP地址. 接着, LCP释放数据链路层连接. 最后释放的是物理层连接.</li>
+</ul>
+<h3 id="使用广播信道的数据链路层"><a href="#使用广播信道的数据链路层" class="headerlink" title="使用广播信道的数据链路层"></a>使用广播信道的数据链路层</h3><h2 id="以太局域网"><a href="#以太局域网" class="headerlink" title="以太局域网"></a>以太局域网</h2><h2 id="扩展以太网"><a href="#扩展以太网" class="headerlink" title="扩展以太网"></a>扩展以太网</h2><h2 id="高速以太网"><a href="#高速以太网" class="headerlink" title="高速以太网"></a>高速以太网</h2>]]></content>
       <categories>
         <category>计算机网络</category>
       </categories>
@@ -1151,23 +1254,27 @@
       </tags>
   </entry>
   <entry>
-    <title>剑指 Offer 13. 机器人的运动范围</title>
-    <url>/OXygenPanda.github.io/2020/11/20/HugeFour/Network/%E5%89%91%E6%8C%87Offer%2013/</url>
-    <content><![CDATA[<h2 id="剑指-Offer-13-机器人的运动范围"><a href="#剑指-Offer-13-机器人的运动范围" class="headerlink" title="剑指 Offer 13. 机器人的运动范围"></a>剑指 Offer 13. 机器人的运动范围</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" href="https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/" title="leetcode链接">剑指 Offer 13. 机器人的运动范围</a></p>
-<p><strong>难度:</strong><font color="orange">中等</font></p>
+    <title>剑指 Offer 05. 替换空格</title>
+    <url>/OXygenPanda.github.io/2020/10/12/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87%20Offer%2005.%20%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/</url>
+    <content><![CDATA[<h2 id="剑指-Offer-05-替换空格"><a href="#剑指-Offer-05-替换空格" class="headerlink" title="剑指 Offer 05. 替换空格"></a>剑指 Offer 05. 替换空格</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a href="https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/">剑指 Offer 05. 替换空格</a></p>
+<p><strong>难度:</strong><font color="green">简单</font></p>
 <p><strong>描述</strong></p>
-<p>地上有一个m行n列的方格，从坐标<code> [0,0]</code> 到坐标<code> [m-1,n-1]</code> 。一个机器人从坐标 [0, 0] 的格子开始移动，它每次可以向左、右、上、下移动一格（不能移动到方格外），也不能进入行坐标和列坐标的数位之和大于k的格子。例如，当k为18时，机器人能够进入方格 [35, 37] ，因为3+5+3+7=18。但它不能进入方格 [35, 38]，因为3+5+3+8=19。请问该机器人能够到达多少个格子？</p>
-<a id="more"></a>
-
+<p>请实现一个函数，把字符串 <code>s</code> 中的每个空格替换成”%20”。</p>
 <p><strong>示例</strong></p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">输入：m = <span class="number">2</span>, n = <span class="number">3</span>, k = <span class="number">1</span></span><br><span class="line">输出：<span class="number">3</span></span><br><span class="line"></span><br><span class="line">输入：m = <span class="number">3</span>, n = <span class="number">1</span>, k = <span class="number">0</span></span><br><span class="line">输出：<span class="number">1</span></span><br><span class="line"></span><br><span class="line">限制:</span><br><span class="line"><span class="number">1</span> &lt;= n,m &lt;= <span class="number">100</span></span><br><span class="line"><span class="number">0</span> &lt;= k &lt;= <span class="number">20</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>机器人的运动范围虽然是在一个左上顶点为<code>[0,0]</code>, 右下顶点为<code>[m-1,n-1]</code>的矩形中运动, 但是机器人必须从<code>[0,0]</code>出发, 也就是说虽然有一些点是符合各数位之和小于 k 的, 但是机器人不可达就不应该计算在内.</p>
-<p>这里, 我直接把所有符合要求的点全部记录在一个二维数组中, 然后通过 dfs 来求出 “岛屿” 的大小.</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">bool</span> _legalArea(<span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">int</span> k)&#123;</span><br><span class="line">        <span class="comment">//true : i 和 j 的各个位之后小于k</span></span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i)&#123;</span><br><span class="line">            sum += i % <span class="number">10</span>;</span><br><span class="line">            i /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(j)&#123;</span><br><span class="line">            sum += j % <span class="number">10</span>;</span><br><span class="line">            j /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (sum &lt;= k);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp; <span class="built_in">map</span>)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;<span class="number">0</span> || i&gt;=<span class="built_in">map</span>.size() || j&lt;<span class="number">0</span> || j&gt;= <span class="built_in">map</span>[<span class="number">0</span>].size() || <span class="built_in">map</span>[i][j] == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        count++;</span><br><span class="line">        <span class="built_in">map</span>[i][j] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> dx[<span class="number">4</span>]&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">-1</span>,<span class="number">1</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> dy[<span class="number">4</span>]&#123;<span class="number">-1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span> ; k &lt; <span class="number">4</span>; ++ k)&#123;</span><br><span class="line">            dfs(i+dx[k],j+dy[k],<span class="built_in">map</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">movingCount</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">map</span><span class="params">(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n,<span class="number">0</span>))</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; m ; ++ i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; n ; ++ j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(_legalArea(i,j,k) == <span class="literal">true</span>)&#123;</span><br><span class="line">                    <span class="built_in">map</span>[i][j] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        dfs(<span class="number">0</span>,<span class="number">0</span>,<span class="built_in">map</span>);</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>现有矩阵 matrix 如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：s = <span class="string">&quot;We are happy.&quot;</span></span><br><span class="line">输出：<span class="string">&quot;We%20are%20happy.&quot;</span></span><br><span class="line">    </span><br><span class="line">限制：</span><br><span class="line"><span class="number">0</span> &lt;= s 的长度 &lt;= <span class="number">10000</span></span><br><span class="line"></span><br><span class="line">函数签名:</span><br><span class="line"><span class="built_in">string</span> replaceSpace(<span class="built_in">string</span> s)</span><br></pre></td></tr></table></figure>
 
 
 
+<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>第一种思路是创建一个新的空字符串，遍历原字符串，判断当前字符是否是空格，如果是空格，新串 <code>+= &quot;%20&quot;</code> 如果不是空格，新串加 <code>+= 当前字符</code></p>
+<p>代码过于简单，就不展示啦。</p>
+<p>时间复杂度 : <code>O(N)</code> 空间复杂度 : <code>O(N)</code> 。</p>
+<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>第二种思路是原地调整字符串大小，直接将<code>&quot;%20&quot;</code>加入到原字符串中。</p>
+<p>我们需要遍历一次数组，统计空格字符出现的次数，那么调整后的字符串大小应该等于<code>old_size + 2*space_num</code> 。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">replaceSpace</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> space_num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> size_old = s.size(); <span class="comment">//旧串大小</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c:s)</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">isspace</span>(c))</span><br><span class="line">                space_num++;</span><br><span class="line">        <span class="keyword">int</span> size_new = size_old + <span class="number">2</span> * space_num; <span class="comment">//新串大小</span></span><br><span class="line"></span><br><span class="line">        s.resize(size_new);</span><br><span class="line">        <span class="keyword">int</span> i = size_new<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> j = size_old<span class="number">-1</span>;        </span><br><span class="line">        <span class="keyword">while</span>(i != j)&#123; <span class="comment">//如果 i==j,说明再前面的字符串子串里不存在空格字符,剪枝操作</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">isspace</span>(s[j]))&#123;</span><br><span class="line">                s[i] = <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">                s[i<span class="number">-1</span>] = <span class="string">&#x27;2&#x27;</span>;</span><br><span class="line">                s[i<span class="number">-2</span>] = <span class="string">&#x27;%&#x27;</span>;</span><br><span class="line">                i -= <span class="number">3</span>;</span><br><span class="line">                j -= <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                s[i] = s[j];</span><br><span class="line">                j--;</span><br><span class="line">                i--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度 : <code>O(N)</code> , 空间复杂度 :  <code>O(N)</code>。 </p>
+<p>这里的空间复杂度明显要比前一种小很多，尤其是字符串很长而空格字符很少的情况。如果形式参数是传引用的形式传递，应该采用解法一，尽量不改变传入的字符串。</p>
 ]]></content>
       <categories>
         <category>Leetcode</category>
@@ -1175,7 +1282,8 @@
       </categories>
       <tags>
         <tag>Leetcode</tag>
-        <tag>DFS</tag>
+        <tag>字符串</tag>
+        <tag>简单</tag>
       </tags>
   </entry>
   <entry>
@@ -1217,41 +1325,8 @@
       </categories>
       <tags>
         <tag>Leetcode</tag>
+        <tag>简单</tag>
         <tag>哈希集合</tag>
-        <tag>简单</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>剑指 Offer 05. 替换空格</title>
-    <url>/OXygenPanda.github.io/2020/10/12/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87%20Offer%2005.%20%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/</url>
-    <content><![CDATA[<h2 id="剑指-Offer-05-替换空格"><a href="#剑指-Offer-05-替换空格" class="headerlink" title="剑指 Offer 05. 替换空格"></a>剑指 Offer 05. 替换空格</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a href="https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/">剑指 Offer 05. 替换空格</a></p>
-<p><strong>难度:</strong><font color="green">简单</font></p>
-<p><strong>描述</strong></p>
-<p>请实现一个函数，把字符串 <code>s</code> 中的每个空格替换成”%20”。</p>
-<p><strong>示例</strong></p>
-<p>现有矩阵 matrix 如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">输入：s = <span class="string">&quot;We are happy.&quot;</span></span><br><span class="line">输出：<span class="string">&quot;We%20are%20happy.&quot;</span></span><br><span class="line">    </span><br><span class="line">限制：</span><br><span class="line"><span class="number">0</span> &lt;= s 的长度 &lt;= <span class="number">10000</span></span><br><span class="line"></span><br><span class="line">函数签名:</span><br><span class="line"><span class="built_in">string</span> replaceSpace(<span class="built_in">string</span> s)</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>第一种思路是创建一个新的空字符串，遍历原字符串，判断当前字符是否是空格，如果是空格，新串 <code>+= &quot;%20&quot;</code> 如果不是空格，新串加 <code>+= 当前字符</code></p>
-<p>代码过于简单，就不展示啦。</p>
-<p>时间复杂度 : <code>O(N)</code> 空间复杂度 : <code>O(N)</code> 。</p>
-<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>第二种思路是原地调整字符串大小，直接将<code>&quot;%20&quot;</code>加入到原字符串中。</p>
-<p>我们需要遍历一次数组，统计空格字符出现的次数，那么调整后的字符串大小应该等于<code>old_size + 2*space_num</code> 。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">replaceSpace</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> space_num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> size_old = s.size(); <span class="comment">//旧串大小</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c:s)</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">isspace</span>(c))</span><br><span class="line">                space_num++;</span><br><span class="line">        <span class="keyword">int</span> size_new = size_old + <span class="number">2</span> * space_num; <span class="comment">//新串大小</span></span><br><span class="line"></span><br><span class="line">        s.resize(size_new);</span><br><span class="line">        <span class="keyword">int</span> i = size_new<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> j = size_old<span class="number">-1</span>;        </span><br><span class="line">        <span class="keyword">while</span>(i != j)&#123; <span class="comment">//如果 i==j,说明再前面的字符串子串里不存在空格字符,剪枝操作</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">isspace</span>(s[j]))&#123;</span><br><span class="line">                s[i] = <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">                s[i<span class="number">-1</span>] = <span class="string">&#x27;2&#x27;</span>;</span><br><span class="line">                s[i<span class="number">-2</span>] = <span class="string">&#x27;%&#x27;</span>;</span><br><span class="line">                i -= <span class="number">3</span>;</span><br><span class="line">                j -= <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                s[i] = s[j];</span><br><span class="line">                j--;</span><br><span class="line">                i--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度 : <code>O(N)</code> , 空间复杂度 :  <code>O(N)</code>。 </p>
-<p>这里的空间复杂度明显要比前一种小很多，尤其是字符串很长而空格字符很少的情况。如果形式参数是传引用的形式传递，应该采用解法一，尽量不改变传入的字符串。</p>
-]]></content>
-      <categories>
-        <category>Leetcode</category>
-        <category>剑指 Offer 专题</category>
-      </categories>
-      <tags>
-        <tag>Leetcode</tag>
-        <tag>简单</tag>
-        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
@@ -1372,8 +1447,8 @@
         <category>剑指 Offer 专题</category>
       </categories>
       <tags>
-        <tag>Leetcode</tag>
         <tag>二叉树</tag>
+        <tag>Leetcode</tag>
         <tag>中等</tag>
       </tags>
   </entry>
@@ -1400,22 +1475,24 @@
         <category>剑指 Offer 专题</category>
       </categories>
       <tags>
-        <tag>Leetcode</tag>
         <tag>栈</tag>
+        <tag>Leetcode</tag>
         <tag>队列</tag>
       </tags>
   </entry>
   <entry>
-    <title>剑指 Offer 11. 旋转数组的最小数字</title>
-    <url>/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2011/</url>
-    <content><![CDATA[<h2 id="剑指-Offer-11-旋转数组的最小数字"><a href="#剑指-Offer-11-旋转数组的最小数字" class="headerlink" title="剑指 Offer 11. 旋转数组的最小数字"></a>剑指 Offer 11. 旋转数组的最小数字</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" href="https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/" title="leetcode链接">剑指 Offer 11. 旋转数组的最小数字</a></p>
+    <title>剑指 Offer 10- I. 斐波那契数列</title>
+    <url>/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2010/</url>
+    <content><![CDATA[<h2 id="剑指-Offer-10-I-斐波那契数列"><a href="#剑指-Offer-10-I-斐波那契数列" class="headerlink" title="剑指 Offer 10- I. 斐波那契数列"></a>剑指 Offer 10- I. 斐波那契数列</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" href="https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/" title="leetcode链接">剑指 Offer 10. 斐波那契数列</a></p>
 <p><strong>难度:</strong><font color="green">简单</font></p>
 <p><strong>描述</strong></p>
-<p>把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。例如，数组<code> [3,4,5,1,2]</code> 为 <code>[1,2,3,4,5]</code> 的一个旋转，该数组的最小值为1。  </p>
-<a id="more"></a>
+<p>写一个函数，输入 <code>n</code> ，求斐波那契（Fibonacci）数列的第 <code>n</code> 项。斐波那契数列的定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">F(<span class="number">0</span>) = <span class="number">0</span>,   F(<span class="number">1</span>) = <span class="number">1</span></span><br><span class="line">F(N) = F(N - <span class="number">1</span>) + F(N - <span class="number">2</span>), 其中 N &gt; <span class="number">1.</span></span><br></pre></td></tr></table></figure>
 
+<p>斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。</p>
+<p>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</p>
 <p><strong>示例</strong></p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">输入：[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>]</span><br><span class="line">输出：<span class="number">1</span></span><br><span class="line"></span><br><span class="line">输入：[<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">1</span>]</span><br><span class="line">输出：<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">输入：n = <span class="number">2</span></span><br><span class="line">输出：<span class="number">1</span></span><br><span class="line"></span><br><span class="line">输入：n = <span class="number">5</span></span><br><span class="line">输出：<span class="number">5</span></span><br><span class="line">   </span><br><span class="line">限制：</span><br><span class="line"><span class="number">0</span> &lt;= n &lt;= <span class="number">100</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>遥记得很久以前写斐波那契数列的问题时, 不考虑时间空间复杂度. 一股脑把所有的斐波那契数存下来, 现在针对这一题来说, 它没有必要存下每一个斐波那契数, 只需要返回第<code>n</code>个,所以就把DP问题优化了一下,减少了空间复杂度.<code>mod</code>的位置比较重要, 因为中途计算的时候可能会使得dp_2超出整形范围,所以在运算时就得<code>mod</code>.</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span> || n == <span class="number">1</span>)    <span class="keyword">return</span> n;</span><br><span class="line">        <span class="keyword">int</span> mod = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">        <span class="keyword">int</span> dp_0 = <span class="number">0</span>, dp_1 = <span class="number">1</span>, dp_2;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; ++i)&#123;</span><br><span class="line">            dp_2 = (dp_0 + dp_1) % mod;</span><br><span class="line">            dp_0 = dp_1;</span><br><span class="line">            dp_1 = dp_2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp_2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -1433,18 +1510,16 @@
       </tags>
   </entry>
   <entry>
-    <title>剑指 Offer 10- I. 斐波那契数列</title>
-    <url>/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2010/</url>
-    <content><![CDATA[<h2 id="剑指-Offer-10-I-斐波那契数列"><a href="#剑指-Offer-10-I-斐波那契数列" class="headerlink" title="剑指 Offer 10- I. 斐波那契数列"></a>剑指 Offer 10- I. 斐波那契数列</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" href="https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/" title="leetcode链接">剑指 Offer 10. 斐波那契数列</a></p>
+    <title>剑指 Offer 11. 旋转数组的最小数字</title>
+    <url>/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2011/</url>
+    <content><![CDATA[<h2 id="剑指-Offer-11-旋转数组的最小数字"><a href="#剑指-Offer-11-旋转数组的最小数字" class="headerlink" title="剑指 Offer 11. 旋转数组的最小数字"></a>剑指 Offer 11. 旋转数组的最小数字</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" href="https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/" title="leetcode链接">剑指 Offer 11. 旋转数组的最小数字</a></p>
 <p><strong>难度:</strong><font color="green">简单</font></p>
 <p><strong>描述</strong></p>
-<p>写一个函数，输入 <code>n</code> ，求斐波那契（Fibonacci）数列的第 <code>n</code> 项。斐波那契数列的定义如下：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">F(<span class="number">0</span>) = <span class="number">0</span>,   F(<span class="number">1</span>) = <span class="number">1</span></span><br><span class="line">F(N) = F(N - <span class="number">1</span>) + F(N - <span class="number">2</span>), 其中 N &gt; <span class="number">1.</span></span><br></pre></td></tr></table></figure>
+<p>把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。例如，数组<code> [3,4,5,1,2]</code> 为 <code>[1,2,3,4,5]</code> 的一个旋转，该数组的最小值为1。  </p>
+<a id="more"></a>
 
-<p>斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。</p>
-<p>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</p>
 <p><strong>示例</strong></p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">输入：n = <span class="number">2</span></span><br><span class="line">输出：<span class="number">1</span></span><br><span class="line"></span><br><span class="line">输入：n = <span class="number">5</span></span><br><span class="line">输出：<span class="number">5</span></span><br><span class="line">   </span><br><span class="line">限制：</span><br><span class="line"><span class="number">0</span> &lt;= n &lt;= <span class="number">100</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">输入：[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>]</span><br><span class="line">输出：<span class="number">1</span></span><br><span class="line"></span><br><span class="line">输入：[<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">1</span>]</span><br><span class="line">输出：<span class="number">0</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>遥记得很久以前写斐波那契数列的问题时, 不考虑时间空间复杂度. 一股脑把所有的斐波那契数存下来, 现在针对这一题来说, 它没有必要存下每一个斐波那契数, 只需要返回第<code>n</code>个,所以就把DP问题优化了一下,减少了空间复杂度.<code>mod</code>的位置比较重要, 因为中途计算的时候可能会使得dp_2超出整形范围,所以在运算时就得<code>mod</code>.</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span> || n == <span class="number">1</span>)    <span class="keyword">return</span> n;</span><br><span class="line">        <span class="keyword">int</span> mod = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line">        <span class="keyword">int</span> dp_0 = <span class="number">0</span>, dp_1 = <span class="number">1</span>, dp_2;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; ++i)&#123;</span><br><span class="line">            dp_2 = (dp_0 + dp_1) % mod;</span><br><span class="line">            dp_0 = dp_1;</span><br><span class="line">            dp_1 = dp_2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp_2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
