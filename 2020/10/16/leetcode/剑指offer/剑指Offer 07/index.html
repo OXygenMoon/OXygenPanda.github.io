@@ -34,8 +34,8 @@
 <meta property="article:published_time" content="2020-10-16T08:24:31.000Z">
 <meta property="article:modified_time" content="2020-10-18T07:54:45.362Z">
 <meta property="article:author" content="劳振煜">
-<meta property="article:tag" content="Leetcode">
 <meta property="article:tag" content="二叉树">
+<meta property="article:tag" content="Leetcode">
 <meta property="article:tag" content="中等">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2020/10/17/izmOr39HkujLW86.png">
@@ -288,13 +288,13 @@
 
       
         <h2 id="剑指-Offer-07-重建二叉树"><a href="#剑指-Offer-07-重建二叉树" class="headerlink" title="剑指 Offer 07. 重建二叉树"></a>剑指 Offer 07. 重建二叉树</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/" title="leetcode链接">剑指 Offer 07. 重建二叉树</a></p>
-<p><strong>难度:</strong><font color=orange>中等</font></p>
+<p><strong>难度:</strong><font color="orange">中等</font></p>
 <p><strong>描述</strong></p>
 <p>输入某二叉树的前序遍历和中序遍历的结果，请重建该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。</p>
 <p><strong>示例</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">例如，给出</span><br><span class="line">前序遍历 preorder = [<span class="number">3</span>,<span class="number">9</span>,<span class="number">20</span>,<span class="number">15</span>,<span class="number">7</span>]</span><br><span class="line">中序遍历 inorder = [<span class="number">9</span>,<span class="number">3</span>,<span class="number">15</span>,<span class="number">20</span>,<span class="number">7</span>]</span><br><span class="line">    </span><br><span class="line">限制：</span><br><span class="line"><span class="number">0</span> &lt;= 节点个数 &lt;= <span class="number">5000</span></span><br></pre></td></tr></table></figure>
 <p>返回如下的二叉树：</p>
-<img src="https://i.loli.net/2020/10/17/izmOr39HkujLW86.png"/>
+<img src="https://i.loli.net/2020/10/17/izmOr39HkujLW86.png">
 
 
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">函数签名:</span><br><span class="line"><span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; preorder, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder)</span></span>;</span><br></pre></td></tr></table></figure>
@@ -308,7 +308,7 @@
 <li>前序中除去根节点以外，左子树的节点集中在左边，右子树的节点集中在右边；</li>
 <li>对于每一颗子树来说，也满足以上两个特点。</li>
 </ul>
-<img src="https://i.loli.net/2020/10/17/5ekJB1Vy2nLoGhP.jpg"/>
+<img src="https://i.loli.net/2020/10/17/5ekJB1Vy2nLoGhP.jpg">
 
 <h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; preorder, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//函数签名不支持我们方便的书写递归,因此再构建一个函数</span></span><br><span class="line">    <span class="keyword">return</span> build(preorder,<span class="number">0</span>,preorder.size()<span class="number">-1</span>,inorder,<span class="number">0</span>,inorder.size()<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">TreeNode* <span class="title">build</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; preorder, <span class="keyword">int</span> pbegin, <span class="keyword">int</span> pend, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder, <span class="keyword">int</span> ibegin, <span class="keyword">int</span> iend)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(pbegin &gt; pend) <span class="comment">//剪枝条件</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">int</span> midnum = preorder[pbegin]; <span class="comment">//特点1:前序第一个节点是根节点</span></span><br><span class="line">    <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=ibegin;i&lt;=iend;++i)</span><br><span class="line">        <span class="keyword">if</span>(inorder[i] == midnum) <span class="comment">//利用特点2之前需要找到中序中的根节点</span></span><br><span class="line">            index = i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> leftsize = index - ibegin; <span class="comment">// 找到左子树的节点数</span></span><br><span class="line">    TreeNode * node = <span class="keyword">new</span> TreeNode(midnum);</span><br><span class="line">    node-&gt;left = build(preorder,pbegin+<span class="number">1</span>,pbegin+leftsize,inorder,ibegin,index<span class="number">-1</span>); <span class="comment">//构建左子树</span></span><br><span class="line">    node-&gt;right = build(preorder,pbegin+leftsize+<span class="number">1</span>,pend,inorder,index+<span class="number">1</span>,iend); <span class="comment">//构建右子树</span></span><br><span class="line">    <span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -343,8 +343,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/OXygenPanda.github.io/tags/Leetcode/" rel="tag"># Leetcode</a>
               <a href="/OXygenPanda.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag"># 二叉树</a>
+              <a href="/OXygenPanda.github.io/tags/Leetcode/" rel="tag"># Leetcode</a>
               <a href="/OXygenPanda.github.io/tags/%E4%B8%AD%E7%AD%89/" rel="tag"># 中等</a>
           </div>
 
