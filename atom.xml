@@ -6,7 +6,7 @@
   <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/atom.xml" rel="self"/>
   
   <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/"/>
-  <updated>2020-11-24T06:46:09.033Z</updated>
+  <updated>2020-11-24T08:34:39.734Z</updated>
   <id>https://oxygenpanda.github.io/OXygenPanda.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/23/HugeFour/Network/Deep_into_Network/"/>
     <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/23/HugeFour/Network/Deep_into_Network/</id>
     <published>2020-11-23T11:20:00.000Z</published>
-    <updated>2020-11-24T06:46:09.033Z</updated>
+    <updated>2020-11-24T08:34:39.734Z</updated>
     
     <content type="html"><![CDATA[<p align="center"><a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a><a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a><a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a></p><h1 id="计算机网络学习"><a href="#计算机网络学习" class="headerlink" title="计算机网络学习"></a>计算机网络学习</h1><p>本文章记录着小劳的计算机网络学习, 从2020.11.22开始学习, 目标能够掌握概念, 对网络编程有一个偏底层的理解. 学习自韩立刚老师的b站课程.</p><p>传送门 : <a class="btn" href="https://www.bilibili.com/video/BV17p411f7ZZ?p=1" title="传送门">b站 韩立刚 计算机网络</a></p><a id="more"></a><h1 id="计算机网络-第一章"><a href="#计算机网络-第一章" class="headerlink" title="计算机网络 第一章"></a>计算机网络 第一章</h1><blockquote><p>  计算机网络第一章的主要内容是 : 概述</p></blockquote><h2 id="课程安排"><a href="#课程安排" class="headerlink" title="课程安排"></a>课程安排</h2><p>第一章 : 概述</p><p>第二章 : 物理层</p><p>第三章 : 数据链路层</p><p>第四章 : 网络层</p><p>第五章 : 运输层</p><p>第六章 : 应用层</p><p>第七章 : 网络安全</p><p>第八章 : 因特网上的音频,视频服务</p><p>第九章 : 无线网络</p><p>第十章 : 下一代因特网</p><h2 id="计算机网络在信息时代的作用"><a href="#计算机网络在信息时代的作用" class="headerlink" title="计算机网络在信息时代的作用"></a>计算机网络在信息时代的作用</h2><p>21世纪的特征 : 数字化, 网络化, 信息化</p><p>网络化 : 三网(电信网络, 计算机网络, 有线电视网络)</p><p>计算机网络 : 因特网, 其他网络(政府网络, 军用网络)</p><h3 id="计算机网络的重要功能"><a href="#计算机网络的重要功能" class="headerlink" title="计算机网络的重要功能"></a>计算机网络的重要功能</h3><p>连通性 : 彼此联通, 交换信息</p><p>共享 : 信息共享, 软硬件共享(软 : ssh ; 硬 : 打印机等设备)</p><h2 id="因特网概述"><a href="#因特网概述" class="headerlink" title="因特网概述"></a>因特网概述</h2><p>终端到网络(路由器)的距离大约是100米, 路由器与路由器的连接扩展了网络的距离和接入网设备的数量.</p><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>网络 : 许多计算机连接在一起</p><p>互联网 : 许多网络连接在一起 (internet)</p><p>因特网 : 全球最大的一个互联网 (Internet, 使用 TCP/IP 协议)</p><h3 id="因特网发展的三个阶段"><a href="#因特网发展的三个阶段" class="headerlink" title="因特网发展的三个阶段"></a>因特网发展的三个阶段</h3><p>1st : ARPANET向互联网发展 (上世纪60年代 - 80 年代中期)</p><ul><li>1969年 分组交换网</li><li>1975年 互联网</li><li>1983年 TCP/IP (因特网起源)</li></ul><p>2nd : 三级结构的因特网 (上世纪80年代中期 - 90 年代初期)</p><ul><li>分层次, 比如 : 学校网 - 区域网 - 主干网(带宽 : 45 M)</li></ul><p>3rd : 多层次ISP结构的因特网</p><ul><li>ISP : Internet Service Provider 因特网服务提供商</li><li>第一层ISP - 第二层ISP - 第三层ISP(提供接入) - 校园网等</li><li>如果服务器需要提供的客户范围较小, 应该接入越低层的ISP</li></ul><h3 id="因特网的标准化工作"><a href="#因特网的标准化工作" class="headerlink" title="因特网的标准化工作"></a>因特网的标准化工作</h3><p>因特网协会 : ISOC</p><p>因特网体系结构委员会 IAB :</p><ul><li>因特网研究部 IRTF :<ul><li>因特网研究指导小组 IRSG</li></ul></li><li>因特网工程部 IETF :<ul><li>因特网工程指导小组 IESG</li></ul></li></ul><h3 id="因特网的组成"><a href="#因特网的组成" class="headerlink" title="因特网的组成"></a>因特网的组成</h3><p><strong>因特网的核心部分</strong></p><p><strong>因特网的边缘部分</strong></p><p>主机之间的通信方式 :</p><ul><li>客户端服务器方式 (Client / Server 方式)</li><li>对等方式 (Peer-to-Peer 方式)</li></ul><p>数据交换方式 :</p><ul><li>电路交换 (Circuit Switching)<ul><li>交换机同时只能提供网络中的两个终端通信</li><li>过程 : 申请占用通信资源, 一直占用通信资源, 释放通信资源</li><li>适用于 : 实时性通信, 核心路由器之间可以使用电路交换</li></ul></li><li>报文交换 (Message Switching)<ul><li>报文一般比分组长的多</li><li>报文交换的时延较长</li></ul></li><li>分组交换 (Packet Switching)<ul><li>完整的一个数据包称为报文, 需要分为多个组进行发送</li><li>每一个分组带上一个首部</li><li>分组的优势在于, 通信时路径可以复用</li><li>接收端去电首部后, 拼接分组成报文</li><li>路由器有存储转发功能</li><li>优点 : 高效, 灵活, 迅速, 可靠</li><li>问题 : 时延, 开销</li></ul></li></ul><h2 id="计算机在我国的发展"><a href="#计算机在我国的发展" class="headerlink" title="计算机在我国的发展"></a>计算机在我国的发展</h2><p>中国在1994年4月20日正式接入互联网.</p><h2 id="计算机网络的类别"><a href="#计算机网络的类别" class="headerlink" title="计算机网络的类别"></a>计算机网络的类别</h2><p>计算机网络最简单的定义 : 一些互相连接的, 自治的计算机的集合</p><p>作用范围(使用的技术) :</p><p>广域网 : WAN (花钱买服务, 花钱买带宽</p><p>城域网 : MAN</p><p>局域网 : LAN (自己购买设备, 带宽固定, 自己维护, 距离100米之内)</p><p>使用者 : 公用网, 专用网</p><p>拓扑结构 : 总线型, 环型, 星型, 树型, 网状</p><p>交换方式 : 电路交换, 报文交换, 分组交换</p><p>工作方式 : 资源子网, 通信子网, 接入网</p><h2 id="计算机网络的性能"><a href="#计算机网络的性能" class="headerlink" title="计算机网络的性能"></a>计算机网络的性能</h2><p>以下5点是性能指标 :</p><h3 id="速率"><a href="#速率" class="headerlink" title="速率"></a>速率</h3><p>速率是指连接在计算机网络上的主机在<strong>数字信道</strong>上传送数据位数的速率, 也称为 data rate 或者 bit rate. 单位是 b/s kb/s Mb/s Gb/s</p><p>一般来说, 运营商告诉的100M是指100Mbps, 转换成下行速率是 100 / 8 = 12.5 Mbit / s</p><h3 id="带宽"><a href="#带宽" class="headerlink" title="带宽"></a>带宽</h3><p>带宽是指数据通信领域中, <strong>数字信道</strong>所能传送的最高速率</p><h3 id="吞吐量"><a href="#吞吐量" class="headerlink" title="吞吐量"></a>吞吐量</h3><p>吞吐量是指在单位时间内通过<strong>某个网络</strong>的数据量</p><h3 id="时延"><a href="#时延" class="headerlink" title="时延"></a>时延</h3><p>时延 = 发送时延 + 传播时延 + 处理时延 + 排队时延</p><p>发送时延 = 数据块长度(比特) / 信道带宽(比特/秒)</p><p>传播时延 = 信道长度(米) / 信号在信道上的传播速率(米/秒)</p><p>处理时延 = 网络节点存储转发处理时间</p><p>排队时延 = 网络节点缓存队列排队时间</p><h3 id="利用率"><a href="#利用率" class="headerlink" title="利用率"></a>利用率</h3><p>信道利用率 = 有数据通过时间 / (有 + 无) 数据通过时间</p><p>网络利用率 = 信道利用率加权平均值</p><p>D = D0 / (1 - U) [D0 : 网络空闲时延 D : 网络当前时延 U : 信道利用率]</p><p>以下7点是非性能指标 : 费用, 质量, 标准化, 可靠性, 可扩展性, 可升级性, 管理与维护</p><h2 id="计算机网络的体系机构"><a href="#计算机网络的体系机构" class="headerlink" title="计算机网络的体系机构"></a>计算机网络的体系机构</h2><h3 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3><p>ISO : 国际标准化组织</p><p>OSI/RM : 互联网法律上的国际标准</p><p>TCP/IP Suite : 因特网事实上的国际标准</p><p>Network Protocols : 数据交换遵守的规则, 标准或约定</p><p>网络体系结构 : 计算机网络各层及协议的集合</p><h3 id="OSI-参考模型"><a href="#OSI-参考模型" class="headerlink" title="OSI 参考模型"></a>OSI 参考模型</h3><p><strong>OSI 是七层模型 :</strong></p><p>​    应用层 - 能够产生网络流量, 能够和用户交互的应用程序</p><p>​    表示层 - 加密, 压缩, 编解码 (开发人员考虑)</p><p>​    会话层 - 服务和客户端建立的会话 查木马 netstat -nb | more</p><p>​    传输层 - 可靠传输建立会话, 不可靠传输不建立会话(QQ发消息, DNS解析), 流量控制</p><p>​    网络层 - IP地址编址 选择最佳路径 动态路由</p><p>​    链路层 - 数据如何封装 为数据包添加物理层地址(MAC地址)</p><p>​    物理层 - 电压 接口标准</p><p><strong>分层的作用 :</strong> 1.标准化 ; 2.降低耦合度</p><p>开发者考虑应用层到会话层, 网络工程师考虑传输层到链路层</p><p><strong>网络排错 :</strong> 从底层往上检查(比如 : 先看网线, IP, 浏览器检查)</p><p><strong>网络安全和OSI参考模型 :</strong></p><p>​    物理层安全 - 给别人提供了接入网络的机会</p><p>​    链路层安全 - ADSL密码, 无线网卡密码</p><p>​    网络层安全 - 网关设置内网中某些网段可以访问外网, 某一些不可以</p><p>​    应用层安全 - SQL注入漏洞, 上传漏洞(文件类型检查)</p><h3 id="TCP-IP模型"><a href="#TCP-IP模型" class="headerlink" title="TCP/IP模型"></a>TCP/IP模型</h3><p><strong>TCP/IP 是五层模型 :</strong></p><p>​    应用层</p><p>​    传输层</p><p>​    网络层</p><p>​    链路层</p><p>​    物理层</p><p><strong>开放系统信息交换涉及的概念 :</strong></p><p>实体 : 交换信息的硬件和软件的进程</p><p>协议 : 控制两个对等实体通信的规则</p><p>服务 : 下层向上层提供服务, 上层需要使用下层提供的服务来实现本层的功能</p><p>服务访问点 : 相邻两层实体间交换信息的地方</p><p><strong>TCP/IP 模型的数据单元 :</strong></p><p>​    应用层 - 传输数据单元 PDU</p><p>​    运输层 - 运输层报文</p><p>​    网络层 - IP数据报(IP分组)</p><p>​    数据链路层 - 数据帧</p><p>​    物理层 - bits</p><h1 id="计算机网络-第二章"><a href="#计算机网络-第二章" class="headerlink" title="计算机网络 第二章"></a>计算机网络 第二章</h1><p>由于是物理层, 暂时先跳过学习</p><h1 id="计算机网络-第三章"><a href="#计算机网络-第三章" class="headerlink" title="计算机网络 第三章"></a>计算机网络 第三章</h1><blockquote><p>  第三章的主要内容是 : 数据链路层</p></blockquote><h2 id="数据链路层基本概念及基本问题"><a href="#数据链路层基本概念及基本问题" class="headerlink" title="数据链路层基本概念及基本问题"></a>数据链路层基本概念及基本问题</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>数据发送模型 :</p><ul><li>主机1 - 电话网 - 路由器1 - 局域网 - 路由器2 - 广域网 - 路由器3 - 局域网 - 主机2.</li><li>在路由器上数据上升到网络层, 再进行转发.</li></ul><p>数据链路层的信道类型 :</p><ul><li>点对点信道</li><li>广播信道</li></ul><p>链路与数据链路 :</p><ul><li>链路 (link) 是一条点对点的物理线路段</li><li>数据链路 (data link) 除了物理线路外, 还必须有通信协议来控制这些数据的传输</li></ul><p>帧 :</p><ul><li>链路层传输的数据单元</li><li>获得网络层的数据报增加帧头和帧尾, 传递给物理层</li></ul><h3 id="三个基本问题"><a href="#三个基本问题" class="headerlink" title="三个基本问题"></a>三个基本问题</h3><ol><li><p>封装成帧</p><p>封装成帧就是在一段数据的前后分别添加首部和尾部, 然后就构成一个帧, 确定帧的边界.</p><p>首部和尾部的一个重要作用就是进行帧定界.</p><p>帧的数据部分长度最大为1500字节.</p><p>帧首部和帧尾部定界的作用 : 确保数据的完整性</p></li><li><p>透明传输</p><p>在帧数据部分出现了SOH帧首部或EOT帧尾部内容, 会出现提前结束.</p><p>解决方法 :</p><ul><li>发送端的数据链路层在数据中出现控制字符”SOH”或者”EOT”的前面插入转义字符”ESC”(十六进制编码为1B).</li><li>字节填充或字符填充——接收端的数据链路层在将数据送往网络层之前删除插入的转义字符.</li><li>如果转义字符也出现在数据中, 那么应该在转义字符前插入一个转义字符. 当接收端收到连续的两个转义字符时, 就删除前面一个.</li></ul></li><li><p>差错控制</p><p>传输过程中可能会产生比特差错 : 1 可能会变成 0 , 0 可能会变成 1.</p><p>在一段时间内, 传输错误的比特占所传输比特总数的比率称为误码率 BER (bit error rate).</p><p>误码率与信噪比有很大的关系.</p><p>为了保证数据传输的可靠性, 在计算机网络传输数据时, 必须采用各种差错检测措施.</p><p>循环冗余检验 CRC :</p><ul><li>在数据链路层传送的帧中, 广泛使用了 CRC 的技术.</li><li>在发送端, 先把数据划分为组. 假定每组为 k 个比特</li><li>假设待传送的一组数据 M = 101001 (k = 6), 我们在 M 的后面再添加供差错检测用的 n 位冗余码一起发送.</li><li>101001 - 000 (增加3位0, 要求除数是4位) / 1101 = 001 (FCS) , 把001加在101001后面, 组成 101001001 , 接收方除以相同的四位数 1101, 如果最终结果是 0 , 说明没有出错. 这个四位数 1101 或者更多位的数, 是链路层保证双方相同的.</li><li>链路层的差错控制, 是无差错接收, 只接受没有比特差错的情况, 不需要重传.(重传是传输层的要求)</li></ul><p>帧检验序列 FCS :</p><ul><li>在数据后面添加上的冗余码称为帧检验序列 FCS.</li><li>循环冗余检验 CRC 和帧检验序列 FCS 并不等同. (CRC 不是获得 FCS 的唯一途径)</li></ul></li></ol><h2 id="两种情况下的数据链路层"><a href="#两种情况下的数据链路层" class="headerlink" title="两种情况下的数据链路层"></a>两种情况下的数据链路层</h2><h3 id="使用点对点信道的数据链路层"><a href="#使用点对点信道的数据链路层" class="headerlink" title="使用点对点信道的数据链路层"></a>使用点对点信道的数据链路层</h3><p>PPP协议( Pointer-to-Pointer Protocol)</p><p>用户使用拨号电话线接入因特网的时候, 一般都是使用PPP协议. 具有拨号, 身份验证, 可以记账的特性.</p><p>PPP协议应该满足的要求 : 简单, 封装成帧, 透明性, 多层网络层协议, 多种类型链路, 差错检测, 检测连接状态, 最大传送单元, 网络层地址协商, 数据压缩协商.</p><p>PPP协议不需要满足的要求 : 纠错, 流量控制, 序号, 多点线路, 半双工或单工链路.</p><p>PPP协议的组成 :</p><ul><li>数据链路层协议可以用于异步串行或同步串行介质.</li><li>它使用LCP(链路控制协议)建立并维护数据链路连接.</li><li>网络控制协议(NCP)允许在点到点连接上使用多种网络层协议.</li></ul><p>|3. 上层协议 : IP IPX AppleTalk |</p><p>|2. 网络控制协议 NCP 针对每一个网络层协议 |</p><p>|2. 链路控制协议 LCP |</p><p>|2. 高级数据链路控制协议 HDLC |</p><p>|1. 物理层 |</p><p>PPP协议帧格式 :</p><p>首部 : | F{1} | A{1} | C{1} | 协议{2} | . 其中, A,C = FF,03 是固定的.</p><ul><li>协议{2} :<ul><li>0x0021 - PPP帧的信息字段就是IP数据报</li><li>0xC021 - 信息字段是PPP链路控制数据</li><li>0x8021 - 网络控制数据</li><li>0xC023 - 安全性认证PAP</li><li>0xC025 - LQR</li><li>0xC223 - 安全性认证CHAP</li></ul></li></ul><p>数据部分 : IP数据报不超过1500字节.</p><p>尾部 : | FCS{2} | F{1} | . PPP协议的头尾的 F(=7E) 字段相同.</p><p>字节填充 : 信息字段出现标志字段的值的问题 : 信息字段的 0x7E 被拆分称为0x7D 0x5E, 信息字段的 0x7D 被拆分成0x7D 0x5D, ASCII 控制符(数值小于0x20)前加一个 0x7D 字节.(因此实际传输的信息可能是达不到1500字节)</p><p>零比特填充方法 :</p><ul><li>PPP协议用在SONET/SDH链路时, 是使用同步传输一连串的比特连续传送). 这时, PPP协议采用零比特填充方法来实现透明传输.</li><li>在发送端, 只要连续发现5个连续的1, 就立即填充一个0. 接收端扫描时, 5个连续的1后删除1个0.(可以用于避免0x7E的出现)</li></ul><p>PPP协议的工作状态 :</p><ul><li>当用户拨号接入ISP时, 路由器的调制解调器对拨号做出确认, 并建立一条物理连接.</li><li>PC机向路由器发送一系列的LCP分组(封装成多个PPP帧).</li><li>这些分组及其响应选择一些PPP参数, 和进行网络层配置, NCP给新接入的PC机分配一个临时的IP地址, 使PC机称为因特网上的一个主机.</li><li>通信完毕时, NCP释放网络层连接, 收回原来分配出去的IP地址. 接着, LCP释放数据链路层连接. 最后释放的是物理层连接.</li></ul><h3 id="使用广播信道的数据链路层"><a href="#使用广播信道的数据链路层" class="headerlink" title="使用广播信道的数据链路层"></a>使用广播信道的数据链路层</h3><h2 id="以太局域网"><a href="#以太局域网" class="headerlink" title="以太局域网"></a>以太局域网</h2><h2 id="扩展以太网"><a href="#扩展以太网" class="headerlink" title="扩展以太网"></a>扩展以太网</h2><h2 id="高速以太网"><a href="#高速以太网" class="headerlink" title="高速以太网"></a>高速以太网</h2>]]></content>
     
@@ -47,8 +47,8 @@
   
   <entry>
     <title>剑指 Offer 13. 机器人的运动范围</title>
-    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/20/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2013/"/>
-    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/20/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2013/</id>
+    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/20/leetcode/offer/%E5%89%91%E6%8C%87Offer%2013/"/>
+    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/20/leetcode/offer/%E5%89%91%E6%8C%87Offer%2013/</id>
     <published>2020-11-20T13:30:00.000Z</published>
     <updated>2020-11-20T13:23:37.148Z</updated>
     
@@ -78,14 +78,15 @@
     <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/20/top/"/>
     <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/20/top/</id>
     <published>2020-11-20T06:56:00.000Z</published>
-    <updated>2020-11-24T08:15:46.041Z</updated>
+    <updated>2020-11-24T08:59:09.910Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="博客引导"><a href="#博客引导" class="headerlink" title="博客引导"></a>博客引导</h1><h1 id="Github仓库引导"><a href="#Github仓库引导" class="headerlink" title="Github仓库引导"></a>Github仓库引导</h1><p><a class="btn" href="https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/" title="leetcode链接">剑指 Offer 13. 机器人的运动范围</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="博客引导"><a href="#博客引导" class="headerlink" title="博客引导"></a>博客引导</h1><p align="left"><a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a></p><p>我的博客, 即劳振煜的知識倉儲, 也就是您当前访问的博客. </p><p>博客是基于 Hexo 的静态博客, 部署于我的 Github 上.</p><p>该博客主要用来记录我在学习以及未来工作中的所感所悟. 留作记录以便自己在未来温故或帮助到正在看博客的你.</p><p>博客的内容区别于 Github 的内容, 主要是博客将会记录完整的有体系的内容, 而 Github 上的各个仓库主要是用于记录学习笔记与实验, 自己造轮子, 学习他人的开源项目.</p><h2 id="内容引导"><a href="#内容引导" class="headerlink" title="内容引导"></a>内容引导</h2><p>C++ :</p><p>STL :</p><p>数据结构 :</p><p>计算机网络 :<br><a class="btn" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/23/HugeFour/Network/Deep_into_Network/" title="链接">计算机网络 - 韩立刚老师 笔记</a></p><p><a class="btn" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/26/HugeFour/Network/TCP/" title="链接">计算机网络 - TCP</a></p><p>操作系统 :<br><a class="btn" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/08/HugeFour/OperatingSystem/QingHua/Deep_into_OperatingSystem_all/" title="链接">深入理解操作系统 - 清华大学 笔记</a></p><p>设计模式 :</p><p>Leetcode :</p><h1 id="Github仓库引导"><a href="#Github仓库引导" class="headerlink" title="Github仓库引导"></a>Github仓库引导</h1><p align="left"><a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a></p><p>我的Github, 也就是上方链接. 你可以搜索 OXygenPanda 访问.</p><p>虽然没有很多 star, 但是仍然坚持学习, 坚持记录, 坚持分享.</p><left><bold>计算机网络课程学习 - 韩立刚老师    </bold>    <br><font size="1.5">    记录计算机网络课程学习的笔记    </font></left><p align="left"><a href="https://github.com/OXygenPanda/Deep_into_Network" target="_blank"><img src="https://img.shields.io/badge/Github-@Deep_into_Network-000000.svg?style=flat-square&logo=GitHub"></a></p><left><bold>深入理解操作系统课程学习 - 清华大学</bold>    <br><font size="1.5">    记录清华大学深入理解操作系统课程学习的笔记    </font></left><p align="left"><a href="https://github.com/OXygenPanda/Deep_into_OperatingSystem" target="_blank"><img src="https://img.shields.io/badge/Github-@Deep_into_OperatingSystem-ffffff.svg?style=flat-square&logo=GitHub"></a></p>]]></content>
     
     
       
       
-    <summary type="html">&lt;h1 id=&quot;博客引导&quot;&gt;&lt;a href=&quot;#博客引导&quot; class=&quot;headerlink&quot; title=&quot;博客引导&quot;&gt;&lt;/a&gt;博客引导&lt;/h1&gt;&lt;h1 id=&quot;Github仓库引导&quot;&gt;&lt;a href=&quot;#Github仓库引导&quot; class=&quot;headerlink&quot; titl</summary>
+    <summary type="html">&lt;h1 id=&quot;博客引导&quot;&gt;&lt;a href=&quot;#博客引导&quot; class=&quot;headerlink&quot; title=&quot;博客引导&quot;&gt;&lt;/a&gt;博客引导&lt;/h1&gt;&lt;p align=&quot;left&quot;&gt;
+&lt;a href=&quot;https://oxygenpanda.github.io/&quot; target=</summary>
       
     
     
@@ -95,8 +96,8 @@
   
   <entry>
     <title>剑指 Offer 12. 矩阵中的路径</title>
-    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/18/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2012/"/>
-    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/18/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2012/</id>
+    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/18/leetcode/offer/%E5%89%91%E6%8C%87Offer%2012/"/>
+    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/18/leetcode/offer/%E5%89%91%E6%8C%87Offer%2012/</id>
     <published>2020-11-18T02:30:00.000Z</published>
     <updated>2020-11-18T02:40:20.875Z</updated>
     
@@ -125,8 +126,8 @@
   
   <entry>
     <title>剑指 Offer 11. 旋转数组的最小数字</title>
-    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2011/"/>
-    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2011/</id>
+    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/17/leetcode/offer/%E5%89%91%E6%8C%87Offer%2011/"/>
+    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/17/leetcode/offer/%E5%89%91%E6%8C%87Offer%2011/</id>
     <published>2020-11-17T10:45:00.000Z</published>
     <updated>2020-11-17T11:03:18.555Z</updated>
     
@@ -153,8 +154,8 @@
   
   <entry>
     <title>剑指 Offer 10- I. 斐波那契数列</title>
-    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2010/"/>
-    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2010/</id>
+    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/17/leetcode/offer/%E5%89%91%E6%8C%87Offer%2010/"/>
+    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/17/leetcode/offer/%E5%89%91%E6%8C%87Offer%2010/</id>
     <published>2020-11-17T10:25:00.000Z</published>
     <updated>2020-11-17T10:44:13.857Z</updated>
     
@@ -181,8 +182,8 @@
   
   <entry>
     <title>shared_ptr的简单实现</title>
-    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/12/C++11/smart_ptr/"/>
-    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/12/C++11/smart_ptr/</id>
+    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/12/C++/smart_ptr/"/>
+    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/12/C++/smart_ptr/</id>
     <published>2020-11-12T11:23:00.000Z</published>
     <updated>2020-11-14T16:01:32.062Z</updated>
     
@@ -243,8 +244,8 @@
   
   <entry>
     <title>C++11新语法新特性使用剖析</title>
-    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/03/C++11/C++11/"/>
-    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/03/C++11/C++11/</id>
+    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/03/C++/C++11/"/>
+    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/03/C++/C++11/</id>
     <published>2020-11-03T15:27:00.000Z</published>
     <updated>2020-11-11T10:01:29.078Z</updated>
     
@@ -272,8 +273,8 @@
   
   <entry>
     <title>理解 type_traits</title>
-    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/31/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-type%20traits/"/>
-    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/31/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-type%20traits/</id>
+    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/31/STL/STL-type%20traits/"/>
+    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/31/STL/STL-type%20traits/</id>
     <published>2020-10-31T09:42:00.000Z</published>
     <updated>2020-10-31T09:56:09.693Z</updated>
     
@@ -305,8 +306,8 @@
   
   <entry>
     <title>理解 iterator_traits</title>
-    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/30/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-iterator%20traits/"/>
-    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/30/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-iterator%20traits/</id>
+    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/30/STL/STL-iterator%20traits/"/>
+    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/30/STL/STL-iterator%20traits/</id>
     <published>2020-10-30T06:46:00.000Z</published>
     <updated>2020-11-03T08:30:49.254Z</updated>
     
@@ -338,8 +339,8 @@
   
   <entry>
     <title>装饰器模式</title>
-    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4.%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E6%A8%A1%E5%BC%8F_%E8%A3%85%E9%A5%B0%E5%99%A8/"/>
-    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4.%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E6%A8%A1%E5%BC%8F_%E8%A3%85%E9%A5%B0%E5%99%A8/</id>
+    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/29/HugeFour/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4.%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E6%A8%A1%E5%BC%8F_%E8%A3%85%E9%A5%B0%E5%99%A8/"/>
+    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/29/HugeFour/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4.%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E6%A8%A1%E5%BC%8F_%E8%A3%85%E9%A5%B0%E5%99%A8/</id>
     <published>2020-10-29T06:50:00.000Z</published>
     <updated>2020-10-28T06:57:26.176Z</updated>
     
@@ -367,8 +368,8 @@
   
   <entry>
     <title>策略模式</title>
-    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</id>
+    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/28/HugeFour/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/28/HugeFour/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</id>
     <published>2020-10-28T06:38:00.000Z</published>
     <updated>2020-10-29T04:53:05.551Z</updated>
     
@@ -396,8 +397,8 @@
   
   <entry>
     <title>模板模式</title>
-    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/</id>
+    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/27/HugeFour/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/27/HugeFour/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/</id>
     <published>2020-10-27T14:30:00.000Z</published>
     <updated>2020-10-28T06:53:45.450Z</updated>
     
@@ -424,8 +425,8 @@
   
   <entry>
     <title>设计模式初探</title>
-    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/0.%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/0.%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
+    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/27/HugeFour/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/0.%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/27/HugeFour/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/0.%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
     <published>2020-10-27T13:00:00.000Z</published>
     <updated>2020-10-27T13:06:50.610Z</updated>
     
@@ -478,8 +479,8 @@
   
   <entry>
     <title>类似于vector的数据结构实现</title>
-    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/26/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-vector%20%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
-    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/26/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-vector%20%E7%9A%84%E5%AE%9E%E7%8E%B0/</id>
+    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/26/STL/STL-vector%20%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
+    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/26/STL/STL-vector%20%E7%9A%84%E5%AE%9E%E7%8E%B0/</id>
     <published>2020-10-26T11:30:00.000Z</published>
     <updated>2020-10-26T11:35:55.869Z</updated>
     
@@ -538,8 +539,8 @@
   
   <entry>
     <title>剑指 Offer 09. 用两个栈实现队列</title>
-    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/19/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2009/"/>
-    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/19/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2009/</id>
+    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/19/leetcode/offer/%E5%89%91%E6%8C%87Offer%2009/"/>
+    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/19/leetcode/offer/%E5%89%91%E6%8C%87Offer%2009/</id>
     <published>2020-10-19T10:09:00.000Z</published>
     <updated>2020-11-18T02:40:49.642Z</updated>
     
@@ -558,9 +559,9 @@
     <category term="剑指 Offer 专题" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/categories/Leetcode/%E5%89%91%E6%8C%87-Offer-%E4%B8%93%E9%A2%98/"/>
     
     
-    <category term="Leetcode" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/Leetcode/"/>
-    
     <category term="栈" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E6%A0%88/"/>
+    
+    <category term="Leetcode" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/Leetcode/"/>
     
     <category term="队列" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E9%98%9F%E5%88%97/"/>
     
@@ -568,8 +569,8 @@
   
   <entry>
     <title>前缀/中缀/后缀表达式的转换/计算/构建二叉树[未完成]</title>
-    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/18/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E5%89%8D%E7%BC%80%E4%B8%AD%E7%BC%80%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2%E6%B1%82%E5%80%BC/"/>
-    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/18/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E5%89%8D%E7%BC%80%E4%B8%AD%E7%BC%80%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2%E6%B1%82%E5%80%BC/</id>
+    <link href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/18/CodingSkills/%E5%89%8D%E7%BC%80%E4%B8%AD%E7%BC%80%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2%E6%B1%82%E5%80%BC/"/>
+    <id>https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/18/CodingSkills/%E5%89%8D%E7%BC%80%E4%B8%AD%E7%BC%80%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2%E6%B1%82%E5%80%BC/</id>
     <published>2020-10-18T14:51:00.000Z</published>
     <updated>2020-11-11T05:02:11.185Z</updated>
     
@@ -589,11 +590,11 @@
     <category term="栈" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88/"/>
     
     
-    <category term="栈" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E6%A0%88/"/>
+    <category term="二叉树" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
     
     <category term="数据结构" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-    <category term="二叉树" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    <category term="栈" scheme="https://oxygenpanda.github.io/OXygenPanda.github.io/tags/%E6%A0%88/"/>
     
   </entry>
   

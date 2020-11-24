@@ -3,7 +3,62 @@
   <entry>
     <title>博客文章以及Github仓库引导</title>
     <url>/OXygenPanda.github.io/2020/11/20/top/</url>
-    <content><![CDATA[<h1 id="博客引导"><a href="#博客引导" class="headerlink" title="博客引导"></a>博客引导</h1><h1 id="Github仓库引导"><a href="#Github仓库引导" class="headerlink" title="Github仓库引导"></a>Github仓库引导</h1><p><a class="btn" href="https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/" title="leetcode链接">剑指 Offer 13. 机器人的运动范围</a></p>
+    <content><![CDATA[<h1 id="博客引导"><a href="#博客引导" class="headerlink" title="博客引导"></a>博客引导</h1><p align="left">
+<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
+</p>
+
+<p>我的博客, 即劳振煜的知識倉儲, 也就是您当前访问的博客. </p>
+<p>博客是基于 Hexo 的静态博客, 部署于我的 Github 上.</p>
+<p>该博客主要用来记录我在学习以及未来工作中的所感所悟. 留作记录以便自己在未来温故或帮助到正在看博客的你.</p>
+<p>博客的内容区别于 Github 的内容, 主要是博客将会记录完整的有体系的内容, 而 Github 上的各个仓库主要是用于记录学习笔记与实验, 自己造轮子, 学习他人的开源项目.</p>
+<h2 id="内容引导"><a href="#内容引导" class="headerlink" title="内容引导"></a>内容引导</h2><p>C++ :</p>
+<p>STL :</p>
+<p>数据结构 :</p>
+<p>计算机网络 :<br><a class="btn" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/23/HugeFour/Network/Deep_into_Network/" title="链接">计算机网络 - 韩立刚老师 笔记</a></p>
+<p><a class="btn" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/26/HugeFour/Network/TCP/" title="链接">计算机网络 - TCP</a></p>
+<p>操作系统 :<br><a class="btn" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/08/HugeFour/OperatingSystem/QingHua/Deep_into_OperatingSystem_all/" title="链接">深入理解操作系统 - 清华大学 笔记</a></p>
+<p>设计模式 :</p>
+<p>Leetcode :</p>
+<h1 id="Github仓库引导"><a href="#Github仓库引导" class="headerlink" title="Github仓库引导"></a>Github仓库引导</h1><p align="left">
+<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
+</p>
+
+<p>我的Github, 也就是上方链接. 你可以搜索 OXygenPanda 访问.</p>
+<p>虽然没有很多 star, 但是仍然坚持学习, 坚持记录, 坚持分享.</p>
+<left>
+<bold>
+计算机网络课程学习 - 韩立刚老师    
+</bold>
+    <br>
+<font size="1.5">
+    记录计算机网络课程学习的笔记
+    </font>
+</left>
+
+<p align="left">
+<a href="https://github.com/OXygenPanda/Deep_into_Network" target="_blank"><img src="https://img.shields.io/badge/Github-@Deep_into_Network-000000.svg?style=flat-square&logo=GitHub"></a>
+</p>
+
+
+
+
+
+<left>
+<bold>
+深入理解操作系统课程学习 - 清华大学
+</bold>
+    <br>
+<font size="1.5">
+    记录清华大学深入理解操作系统课程学习的笔记
+    </font>
+</left>
+
+<p align="left">
+<a href="https://github.com/OXygenPanda/Deep_into_OperatingSystem" target="_blank"><img src="https://img.shields.io/badge/Github-@Deep_into_OperatingSystem-ffffff.svg?style=flat-square&logo=GitHub"></a>
+</p>
+
+
+
 ]]></content>
   </entry>
   <entry>
@@ -276,7 +331,7 @@
   </entry>
   <entry>
     <title>剑指 Offer 13. 机器人的运动范围</title>
-    <url>/OXygenPanda.github.io/2020/11/20/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2013/</url>
+    <url>/OXygenPanda.github.io/2020/11/20/leetcode/offer/%E5%89%91%E6%8C%87Offer%2013/</url>
     <content><![CDATA[<h2 id="剑指-Offer-13-机器人的运动范围"><a href="#剑指-Offer-13-机器人的运动范围" class="headerlink" title="剑指 Offer 13. 机器人的运动范围"></a>剑指 Offer 13. 机器人的运动范围</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" href="https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/" title="leetcode链接">剑指 Offer 13. 机器人的运动范围</a></p>
 <p><strong>难度:</strong><font color="orange">中等</font></p>
 <p><strong>描述</strong></p>
@@ -304,7 +359,7 @@
   </entry>
   <entry>
     <title>剑指 Offer 12. 矩阵中的路径</title>
-    <url>/OXygenPanda.github.io/2020/11/18/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2012/</url>
+    <url>/OXygenPanda.github.io/2020/11/18/leetcode/offer/%E5%89%91%E6%8C%87Offer%2012/</url>
     <content><![CDATA[<h2 id="剑指-Offer-12-矩阵中的路径"><a href="#剑指-Offer-12-矩阵中的路径" class="headerlink" title="剑指 Offer 12. 矩阵中的路径"></a>剑指 Offer 12. 矩阵中的路径</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" href="https://leetcode-cn.com/problems/ju-zhen-zhong-de-lu-jing-lcof/" title="leetcode链接">剑指 Offer 12. 矩阵中的路径</a></p>
 <p><strong>难度:</strong><font color="orange">中等</font></p>
 <p><strong>描述</strong></p>
@@ -341,7 +396,7 @@
   </entry>
   <entry>
     <title>剑指 Offer 11. 旋转数组的最小数字</title>
-    <url>/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2011/</url>
+    <url>/OXygenPanda.github.io/2020/11/17/leetcode/offer/%E5%89%91%E6%8C%87Offer%2011/</url>
     <content><![CDATA[<h2 id="剑指-Offer-11-旋转数组的最小数字"><a href="#剑指-Offer-11-旋转数组的最小数字" class="headerlink" title="剑指 Offer 11. 旋转数组的最小数字"></a>剑指 Offer 11. 旋转数组的最小数字</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" href="https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/" title="leetcode链接">剑指 Offer 11. 旋转数组的最小数字</a></p>
 <p><strong>难度:</strong><font color="green">简单</font></p>
 <p><strong>描述</strong></p>
@@ -368,7 +423,7 @@
   </entry>
   <entry>
     <title>剑指 Offer 10- I. 斐波那契数列</title>
-    <url>/OXygenPanda.github.io/2020/11/17/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2010/</url>
+    <url>/OXygenPanda.github.io/2020/11/17/leetcode/offer/%E5%89%91%E6%8C%87Offer%2010/</url>
     <content><![CDATA[<h2 id="剑指-Offer-10-I-斐波那契数列"><a href="#剑指-Offer-10-I-斐波那契数列" class="headerlink" title="剑指 Offer 10- I. 斐波那契数列"></a>剑指 Offer 10- I. 斐波那契数列</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" href="https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/" title="leetcode链接">剑指 Offer 10. 斐波那契数列</a></p>
 <p><strong>难度:</strong><font color="green">简单</font></p>
 <p><strong>描述</strong></p>
@@ -397,7 +452,7 @@
   </entry>
   <entry>
     <title>shared_ptr的简单实现</title>
-    <url>/OXygenPanda.github.io/2020/11/12/C++11/smart_ptr/</url>
+    <url>/OXygenPanda.github.io/2020/11/12/C++/smart_ptr/</url>
     <content><![CDATA[<h1 id="智能指针的实现"><a href="#智能指针的实现" class="headerlink" title="智能指针的实现"></a>智能指针的实现</h1><p align="center">
 <a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
 <a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
@@ -2575,7 +2630,7 @@
   </entry>
   <entry>
     <title>C++11新语法新特性使用剖析</title>
-    <url>/OXygenPanda.github.io/2020/11/03/C++11/C++11/</url>
+    <url>/OXygenPanda.github.io/2020/11/03/C++/C++11/</url>
     <content><![CDATA[<h1 id="C-11"><a href="#C-11" class="headerlink" title="C++ 11"></a>C++ 11</h1><p align="center">
 <a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
 <a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
@@ -2816,7 +2871,7 @@
   </entry>
   <entry>
     <title>理解 type_traits</title>
-    <url>/OXygenPanda.github.io/2020/10/31/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-type%20traits/</url>
+    <url>/OXygenPanda.github.io/2020/10/31/STL/STL-type%20traits/</url>
     <content><![CDATA[<h1 id="type-traits"><a href="#type-traits" class="headerlink" title="__type_traits"></a>__type_traits</h1><blockquote>
 <p>  &lt;__type_traits.h&gt; 是 SGI 版本的 STL 的实现，其他版本的 STL 没有去调研过是否存在类型萃取。但是侯捷老师的源码剖析已经过去了那么多年，我相信比较好的一些实现，还是会被其他版本进行借鉴的。</p>
 </blockquote>
@@ -2853,7 +2908,7 @@
   </entry>
   <entry>
     <title>理解 iterator_traits</title>
-    <url>/OXygenPanda.github.io/2020/10/30/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-iterator%20traits/</url>
+    <url>/OXygenPanda.github.io/2020/10/30/STL/STL-iterator%20traits/</url>
     <content><![CDATA[<h1 id="iterator"><a href="#iterator" class="headerlink" title="iterator"></a>iterator</h1><p>iterator 意为迭代器，是常见的23种设计模式中的一种。</p>
 <blockquote>
 <p>  iterator模式 使该对象能够依序遍历整个容器所含的各个元素，不需要暴露容器的底层实现。</p>
@@ -2932,7 +2987,7 @@
   </entry>
   <entry>
     <title>装饰器模式</title>
-    <url>/OXygenPanda.github.io/2020/10/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4.%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E6%A8%A1%E5%BC%8F_%E8%A3%85%E9%A5%B0%E5%99%A8/</url>
+    <url>/OXygenPanda.github.io/2020/10/29/HugeFour/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/4.%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E6%A8%A1%E5%BC%8F_%E8%A3%85%E9%A5%B0%E5%99%A8/</url>
     <content><![CDATA[<h1 id="装饰器模式-Decorator"><a href="#装饰器模式-Decorator" class="headerlink" title="装饰器模式 Decorator"></a>装饰器模式 Decorator</h1><blockquote>
 <p>  动态（组合）地给一个对象增加一些额外的职责。就增加功能而言，Decorator模式 比生成子类（继承）更为灵活（消除重复代码&amp;减少子类个数）—— GoF</p>
 </blockquote>
@@ -2967,7 +3022,7 @@
   </entry>
   <entry>
     <title>策略模式</title>
-    <url>/OXygenPanda.github.io/2020/10/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</url>
+    <url>/OXygenPanda.github.io/2020/10/28/HugeFour/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<h1 id="模板模式-Strategy"><a href="#模板模式-Strategy" class="headerlink" title="模板模式 Strategy"></a>模板模式 Strategy</h1><blockquote>
 <p>  在许多 <code>if-else</code> 写完以后，如果以后还需要在源码上进行扩写条件分支，那么最好可以使用策略模式，以实现运行时多态。</p>
 </blockquote>
@@ -2994,7 +3049,7 @@
   </entry>
   <entry>
     <title>模板模式</title>
-    <url>/OXygenPanda.github.io/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/</url>
+    <url>/OXygenPanda.github.io/2020/10/27/HugeFour/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E7%BB%84%E4%BB%B6%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F_%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<h1 id="组件协作模式"><a href="#组件协作模式" class="headerlink" title="组件协作模式"></a>组件协作模式</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>现代软件专业分工之后的第一个结果是“框架与应用程序的划分”，“组件协作”模式通过晚期绑定，来实现框架与应用程序之间的松耦合，是二者之间协作时常用的模式。</p>
 <h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>在软件构建过程中，对于某一项任务，它常常有稳定的整体操作结构，但是各个子步骤却又很多改变的需求，或者由于固有的原因（比如框架与应用之间的关系）而无法和任务的整体结构同时实现。</p>
 <p>如何在确定稳定操作结构的前提下，来灵活应对各个子步骤的变化或者晚期实现需求？</p>
@@ -3016,7 +3071,7 @@
   </entry>
   <entry>
     <title>设计模式初探</title>
-    <url>/OXygenPanda.github.io/2020/10/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/0.%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
+    <url>/OXygenPanda.github.io/2020/10/27/HugeFour/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/0.%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p><a href="https://www.bilibili.com/video/BV1kW411P7KS?from=search&seid=5554003901737558997">课程 base 李建忠</a></p>
 <blockquote>
 <p>  每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的解决方案的核心。这样，你就能一次又一次地使用该方案而不必做重复劳动。—- Christopher Alexand</p>
@@ -3294,7 +3349,7 @@
   </entry>
   <entry>
     <title>类似于vector的数据结构实现</title>
-    <url>/OXygenPanda.github.io/2020/10/26/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-vector%20%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
+    <url>/OXygenPanda.github.io/2020/10/26/STL/STL-vector%20%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<h1 id="类似于vector的数据结构实现"><a href="#类似于vector的数据结构实现" class="headerlink" title="类似于vector的数据结构实现"></a>类似于vector的数据结构实现</h1><h2 id="预期实现的功能"><a href="#预期实现的功能" class="headerlink" title="预期实现的功能"></a>预期实现的功能</h2><ul>
 <li>可以对内置类型以及自定义数据类型进行存储</li>
 <li>将数组中的数据存储到堆区</li>
@@ -3396,7 +3451,7 @@
   </entry>
   <entry>
     <title>剑指 Offer 09. 用两个栈实现队列</title>
-    <url>/OXygenPanda.github.io/2020/10/19/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2009/</url>
+    <url>/OXygenPanda.github.io/2020/10/19/leetcode/offer/%E5%89%91%E6%8C%87Offer%2009/</url>
     <content><![CDATA[<h2 id="剑指-Offer-09-用两个栈实现队列"><a href="#剑指-Offer-09-用两个栈实现队列" class="headerlink" title="剑指 Offer 09. 用两个栈实现队列"></a>剑指 Offer 09. 用两个栈实现队列</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" href="https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/" title="leetcode链接">剑指 Offer 09. 用两个栈实现队列</a></p>
 <p><strong>难度:</strong><font color="orange">中等</font></p>
 <p><strong>描述</strong></p>
@@ -3417,14 +3472,14 @@
         <category>剑指 Offer 专题</category>
       </categories>
       <tags>
-        <tag>Leetcode</tag>
         <tag>栈</tag>
+        <tag>Leetcode</tag>
         <tag>队列</tag>
       </tags>
   </entry>
   <entry>
     <title>前缀/中缀/后缀表达式的转换/计算/构建二叉树[未完成]</title>
-    <url>/OXygenPanda.github.io/2020/10/18/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E5%89%8D%E7%BC%80%E4%B8%AD%E7%BC%80%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2%E6%B1%82%E5%80%BC/</url>
+    <url>/OXygenPanda.github.io/2020/10/18/CodingSkills/%E5%89%8D%E7%BC%80%E4%B8%AD%E7%BC%80%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2%E6%B1%82%E5%80%BC/</url>
     <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p align="center">
 <a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
 <a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
@@ -3471,14 +3526,14 @@
         <category>栈</category>
       </categories>
       <tags>
-        <tag>栈</tag>
-        <tag>数据结构</tag>
         <tag>二叉树</tag>
+        <tag>数据结构</tag>
+        <tag>栈</tag>
       </tags>
   </entry>
   <entry>
     <title>剑指 Offer 07. 重建二叉树</title>
-    <url>/OXygenPanda.github.io/2020/10/16/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2007/</url>
+    <url>/OXygenPanda.github.io/2020/10/16/leetcode/offer/%E5%89%91%E6%8C%87Offer%2007/</url>
     <content><![CDATA[<h2 id="剑指-Offer-07-重建二叉树"><a href="#剑指-Offer-07-重建二叉树" class="headerlink" title="剑指 Offer 07. 重建二叉树"></a>剑指 Offer 07. 重建二叉树</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/" title="leetcode链接">剑指 Offer 07. 重建二叉树</a></p>
 <p><strong>难度:</strong><font color="orange">中等</font></p>
 <p><strong>描述</strong></p>
@@ -3512,14 +3567,14 @@
         <category>剑指 Offer 专题</category>
       </categories>
       <tags>
-        <tag>Leetcode</tag>
         <tag>二叉树</tag>
+        <tag>Leetcode</tag>
         <tag>中等</tag>
       </tags>
   </entry>
   <entry>
     <title>剑指 Offer 06. 从尾到头打印链表</title>
-    <url>/OXygenPanda.github.io/2020/10/14/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2006/</url>
+    <url>/OXygenPanda.github.io/2020/10/14/leetcode/offer/%E5%89%91%E6%8C%87Offer%2006/</url>
     <content><![CDATA[<h2 id="剑指-Offer-06-从尾到头打印链表"><a href="#剑指-Offer-06-从尾到头打印链表" class="headerlink" title="剑指 Offer 06. 从尾到头打印链表"></a>剑指 Offer 06. 从尾到头打印链表</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">剑指 Offer 06. 从尾到头打印链表</a></p>
 <p><strong>难度:</strong><font color="green">简单</font></p>
 <p><strong>描述</strong></p>
@@ -3564,7 +3619,7 @@
   </entry>
   <entry>
     <title>剑指 Offer 05. 替换空格</title>
-    <url>/OXygenPanda.github.io/2020/10/12/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87%20Offer%2005.%20%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/</url>
+    <url>/OXygenPanda.github.io/2020/10/12/leetcode/offer/%E5%89%91%E6%8C%87%20Offer%2005.%20%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/</url>
     <content><![CDATA[<h2 id="剑指-Offer-05-替换空格"><a href="#剑指-Offer-05-替换空格" class="headerlink" title="剑指 Offer 05. 替换空格"></a>剑指 Offer 05. 替换空格</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a href="https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/">剑指 Offer 05. 替换空格</a></p>
 <p><strong>难度:</strong><font color="green">简单</font></p>
 <p><strong>描述</strong></p>
@@ -3597,7 +3652,7 @@
   </entry>
   <entry>
     <title>剑指 Offer 04. 二维数组中的查找</title>
-    <url>/OXygenPanda.github.io/2020/10/12/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2004.%20%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/</url>
+    <url>/OXygenPanda.github.io/2020/10/12/leetcode/offer/%E5%89%91%E6%8C%87Offer%2004.%20%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/</url>
     <content><![CDATA[<h2 id="剑指-Offer-04-二维数组中的查找"><a href="#剑指-Offer-04-二维数组中的查找" class="headerlink" title="剑指 Offer 04. 二维数组中的查找"></a>剑指 Offer 04. 二维数组中的查找</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">剑指 Offer 04. 二维数组中的查找</a></p>
 <p><strong>难度:</strong><font color="green">简单</font></p>
 <p><strong>描述</strong></p>
@@ -3634,7 +3689,7 @@
   </entry>
   <entry>
     <title>剑指Offer 03. 数组中重复的数字</title>
-    <url>/OXygenPanda.github.io/2020/10/11/leetcode/%E5%89%91%E6%8C%87offer/%E5%89%91%E6%8C%87Offer%2003.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/</url>
+    <url>/OXygenPanda.github.io/2020/10/11/leetcode/offer/%E5%89%91%E6%8C%87Offer%2003.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/</url>
     <content><![CDATA[<h2 id="剑指Offer-03-数组中重复的数字"><a href="#剑指Offer-03-数组中重复的数字" class="headerlink" title="剑指Offer 03. 数组中重复的数字"></a>剑指Offer 03. 数组中重复的数字</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">剑指 Offer 03. 数组中重复的数字</a></p>
 <p><strong>难度:</strong><font color="green">简单</font></p>
 <p><strong>描述</strong></p>
@@ -3677,7 +3732,7 @@
   </entry>
   <entry>
     <title>浅析list用法/特性/实现</title>
-    <url>/OXygenPanda.github.io/2020/10/11/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-list%20%E5%88%86%E6%9E%90/</url>
+    <url>/OXygenPanda.github.io/2020/10/11/STL/STL-list%20%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<h1 id="list-容器"><a href="#list-容器" class="headerlink" title="list 容器"></a>list 容器</h1><p><strong>list</strong> 在 C++ 中是一种用起来像链表的模板类。侯捷老师主要介绍的是<code>G2.9</code>和<code>G4.9</code>两个版本。我将阅读一下 <code>clang</code> 中的源码。</p>
 <h2 id="list-结构"><a href="#list-结构" class="headerlink" title="list . 结构"></a>list . 结构</h2><p><strong>G2.9</strong> 下，<strong>list</strong> 只有一个成员变量，<code>list_node * node</code> ，是<code>list_node</code>类的指针，在32位机中占用4个字节，在64位机中占用8个字节。</p>
 <p>而 <code>list_node</code> 类中，又有三个成员变量 :</p>
@@ -3714,7 +3769,7 @@
   </entry>
   <entry>
     <title>浅析vector用法/特性/实现</title>
-    <url>/OXygenPanda.github.io/2020/10/10/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/STL-vector%E5%88%86%E6%9E%90/</url>
+    <url>/OXygenPanda.github.io/2020/10/10/STL/STL-vector%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<h1 id="vector-容器"><a href="#vector-容器" class="headerlink" title="vector 容器"></a>vector 容器</h1><p><strong>vector</strong> 原意是向量。在C++中，是一种用起来像动态数组的模板类。在不同的编译器中，<strong>vector</strong> 的实现都不尽相同，侯捷老师主要介绍的是<code>G2.9</code>和<code>G4.9</code>两个版本。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//G2.9中 vector类的声明</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">alloc</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">vector</span>&#123;</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    iterator start;</span><br><span class="line">    iterator finish;</span><br><span class="line">    iterator end_of_storage;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -3786,7 +3841,7 @@
   </entry>
   <entry>
     <title>两数之和</title>
-    <url>/OXygenPanda.github.io/2020/10/09/leetcode/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
+    <url>/OXygenPanda.github.io/2020/10/09/leetcode/others/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
     <content><![CDATA[<h1 id="两数之和问题"><a href="#两数之和问题" class="headerlink" title="两数之和问题"></a>两数之和问题</h1><h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a href="https://leetcode-cn.com/problems/two-sum/">Leetcode 1.两数之和</a></p>
 <p><strong>难度:</strong><font color="green">简单</font></p>
 <p><strong>描述</strong></p>
@@ -3842,7 +3897,7 @@
   </entry>
   <entry>
     <title>初识STL</title>
-    <url>/OXygenPanda.github.io/2020/10/07/STL%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E7%AC%AC%E4%B8%80%E7%AF%87%20%E8%AE%A4%E8%AF%86STL/</url>
+    <url>/OXygenPanda.github.io/2020/10/07/STL/%E7%AC%AC%E4%B8%80%E7%AF%87%20%E8%AE%A4%E8%AF%86STL/</url>
     <content><![CDATA[<a id="more"></a>
 
 <h1 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h1><p>什么是STL？STL : standard Template Library 标准模板库，STL是C++的一个重要组成部分。</p>
@@ -3941,7 +3996,7 @@
   </entry>
   <entry>
     <title>单调队列</title>
-    <url>/OXygenPanda.github.io/2020/10/07/leetcode/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/</url>
+    <url>/OXygenPanda.github.io/2020/10/07/leetcode/others/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/</url>
     <content><![CDATA[<a id="more"></a>
 
 <h1 id="单调队列"><a href="#单调队列" class="headerlink" title="单调队列"></a>单调队列</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>单调队列是一种特殊的数据结构。用来保持一个有序的队列。(无序的数据出队列)</p>
@@ -3974,7 +4029,7 @@
   </entry>
   <entry>
     <title>单调栈</title>
-    <url>/OXygenPanda.github.io/2020/10/06/leetcode/%E5%8D%95%E8%B0%83%E6%A0%88/</url>
+    <url>/OXygenPanda.github.io/2020/10/06/leetcode/others/%E5%8D%95%E8%B0%83%E6%A0%88/</url>
     <content><![CDATA[<a id="more"></a>
 
 <h1 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>单调栈是一种特殊的数据结构。专门用于解决一类问题叫做 Next Greater Number的问题。</p>
@@ -3997,14 +4052,14 @@
         <category>栈</category>
       </categories>
       <tags>
-        <tag>单调栈</tag>
-        <tag>栈</tag>
         <tag>数据结构</tag>
+        <tag>栈</tag>
+        <tag>单调栈</tag>
       </tags>
   </entry>
   <entry>
     <title>二叉树的遍历</title>
-    <url>/OXygenPanda.github.io/2020/09/25/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/</url>
+    <url>/OXygenPanda.github.io/2020/09/25/CodingSkills/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/</url>
     <content><![CDATA[<a id="more"></a>
 
 <h1 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h1><p align="center">
