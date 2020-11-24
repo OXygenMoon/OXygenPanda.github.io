@@ -2810,8 +2810,8 @@
         <category>C++11</category>
       </categories>
       <tags>
-        <tag>C++</tag>
         <tag>C++11</tag>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -3417,8 +3417,8 @@
         <category>剑指 Offer 专题</category>
       </categories>
       <tags>
-        <tag>栈</tag>
         <tag>Leetcode</tag>
+        <tag>栈</tag>
         <tag>队列</tag>
       </tags>
   </entry>
@@ -3471,9 +3471,9 @@
         <category>栈</category>
       </categories>
       <tags>
-        <tag>二叉树</tag>
-        <tag>数据结构</tag>
         <tag>栈</tag>
+        <tag>数据结构</tag>
+        <tag>二叉树</tag>
       </tags>
   </entry>
   <entry>
@@ -3512,8 +3512,8 @@
         <category>剑指 Offer 专题</category>
       </categories>
       <tags>
-        <tag>二叉树</tag>
         <tag>Leetcode</tag>
+        <tag>二叉树</tag>
         <tag>中等</tag>
       </tags>
   </entry>
@@ -3997,9 +3997,9 @@
         <category>栈</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
-        <tag>栈</tag>
         <tag>单调栈</tag>
+        <tag>栈</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
