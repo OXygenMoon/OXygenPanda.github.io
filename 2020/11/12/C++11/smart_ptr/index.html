@@ -245,6 +245,8 @@
         </h1>
 
         <div class="post-meta">
+	   
+          
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
@@ -281,12 +283,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="智能指针的实现"><a href="#智能指针的实现" class="headerlink" title="智能指针的实现"></a>智能指针的实现</h1><p align="center">
+        <h1 id="智能指针的实现"><a href="#智能指针的实现" class="headerlink" title="智能指针的实现"></a>智能指针的实现</h1><p align='center'>
 <a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
 <a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
 <a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
 
-</p><p>程序运行时需要分配内存释放内存, 在C++中我们使用关键词 <code>new</code> 和 <code>delete</code> . </p>
+<p>程序运行时需要分配内存释放内存, 在C++中我们使用关键词 <code>new</code> 和 <code>delete</code> . </p>
 <p><code>new</code> 是一个运算符, 负责申请堆内存, 分为两个步骤 : 1.malloc 2.operator new, 即先申请内存, 再构造对象. 最后返回该堆内存的指针. </p>
 <p><code>delete</code>也是一个运算符, 负责释放堆内存, 分为两个步骤 :1.operator delete 2.free, 即先调用对象的析构函数, 再释放内存.</p>
 <p>堆内存需要程序员手动释放, 因此如果程序抛出异常, 来不及释放内存或者忘记释放内存都会导致内存泄漏. </p>
@@ -425,7 +427,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/OXygenPanda.github.io/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -25,7 +25,7 @@
   <meta name="description" content="简介传输控制协议( TCP : Transmission Control Protocol )，是一种面向连接的，可靠的传输层控制协议。 面向连接一般，客户端发送给服务端的一个数据包携带的数据最大为1460字节。是因为，以太网帧结构数据长度是1500字节，其中包含20字节的IP头部以及20字节的TCP头部，所以数据能够携带1460字节。 三次握手三次握手，由内核完成。反应在程序中，是由客户端程序的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TCP通信[未完成]">
-<meta property="og:url" content="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/26/%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-TCP/index.html">
+<meta property="og:url" content="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/26/HugeFour/Network/TCP/index.html">
 <meta property="og:site_name" content="劳振煜的博客">
 <meta property="og:description" content="简介传输控制协议( TCP : Transmission Control Protocol )，是一种面向连接的，可靠的传输层控制协议。 面向连接一般，客户端发送给服务端的一个数据包携带的数据最大为1460字节。是因为，以太网帧结构数据长度是1500字节，其中包含20字节的IP头部以及20字节的TCP头部，所以数据能够携带1460字节。 三次握手三次握手，由内核完成。反应在程序中，是由客户端程序的">
 <meta property="og:locale" content="zh_CN">
@@ -37,7 +37,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2020/10/30/8s2w3yMNVT6RL1k.png">
 
-<link rel="canonical" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/26/%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-TCP/">
+<link rel="canonical" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/26/HugeFour/Network/TCP/">
 
 
 <script id="page-configurations">
@@ -225,7 +225,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/26/%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-TCP/">
+    <link itemprop="mainEntityOfPage" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/26/HugeFour/Network/TCP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/OXygenPanda.github.io/images/avatar.jpg">
@@ -242,6 +242,8 @@
         </h1>
 
         <div class="post-meta">
+	   
+          
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
@@ -335,7 +337,7 @@
 <h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><p>流量控制是为了控制发送方发送速率，保证接收方来得及接收。</p>
 <p>接收方发送的确认报文中的窗口字段可以用来控制发送方窗口大小，从而影响发送方的发送速率。将窗口字段设置为 0，则发送方不能发送数据。</p>
 <h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>如果网络出现拥塞，发送方发送的数据包丢失，发送方重传导致网络难以恢复。因此要进行一定的拥塞控制使得发送方降低发送速率。发送方需要维护一个拥塞窗口（cwnd）状态变量：决定发送方能发送多少数据。</p>
-<h4 id="慢开始与拥塞避免"><a href="#慢开始与拥塞避免" class="headerlink" title="慢开始与拥塞避免"></a>慢开始与拥塞避免</h4><img src="https://i.loli.net/2020/10/30/8s2w3yMNVT6RL1k.png">
+<h4 id="慢开始与拥塞避免"><a href="#慢开始与拥塞避免" class="headerlink" title="慢开始与拥塞避免"></a>慢开始与拥塞避免</h4><img src="https://i.loli.net/2020/10/30/8s2w3yMNVT6RL1k.png"/>
 
 <p>发送的最初执行慢开始，令 cwnd = 1，发送方只能发送 1 个报文段；当收到确认后，将 cwnd 加倍，因此之后发送方能够发送的报文段数量为：2、4、8 …</p>
 <p>注意到慢开始每个轮次都将 cwnd 加倍，这样会让 cwnd 增长速度非常快，从而使得发送方发送的速度增长速度过快，网络拥塞的可能性也就更高。设置一个慢开始门限 ssthresh，当 cwnd &gt;= ssthresh 时，进入拥塞避免，每个轮次只将 cwnd 加 1。</p>
@@ -463,7 +465,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/OXygenPanda.github.io/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
