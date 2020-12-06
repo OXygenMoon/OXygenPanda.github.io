@@ -244,8 +244,8 @@ video {
 hr {
   background-image: repeating-linear-gradient(-45deg, #ddd, #ddd 4px, transparent 4px, transparent 8px);
   border: 0;
-  height: 3px;
-  margin: 40px 0;
+  height: 1px;
+  margin: 30px 0;
 }
 blockquote {
   border-left: 4px solid #ddd;
@@ -1220,7 +1220,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #b53e37;
+  background: #df3074;
   border-radius: 50%;
   content: ' ';
   display: inline-block;

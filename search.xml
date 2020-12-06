@@ -3157,8 +3157,8 @@
         <category>C++11</category>
       </categories>
       <tags>
-        <tag>C++11</tag>
         <tag>C++</tag>
+        <tag>C++11</tag>
       </tags>
   </entry>
   <entry>
@@ -3838,9 +3838,9 @@
         <category>栈</category>
       </categories>
       <tags>
-        <tag>二叉树</tag>
         <tag>数据结构</tag>
         <tag>栈</tag>
+        <tag>二叉树</tag>
       </tags>
   </entry>
   <entry>
