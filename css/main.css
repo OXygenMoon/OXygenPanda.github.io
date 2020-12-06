@@ -177,7 +177,7 @@ body {
 body {
   background: var(--body-bg-color);
   color: var(--text-color);
-  font-family: 'Monda', "Source Han Serif SC", "STSong", "SimSun", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: Monaco, monospace, Menlo, consolas;
   font-size: 1em;
   line-height: 2;
 }
@@ -193,7 +193,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Roboto Slab', 'Monda', "Source Han Serif SC", "STSong", "SimSun", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: "Source Han Serif SC", "STSong", "SimSun", "PingFang SC", "Microsoft YaHei", Monaco, monospace, Menlo, consolas;
   font-weight: bold;
   line-height: 1.5;
   margin: 20px 0 15px;
@@ -237,7 +237,6 @@ span.exturl:hover {
 iframe,
 img,
 video {
-  display: block;
   margin-left: auto;
   margin-right: auto;
   max-width: 100%;
@@ -414,7 +413,7 @@ pre {
 }
 pre,
 code {
-  font-family: 'PT Mono', monospace, Menlo, consolas, "Source Han Serif SC", "STSong", "SimSun", "PingFang SC", "Microsoft YaHei";
+  font-family: Monaco, monospace, Menlo, consolas, "Source Han Serif SC", "STSong", "SimSun", "PingFang SC", "Microsoft YaHei";
 }
 code {
   background: #fbe5e1;
@@ -1038,7 +1037,7 @@ pre .javascript .function {
   color: var(--brand-hover-color);
 }
 .site-title {
-  font-family: 'Monda', "Source Han Serif SC", "STSong", "SimSun", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: "Source Han Serif SC", "STSong", "SimSun", "PingFang SC", "Microsoft YaHei", Monaco, monospace, Menlo, consolas;
   font-size: 1.375em;
   font-weight: normal;
   margin: 0;
@@ -1221,7 +1220,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #1affff;
+  background: #b53e37;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1575,7 +1574,7 @@ pre .javascript .function {
   top: 0;
 }
 .post-body {
-  font-family: 'Monda', "Source Han Serif SC", "STSong", "SimSun", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: "Source Han Serif SC", "STSong", "SimSun", "PingFang SC", "Microsoft YaHei", Monaco, monospace, Menlo, consolas;
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
@@ -1873,7 +1872,7 @@ pre .javascript .function {
 }
 .posts-expand .post-meta {
   color: #999;
-  font-family: 'Monda', "Source Han Serif SC", "STSong", "SimSun", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: "Source Han Serif SC", "STSong", "SimSun", "PingFang SC", "Microsoft YaHei", Monaco, monospace, Menlo, consolas;
   font-size: 0.75em;
   margin: 3px 0 60px 0;
   text-align: center;
