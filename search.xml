@@ -3157,8 +3157,8 @@
         <category>C++11</category>
       </categories>
       <tags>
-        <tag>C++</tag>
         <tag>C++11</tag>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -3698,7 +3698,7 @@
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">客户端发送：SYN <span class="number">1000</span>(<span class="number">0</span>) win <span class="number">4096</span> &lt;mss <span class="number">1460</span>&gt;</span><br><span class="line">服务端发送：SYN <span class="number">8000</span>(<span class="number">0</span>) win <span class="number">6144</span> ACK <span class="number">1001</span> &lt;mss <span class="number">1024</span>&gt;  <span class="comment">//ACK 1001 是接收到的序号+数据字节(SYN标志位也得占1字节)</span></span><br><span class="line">客户端发送：ACK <span class="number">8001</span>    win <span class="number">4096</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">** (0)        : 表示携带数据为0字节</span></span><br><span class="line"><span class="comment">** win 4096   : 发送端滑动窗口缓存4096字节</span></span><br><span class="line"><span class="comment">** &lt;mss 1460&gt; : 表示携带数据最大字节数为1460字节</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
 <p>总结</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">主动发起连接请求端：发送SYN标志位，请求建立连接。携带数据包包号，数据字节数(0)，滑动窗口大小</span><br><span class="line">被动接受连接请求端：发送ACK标志位，同时携带SYN请求标志位。携带序号，确认序号，数据字节数(0)，滑动窗口大小</span><br><span class="line">主动发起连接请求段：发送ACK标志位，应答服务器连接请求。携带确认序号。</span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">主动发起连接请求端：发送SYN标志位，请求建立连接。携带数据包包号，数据字节数(<span class="number">0</span>)，滑动窗口大小</span><br><span class="line">被动接受连接请求端：发送ACK标志位，同时携带SYN请求标志位。携带序号，确认序号，数据字节数(<span class="number">0</span>)，滑动窗口大小</span><br><span class="line">主动发起连接请求段：发送ACK标志位，应答服务器连接请求。携带确认序号。</span><br></pre></td></tr></table></figure>
 
 <p>要点</p>
 <p>为什么不是二次握手？</p>
@@ -3838,9 +3838,9 @@
         <category>栈</category>
       </categories>
       <tags>
+        <tag>二叉树</tag>
         <tag>数据结构</tag>
         <tag>栈</tag>
-        <tag>二叉树</tag>
       </tags>
   </entry>
   <entry>
@@ -3958,8 +3958,8 @@
       </categories>
       <tags>
         <tag>Leetcode</tag>
-        <tag>字符串</tag>
         <tag>简单</tag>
+        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
@@ -4038,8 +4038,8 @@
       </categories>
       <tags>
         <tag>Leetcode</tag>
-        <tag>简单</tag>
         <tag>哈希集合</tag>
+        <tag>简单</tag>
       </tags>
   </entry>
   <entry>
@@ -4341,8 +4341,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>单调队列</tag>
         <tag>队列</tag>
+        <tag>单调队列</tag>
       </tags>
   </entry>
   <entry>
