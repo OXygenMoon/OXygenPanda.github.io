@@ -3179,8 +3179,8 @@
         <category>C++11</category>
       </categories>
       <tags>
-        <tag>C++11</tag>
         <tag>C++</tag>
+        <tag>C++11</tag>
       </tags>
   </entry>
   <entry>
@@ -4363,8 +4363,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>队列</tag>
         <tag>单调队列</tag>
+        <tag>队列</tag>
       </tags>
   </entry>
   <entry>
