@@ -59,6 +59,36 @@
 ]]></content>
   </entry>
   <entry>
+    <title>2020.12.07 861. 翻转矩阵后的得分</title>
+    <url>/OXygenPanda.github.io/2020/12/07/leetcode/daily/861.%20%E7%BF%BB%E8%BD%AC%E7%9F%A9%E9%98%B5%E5%90%8E%E7%9A%84%E5%BE%97%E5%88%86/</url>
+    <content><![CDATA[<h2 id="861-翻转矩阵后的得分"><a href="#861-翻转矩阵后的得分" class="headerlink" title="861. 翻转矩阵后的得分"></a>861. 翻转矩阵后的得分</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" href="https://leetcode-cn.com/problems/score-after-flipping-matrix/" title="leetcode链接">861. 翻转矩阵后的得分</a></p>
+<p><strong>难度:</strong><font color="orange">中等</font></p>
+<p><strong>描述</strong></p>
+<p>有一个二维矩阵 A 其中每个元素的值为 0 或 1 。</p>
+<p>移动是指选择任一行或列，并转换该行或列中的每一个值：将所有 0 都更改为 1，将所有 1 都更改为 0。</p>
+<p>在做出任意次数的移动后，将该矩阵的每一行都按照二进制数来解释，矩阵的得分就是这些数字的总和。</p>
+<p>返回尽可能高的分数。</p>
+<a id="more"></a>
+
+<p><strong>示例</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">输入 : [[<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>],[<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>]]</span><br><span class="line">输出 : <span class="number">39</span></span><br><span class="line">解释 :</span><br><span class="line">转换为 [[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>]]</span><br><span class="line"><span class="number">0b1111</span> + <span class="number">0b1001</span> + <span class="number">0b1111</span> = <span class="number">15</span> + <span class="number">9</span> + <span class="number">15</span> = <span class="number">39</span></span><br><span class="line"></span><br><span class="line">提示 :</span><br><span class="line"><span class="number">1</span> &lt;= A.length &lt;= <span class="number">20</span></span><br><span class="line"><span class="number">1</span> &lt;= A[<span class="number">0</span>].length &lt;= <span class="number">20</span></span><br><span class="line">A[i][j] 是 <span class="number">0</span> 或 <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>首先, <code>16</code>一定比<code>8</code>大. 也就是说, 最高位的<code>b1</code>一定比低位的<code>b1</code>表示的数字要大. 因此, 可以通过反转行, 来使得最高位是<code>b1</code>. 其次, 行已经达到最优的情况, 该反转列了, 列的反转结果会导致<code>b0</code>和<code>b1</code>的数量交换, 因此, 如果一列上<code>b1</code>的数量大于<code>b0</code>时, 不需要反转, 否则反转.</p>
+<p>经过行列反转后, 达到最优解. 计算结果.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">matrixScore</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; A)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = A.size();</span><br><span class="line">        <span class="keyword">if</span>(m == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = A[<span class="number">0</span>].size();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 反转行</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; m ; ++ i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(A[i][<span class="number">0</span>] == <span class="number">0</span>)&#123; <span class="comment">//首位是0才需要行反转</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; n ; ++ j)&#123;</span><br><span class="line">                    A[i][j] = A[i][j] == <span class="number">0</span> ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 反转列</span></span><br><span class="line">        <span class="keyword">int</span> mid = (m + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; n ; ++ j)&#123;</span><br><span class="line">            count = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; m ; ++ i)&#123;</span><br><span class="line">                count += A[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(count &lt; mid)&#123; <span class="comment">//1的数量小于一半时才需要列反转</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; m ; ++ i)</span><br><span class="line">                    A[i][j] = A[i][j] == <span class="number">0</span> ? <span class="number">1</span> : <span class="number">0</span>;                    </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算</span></span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; m ; ++ i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; n ; ++ j)&#123;</span><br><span class="line">                res += A[i][j] * <span class="built_in">pow</span>(<span class="number">2</span>, n - <span class="number">1</span> - j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>Leetcode</category>
+        <category>每日一题</category>
+      </categories>
+      <tags>
+        <tag>Leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>仓库介绍</title>
     <url>/OXygenPanda.github.io/2020/11/24/github/%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D/</url>
     <content><![CDATA[<center>
@@ -3958,8 +3988,8 @@
       </categories>
       <tags>
         <tag>Leetcode</tag>
-        <tag>简单</tag>
         <tag>字符串</tag>
+        <tag>简单</tag>
       </tags>
   </entry>
   <entry>
@@ -4038,8 +4068,8 @@
       </categories>
       <tags>
         <tag>Leetcode</tag>
-        <tag>哈希集合</tag>
         <tag>简单</tag>
+        <tag>哈希集合</tag>
       </tags>
   </entry>
   <entry>
@@ -4341,8 +4371,8 @@
       </categories>
       <tags>
         <tag>数据结构</tag>
-        <tag>单调队列</tag>
         <tag>队列</tag>
+        <tag>单调队列</tag>
       </tags>
   </entry>
   <entry>
