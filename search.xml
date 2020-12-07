@@ -59,6 +59,38 @@
 ]]></content>
   </entry>
   <entry>
+    <title>剑指 Offer 14- I. 剪绳子</title>
+    <url>/OXygenPanda.github.io/2020/12/07/leetcode/offer/%E5%89%91%E6%8C%87Offer%2014%20I/</url>
+    <content><![CDATA[<h2 id="剑指-Offer-14-I-剪绳子"><a href="#剑指-Offer-14-I-剪绳子" class="headerlink" title="剑指 Offer 14- I. 剪绳子"></a>剑指 Offer 14- I. 剪绳子</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" href="https://leetcode-cn.com/problems/jian-sheng-zi-lcof/" title="leetcode链接">剑指 Offer 14- I. 剪绳子</a></p>
+<p><strong>难度:</strong><font color="orange">中等</font></p>
+<p><strong>描述</strong></p>
+<p>给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m-1] 。请问 k[0]*k[1]*…*k[m-1] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。</p>
+<a id="more"></a>
+
+<p><strong>示例</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">输入: <span class="number">2</span></span><br><span class="line">输出: <span class="number">1</span></span><br><span class="line">解释: <span class="number">2</span> = <span class="number">1</span> + <span class="number">1</span>, <span class="number">1</span> × <span class="number">1</span> = <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">输入: <span class="number">10</span></span><br><span class="line">输出: <span class="number">36</span></span><br><span class="line">解释: <span class="number">10</span> = <span class="number">3</span> + <span class="number">3</span> + <span class="number">4</span>, <span class="number">3</span> × <span class="number">3</span> × <span class="number">4</span> = <span class="number">36</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>这样的题目, 适合先枚举多个例子找规律.</p>
+<p>我们枚举到6,7,8的时候, 应该可以感受到, 每个数需要尽量地拆分多的数字<code>3</code>, 但是最终拆分剩下<code>4</code>的时候, 需要转换成<code>2+2</code>.</p>
+<p>我们不需要循环地去重复 : <code>n -= 3</code> 和 <code>res *= 3 </code> , 因为, 这样的循环可以计算出运算的次数.</p>
+<p>使用<code>count  = n / 3</code> 得知以上的循环会进行多少次, <code>count % 3</code> 得知以上的循环会剩下什么数.</p>
+<p>如果剩下的数字是 <code>1</code>  说明我们把<code>4</code>拆分成了<code>3+1</code>, 所以回退一步, 结果为<code>pow(3, count - 1) * 4</code></p>
+<p>如果剩下的数字是 <code>0</code>  说明这个数字<code>n</code>可以全部拆分成<code>3</code>, 所以结果为<code>pow(3, count)</code></p>
+<p>如果剩下的数字是 <code>2</code>  说明结果为<code>pow(3, count) * 2</code></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">cuttingRope</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        2 : 1 + 1 -&gt; 1</span></span><br><span class="line"><span class="comment">        3 : 2 + 1</span></span><br><span class="line"><span class="comment">        4 : 2 + 2</span></span><br><span class="line"><span class="comment">        5 : 3 + 2</span></span><br><span class="line"><span class="comment">        6 : 3 + 3</span></span><br><span class="line"><span class="comment">        7 : 3 + 2 + 2</span></span><br><span class="line"><span class="comment">        8 : 3 + 3 + 2</span></span><br><span class="line"><span class="comment">        </span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>( n == <span class="number">2</span> || n == <span class="number">3</span>)   <span class="keyword">return</span> (n - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">int</span> count = n / <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">int</span> rest = n % <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">return</span> (rest == <span class="number">1</span>) ? <span class="built_in">pow</span>(<span class="number">3</span>, count - <span class="number">1</span>) * <span class="number">4</span> : (rest == <span class="number">0</span>) ? <span class="built_in">pow</span>(<span class="number">3</span>, count) : rest * <span class="built_in">pow</span>(<span class="number">3</span>, count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>Leetcode</category>
+        <category>剑指 Offer 专题</category>
+      </categories>
+      <tags>
+        <tag>Leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2020.12.07 861. 翻转矩阵后的得分</title>
     <url>/OXygenPanda.github.io/2020/12/07/leetcode/daily/861.%20%E7%BF%BB%E8%BD%AC%E7%9F%A9%E9%98%B5%E5%90%8E%E7%9A%84%E5%BE%97%E5%88%86/</url>
     <content><![CDATA[<h2 id="861-翻转矩阵后的得分"><a href="#861-翻转矩阵后的得分" class="headerlink" title="861. 翻转矩阵后的得分"></a>861. 翻转矩阵后的得分</h2><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a class="btn" href="https://leetcode-cn.com/problems/score-after-flipping-matrix/" title="leetcode链接">861. 翻转矩阵后的得分</a></p>
@@ -3187,8 +3219,8 @@
         <category>C++11</category>
       </categories>
       <tags>
-        <tag>C++11</tag>
         <tag>C++</tag>
+        <tag>C++11</tag>
       </tags>
   </entry>
   <entry>
