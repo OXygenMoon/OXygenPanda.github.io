@@ -20,30 +20,38 @@
     var CONFIG = {"hostname":"oxygenpanda.github.io","root":"/OXygenPanda.github.io/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="致力于互联网应用&amp;服务开发">
-<meta property="og:type" content="website">
-<meta property="og:title" content="劳振煜的知識倉儲">
-<meta property="og:url" content="https://oxygenpanda.github.io/OXygenPanda.github.io/index.html">
+  <meta name="description" content="内存管理        内存管理是一个很深刻的话题, 对于初学者来说, 内存管理看不到摸不着, 我们常使用 new &#x2F; delete 来管理我们的堆内存. 仅此而已.  本文记录了侯捷老师内存管理课程的学习笔记以及部分自己写的代码. 目的是了解C++如何进行内存管理, 剖析源码, 能够设计自己的内存池. C++中内存管理工具   分配 释放 类型 是否可以重载    malloc() free()">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存管理">
+<meta property="og:url" content="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/12/11/C++/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/index.html">
 <meta property="og:site_name" content="劳振煜的知識倉儲">
-<meta property="og:description" content="致力于互联网应用&amp;服务开发">
+<meta property="og:description" content="内存管理        内存管理是一个很深刻的话题, 对于初学者来说, 内存管理看不到摸不着, 我们常使用 new &#x2F; delete 来管理我们的堆内存. 仅此而已.  本文记录了侯捷老师内存管理课程的学习笔记以及部分自己写的代码. 目的是了解C++如何进行内存管理, 剖析源码, 能够设计自己的内存池. C++中内存管理工具   分配 释放 类型 是否可以重载    malloc() free()">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger">
+<meta property="og:image" content="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub">
+<meta property="og:image" content="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat">
+<meta property="article:published_time" content="2020-12-11T11:13:00.000Z">
+<meta property="article:modified_time" content="2020-12-11T11:18:25.688Z">
 <meta property="article:author" content="劳振煜">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="内存管理">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger">
 
-<link rel="canonical" href="https://oxygenpanda.github.io/OXygenPanda.github.io/">
+<link rel="canonical" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/12/11/C++/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>劳振煜的知識倉儲</title>
+  <title>内存管理 | 劳振煜的知識倉儲</title>
   
 
 
@@ -199,144 +207,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-  
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/20/top/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/OXygenPanda.github.io/images/avatar.jpg">
-      <meta itemprop="name" content="劳振煜">
-      <meta itemprop="description" content="致力于互联网应用&服务开发">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="劳振煜的知識倉儲">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/OXygenPanda.github.io/2020/11/20/top/" class="post-title-link" itemprop="url">博客文章以及Github仓库引导</a>
-        </h2>
-
-        <div class="post-meta">
-	   
-          
-            <i class="fa fa-thumb-tack"></i>
-            <font color=7D26CD>置顶</font>
-            <span class="post-meta-divider">|</span>
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-20 14:56:00" itemprop="dateCreated datePublished" datetime="2020-11-20T14:56:00+08:00">2020-11-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 22:42:57" itemprop="dateModified" datetime="2020-12-06T22:42:57+08:00">2020-12-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="博客文章引导"><a href="#博客文章引导" class="headerlink" title="博客文章引导"></a>博客文章引导</h1><p align="left">
-<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
-</p>
-
-<p>我的博客, 即劳振煜的知識倉儲, 也就是您当前访问的博客. </p>
-<p>博客是基于 Hexo 的静态博客, 部署于我的 Github 上.</p>
-<p>该博客主要用来记录我在学习以及未来工作中的所感所悟. 留作记录以便自己在未来温故或帮助到正在看博客的你.</p>
-<p>博客的内容区别于 Github 的内容, 主要是博客将会记录完整的有体系的内容, 而 Github 上的各个仓库主要是用于记录学习笔记与实验, 自己造轮子, 学习他人的开源项目.</p>
-<hr>
-<p>C++</p>
-<p>STL</p>
-<p>数据结构</p>
-<p>计算机网络</p>
-<left>
-<a href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/23/HugeFour/Network/Deep_into_Network/" target="_blank"><img src="https://img.shields.io/badge/文章-计算机网络_韩立刚老师-faf2f2.svg?style=flat-square&logo=Instapaper"></a>
-</left>
-
-<left>
-<a href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/26/HugeFour/Network/TCP/" target="_blank"><img src="https://img.shields.io/badge/文章-计算机网络 TCP-faf2f2.svg?style=flat-square&logo=Instapaper"></a>
-</left>
-
-<p>操作系统</p>
-<left>
-<a href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/08/HugeFour/OperatingSystem/QingHua/Deep_into_OperatingSystem_all/" target="_blank"><img src="https://img.shields.io/badge/文章-深入理解操作系统-faf2f2.svg?style=flat-square&logo=Instapaper"></a>
-</left>
-
-<p>设计模式</p>
-<p>Leetcode</p>
-<h1 id="Github仓库引导"><a href="#Github仓库引导" class="headerlink" title="Github仓库引导"></a>Github仓库引导</h1><left>
-<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
-</left>
-
-<p>我的Github, 也就是上方链接. 你可以搜索 OXygenPanda 访问.</p>
-<p>虽然没有很多 star, 但是仍然坚持学习, 坚持记录, 坚持分享.</p>
-<hr>
-<p>计算机网络课程学习 - 韩立刚老师    </p>
-<blockquote>
-<p>  记录计算机网络课程学习的笔记</p>
-</blockquote>
-<left>
-<a href="https://github.com/OXygenPanda/Deep_into_Network" target="_blank"><img src="https://img.shields.io/badge/Github-@Deep_into_Network-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
-</left>
-深入理解操作系统课程学习 - 清华大学
-
-<blockquote>
-<p>  记录清华大学深入理解操作系统课程学习的笔记</p>
-</blockquote>
-<left>
-<a href="https://github.com/OXygenPanda/Deep_into_OperatingSystem" target="_blank"><img src="https://img.shields.io/badge/Github-@Deep_into_OperatingSystem-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
-</left>
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-    <div>
-      
-   </div>
-
-
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-  
-  
-      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -352,10 +226,9 @@
       <meta itemprop="name" content="劳振煜的知識倉儲">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/OXygenPanda.github.io/2020/12/11/C++/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">内存管理</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          内存管理
+        </h1>
 
         <div class="post-meta">
 	   
@@ -390,7 +263,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><p align="center">
+        <h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><p align="center">
 <a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
 <a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
 <a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
@@ -476,13 +349,20 @@
 <h2 id="重载-operator-new-operator-delete-1"><a href="#重载-operator-new-operator-delete-1" class="headerlink" title="重载 operator new / operator delete"></a>重载 operator new / operator delete</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">		<span class="comment">/*重载这两个函数应该是 static, 编译器默认*/</span></span><br><span class="line">		<span class="function"><span class="keyword">void</span> * <span class="keyword">operator</span> <span class="title">new</span><span class="params">(<span class="keyword">size_t</span>)</span></span>;</span><br><span class="line">		<span class="function"><span class="keyword">void</span>   <span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="keyword">void</span> *, <span class="keyword">size_t</span>)</span></span>; <span class="comment">//第二参数 optional</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Foo *p = <span class="keyword">new</span> Foo;</span><br><span class="line">编译器-&gt;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="keyword">void</span> * mem = <span class="keyword">operator</span> <span class="keyword">new</span>(<span class="keyword">sizeof</span>(Foo)); <span class="comment">//此处调用类中重载的 operator new</span></span><br><span class="line">		p = <span class="keyword">static_cast</span>&lt;Foo*&gt;(mem);</span><br><span class="line">		p-&gt;Foo::Foo(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> p; <span class="comment">//使用 ::delete p; 可以绕过重载的 operator delete</span></span><br><span class="line">编译器-&gt;</span><br><span class="line">p-&gt;~Foo();</span><br><span class="line"><span class="function"><span class="keyword">operator</span> <span class="title">delete</span><span class="params">(p)</span></span>; <span class="comment">//此处调用类中重载的 operator delete</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="重载-placement-new-placement-delete"><a href="#重载-placement-new-placement-delete" class="headerlink" title="重载 placement new / placement delete"></a>重载 placement new / placement delete</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">/* 1,2默认版本; 3,4重载版本;*/</span></span><br><span class="line">	</span><br><span class="line">		<span class="function"><span class="keyword">void</span> * <span class="keyword">operator</span> <span class="title">new</span><span class="params">(<span class="keyword">size_t</span> size)</span></span>&#123; <span class="comment">// 调用 new Foo</span></span><br><span class="line">				<span class="keyword">return</span> <span class="built_in">malloc</span>(size);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">void</span> * <span class="keyword">operator</span> <span class="title">new</span><span class="params">(<span class="keyword">size_t</span> size, <span class="keyword">void</span> * start)</span></span>&#123; <span class="comment">// 调用 new (&amp;) Foo</span></span><br><span class="line">				<span class="keyword">return</span> start;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">void</span> * <span class="keyword">operator</span> <span class="title">new</span><span class="params">(<span class="keyword">size_t</span> size, <span class="keyword">long</span> extra)</span></span>&#123; <span class="comment">// 调用 new (100) Foo</span></span><br><span class="line">				<span class="keyword">return</span> <span class="built_in">malloc</span>(size + extra);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">void</span> * <span class="keyword">operator</span> <span class="title">new</span><span class="params">(<span class="keyword">size_t</span> size, <span class="keyword">long</span> extra, <span class="keyword">char</span> init)</span></span>&#123; <span class="comment">//调用 new(100,&#x27;a&#x27;) Foo</span></span><br><span class="line">				<span class="keyword">return</span> <span class="built_in">malloc</span>(size + extra);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		** placement new 重载时, 第一参数必须为 size_t</span></span><br><span class="line"><span class="comment">		** 否则, [Error] &#x27;operator new&#x27; takes type &#x27;size_t&#x27;(unsigned int) </span></span><br><span class="line"><span class="comment">		** as first parameter</span></span><br><span class="line"><span class="comment">		*/</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		** placement delete 重载时, 不会被 delete 调用</span></span><br><span class="line"><span class="comment">		** 除非 new 的时候抛出异常, 才会去调用对应的重载的 operator delete()</span></span><br><span class="line"><span class="comment">		*/</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-      
     </div>
 
     
     
     
     <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束, 感谢您的阅读, 如有问题欢迎联系我-------------</div>
+    
+</div>
+
+
       
    </div>
 
@@ -491,131 +371,50 @@
     
     
     
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/OXygenPanda.github.io/images/wechat.png" alt="劳振煜 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/OXygenPanda.github.io/images/alipay.png" alt="劳振煜 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/OXygenPanda.github.io/tags/C/" rel="tag"># C++</a>
+              <a href="/OXygenPanda.github.io/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" rel="tag"># 内存管理</a>
+          </div>
 
-  
-  
-  
-  
-  
-  
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/11/23/HugeFour/Network/Deep_into_Network/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/OXygenPanda.github.io/images/avatar.jpg">
-      <meta itemprop="name" content="劳振煜">
-      <meta itemprop="description" content="致力于互联网应用&服务开发">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="劳振煜的知識倉儲">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/OXygenPanda.github.io/2020/11/23/HugeFour/Network/Deep_into_Network/" class="post-title-link" itemprop="url">深入理解计算机网络</a>
-        </h2>
-
-        <div class="post-meta">
-	   
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-23 19:20:00" itemprop="dateCreated datePublished" datetime="2020-11-23T19:20:00+08:00">2020-11-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-06 21:31:13" itemprop="dateModified" datetime="2020-12-06T21:31:13+08:00">2020-12-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/OXygenPanda.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p align="center">
-<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
-<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
-<a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
-</p> 
-
-
-
-
-<h1 id="计算机网络学习"><a href="#计算机网络学习" class="headerlink" title="计算机网络学习"></a>计算机网络学习</h1><p>本文章记录着小劳的计算机网络学习, 从2020.11.22开始学习, 目标能够掌握概念, 对网络编程有一个偏底层的理解. 学习自韩立刚老师的b站课程.</p>
-<p>传送门 : <a class="btn" target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV17p411f7ZZ?p=1" title="传送门">b站 韩立刚 计算机网络</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/OXygenPanda.github.io/2020/11/23/HugeFour/Network/Deep_into_Network/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/OXygenPanda.github.io/2020/12/10/HugeFour/DataStruct/01%E6%95%B0%E7%BB%84%20vector/" rel="prev" title="数据结构 - 数组">
+      <i class="fa fa-chevron-left"></i> 数据结构 - 数组
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-    <div>
-      
-   </div>
-
-
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
   
-
-  
-  
-  
-  
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/OXygenPanda.github.io/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/OXygenPanda.github.io/page/4/">4</a><a class="extend next" rel="next" href="/OXygenPanda.github.io/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
 
 
 
@@ -667,6 +466,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#C-%E4%B8%AD%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.</span> <span class="nav-text">C++中内存管理工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new-%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.</span> <span class="nav-text">new 运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#operator-new-vc98%E9%BB%98%E8%AE%A4%E7%89%88%E6%9C%AC"><span class="nav-number">1.3.</span> <span class="nav-text">operator new() vc98默认版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#delete-%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.4.</span> <span class="nav-text">delete 运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#operator-delete-vc98%E9%BB%98%E8%AE%A4%E7%89%88%E6%9C%AC"><span class="nav-number">1.5.</span> <span class="nav-text">operator delete() vc98默认版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#array-new-array-delete"><span class="nav-number">1.6.</span> <span class="nav-text">array new &#x2F; array delete</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#placement-new"><span class="nav-number">1.7.</span> <span class="nav-text">placement new</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98%E7%9A%84%E9%80%94%E5%BE%84"><span class="nav-number">1.8.</span> <span class="nav-text">C++应用程序分配内存的途径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-%E5%AE%B9%E5%99%A8%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98%E7%9A%84%E9%80%94%E5%BE%84"><span class="nav-number">1.9.</span> <span class="nav-text">C++容器分配内存的途径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD-operator-new-operator-delete"><span class="nav-number">1.10.</span> <span class="nav-text">重载 ::operator new &#x2F; ::operator delete</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD-operator-new-operator-delete-1"><span class="nav-number">1.11.</span> <span class="nav-text">重载 operator new &#x2F; operator delete</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD-placement-new-placement-delete"><span class="nav-number">1.12.</span> <span class="nav-text">重载 placement new &#x2F; placement delete</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
