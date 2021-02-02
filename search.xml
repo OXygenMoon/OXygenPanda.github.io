@@ -59,6 +59,109 @@
 ]]></content>
   </entry>
   <entry>
+    <title>IO多路复用</title>
+    <url>/OXygenPanda.github.io/2021/01/20/HugeFour/OperatingSystem/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/</url>
+    <content><![CDATA[<p align="center">
+<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
+<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
+<a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
+
+
+<blockquote>
+<p>  学习自 : <a href="https://www.bilibili.com/video/BV1qJ411w7du?from=search&amp;seid=6979152329662416408">https://www.bilibili.com/video/BV1qJ411w7du?from=search&amp;seid=6979152329662416408</a></p>
+</blockquote>
+</p><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>服务器应对并发时, 如果使用多线程程序, 每一个连接创建一个线程, 由于上下文切换,  处理句柄会导致代价很高. 所以很多时候, 使用的是单线程程序, 其中 DMA 保证了不同时候到来的 IO数据 不会丢失.</p>
+<a id="more"></a>
+
+<p>最简单的一个由程序来接收IO数据的程序.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">	<span class="keyword">for</span>(Fdx in (FdA ~ FdE) &#123;</span><br><span class="line">		<span class="keyword">if</span>(Fdx 有数据) &#123;</span><br><span class="line">			读Fdx;</span><br><span class="line">			处理;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是, 每一次由用户来询问内核, 开销较大, 因此有了 <code>select()</code>.</p>
+<h2 id="select"><a href="#select" class="headerlink" title="select()"></a>select()</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">	FD_ZERO(&amp;rset);</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i ++) &#123;</span><br><span class="line">		FD_SET(fds[i], &amp;rset);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;round again&quot;</span>);</span><br><span class="line">	select(max + <span class="number">1</span>, &amp;rset, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>); <span class="comment">//阻塞函数</span></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	para 0:文件描述符最大的范围(因为第一位是fd=0,所以要加1)</span></span><br><span class="line"><span class="comment">	para 1:读文件描述符(比较关注)</span></span><br><span class="line"><span class="comment">	para 2:写文件描述符</span></span><br><span class="line"><span class="comment">	para 3:异常文件描述符</span></span><br><span class="line"><span class="comment">	para 4:超时时间</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i ++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(FD_ISSET(fds[i], &amp;rset)) &#123;</span><br><span class="line">			<span class="built_in">memset</span>(buffer, <span class="number">0</span>, MAXBUF);</span><br><span class="line">			read(fds[i], buffer, MAXBUF);</span><br><span class="line">			<span class="built_in">puts</span>(buffer);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><ol>
+<li>使用 rset(bitmap) 来标记注册的 Fds ;</li>
+<li>将 rset 拷贝至内核态 ;</li>
+<li>select() 阻塞 ;</li>
+<li>有数据到来后, 内核对有数据的 rset位 置位, 并且 select() 返回 ;</li>
+<li>遍历 Fds 判断是否被置位, 如果置位就说明对应的 IO 有数据 ;</li>
+<li>由于破坏了 rset位图, 需要重新遍历 Fds 标记 rest位图 ;</li>
+<li>循环 2 - 6.</li>
+</ol>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li>rset 的数据结构以及存储的数据的表示</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">rset的数据类型是 bitmap</span><br><span class="line"></span><br><span class="line">假设 fds 分别是 <span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span></span><br><span class="line">那么rest 的值就是 bitmap&lt;<span class="number">1024</span>&gt;<span class="number">0110&#x27;0101&#x27;01000.</span>..</span><br><span class="line"></span><br><span class="line"><span class="comment">//左边第一个代表的是 fds 值为0的不存在</span></span><br><span class="line"><span class="comment">//1024 因为 Linux 默认支持最大线程数是1024</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>工作状态</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">无数据 : select() 阻塞</span><br><span class="line">有数据 : 内核 <span class="number">1.</span> 对有数据来的FD置位 <span class="number">2.</span> select() 返回</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>返回值</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">成功 : 大于 <span class="number">0</span> </span><br><span class="line">出错 : <span class="number">-1</span></span><br><span class="line">超时 : <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="select-的优点"><a href="#select-的优点" class="headerlink" title="select() 的优点"></a>select() 的优点</h3><ol>
+<li>将 rset 交给内核监听, 节约了一定的开销;</li>
+<li><strong>select() 的核心是内核等待队列唤醒机制.</strong></li>
+</ol>
+<h3 id="select-的缺点"><a href="#select-的缺点" class="headerlink" title="select() 的缺点"></a>select() 的缺点</h3><ol>
+<li>rset : 1024 bitmap</li>
+<li>FDset 不可重用</li>
+<li>用户态拷贝的时候切换到内核态, 仍然有开销</li>
+<li>O(n) 时间复杂度去遍历得到哪一个 IO 有数据</li>
+</ol>
+<h2 id="poll"><a href="#poll" class="headerlink" title="poll()"></a>poll()</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">pollfd</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> id;        <span class="comment">//fds</span></span><br><span class="line">	<span class="keyword">short</span> events;  <span class="comment">//关注的事件</span></span><br><span class="line">	<span class="keyword">short</span> revents; <span class="comment">//反馈(初始值为0)</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">	<span class="built_in">memset</span>(&amp;client, <span class="number">0</span>, <span class="keyword">sizeof</span>(client));</span><br><span class="line">	addrlen = <span class="keyword">sizeof</span>(client);</span><br><span class="line">	pollfds[i].fd = accept(sockfd, (struct sockaddr*)&amp;client, &amp;addrlen);</span><br><span class="line">	pollfds[i].events = POLLIN;</span><br><span class="line">&#125;</span><br><span class="line">sleep(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;round again&quot;</span>);</span><br><span class="line">	poll(pollfds, <span class="number">5</span>, <span class="number">50000</span>);   <span class="comment">//阻塞</span></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	para 0 : 结构体数组名</span></span><br><span class="line"><span class="comment">	para 1 : fds的个数</span></span><br><span class="line"><span class="comment">	para 2 : 超时时间</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i ++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(pollfds[i].revents &amp; POLLIN) &#123; <span class="comment">//判 revents 和 关注的事件</span></span><br><span class="line">			pollfds[i].revents = <span class="number">0</span>;         <span class="comment">//置位达到可重用效果</span></span><br><span class="line">			<span class="built_in">memset</span>(buffer, <span class="number">0</span>, MAXBUF);</span><br><span class="line">			read(pollfds[i], fd, buffer, MAXBUF);</span><br><span class="line">			<span class="built_in">puts</span>(buffer);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="工作原理-1"><a href="#工作原理-1" class="headerlink" title="工作原理"></a>工作原理</h3><p>用户态拷贝 fds 至内核态, 由内核监听(和 select() 一样)</p>
+<h3 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li>struct pollfd 的细节</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span>  <span class="title">pollfd</span> 的一个节点相当于是 <span class="title">rset</span> 中的一位</span></span><br><span class="line"><span class="class"><span class="title">events</span>  用于标记关注的事件, 如果同时关注多个事件, 事件1 &amp; 事件2</span></span><br><span class="line"><span class="class"><span class="title">revents</span> 初始为0, 内核置数, 处理时清零, 可重用</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>工作状态</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">无数据 : poll() 阻塞</span><br><span class="line">有数据 : 内核 <span class="number">1.</span> pollfds.revents 置位 <span class="number">2.</span> poll 返回</span><br></pre></td></tr></table></figure>
+
+<h3 id="poll-的优点"><a href="#poll-的优点" class="headerlink" title="poll() 的优点"></a>poll() 的优点</h3><ol>
+<li>数组可以超过 1024 长(最大65535长)</li>
+<li>重置 revents 后可重用</li>
+</ol>
+<h2 id="epoll"><a href="#epoll" class="headerlink" title="epoll()"></a>epoll()</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> <span class="title">events</span>[5];</span></span><br><span class="line"><span class="keyword">int</span> epfd = epoll_create(<span class="number">10</span>);                        <span class="comment">// 1</span></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i ++) &#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> <span class="title">ev</span>;</span></span><br><span class="line">	<span class="built_in">memset</span>(&amp;client, <span class="number">0</span>, <span class="keyword">sizeof</span>(client));</span><br><span class="line">	addrlen = <span class="keyword">sizeof</span>(client);</span><br><span class="line">	ev.data.fd = accept(sockfd, (struct sockaddr*)&amp;client, &amp;addrlen);</span><br><span class="line">	ev.events = EPOLLIN;</span><br><span class="line">	epoll_ctl(epfd, EPOLL_CTL_ADD, ev.data.fd, &amp;ev);  <span class="comment">// 2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;round again&quot;</span>);</span><br><span class="line">	nfds = epoll_waits(epfd, events, <span class="number">5</span>, <span class="number">10000</span>);       <span class="comment">// 3</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; nfds; i ++) &#123;</span><br><span class="line">		<span class="built_in">memset</span>(buffer, <span class="number">0</span>, MAXBUF);</span><br><span class="line">		read(events[i].data.fd, buffer, MAXBUF);</span><br><span class="line">		<span class="built_in">puts</span>(buffer);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><p>1 : 创建白板 epfd</p>
+<p>2 : 在白板上写字 : fd - events, 得到了一些列 fd - events 的 epfd</p>
+<p>3 : epfd 由用户态和内核态共享内存 ( 实际上还是要拷贝到内核态, 在 <code>epoll_ctl()</code> 就拷贝 )</p>
+<h3 id="注意事项-2"><a href="#注意事项-2" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li>函数细节</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">epoll_ctl()  向内核注册新的描述符或者改变某个文件描述符的状态, 已注册的描述符在内核中被维护成红黑树</span><br><span class="line">epoll_wait() 回调函数, 内核将有数据的描述符加入到一个链表中, 进程获得描述符数</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>工作状态</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">没数据 : epoll() 阻塞(水平触发下, 边缘触发?)</span><br><span class="line">有数据 : <span class="number">1.</span> <span class="string">&quot;置位&quot;</span>(重排,将有数据的fd-events放在最前面) <span class="number">2.</span> 返回值是有数据的IO数</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>两种触发模式</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">LT:水平触发</span><br><span class="line">	当 epoll_wait() 检测到描述符事件到达时，将此事件通知进程，进程可以不立即处理该事件，下次调用 epoll_wait() 会再次通知进程。是默认的一种模式，并且同时支持 Blocking 和 No-Blocking</span><br><span class="line"></span><br><span class="line">ET:边缘触发</span><br><span class="line">	和 LT 模式不同的是，通知之后进程必须立即处理事件。下次再调用 epoll_wait() 时不会再得到事件到达的通知。很大程度上减少了 epoll 事件被重复触发的次数，因此效率要比 LT 模式高。只支持 No-Blocking，以避免由于一个文件句柄的阻塞读/阻塞写操作把处理多个文件描述符的任务饿死。</span><br></pre></td></tr></table></figure>
+
+<h3 id="epoll-的优点"><a href="#epoll-的优点" class="headerlink" title="epoll() 的优点"></a>epoll() 的优点</h3><ol>
+<li>时间复杂度 O(1)</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>红黑树</title>
     <url>/OXygenPanda.github.io/2021/01/15/HugeFour/DataStructrues/tree/RBTree/</url>
     <content><![CDATA[<h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><p><strong>名称 :</strong> 红黑树</p>
@@ -3575,8 +3678,8 @@ AVL树 - 右旋
         <category>C++11</category>
       </categories>
       <tags>
-        <tag>C++</tag>
         <tag>C++11</tag>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -4376,8 +4479,8 @@ AVL树 - 右旋
       </categories>
       <tags>
         <tag>Leetcode</tag>
-        <tag>简单</tag>
         <tag>字符串</tag>
+        <tag>简单</tag>
       </tags>
   </entry>
   <entry>
@@ -4456,8 +4559,8 @@ AVL树 - 右旋
       </categories>
       <tags>
         <tag>Leetcode</tag>
-        <tag>哈希集合</tag>
         <tag>简单</tag>
+        <tag>哈希集合</tag>
       </tags>
   </entry>
   <entry>
