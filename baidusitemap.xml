@@ -2,7 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://OXygenPanda.github.io/OXygenPanda.github.io/OXygenPanda.github.io/2021/01/25/C++/modern%20cpp/01%20RAII/</loc>
-    <lastmod>2021-03-05</lastmod>
+    <lastmod>2021-03-06</lastmod>
+  </url>
+  <url>
+    <loc>https://OXygenPanda.github.io/OXygenPanda.github.io/OXygenPanda.github.io/2021/01/26/C++/modern%20cpp/02%20smart_ptr/</loc>
+    <lastmod>2021-03-06</lastmod>
   </url>
   <url>
     <loc>https://OXygenPanda.github.io/OXygenPanda.github.io/OXygenPanda.github.io/2021/01/20/HugeFour/OperatingSystem/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/</loc>
