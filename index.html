@@ -340,6 +340,252 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2021/01/30/HugeFour/OperatingSystem/OS_NOTE/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/OXygenPanda.github.io/images/avatar.jpg">
+      <meta itemprop="name" content="劳振煜">
+      <meta itemprop="description" content="致力于互联网应用&服务开发">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="劳振煜的知識倉儲">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/OXygenPanda.github.io/2021/01/30/HugeFour/OperatingSystem/OS_NOTE/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">OS | 进程和线程</a>
+        </h2>
+
+        <div class="post-meta">
+	   
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-30 18:10:00" itemprop="dateCreated datePublished" datetime="2021-01-30T18:10:00+08:00">2021-01-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-06 21:11:14" itemprop="dateModified" datetime="2021-03-06T21:11:14+08:00">2021-03-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/OXygenPanda.github.io/categories/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p align="center">
+<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
+<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
+<a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
+# 进程和线程
+
+</p><h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>即使可以使用的CPU只有一个, 也支持并发操作.</p>
+<p>每个程序运行几十或者几百毫秒, 即使每一个瞬间CPU只能运行一个进程, 在一秒内, 也运行了多个进程. 给人并行的错觉. 也就是伪并行.</p>
+<h2 id="进程模型"><a href="#进程模型" class="headerlink" title="进程模型"></a>进程模型</h2><p>所有计算机上运行的软件, 包括系统, 被组织为若干顺序进程 (sequential processes), 简称为进程(process).</p>
+<p>一个进程就是一个正在执行的程序的实例, 包括程序计数器, 寄存器和变量的当前值.</p>
+<p>进程切换的时候, 运行的进程把逻辑程序计数器装载到物理程序计数器中, 程序结束时, 再把物理程序计数器放回逻辑程序计数器.</p>
+<p>进程是某一特定活动的总和, 有程序, 输入输出以及状态.</p>
+<h2 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h2><p>以下是创建进程的方式 : </p>
+<ul>
+<li>系统初始化</li>
+<li>正在运行的程序执行了创建进程的系统调用(fork)</li>
+<li>用户请求创建一个新进程</li>
+<li>初始化一个批处理工作</li>
+</ul>
+<h3 id="系统初始化"><a href="#系统初始化" class="headerlink" title="系统初始化"></a>系统初始化</h3><p>启动操作系统的时候, 通常会创建若干进程.</p>
+<p>前台进程 : 和用户进行交互完成工作的进程.</p>
+<p>守护进程 : 在后台用来处理一些活动, 比如 email, web, 新闻等的进程.</p>
+<p>unix中, 使用 ps 可以列出正在运行的进程, 在windows里使用任务管理器.</p>
+<h3 id="系统调用创建"><a href="#系统调用创建" class="headerlink" title="系统调用创建"></a>系统调用创建</h3><p>一个新的进程可以由其他进程通过系统调用创建, 比如大量数据需要从网络调取并处理, 可以创建一个进程读数据并放到缓冲区, 第二个进程取走并正确处理. </p>
+<p>在多处理器中, 让每个进程运行在不同的CPU上也可以使得工作做的更快.</p>
+<h3 id="用户请求创建"><a href="#用户请求创建" class="headerlink" title="用户请求创建"></a>用户请求创建</h3><p>输入一个命令或者双击图标可以启动程序.</p>
+<h3 id="批处理创建"><a href="#批处理创建" class="headerlink" title="批处理创建"></a>批处理创建</h3><p>在 UNIX 系统中, 只有一个系统调用来创建一个新的进程, <code>fork()</code> , 调用会创建一个与调用进程相关的副本, 父进程和子进程会有相同的内存映像, 相同的环境字符串和相同的打开文件, 通常子进程会执行 <code>execve()</code> 来改变内存映像并运行一个新的程序.</p>
+<ul>
+<li>UNIX 中的一些系统调用</li>
+</ul>
+<p>有一些 UNIX 系统的实现, 父进程和子进程在不可写的内存区域上是共享的, 而可写内存区域通过 写时赋值(copy-on-write) 共享, 一旦两者之一想要修改部分内存, 则该内存首先被明确的赋值, 以确保修改发生在私有的内存区域. </p>
+<h2 id="进程终止"><a href="#进程终止" class="headerlink" title="进程终止"></a>进程终止</h2><p>进程终止有几种情况 :</p>
+<ol>
+<li>正常退出 (自愿)</li>
+<li>错误退出 (自愿)</li>
+<li>严重错误 (非自愿)</li>
+<li>被其他进程杀死 (非自愿)</li>
+</ol>
+<h3 id="正常退出"><a href="#正常退出" class="headerlink" title="正常退出"></a>正常退出</h3><p>调用 UNIX 中的 <code>exit()</code></p>
+<h3 id="错误退出"><a href="#错误退出" class="headerlink" title="错误退出"></a>错误退出</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc foo.c</span><br></pre></td></tr></table></figure>
+
+<p>比如, 想要编译 foo.c 文件, 但是该文件不存在, 就会发生错误退出, 参数不合理.</p>
+<h3 id="严重错误"><a href="#严重错误" class="headerlink" title="严重错误"></a>严重错误</h3><p>由于程序中的错误导致. 比如, 执行非法指令, 引用不存在的内存, 除数为0等.</p>
+<h3 id="被进程杀死"><a href="#被进程杀死" class="headerlink" title="被进程杀死"></a>被进程杀死</h3><p>调用 UNIX 中的 <code>kill()</code></p>
+<h2 id="进程层次结构"><a href="#进程层次结构" class="headerlink" title="进程层次结构"></a>进程层次结构</h2><p>父进程创建了子进程, 父子进程之间存在一定的关联, 子进程又会创建更多的进程, 从而形成一个进程层次结构.</p>
+<h3 id="UNIX-进程体系"><a href="#UNIX-进程体系" class="headerlink" title="UNIX 进程体系"></a>UNIX 进程体系</h3><p>在 UNIX 中, 进程和它的所有子进程以及子进程的子进程共同组成一个进程组. 当用户从键盘中发出一个信号后, 该信号会被发送给当前与键盘相关的进程组中的所有成员. 每个进程可以分别捕获信号, 忽略信号 或者 采取默认的动作.</p>
+<p>UNIX 在启动时初始化自己, 一个称为 <code>init</code> 的特殊进程是整个操作系统进程树的根.</p>
+<h2 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat chapter1 chapter2 chapter3 | grep tree</span><br></pre></td></tr></table></figure>
+
+<p>两个进程, cat 进程将三个文件级联, grep 进程等待输入选择具有 tree 关键词的内容.</p>
+<p>当 grep 进程就绪开始运行时, 但是 cat 进程还没有执行, 于是 grep 进程会阻塞, 等待输入完毕.<br>所以, 进程可能会经历以下状态 :</p>
+<p>阻塞 ← 运行 ←→ 就绪</p>
+<p>阻塞 → 就绪</p>
+<p>具体说明 : </p>
+<p>运行 → 阻塞 : 进程因为等待输入而阻塞</p>
+<p>运行 → 就绪 : 调度程序选择了另一个进程, 时间片没有轮到自己</p>
+<p>就绪 → 运行 : 调度程序选择一个进程开始运行, 时间片轮到了自己</p>
+<p>阻塞 → 就绪 : 输入完毕</p>
+<p>状态说明 :</p>
+<ol>
+<li>运行态 : 进程实际占用 CPU 时间片</li>
+<li>就绪态 : 可以运行, 但是其他进程正在运行</li>
+<li>阻塞态 : 除非某种外部事件发生, 否则进程不能运行</li>
+</ol>
+<h2 id="进程实现"><a href="#进程实现" class="headerlink" title="进程实现"></a>进程实现</h2><p>操作系统维护一张进程表(process table).</p>
+<p>每个进程占用一个表项, 包含进程的重要信息, 包括程序计数器, 堆栈指针, 内存分配状况, 所打开的文件状态, 账号和调度信息, 状态切换的信息. 从而能够保证进程在随后可以再次启动, 就像从未被中断过.</p>
+<p>表项内容 :</p>
+<ul>
+<li><p>进程管理</p>
+<p>  寄存器, 程序计数器, 程序状态字, 堆栈指针, 进程状态, 优先级, 调度参数, 进程ID, 父进程, 进程组, 信号, 进程开始的时间, 使用的CPU时间, 子进程的CPU时间, 下次定时器时间</p>
+</li>
+<li><p>存储管理</p>
+<p>  text segment 指针</p>
+<p>  data segment 指针</p>
+<p>  stack segment 指针</p>
+</li>
+<li><p>文件管理</p>
+<p>  根目录</p>
+<p>  工作目录</p>
+<p>  文件描述符</p>
+<p>  用户ID</p>
+<p>  组ID</p>
+</li>
+</ul>
+<hr>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><p>传统的操作系统中, 每个进程都有一个地址空间和一个控制线程.</p>
+<p>事实上, 经常存在同一地址空间中运行多个控制线程的情况.</p>
+<h2 id="线程使用"><a href="#线程使用" class="headerlink" title="线程使用"></a>线程使用</h2><p>为什么要在进程模型上再创建一个线程的概念, 需要分三步回答 : </p>
+<ul>
+<li>多线程之间可以共享一块地址空间和所有可用数据, 这是多进程不具备的       ← 共享</li>
+<li>线程比进程轻量化, 创建容易撤销也容易, 创建线程比进程快 10 - 100 倍        ← 轻量</li>
+<li>如果存在大量的计算和大量的IO处理, 多线程能够加快执行速度                       ←高性能</li>
+</ul>
+<h3 id="多线程解决方案"><a href="#多线程解决方案" class="headerlink" title="多线程解决方案"></a>多线程解决方案</h3><p>调度线程是从网络中读入工作请求, 检查完之后, 选择一个空闲的(阻塞的)工作线程来处理请求, 通常方式是将消息的指针写入到每个线程关联的特殊字中. 调度线程会唤醒正在睡眠的工作线程, 把工作线程的状态从阻塞态变为就绪态.</p>
+<p>这种模型允许服务器编写为顺序线程的集合, 在分派线程的程序中包含一个死循环, 用来获得工作请求并把请求派给工作线程.<br>每个工作线程的代码包含一个从调度线程接收的请求, 并且检查 web 高速缓存中是否存在所需页面, 如果有, 直接把页面返回给客户, 接着工作线程阻塞, 等待一个新请求的到达. 如果没有, 工作线程就从磁盘调入该页面, 将页面返回给客户, 然后工作线程阻塞, 等待新请求.</p>
+<p>下面是调度线程和工作线程的代码, 假设 TRUE 为 1, buf 和 page 分别是保存工作请求和 web 页面的相应结构.</p>
+<p><strong>调度线程的大致逻辑</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(TRUE)&#123;</span><br><span class="line">	get_next_request(&amp;buf);</span><br><span class="line">	handoff_work(&amp;buf);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>工作线程的大致逻辑</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(TRUE)&#123;</span><br><span class="line">	wait_for_work(&amp;buf);</span><br><span class="line">	look_for_page_in_cache(&amp;buf, &amp;page);</span><br><span class="line">	<span class="keyword">if</span>(page_not_in_cache(&amp;page))&#123;</span><br><span class="line">		read_page_from_disk(&amp;buf, &amp;page);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> _page(&amp;page);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="单线程解决方案"><a href="#单线程解决方案" class="headerlink" title="单线程解决方案"></a>单线程解决方案</h3><p>如果只有单线程来处理请求, 那么在等待磁盘操作时, 服务器空转, 不处理任何到来的其他请求. 导致效率极低, 也说明了多线程能够提高程序的并行性和程序的性能.</p>
+<h3 id="状态机解决方案"><a href="#状态机解决方案" class="headerlink" title="状态机解决方案"></a>状态机解决方案</h3><h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><p>单线程 - 无并行性, 性能较差, 阻塞系统调用</p>
+<p>多线程 - 有并行性, 阻塞系统调用</p>
+<p>有限状态机 - 并行性, 非阻塞系统调用, 中断</p>
+<h2 id="经典线程模型"><a href="#经典线程模型" class="headerlink" title="经典线程模型"></a>经典线程模型</h2><p>进程存放程序正文和数据以及其他资源的地址空间, 资源包括 : 打开的文件, 子进程, 即将发生的定时器, 信号处理程序, 账号信息等. 进程管理资源较为方便.</p>
+<p>进程中包含执行的线程 : </p>
+<ul>
+<li>线程会有程序计数器, 用来记录接下来要执行哪一条指令;</li>
+<li>线程会有寄存器, 用来保存当前正在使用的变量;</li>
+<li>线程会有堆栈, 用来记录程序的执行路径.</li>
+</ul>
+<p>多个线程中, 各个线程共享同一地址空间和其他资源.</p>
+<p>由于每个线程可以访问进程地址空间中的每个内存地址, 因此一个线程可以读取, 写入甚至擦除另一个线程的堆栈. 线程之间除了共享同一内存空间外, 还有以下不同的内容 :</p>
+<p><strong>每个进程中的内容(线程共享内容) 进程的属性</strong></p>
+<ul>
+<li>地址空间</li>
+<li>全局变量</li>
+<li>打开文件</li>
+<li>子进程</li>
+<li>即将发生的定时器</li>
+<li>信号和信号处理程序</li>
+<li>账户信息</li>
+</ul>
+<p><strong>每个线程中的内容 线程的属性</strong></p>
+<ul>
+<li>程序计数器</li>
+<li>寄存器</li>
+<li>堆栈</li>
+<li>状态</li>
+</ul>
+<p>线程有以下几种状态 : 运行态, 阻塞态, 就绪态和终止态.</p>
+<h2 id="线程系统调用"><a href="#线程系统调用" class="headerlink" title="线程系统调用"></a>线程系统调用</h2><p>进程通常以单线程开始, 然后这个线程通过调用一个库函数(比如 <code>thread_create</code>)创建新的线程.<br>线程创建的函数会要求指定新创建线程的名称.<br>创建的线程通常都返回一个线程标识符, 该标识符就是新线程的名字.</p>
+<p>使用, <code>thread_exit</code> 来退出线程.</p>
+<p>使用, <code>thread_join</code> 表示一个线程可以等待另一个线程退出.</p>
+<p>使用, <code>thread_yield</code> 允许线程自动放弃CPU从而让另一个线程运行.</p>
+<h2 id="POSIX线程"><a href="#POSIX线程" class="headerlink" title="POSIX线程"></a>POSIX线程</h2><p><code>IEEE 1003.1c</code> 线程标准</p>
+<p>线程包被定义为 <code>Pthreads</code>, 这个标准定义了60多种功能调用.</p>
+<p>POSIX线程是一种独立于语言而存在的执行模型, 以及并行执行模型.</p>
+<p>线程调用 : </p>
+<p><code>pthread_create</code> : 创建一个新线程</p>
+<p><code>pthread_exit</code> : 结束调用的线程. 释放线程拥有的堆栈.</p>
+<p><code>pthread_join</code> : 等待一个特定的线程退出</p>
+<p><code>pthread_yield</code> : 释放CPU来运行另一个线程</p>
+<p><code>pthread_attr_init</code> : 创建并初始化一个线程的属性结构</p>
+<p><code>pthread_attr_destory</code> : 删除一个线程的属性结构</p>
+<p>一个例子 :</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NUMBER_OF_THREADS 10</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">print_hello_world</span><span class="params">(<span class="keyword">void</span> * tid)</span></span>&#123;</span><br><span class="line">    <span class="comment">/* 输出线程的标识符, 然后退出 */</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello World. Greeting from thread %d\n&quot;</span>, tid);</span><br><span class="line">    pthread_exit(<span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/* 主程序创建10个线程, 然后退出 */</span></span><br><span class="line">    <span class="keyword">pthread_t</span> threads[NUMBER_OF_THREADS];</span><br><span class="line">    <span class="keyword">int</span> status, i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; NUMBER_OF_THREADS; ++ i)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Main here. Creating thread %d\n&quot;</span>, i);</span><br><span class="line">        status = pthread_create(&amp;threads[i], <span class="literal">NULL</span>, print_hello_world, (<span class="keyword">void</span> *)i);</span><br><span class="line">        <span class="keyword">if</span>(status != <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;Oops. pthread_create returned error code %d\n&quot;</span>, status);</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">exit</span>(<span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="线程实现"><a href="#线程实现" class="headerlink" title="线程实现"></a>线程实现</h2><p>三种实现方式 : </p>
+<ul>
+<li>在用户空间中实现线程;</li>
+<li>在内核空间中实现线程;</li>
+<li>在用户和内核空间中混合实现线程.</li>
+</ul>
+<h3 id="在用户空间中实现线程"><a href="#在用户空间中实现线程" class="headerlink" title="在用户空间中实现线程"></a>在用户空间中实现线程</h3><p>整个线程包放在用户空间中, 内核对线程一无所知, 不知道线程的存在.<br>包括以下几个过程 : pthread_create, pthread_exit, pthread_join, pthread_yield.<br>维护一张线程表, 记录各线程的属性. 由运行时系统统一管理.</p>
+<p><strong>在用户空间实现线程的优势</strong></p>
+<p>启动比进行内核调用效率更高, 不需要切换到内核, 不需要上下文切换, 不需要对内存高速缓存进行刷新, 线程调度便捷.</p>
+<p><strong>在用户空间实现线程的裂势</strong></p>
+<h3 id="在内核中实现线程"><a href="#在内核中实现线程" class="headerlink" title="在内核中实现线程"></a>在内核中实现线程</h3><h3 id="混合实现"><a href="#混合实现" class="headerlink" title="混合实现"></a>混合实现</h3>
+      
+    </div>
+
+    
+    
+    
+    <div>
+      
+   </div>
+
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+  
+  
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2021/01/26/C++/modern%20cpp/02%20smart_ptr/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1196,7 +1442,6 @@ AVL树 - 右旋
   
 
   
-  
 
   
   <nav class="pagination">
@@ -1268,20 +1513,20 @@ AVL树 - 右旋
       <div class="site-state-item site-state-posts">
           <a href="/OXygenPanda.github.io/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/OXygenPanda.github.io/categories/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/OXygenPanda.github.io/tags/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1350,7 +1595,7 @@ AVL树 - 右旋
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共79.5k字</span>
+  <span class="post-count">博客全站共82.6k字</span>
 </div>
         
 

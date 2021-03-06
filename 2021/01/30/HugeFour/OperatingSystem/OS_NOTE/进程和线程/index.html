@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/OXygenPanda.github.io/images/favicon-32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/OXygenPanda.github.io/images/favicon-16x16.ico">
+
+<link rel="stylesheet" href="/OXygenPanda.github.io/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/OXygenPanda.github.io/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/OXygenPanda.github.io/lib/pace/pace-theme-minimal.min.css">
+  <script src="/OXygenPanda.github.io/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"oxygenpanda.github.io","root":"/OXygenPanda.github.io/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="# 进程和线程  进程即使可以使用的CPU只有一个, 也支持并发操作. 每个程序运行几十或者几百毫秒, 即使每一个瞬间CPU只能运行一个进程, 在一秒内, 也运行了多个进程. 给人并行的错觉. 也就是伪并行. 进程模型所有计算机上运行的软件, 包括系统, 被组织为若干顺序进程 (sequential processes), 简称为进程(process). 一个进程就是一个正在执行的程序的实">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OS | 进程和线程">
+<meta property="og:url" content="https://oxygenpanda.github.io/OXygenPanda.github.io/2021/01/30/HugeFour/OperatingSystem/OS_NOTE/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/index.html">
+<meta property="og:site_name" content="劳振煜的知識倉儲">
+<meta property="og:description" content="# 进程和线程  进程即使可以使用的CPU只有一个, 也支持并发操作. 每个程序运行几十或者几百毫秒, 即使每一个瞬间CPU只能运行一个进程, 在一秒内, 也运行了多个进程. 给人并行的错觉. 也就是伪并行. 进程模型所有计算机上运行的软件, 包括系统, 被组织为若干顺序进程 (sequential processes), 简称为进程(process). 一个进程就是一个正在执行的程序的实">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger">
+<meta property="og:image" content="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub">
+<meta property="og:image" content="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat">
+<meta property="article:published_time" content="2021-01-30T10:10:00.000Z">
+<meta property="article:modified_time" content="2021-03-06T13:11:14.172Z">
+<meta property="article:author" content="劳振煜">
+<meta property="article:tag" content="OS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger">
+
+<link rel="canonical" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2021/01/30/HugeFour/OperatingSystem/OS_NOTE/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>OS | 进程和线程 | 劳振煜的知識倉儲</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?71aba98898096456b3adf111471c5a69";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/OXygenPanda.github.io/atom.xml" title="劳振煜的知識倉儲" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <a target="_blank" rel="noopener" href="https://github.com/OXygenPanda" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/OXygenPanda.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">劳振煜的知識倉儲</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Study & Share</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/OXygenPanda.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/OXygenPanda.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/OXygenPanda.github.io/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/OXygenPanda.github.io/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/OXygenPanda.github.io/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2021/01/30/HugeFour/OperatingSystem/OS_NOTE/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/OXygenPanda.github.io/images/avatar.jpg">
+      <meta itemprop="name" content="劳振煜">
+      <meta itemprop="description" content="致力于互联网应用&服务开发">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="劳振煜的知識倉儲">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OS | 进程和线程
+        </h1>
+
+        <div class="post-meta">
+	   
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-30 18:10:00" itemprop="dateCreated datePublished" datetime="2021-01-30T18:10:00+08:00">2021-01-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-06 21:11:14" itemprop="dateModified" datetime="2021-03-06T21:11:14+08:00">2021-03-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/OXygenPanda.github.io/categories/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p align="center">
+<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
+<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
+<a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
+# 进程和线程
+
+</p><h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>即使可以使用的CPU只有一个, 也支持并发操作.</p>
+<p>每个程序运行几十或者几百毫秒, 即使每一个瞬间CPU只能运行一个进程, 在一秒内, 也运行了多个进程. 给人并行的错觉. 也就是伪并行.</p>
+<h2 id="进程模型"><a href="#进程模型" class="headerlink" title="进程模型"></a>进程模型</h2><p>所有计算机上运行的软件, 包括系统, 被组织为若干顺序进程 (sequential processes), 简称为进程(process).</p>
+<p>一个进程就是一个正在执行的程序的实例, 包括程序计数器, 寄存器和变量的当前值.</p>
+<p>进程切换的时候, 运行的进程把逻辑程序计数器装载到物理程序计数器中, 程序结束时, 再把物理程序计数器放回逻辑程序计数器.</p>
+<p>进程是某一特定活动的总和, 有程序, 输入输出以及状态.</p>
+<h2 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h2><p>以下是创建进程的方式 : </p>
+<ul>
+<li>系统初始化</li>
+<li>正在运行的程序执行了创建进程的系统调用(fork)</li>
+<li>用户请求创建一个新进程</li>
+<li>初始化一个批处理工作</li>
+</ul>
+<h3 id="系统初始化"><a href="#系统初始化" class="headerlink" title="系统初始化"></a>系统初始化</h3><p>启动操作系统的时候, 通常会创建若干进程.</p>
+<p>前台进程 : 和用户进行交互完成工作的进程.</p>
+<p>守护进程 : 在后台用来处理一些活动, 比如 email, web, 新闻等的进程.</p>
+<p>unix中, 使用 ps 可以列出正在运行的进程, 在windows里使用任务管理器.</p>
+<h3 id="系统调用创建"><a href="#系统调用创建" class="headerlink" title="系统调用创建"></a>系统调用创建</h3><p>一个新的进程可以由其他进程通过系统调用创建, 比如大量数据需要从网络调取并处理, 可以创建一个进程读数据并放到缓冲区, 第二个进程取走并正确处理. </p>
+<p>在多处理器中, 让每个进程运行在不同的CPU上也可以使得工作做的更快.</p>
+<h3 id="用户请求创建"><a href="#用户请求创建" class="headerlink" title="用户请求创建"></a>用户请求创建</h3><p>输入一个命令或者双击图标可以启动程序.</p>
+<h3 id="批处理创建"><a href="#批处理创建" class="headerlink" title="批处理创建"></a>批处理创建</h3><p>在 UNIX 系统中, 只有一个系统调用来创建一个新的进程, <code>fork()</code> , 调用会创建一个与调用进程相关的副本, 父进程和子进程会有相同的内存映像, 相同的环境字符串和相同的打开文件, 通常子进程会执行 <code>execve()</code> 来改变内存映像并运行一个新的程序.</p>
+<ul>
+<li>UNIX 中的一些系统调用</li>
+</ul>
+<p>有一些 UNIX 系统的实现, 父进程和子进程在不可写的内存区域上是共享的, 而可写内存区域通过 写时赋值(copy-on-write) 共享, 一旦两者之一想要修改部分内存, 则该内存首先被明确的赋值, 以确保修改发生在私有的内存区域. </p>
+<h2 id="进程终止"><a href="#进程终止" class="headerlink" title="进程终止"></a>进程终止</h2><p>进程终止有几种情况 :</p>
+<ol>
+<li>正常退出 (自愿)</li>
+<li>错误退出 (自愿)</li>
+<li>严重错误 (非自愿)</li>
+<li>被其他进程杀死 (非自愿)</li>
+</ol>
+<h3 id="正常退出"><a href="#正常退出" class="headerlink" title="正常退出"></a>正常退出</h3><p>调用 UNIX 中的 <code>exit()</code></p>
+<h3 id="错误退出"><a href="#错误退出" class="headerlink" title="错误退出"></a>错误退出</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc foo.c</span><br></pre></td></tr></table></figure>
+
+<p>比如, 想要编译 foo.c 文件, 但是该文件不存在, 就会发生错误退出, 参数不合理.</p>
+<h3 id="严重错误"><a href="#严重错误" class="headerlink" title="严重错误"></a>严重错误</h3><p>由于程序中的错误导致. 比如, 执行非法指令, 引用不存在的内存, 除数为0等.</p>
+<h3 id="被进程杀死"><a href="#被进程杀死" class="headerlink" title="被进程杀死"></a>被进程杀死</h3><p>调用 UNIX 中的 <code>kill()</code></p>
+<h2 id="进程层次结构"><a href="#进程层次结构" class="headerlink" title="进程层次结构"></a>进程层次结构</h2><p>父进程创建了子进程, 父子进程之间存在一定的关联, 子进程又会创建更多的进程, 从而形成一个进程层次结构.</p>
+<h3 id="UNIX-进程体系"><a href="#UNIX-进程体系" class="headerlink" title="UNIX 进程体系"></a>UNIX 进程体系</h3><p>在 UNIX 中, 进程和它的所有子进程以及子进程的子进程共同组成一个进程组. 当用户从键盘中发出一个信号后, 该信号会被发送给当前与键盘相关的进程组中的所有成员. 每个进程可以分别捕获信号, 忽略信号 或者 采取默认的动作.</p>
+<p>UNIX 在启动时初始化自己, 一个称为 <code>init</code> 的特殊进程是整个操作系统进程树的根.</p>
+<h2 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat chapter1 chapter2 chapter3 | grep tree</span><br></pre></td></tr></table></figure>
+
+<p>两个进程, cat 进程将三个文件级联, grep 进程等待输入选择具有 tree 关键词的内容.</p>
+<p>当 grep 进程就绪开始运行时, 但是 cat 进程还没有执行, 于是 grep 进程会阻塞, 等待输入完毕.<br>所以, 进程可能会经历以下状态 :</p>
+<p>阻塞 ← 运行 ←→ 就绪</p>
+<p>阻塞 → 就绪</p>
+<p>具体说明 : </p>
+<p>运行 → 阻塞 : 进程因为等待输入而阻塞</p>
+<p>运行 → 就绪 : 调度程序选择了另一个进程, 时间片没有轮到自己</p>
+<p>就绪 → 运行 : 调度程序选择一个进程开始运行, 时间片轮到了自己</p>
+<p>阻塞 → 就绪 : 输入完毕</p>
+<p>状态说明 :</p>
+<ol>
+<li>运行态 : 进程实际占用 CPU 时间片</li>
+<li>就绪态 : 可以运行, 但是其他进程正在运行</li>
+<li>阻塞态 : 除非某种外部事件发生, 否则进程不能运行</li>
+</ol>
+<h2 id="进程实现"><a href="#进程实现" class="headerlink" title="进程实现"></a>进程实现</h2><p>操作系统维护一张进程表(process table).</p>
+<p>每个进程占用一个表项, 包含进程的重要信息, 包括程序计数器, 堆栈指针, 内存分配状况, 所打开的文件状态, 账号和调度信息, 状态切换的信息. 从而能够保证进程在随后可以再次启动, 就像从未被中断过.</p>
+<p>表项内容 :</p>
+<ul>
+<li><p>进程管理</p>
+<p>  寄存器, 程序计数器, 程序状态字, 堆栈指针, 进程状态, 优先级, 调度参数, 进程ID, 父进程, 进程组, 信号, 进程开始的时间, 使用的CPU时间, 子进程的CPU时间, 下次定时器时间</p>
+</li>
+<li><p>存储管理</p>
+<p>  text segment 指针</p>
+<p>  data segment 指针</p>
+<p>  stack segment 指针</p>
+</li>
+<li><p>文件管理</p>
+<p>  根目录</p>
+<p>  工作目录</p>
+<p>  文件描述符</p>
+<p>  用户ID</p>
+<p>  组ID</p>
+</li>
+</ul>
+<hr>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><p>传统的操作系统中, 每个进程都有一个地址空间和一个控制线程.</p>
+<p>事实上, 经常存在同一地址空间中运行多个控制线程的情况.</p>
+<h2 id="线程使用"><a href="#线程使用" class="headerlink" title="线程使用"></a>线程使用</h2><p>为什么要在进程模型上再创建一个线程的概念, 需要分三步回答 : </p>
+<ul>
+<li>多线程之间可以共享一块地址空间和所有可用数据, 这是多进程不具备的       ← 共享</li>
+<li>线程比进程轻量化, 创建容易撤销也容易, 创建线程比进程快 10 - 100 倍        ← 轻量</li>
+<li>如果存在大量的计算和大量的IO处理, 多线程能够加快执行速度                       ←高性能</li>
+</ul>
+<h3 id="多线程解决方案"><a href="#多线程解决方案" class="headerlink" title="多线程解决方案"></a>多线程解决方案</h3><p>调度线程是从网络中读入工作请求, 检查完之后, 选择一个空闲的(阻塞的)工作线程来处理请求, 通常方式是将消息的指针写入到每个线程关联的特殊字中. 调度线程会唤醒正在睡眠的工作线程, 把工作线程的状态从阻塞态变为就绪态.</p>
+<p>这种模型允许服务器编写为顺序线程的集合, 在分派线程的程序中包含一个死循环, 用来获得工作请求并把请求派给工作线程.<br>每个工作线程的代码包含一个从调度线程接收的请求, 并且检查 web 高速缓存中是否存在所需页面, 如果有, 直接把页面返回给客户, 接着工作线程阻塞, 等待一个新请求的到达. 如果没有, 工作线程就从磁盘调入该页面, 将页面返回给客户, 然后工作线程阻塞, 等待新请求.</p>
+<p>下面是调度线程和工作线程的代码, 假设 TRUE 为 1, buf 和 page 分别是保存工作请求和 web 页面的相应结构.</p>
+<p><strong>调度线程的大致逻辑</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(TRUE)&#123;</span><br><span class="line">	get_next_request(&amp;buf);</span><br><span class="line">	handoff_work(&amp;buf);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>工作线程的大致逻辑</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(TRUE)&#123;</span><br><span class="line">	wait_for_work(&amp;buf);</span><br><span class="line">	look_for_page_in_cache(&amp;buf, &amp;page);</span><br><span class="line">	<span class="keyword">if</span>(page_not_in_cache(&amp;page))&#123;</span><br><span class="line">		read_page_from_disk(&amp;buf, &amp;page);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> _page(&amp;page);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="单线程解决方案"><a href="#单线程解决方案" class="headerlink" title="单线程解决方案"></a>单线程解决方案</h3><p>如果只有单线程来处理请求, 那么在等待磁盘操作时, 服务器空转, 不处理任何到来的其他请求. 导致效率极低, 也说明了多线程能够提高程序的并行性和程序的性能.</p>
+<h3 id="状态机解决方案"><a href="#状态机解决方案" class="headerlink" title="状态机解决方案"></a>状态机解决方案</h3><h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><p>单线程 - 无并行性, 性能较差, 阻塞系统调用</p>
+<p>多线程 - 有并行性, 阻塞系统调用</p>
+<p>有限状态机 - 并行性, 非阻塞系统调用, 中断</p>
+<h2 id="经典线程模型"><a href="#经典线程模型" class="headerlink" title="经典线程模型"></a>经典线程模型</h2><p>进程存放程序正文和数据以及其他资源的地址空间, 资源包括 : 打开的文件, 子进程, 即将发生的定时器, 信号处理程序, 账号信息等. 进程管理资源较为方便.</p>
+<p>进程中包含执行的线程 : </p>
+<ul>
+<li>线程会有程序计数器, 用来记录接下来要执行哪一条指令;</li>
+<li>线程会有寄存器, 用来保存当前正在使用的变量;</li>
+<li>线程会有堆栈, 用来记录程序的执行路径.</li>
+</ul>
+<p>多个线程中, 各个线程共享同一地址空间和其他资源.</p>
+<p>由于每个线程可以访问进程地址空间中的每个内存地址, 因此一个线程可以读取, 写入甚至擦除另一个线程的堆栈. 线程之间除了共享同一内存空间外, 还有以下不同的内容 :</p>
+<p><strong>每个进程中的内容(线程共享内容) 进程的属性</strong></p>
+<ul>
+<li>地址空间</li>
+<li>全局变量</li>
+<li>打开文件</li>
+<li>子进程</li>
+<li>即将发生的定时器</li>
+<li>信号和信号处理程序</li>
+<li>账户信息</li>
+</ul>
+<p><strong>每个线程中的内容 线程的属性</strong></p>
+<ul>
+<li>程序计数器</li>
+<li>寄存器</li>
+<li>堆栈</li>
+<li>状态</li>
+</ul>
+<p>线程有以下几种状态 : 运行态, 阻塞态, 就绪态和终止态.</p>
+<h2 id="线程系统调用"><a href="#线程系统调用" class="headerlink" title="线程系统调用"></a>线程系统调用</h2><p>进程通常以单线程开始, 然后这个线程通过调用一个库函数(比如 <code>thread_create</code>)创建新的线程.<br>线程创建的函数会要求指定新创建线程的名称.<br>创建的线程通常都返回一个线程标识符, 该标识符就是新线程的名字.</p>
+<p>使用, <code>thread_exit</code> 来退出线程.</p>
+<p>使用, <code>thread_join</code> 表示一个线程可以等待另一个线程退出.</p>
+<p>使用, <code>thread_yield</code> 允许线程自动放弃CPU从而让另一个线程运行.</p>
+<h2 id="POSIX线程"><a href="#POSIX线程" class="headerlink" title="POSIX线程"></a>POSIX线程</h2><p><code>IEEE 1003.1c</code> 线程标准</p>
+<p>线程包被定义为 <code>Pthreads</code>, 这个标准定义了60多种功能调用.</p>
+<p>POSIX线程是一种独立于语言而存在的执行模型, 以及并行执行模型.</p>
+<p>线程调用 : </p>
+<p><code>pthread_create</code> : 创建一个新线程</p>
+<p><code>pthread_exit</code> : 结束调用的线程. 释放线程拥有的堆栈.</p>
+<p><code>pthread_join</code> : 等待一个特定的线程退出</p>
+<p><code>pthread_yield</code> : 释放CPU来运行另一个线程</p>
+<p><code>pthread_attr_init</code> : 创建并初始化一个线程的属性结构</p>
+<p><code>pthread_attr_destory</code> : 删除一个线程的属性结构</p>
+<p>一个例子 :</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NUMBER_OF_THREADS 10</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">print_hello_world</span><span class="params">(<span class="keyword">void</span> * tid)</span></span>&#123;</span><br><span class="line">    <span class="comment">/* 输出线程的标识符, 然后退出 */</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello World. Greeting from thread %d\n&quot;</span>, tid);</span><br><span class="line">    pthread_exit(<span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/* 主程序创建10个线程, 然后退出 */</span></span><br><span class="line">    <span class="keyword">pthread_t</span> threads[NUMBER_OF_THREADS];</span><br><span class="line">    <span class="keyword">int</span> status, i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; NUMBER_OF_THREADS; ++ i)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Main here. Creating thread %d\n&quot;</span>, i);</span><br><span class="line">        status = pthread_create(&amp;threads[i], <span class="literal">NULL</span>, print_hello_world, (<span class="keyword">void</span> *)i);</span><br><span class="line">        <span class="keyword">if</span>(status != <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;Oops. pthread_create returned error code %d\n&quot;</span>, status);</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">exit</span>(<span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="线程实现"><a href="#线程实现" class="headerlink" title="线程实现"></a>线程实现</h2><p>三种实现方式 : </p>
+<ul>
+<li>在用户空间中实现线程;</li>
+<li>在内核空间中实现线程;</li>
+<li>在用户和内核空间中混合实现线程.</li>
+</ul>
+<h3 id="在用户空间中实现线程"><a href="#在用户空间中实现线程" class="headerlink" title="在用户空间中实现线程"></a>在用户空间中实现线程</h3><p>整个线程包放在用户空间中, 内核对线程一无所知, 不知道线程的存在.<br>包括以下几个过程 : pthread_create, pthread_exit, pthread_join, pthread_yield.<br>维护一张线程表, 记录各线程的属性. 由运行时系统统一管理.</p>
+<p><strong>在用户空间实现线程的优势</strong></p>
+<p>启动比进行内核调用效率更高, 不需要切换到内核, 不需要上下文切换, 不需要对内存高速缓存进行刷新, 线程调度便捷.</p>
+<p><strong>在用户空间实现线程的裂势</strong></p>
+<h3 id="在内核中实现线程"><a href="#在内核中实现线程" class="headerlink" title="在内核中实现线程"></a>在内核中实现线程</h3><h3 id="混合实现"><a href="#混合实现" class="headerlink" title="混合实现"></a>混合实现</h3>
+    </div>
+
+    
+    
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束, 感谢您的阅读, 如有问题欢迎联系我-------------</div>
+    
+</div>
+
+
+      
+   </div>
+
+
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/OXygenPanda.github.io/images/wechat.png" alt="劳振煜 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/OXygenPanda.github.io/images/alipay.png" alt="劳振煜 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/OXygenPanda.github.io/tags/OS/" rel="tag"># OS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/OXygenPanda.github.io/2021/01/26/C++/modern%20cpp/02%20smart_ptr/" rel="prev" title="02 Smart_Ptr">
+      <i class="fa fa-chevron-left"></i> 02 Smart_Ptr
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">进程模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA"><span class="nav-number">3.</span> <span class="nav-text">进程创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">3.1.</span> <span class="nav-text">系统初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%88%9B%E5%BB%BA"><span class="nav-number">3.2.</span> <span class="nav-text">系统调用创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E8%AF%B7%E6%B1%82%E5%88%9B%E5%BB%BA"><span class="nav-number">3.3.</span> <span class="nav-text">用户请求创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E5%88%9B%E5%BB%BA"><span class="nav-number">3.4.</span> <span class="nav-text">批处理创建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%BB%88%E6%AD%A2"><span class="nav-number">4.</span> <span class="nav-text">进程终止</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%B8%B8%E9%80%80%E5%87%BA"><span class="nav-number">4.1.</span> <span class="nav-text">正常退出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E9%80%80%E5%87%BA"><span class="nav-number">4.2.</span> <span class="nav-text">错误退出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A5%E9%87%8D%E9%94%99%E8%AF%AF"><span class="nav-number">4.3.</span> <span class="nav-text">严重错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A2%AB%E8%BF%9B%E7%A8%8B%E6%9D%80%E6%AD%BB"><span class="nav-number">4.4.</span> <span class="nav-text">被进程杀死</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="nav-number">5.</span> <span class="nav-text">进程层次结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UNIX-%E8%BF%9B%E7%A8%8B%E4%BD%93%E7%B3%BB"><span class="nav-number">5.1.</span> <span class="nav-text">UNIX 进程体系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="nav-number">6.</span> <span class="nav-text">进程状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%AE%9E%E7%8E%B0"><span class="nav-number">7.</span> <span class="nav-text">进程实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">8.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E4%BD%BF%E7%94%A8"><span class="nav-number">9.</span> <span class="nav-text">线程使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">9.1.</span> <span class="nav-text">多线程解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E7%BA%BF%E7%A8%8B%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">9.2.</span> <span class="nav-text">单线程解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E6%9C%BA%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">9.3.</span> <span class="nav-text">状态机解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94"><span class="nav-number">9.4.</span> <span class="nav-text">对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-number">10.</span> <span class="nav-text">经典线程模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">11.</span> <span class="nav-text">线程系统调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POSIX%E7%BA%BF%E7%A8%8B"><span class="nav-number">12.</span> <span class="nav-text">POSIX线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%9E%E7%8E%B0"><span class="nav-number">13.</span> <span class="nav-text">线程实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B"><span class="nav-number">13.1.</span> <span class="nav-text">在用户空间中实现线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E5%86%85%E6%A0%B8%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B"><span class="nav-number">13.2.</span> <span class="nav-text">在内核中实现线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E5%AE%9E%E7%8E%B0"><span class="nav-number">13.3.</span> <span class="nav-text">混合实现</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="劳振煜"
+      src="/OXygenPanda.github.io/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">劳振煜</p>
+  <div class="site-description" itemprop="description">致力于互联网应用&服务开发</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/OXygenPanda.github.io/archives/">
+        
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/OXygenPanda.github.io/categories/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/OXygenPanda.github.io/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/OXygenPanda" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;OXygenPanda" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://boboring.github.io/" title="https:&#x2F;&#x2F;boboring.github.io&#x2F;" rel="noopener" target="_blank">BoBoRing 一枚CV研究僧</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://benearyou.com/" title="http:&#x2F;&#x2F;benearyou.com&#x2F;" rel="noopener" target="_blank">隋辨的博客</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">劳振煜</span>
+</div>
+    <div class="powered-by">
+    <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+      本站访客数:<span id="busuanzi_value_site_pv"></span>
+    </span>
+    </div>
+
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共82.6k字</span>
+</div>
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/OXygenPanda.github.io/lib/anime.min.js"></script>
+
+<script src="/OXygenPanda.github.io/js/utils.js"></script>
+
+
+<script src="/OXygenPanda.github.io/js/schemes/pisces.js"></script>
+
+
+<script src="/OXygenPanda.github.io/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/OXygenPanda.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
