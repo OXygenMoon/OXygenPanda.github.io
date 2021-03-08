@@ -256,6 +256,81 @@
       </tags>
   </entry>
   <entry>
+    <title>OS | 进程间通信 IPC</title>
+    <url>/OXygenPanda.github.io/2021/02/02/HugeFour/OperatingSystem/OS_NOTE/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/</url>
+    <content><![CDATA[<p align="center">
+<a href="https://oxygenpanda.github.io/" target="_blank"><img alt="Website" src="https://img.shields.io/badge/博客-劳振煜的知識倉儲-faf2f2.svg?style=flat-square&logo=Blogger"></a>
+<a href="https://www.github.com/OXygenPanda" target="_blank"><img src="https://img.shields.io/badge/Github-@劳振煜-f3e1e1.svg?style=flat-square&logo=GitHub"></a>
+<a href="https://i.loli.net/2020/11/11/SBZ2mFJGKLjUtTO.jpg" target="_blank"><img src="https://img.shields.io/badge/微信-@OXygen-f1d1d1.svg?style=flat-square&logo=WeChat"></a>
+
+
+
+</p><p>进程可能需要频繁和其他进程交流. 比如, shell 管道, 第一个进程的输出必须传递给第二个进程.</p>
+<p>接下来, 就讨论有关 进程间通信(Inter Process communication, IPC).</p>
+<p>进程通信存在三个问题 :</p>
+<ol>
+<li>一个进程如何传递消息给其他进程.</li>
+<li>如何确保两个或多个线程之间不会相互干扰.</li>
+<li>数据的先后顺序问题.</li>
+</ol>
+<p>第一个问题, 在线程中不是问题, 线程共享同一内存空间, 可以很容易地进行通信;</p>
+<p>第二个和第三个问题, 同样适用于线程.</p>
+<h2 id="竞态条件"><a href="#竞态条件" class="headerlink" title="竞态条件"></a>竞态条件</h2><p>两个或多个线程同时对一共享数据进行修改, 从而影响到了程序运行的正确性, 这种被称为竞态条件.</p>
+<h2 id="临界区"><a href="#临界区" class="headerlink" title="临界区"></a>临界区</h2><p>禁止一个或多个进程在同一个时刻对共享资源(共享内存, 共享文件等)进行读写.</p>
+<p>也就是一个互斥条件.</p>
+<blockquote>
+<p>  在任何操作系统中, 为了实现互斥操作而选用适当的原语是一个主要的设计问题.</p>
+</blockquote>
+<p>一个好的解决方案, 应当包含四个条件 :</p>
+<ol>
+<li>任何时候, 两个进程不能同时处于临界区</li>
+<li>不应当对CPU的速度和数量做任何假设</li>
+<li>位于临界区外的进程不得阻塞其他进程</li>
+<li>不能使任何进程无限等待进入临界区</li>
+</ol>
+<h2 id="忙等互斥"><a href="#忙等互斥" class="headerlink" title="忙等互斥"></a>忙等互斥</h2><p>介绍互斥的各种设计.</p>
+<h3 id="屏蔽中断"><a href="#屏蔽中断" class="headerlink" title="屏蔽中断"></a>屏蔽中断</h3><p>单处理器, 屏蔽中断, 能够屏蔽CPU的时钟中断, 进而阻止进程的切换, 但是如何进程运行时间过长, 可能会导致系统崩溃.</p>
+<p>多处理器, 屏蔽中断, 仅一块CPU会受限, 其他CPU仍然能够访问共享内存.</p>
+<p>屏蔽中断是一项很有用的技术, 但是不是一项通用的互斥机制.</p>
+<h3 id="锁变量"><a href="#锁变量" class="headerlink" title="锁变量"></a>锁变量</h3><p>软件层面的解决方案, 锁变量初始化为0, 当一个线程想进入功关键区域, 查看锁的值, 如果是0, 设置为1, 进程进入, 出来后, 恢复为0; 如果是1, 阻塞.</p>
+<p>有可能, 一个线程发现是0, 想设置为1, 而另一个线程也发现是0时, 会出现多个线程访问关键区域.</p>
+<p>根本原因, 修改锁变量, 不是一种原子性操作, 仍然可能发生竞态.</p>
+<h3 id="严格轮询法"><a href="#严格轮询法" class="headerlink" title="严格轮询法"></a>严格轮询法</h3><p>先查看一段代码 :</p>
+<p>进程 0</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(TRUE)&#123;</span><br><span class="line">	<span class="keyword">while</span>(turn != <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="comment">//进入关键区域</span></span><br><span class="line">		critical_region();</span><br><span class="line">		turn = <span class="number">1</span>;</span><br><span class="line">		<span class="comment">//离开关键区域</span></span><br><span class="line">		noncritical_region();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>进程 1</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(TRUE)&#123;</span><br><span class="line">	<span class="keyword">while</span>(turn != <span class="number">1</span>)&#123;</span><br><span class="line">		critical_region();</span><br><span class="line">		turn = <span class="number">0</span>;</span><br><span class="line">		noncritical_region();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>多个进程, 必须得频繁使用临界区资源, 否则容易长时间阻塞其他进程. while 体现了忙等待, 除非是认为等待时间很短, 否则不使用忙等待.</p>
+<p>用于忙等待的锁, 称为 自旋锁.</p>
+<h3 id="Peterson-解法"><a href="#Peterson-解法" class="headerlink" title="Peterson 解法"></a>Peterson 解法</h3><p>荷兰数学家 T.Dekker 结合锁变量和警告变量, 提出不需要严格轮换的软件互斥算法.</p>
+<p>后来, G.L.Peterson 发现了一种简单的互斥算法 :</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FALSE 0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TRUE 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 进程数量 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 现在轮到谁 */</span></span><br><span class="line"><span class="keyword">int</span> turn;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 所有值初始化为 0 */</span></span><br><span class="line"><span class="keyword">int</span> interested[N];</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 进程是 0 或 1 */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">enter_region</span><span class="params">(<span class="keyword">int</span> process)</span></span>&#123;</span><br><span class="line">	<span class="comment">// 另一个进程号</span></span><br><span class="line">	<span class="keyword">int</span> other;</span><br><span class="line">	<span class="comment">// 另一个进程</span></span><br><span class="line">	other = <span class="number">1</span> - process;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//表示愿意进入临界区</span></span><br><span class="line">	interested[process] = TRUE;</span><br><span class="line">	turn = process;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//空循环</span></span><br><span class="line">	<span class="keyword">while</span>(turn == process &amp;&amp; interested[other] == <span class="literal">true</span>)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">leave_region</span><span class="params">(<span class="keyword">int</span> process)</span></span>&#123;</span><br><span class="line">	<span class="comment">//表示愿意离开临界区</span></span><br><span class="line">	interested[process] = FALSE;</span><br></pre></td></tr></table></figure>
+
+<h3 id="TSL指令"><a href="#TSL指令" class="headerlink" title="TSL指令"></a>TSL指令</h3><p>需要硬件帮助的方案.</p>
+<p>多处理器的计算机, 会有这条指令 : TSL RX,LOCK</p>
+<p>称为测试并加锁.</p>
+<p>实现了原子操作, 锁住内存总线, 防止其他CPU访问内存.</p>
+<h2 id="睡眠与唤醒"><a href="#睡眠与唤醒" class="headerlink" title="睡眠与唤醒"></a>睡眠与唤醒</h2><p>Peterson, TSL 和 XCHG 都是正确的, 但是都有忙等待的缺点.</p>
+<p>解法本质上一样, 检查能否进入临界区, 不允许则原地等待.</p>
+<p>进程间原语</p>
+<p><code>sleep</code> : 调用者阻塞, 直到被其他进程唤醒.</p>
+<p><code>wakeup</code> : 唤醒其他进程.</p>
+<h3 id="生产者-消费者问题"><a href="#生产者-消费者问题" class="headerlink" title="生产者-消费者问题"></a>生产者-消费者问题</h3><p>又称为, 有界缓冲区问题 : 两个进程共享一个公共的固定大小的缓冲区. 一个是生产者, 将信息放入缓冲区, 另一个是消费者, 会从缓冲区取出.</p>
+<p>描述 : 生产者可以将数据写入缓冲区, 当写满时, 生产者睡眠, 阻塞; 消费者可以将读取缓冲区数据, 当为空时, 消费者睡眠, 阻塞.</p>
+<p>使用一个监听变量, Count 来记录缓冲区的数据量.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">define</span> N 100</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">producer</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> item;</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">while</span>(TRUE)&#123;</span><br><span class="line">		item = produce_item();</span><br><span class="line">		<span class="keyword">if</span>(count == N)&#123;</span><br><span class="line">			sleep();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		insert_item(item);</span><br><span class="line">		count = count + <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(count == <span class="number">1</span>)&#123;</span><br><span class="line">			wakeup(consumer);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">consumer</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> item;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(TRUE)&#123;</span><br><span class="line">			i(count == <span class="number">0</span>)&#123;</span><br><span class="line">				sleep();</span><br><span class="line">			&#125;</span><br><span class="line">			item = remove_item();</span><br><span class="line">			count = count - <span class="number">1</span>;</span><br><span class="line">			i(count == N - <span class="number">1</span>)&#123;</span><br><span class="line">				wakeup(producer);</span><br><span class="line">			&#125;</span><br><span class="line">			consumer_item(item);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h2><h3 id="用信号量解决生产者-消费者问题"><a href="#用信号量解决生产者-消费者问题" class="headerlink" title="用信号量解决生产者-消费者问题"></a>用信号量解决生产者-消费者问题</h3><h2 id="互斥量"><a href="#互斥量" class="headerlink" title="互斥量"></a>互斥量</h2><h3 id="Futexes"><a href="#Futexes" class="headerlink" title="Futexes"></a>Futexes</h3><h3 id="Pthreads中的互斥量"><a href="#Pthreads中的互斥量" class="headerlink" title="Pthreads中的互斥量"></a>Pthreads中的互斥量</h3><h2 id="管程"><a href="#管程" class="headerlink" title="管程"></a>管程</h2><h2 id="消息传递"><a href="#消息传递" class="headerlink" title="消息传递"></a>消息传递</h2><h3 id="用消息传递解决生产者-消费者问题"><a href="#用消息传递解决生产者-消费者问题" class="headerlink" title="用消息传递解决生产者-消费者问题"></a>用消息传递解决生产者-消费者问题</h3><h2 id="屏障"><a href="#屏障" class="headerlink" title="屏障"></a>屏障</h2><h2 id="避免锁-读-复制-更新"><a href="#避免锁-读-复制-更新" class="headerlink" title="避免锁 : 读-复制-更新"></a>避免锁 : 读-复制-更新</h2>]]></content>
+      <categories>
+        <category>OS</category>
+      </categories>
+      <tags>
+        <tag>OS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>OS | 进程和线程</title>
     <url>/OXygenPanda.github.io/2021/01/30/HugeFour/OperatingSystem/OS_NOTE/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/</url>
     <content><![CDATA[<p align="center">
@@ -4286,8 +4361,8 @@ AVL树 - 右旋
         <category>C++11</category>
       </categories>
       <tags>
-        <tag>C++11</tag>
         <tag>C++</tag>
+        <tag>C++11</tag>
       </tags>
   </entry>
   <entry>
@@ -4967,9 +5042,9 @@ AVL树 - 右旋
         <category>栈</category>
       </categories>
       <tags>
+        <tag>二叉树</tag>
         <tag>数据结构</tag>
         <tag>栈</tag>
-        <tag>二叉树</tag>
       </tags>
   </entry>
   <entry>
