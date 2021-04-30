@@ -1,272 +1,249 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-default-color-scheme=&#34;light&#34;>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="/OXygenPanda.github.io/images/favicon-32x32.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/OXygenPanda.github.io/images/favicon-16x16.ico">
+  <link rel="apple-touch-icon" sizes="76x76" href="/OXygenPanda.github.io/img/favicon.png">
+  <link rel="icon" type="image/png" href="/OXygenPanda.github.io/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="致力于互联网应用&amp;服务开发">
+  <meta name="author" content="劳振煜">
+  <meta name="keywords" content="">
+  <title>两数之和 - 劳振煜的知識倉儲</title>
 
-<link rel="stylesheet" href="/OXygenPanda.github.io/css/main.css">
-
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
-<link rel="stylesheet" href="/OXygenPanda.github.io/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="/OXygenPanda.github.io/lib/pace/pace-theme-minimal.min.css">
-  <script src="/OXygenPanda.github.io/lib/pace/pace.min.js"></script>
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"oxygenpanda.github.io","root":"/OXygenPanda.github.io/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
-
-  <meta name="description" content="两数之和问题">
-<meta property="og:type" content="article">
-<meta property="og:title" content="两数之和">
-<meta property="og:url" content="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/09/leetcode/others/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/index.html">
-<meta property="og:site_name" content="劳振煜的知識倉儲">
-<meta property="og:description" content="两数之和问题">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-10-09T14:09:31.000Z">
-<meta property="article:modified_time" content="2020-11-24T14:16:50.380Z">
-<meta property="article:author" content="劳振煜">
-<meta property="article:tag" content="Leetcode">
-<meta property="article:tag" content="双指针">
-<meta property="article:tag" content="哈希表">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/09/leetcode/others/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/OXygenPanda.github.io/lib/hint/hint.min.css" />
 
-  <title>两数之和 | 劳振煜的知識倉儲</title>
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/atom-one-light.min.css" />
+    
+  
+
   
 
 
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?71aba98898096456b3adf111471c5a69";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
 
 
 
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
+<link  rel="stylesheet" href="/OXygenPanda.github.io/css/main.css" />
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+<!-- 自定义样式保持在最底部 -->
 
-<link rel="alternate" href="/OXygenPanda.github.io/atom.xml" title="劳振煜的知識倉儲" type="application/atom+xml">
+
+  <script  src="/OXygenPanda.github.io/js/utils.js" ></script>
+  <script  src="/OXygenPanda.github.io/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/OXygenPanda.github.io/atom.xml" title="劳振煜的知識倉儲" type="application/atom+xml">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <div class="headband"></div>
+    <a class="navbar-brand"
+       href="/OXygenPanda.github.io/">&nbsp;<strong>知識倉儲</strong>&nbsp;</a>
 
-    <a target="_blank" rel="noopener" href="https://github.com/OXygenPanda" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/OXygenPanda.github.io/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/OXygenPanda.github.io/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/OXygenPanda.github.io/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/OXygenPanda.github.io/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/OXygenPanda.github.io/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/OXygenPanda.github.io/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/OXygenPanda.github.io/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">劳振煜的知識倉儲</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">Study & Share</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/OXygenPanda.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/OXygenPanda.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/OXygenPanda.github.io/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/OXygenPanda.github.io/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/OXygenPanda.github.io/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
-  </ul>
 </nav>
 
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/OXygenPanda.github.io/img/3.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
 
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <div class="reading-progress-bar"></div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
             
-
-    
+              <div class="mt-3">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/09/leetcode/others/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/OXygenPanda.github.io/images/avatar.jpg">
-      <meta itemprop="name" content="劳振煜">
-      <meta itemprop="description" content="致力于互联网应用&服务开发">
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-09 22:09" pubdate>
+        2020年10月9日 晚上
+      </time>
     </span>
+  
+</div>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="劳振煜的知識倉儲">
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
     </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          两数之和
-        </h1>
+  
 
-        <div class="post-meta">
-	   
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-09 22:09:31" itemprop="dateCreated datePublished" datetime="2020-10-09T22:09:31+08:00">2020-10-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-24 22:16:50" itemprop="dateModified" datetime="2020-11-24T22:16:50+08:00">2020-11-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/OXygenPanda.github.io/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
+  
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
       
-        <h1 id="两数之和问题"><a href="#两数之和问题" class="headerlink" title="两数之和问题"></a>两数之和问题</h1><a id="more"></a>
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">两数之和</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="两数之和问题"><a href="#两数之和问题" class="headerlink" title="两数之和问题"></a>两数之和问题</h1><a id="more"></a>
 
 <h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum/">Leetcode 1.两数之和</a></p>
 <p><strong>难度:</strong><font color="green">简单</font></p>
@@ -274,36 +251,130 @@
 <p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</p>
 <p>* 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。</p>
 <p><strong>示例</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [<span class="number">2</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">15</span>], target = <span class="number">9</span></span><br><span class="line">函数签名 <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs C++">给定 nums = [<span class="hljs-number">2</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>], target = <span class="hljs-number">9</span>
+函数签名 <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; twoSum(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> target)</code></pre>
 
 <h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>第一种思路是采用暴力法(虽然说暴力法是无法通过leetcode的,但确实是首先想到的方法)。</p>
 <p>我们只需要两层循环遍历数组，在循环索引不相等但是之和为 <code>target</code> 的时候，返回两个索引组成的数组即可。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res; <span class="comment">// 结果</span></span><br><span class="line">    <span class="keyword">if</span>(nums.empty())    <span class="keyword">return</span> res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size()<span class="number">-1</span>;++i)&#123; <span class="comment">//为减少内存循环次数,i只循环到最大值-1</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;nums.size();++j)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums.at(i) + nums.at(j) == target)&#123;</span><br><span class="line">                res.push_back(i);</span><br><span class="line">                res.push_back(j);</span><br><span class="line">                <span class="keyword">return</span> res;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">twoSum</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;nums, <span class="hljs-keyword">int</span> target)</span></span>&#123;
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; res; <span class="hljs-comment">// 结果</span>
+    <span class="hljs-keyword">if</span>(nums.empty())    <span class="hljs-keyword">return</span> res;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.size()<span class="hljs-number">-1</span>;++i)&#123; <span class="hljs-comment">//为减少内存循环次数,i只循环到最大值-1</span>
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=i+<span class="hljs-number">1</span>;j&lt;nums.size();++j)&#123;
+            <span class="hljs-keyword">if</span>(nums.at(i) + nums.at(j) == target)&#123;
+                res.push_back(i);
+                res.push_back(j);
+                <span class="hljs-keyword">return</span> res;
+            &#125;
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> res;
+&#125;</code></pre>
 
 <p>因为数组中同一元素不能使用两遍，因此内层循环索引 <code>j</code> 只需要从 <code>i+1</code> 开始，但是注意的是 <code>i</code> 不能到达 <code>nums.size()-1</code> ，否则 <code>j</code> 会越界。所以外层判断条件得是 <code>i&lt;nums.size()-1</code>  。</p>
 <p>时间复杂度 : <code>O(N^2)</code> 空间复杂度 : <code>O(1)</code> 。</p>
 <h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>第二种思路是采用哈希表。</p>
 <p>我们需要遍历一次数组，存下每一个&lt;num,index&gt;对，再逐一判断 <code>key:target-num[i]</code> 是否出现在哈希表中。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res; <span class="comment">// 结果</span></span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; record; <span class="comment">//&lt;数值,索引&gt;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();++i)</span><br><span class="line">        record[nums.at(i)] = i;</span><br><span class="line">    <span class="comment">// 等同于 record.insert(pair&lt;int,int&gt;(nums.at(i),i));</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();++i)</span><br><span class="line">        <span class="keyword">if</span>(record.find(target-nums.at(i)) != record.end()) &#123;</span><br><span class="line">            <span class="comment">//找到</span></span><br><span class="line">            res.push_back(i);</span><br><span class="line">            res.push_back(record[target - nums.at(i)]);</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">twoSum</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;nums, <span class="hljs-keyword">int</span> target)</span></span>&#123;
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; res; <span class="hljs-comment">// 结果</span>
+    <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">int</span>,<span class="hljs-keyword">int</span>&gt; record; <span class="hljs-comment">//&lt;数值,索引&gt;</span>
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.size();++i)
+        record[nums.at(i)] = i;
+    <span class="hljs-comment">// 等同于 record.insert(pair&lt;int,int&gt;(nums.at(i),i));</span>
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.size();++i)
+        <span class="hljs-keyword">if</span>(record.find(target-nums.at(i)) != record.end()) &#123;
+            <span class="hljs-comment">//找到</span>
+            res.push_back(i);
+            res.push_back(record[target - nums.at(i)]);
+            <span class="hljs-keyword">return</span> res;
+        &#125;
+    <span class="hljs-keyword">return</span> res;
+&#125;</code></pre>
 
 <p>因为我们在 <code>hashmap</code> 中查找的时间复杂度是 <code>O(1)</code> 。</p>
 <p>因此，时间复杂度 : <code>O(N)</code> , 空间复杂度 :  <code>O(N)</code>。 </p>
 <h3 id="解法三"><a href="#解法三" class="headerlink" title="解法三"></a>解法三</h3><p>第三种思路是采用排序+双指针。</p>
 <p>因为形式参数的<code>nums</code>是传引用，所以我们需要对传入的<code>nums</code>进行一次拷贝，在拷贝上进行排序。排序后采用双指针法，找到两个加数的索引。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res; <span class="comment">// 结果</span></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">nums_cp</span><span class="params">(nums)</span></span>; <span class="comment">// 不让排序操作改变原数组</span></span><br><span class="line">    sort(nums_cp.begin(),nums_cp.end());</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = nums_cp.size() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left &lt; right)&#123; <span class="comment">// 1</span></span><br><span class="line">        <span class="keyword">int</span> sum = nums_cp.at(left) + nums_cp.at(right);</span><br><span class="line">        <span class="keyword">if</span>( sum == target)&#123;</span><br><span class="line">            res.push_back(left);</span><br><span class="line">            res.push_back(right);</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>( sum &gt; target)</span><br><span class="line">            right --;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>( sum &lt; target)</span><br><span class="line">            left ++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">twoSum</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;nums, <span class="hljs-keyword">int</span> target)</span></span>&#123;
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; res; <span class="hljs-comment">// 结果</span>
+    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">nums_cp</span><span class="hljs-params">(nums)</span></span>; <span class="hljs-comment">// 不让排序操作改变原数组</span>
+    sort(nums_cp.begin(),nums_cp.end());
+    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = nums_cp.size() - <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">while</span>(left &lt; right)&#123; <span class="hljs-comment">// 1</span>
+        <span class="hljs-keyword">int</span> sum = nums_cp.at(left) + nums_cp.at(right);
+        <span class="hljs-keyword">if</span>( sum == target)&#123;
+            res.push_back(left);
+            res.push_back(right);
+            <span class="hljs-keyword">return</span> res;
+        &#125;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( sum &gt; target)
+            right --;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( sum &lt; target)
+            left ++;
+    &#125;
+    <span class="hljs-keyword">return</span> res;
+&#125;</code></pre>
 
 <p><code>注释:1</code> 不能有等号，虽然我们定义的<code>left</code> <code>right</code> 是左闭右闭区间，但是题目要求一个数不能使用两次。因此不能取相等的情况。</p>
 <p>时间复杂度 : <code>O(NlogN+N) = O(NlogN)</code> 空间复杂度 : <code>O(N)</code> 主要是多了一份拷贝。</p>
-<h2 id="两数之和数据结构设计"><a href="#两数之和数据结构设计" class="headerlink" title="两数之和数据结构设计"></a>两数之和数据结构设计</h2><h3 id="设计API"><a href="#设计API" class="headerlink" title="设计API"></a>设计API</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoSum</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 向数组中添加一个新的数 number</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> number)</span></span>;</span><br><span class="line">    <span class="comment">// 查找当前数组中是否有两数之和为 value</span></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> value)</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="两数之和数据结构设计"><a href="#两数之和数据结构设计" class="headerlink" title="两数之和数据结构设计"></a>两数之和数据结构设计</h2><h3 id="设计API"><a href="#设计API" class="headerlink" title="设计API"></a>设计API</h3><pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TwoSum</span>&#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-comment">// 向数组中添加一个新的数 number</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> number)</span></span>;
+    <span class="hljs-comment">// 查找当前数组中是否有两数之和为 value</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span></span>;
+&#125;;</code></pre>
 
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoSum</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; record; <span class="comment">//&lt;数值,索引&gt;</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> index;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> number)</span></span>&#123;</span><br><span class="line">        record[number] = index++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">        <span class="comment">//采用双指针法在红黑树的map</span></span><br><span class="line">        <span class="keyword">auto</span> left = record.begin();</span><br><span class="line">        <span class="keyword">auto</span> right = record.end();</span><br><span class="line">        right --;</span><br><span class="line">        <span class="keyword">while</span>(left != right)&#123;</span><br><span class="line">            <span class="keyword">int</span> sum = (*left).first + (*right).first; <span class="comment">//每一个节点是一个pair</span></span><br><span class="line">            <span class="keyword">if</span>(sum == value)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(sum &lt; value)</span><br><span class="line">                left ++;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(sum &gt; value)</span><br><span class="line">                right --;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">int</span> TwoSum::index = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TwoSum</span>&#123;</span>
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">int</span>,<span class="hljs-keyword">int</span>&gt; record; <span class="hljs-comment">//&lt;数值,索引&gt;</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> index;
+    
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> number)</span></span>&#123;
+        record[number] = index++;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span></span>&#123;
+        <span class="hljs-comment">//采用双指针法在红黑树的map</span>
+        <span class="hljs-keyword">auto</span> left = record.begin();
+        <span class="hljs-keyword">auto</span> right = record.end();
+        right --;
+        <span class="hljs-keyword">while</span>(left != right)&#123;
+            <span class="hljs-keyword">int</span> sum = (*left).first + (*right).first; <span class="hljs-comment">//每一个节点是一个pair</span>
+            <span class="hljs-keyword">if</span>(sum == value)
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(sum &lt; value)
+                left ++;
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(sum &gt; value)
+                right --;
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    &#125;
+&#125;;
+<span class="hljs-keyword">int</span> TwoSum::index = <span class="hljs-number">0</span>;</code></pre>
 
 <p>实现find的时候，和我们做题的时候方法略有不同。因为我们做题的时候，是有vector作为数据的支撑，我们能够在一个随机访问的内存结构里存取数据，而现在我们整个类只有record这一个map&lt;int,int&gt;类的数据和一个静态索引值，而且红黑树的迭代器遍历顺序是按照key升序的，因此我们可以采用双指针的方式来遍历。</p>
 <p><code>class TwoSum</code> 空间复杂度 : <code>O(N)</code></p>
 <p><code>add(int)</code> 时间复杂度 : <code>O(1)</code> </p>
 <p><code>find(int)</code> 时间复杂度 : <code>O(N)</code> </p>
 <h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3><p>如果是一个查询次数明显对于插入次数的场景，那么我们的 <code>find()</code> 函数的效率就有点过于低下，我们会重复查询许多次。于是，我们可以把查询的结果也给存下来，记录下每一种可能的和的数值。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoSum</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums; <span class="comment">//记录现有数组</span></span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; sums; <span class="comment">//记录可能的和</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> number)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n:nums) <span class="comment">//每一次插入都把所有和给记录下来</span></span><br><span class="line">            sums.insert(n+number);</span><br><span class="line">        nums.push_back(number);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (sums.find(value) != sums.end()); <span class="comment">//查找到value返回true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TwoSum</span>&#123;</span>
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; nums; <span class="hljs-comment">//记录现有数组</span>
+    <span class="hljs-built_in">unordered_set</span>&lt;<span class="hljs-keyword">int</span>&gt; sums; <span class="hljs-comment">//记录可能的和</span>
+    
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> number)</span></span>&#123;
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> n:nums) <span class="hljs-comment">//每一次插入都把所有和给记录下来</span>
+            sums.insert(n+number);
+        nums.push_back(number);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span></span>&#123;
+		<span class="hljs-keyword">return</span> (sums.find(value) != sums.end()); <span class="hljs-comment">//查找到value返回true</span>
+    &#125;
+&#125;;</code></pre>
 
 <p><code>class TwoSum</code> 空间复杂度 : <code>O(N)</code></p>
 <p><code>add(int)</code> 时间复杂度 : <code>O(N)</code> </p>
@@ -312,277 +383,338 @@
 <p>  学习自 labuladong</p>
 </blockquote>
 <h2 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h2><h2 id="N数之和"><a href="#N数之和" class="headerlink" title="N数之和"></a>N数之和</h2>
-    </div>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/OXygenPanda.github.io/categories/Leetcode/">Leetcode</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/Leetcode/">Leetcode</a>
+                    
+                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+                    
+                      <a class="hover-with-bg" href="/OXygenPanda.github.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">有疑问欢迎联系我,一起享受编码快乐</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/OXygenPanda.github.io/2020/10/10/STL/STL-vector%E5%88%86%E6%9E%90/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">浅析vector用法/特性/实现</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/OXygenPanda.github.io/2020/10/07/STL/%E7%AC%AC%E4%B8%80%E7%AF%87%20%E8%AE%A4%E8%AF%86STL/">
+                        <span class="hidden-mobile">初识STL</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
 
-    
-    
-    
-    <div>
-      
-        <div>
-    
-        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束, 感谢您的阅读, 如有问题欢迎联系我-------------</div>
-    
-</div>
-
-
-      
-   </div>
-
-
-
-    
-    
-    
-        <div class="reward-container">
-  <div></div>
-  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
-    打赏
-  </button>
-  <div id="qr" style="display: none;">
-      
-      <div style="display: inline-block;">
-        <img src="/OXygenPanda.github.io/images/wechat.png" alt="劳振煜 微信支付">
-        <p>微信支付</p>
-      </div>
-      
-      <div style="display: inline-block;">
-        <img src="/OXygenPanda.github.io/images/alipay.png" alt="劳振煜 支付宝">
-        <p>支付宝</p>
-      </div>
-
-  </div>
-</div>
-
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/OXygenPanda.github.io/tags/Leetcode/" rel="tag"># Leetcode</a>
-              <a href="/OXygenPanda.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag"># 双指针</a>
-              <a href="/OXygenPanda.github.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="tag"># 哈希表</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/OXygenPanda.github.io/2020/10/07/STL/%E7%AC%AC%E4%B8%80%E7%AF%87%20%E8%AE%A4%E8%AF%86STL/" rel="prev" title="初识STL">
-      <i class="fa fa-chevron-left"></i> 初识STL
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/OXygenPanda.github.io/2020/10/10/STL/STL-vector%E5%88%86%E6%9E%90/" rel="next" title="浅析vector用法/特性/实现">
-      浅析vector用法/特性/实现 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'https://oxygenpanda.github.io/OXygenPanda.github.io/2020/10/09/leetcode/others/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/';
+        this.page.identifier = '/OXygenPanda.github.io/2020/10/09/leetcode/others/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/';
+      };
+      function loadDisqus() {
+        (function () {
+          var d = document,
+            s = d.createElement('script');
+          s.src = '//' + '' + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', new Date());
+          (d.head || d.body).appendChild(s);
+        })();
       }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
+      waitElementVisible('disqus_thread', loadDisqus);
+    </script>
+    <noscript>Please enable JavaScript to view the
+      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
+    </noscript>
+  </div>
 
+
+              </article>
+            
+          </article>
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">两数之和问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="nav-number">1.1.</span> <span class="nav-text">两数之和</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E4%B8%80"><span class="nav-number">1.1.2.</span> <span class="nav-text">解法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E4%BA%8C"><span class="nav-number">1.1.3.</span> <span class="nav-text">解法二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E4%B8%89"><span class="nav-number">1.1.4.</span> <span class="nav-text">解法三</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.</span> <span class="nav-text">两数之和数据结构设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1API"><span class="nav-number">1.2.1.</span> <span class="nav-text">设计API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.2.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B"><span class="nav-number">1.2.3.</span> <span class="nav-text">改进</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="nav-number">1.3.</span> <span class="nav-text">三数之和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#N%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="nav-number">1.4.</span> <span class="nav-text">N数之和</span></a></li></ol></li></ol></div>
       </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="劳振煜"
-      src="/OXygenPanda.github.io/images/avatar.jpg">
-  <p class="site-author-name" itemprop="name">劳振煜</p>
-  <div class="site-description" itemprop="description">致力于互联网应用&服务开发</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/OXygenPanda.github.io/archives/">
-        
-          <span class="site-state-item-count">50</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/OXygenPanda.github.io/categories/">
-          
-        <span class="site-state-item-count">29</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/OXygenPanda.github.io/tags/">
-          
-        <span class="site-state-item-count">34</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/OXygenPanda" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;OXygenPanda" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-  </div>
-
-
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
-      Links
     </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://boboring.github.io/" title="https:&#x2F;&#x2F;boboring.github.io&#x2F;" rel="noopener" target="_blank">BoBoRing 一枚CV研究僧</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="http://benearyou.com/" title="http:&#x2F;&#x2F;benearyou.com&#x2F;" rel="noopener" target="_blank">隋辨的博客</a>
-        </li>
-    </ul>
-  </div>
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">劳振煜</span>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
 </div>
-    <div class="powered-by">
-    <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
-      本站访客数:<span id="busuanzi_value_site_pv"></span>
-    </span>
-    </div>
-
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>
-
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
-
-<div class="theme-info">
-  <div class="powered-by"></div>
-  <span class="post-count">博客全站共87k字</span>
-</div>
-        
-
-
-
-
-
-
-
 
       </div>
-    </footer>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
   </div>
 
-  
-  <script src="/OXygenPanda.github.io/lib/anime.min.js"></script>
 
-<script src="/OXygenPanda.github.io/js/utils.js"></script>
+    
 
+    
+  </div>
+</footer>
 
-<script src="/OXygenPanda.github.io/js/schemes/pisces.js"></script>
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/OXygenPanda.github.io/js/debouncer.js" ></script>
+<script  src="/OXygenPanda.github.io/js/main.js" ></script>
 
-
-<script src="/OXygenPanda.github.io/js/next-boot.js"></script>
-
-
-
-
-  
-
-
+<!-- Plugins -->
 
 
   
-<script src="/OXygenPanda.github.io/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
+    <script  src="/OXygenPanda.github.io/js/lazyload.js" ></script>
+  
 
 
 
   
 
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/OXygenPanda.github.io/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 2,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "两数之和&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "left",
+      visible: "always",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/OXygenPanda.github.io/js/local-search.js" ></script>
+  <script>
+    var path = "/OXygenPanda.github.io/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
 
 </body>
 </html>
